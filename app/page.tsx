@@ -60,7 +60,7 @@ export default function Home() {
                 ))}
               </span>
               <span className="proof__text">
-                <strong>Built in India, deployable anywhere.</strong> Founded by engineers from VMware, Ericsson and IIT Bombay.
+                <strong>Built in India, deployable anywhere.</strong> Developed by engineers from VMware, Ericsson , COEP & IIT Bombay.
               </span>
             </span>
           </div>

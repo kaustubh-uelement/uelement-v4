@@ -554,23 +554,34 @@ ul, ol { margin: 0; padding: 0; }
   justify-content: center;
   align-items: center;
   pointer-events: none;
-  padding: 0 16px;
+  padding: 0 var(--gutter);
 }
 
 .site-header__pill {
   pointer-events: auto;
   position: relative;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: clamp(8px, 1.2vw, 16px);
-  padding: 6px 8px 6px 18px;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1125px;
+  height: 56px;
+  padding: 0 10px 0 18px;
   border-radius: 999px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(14, 26, 52, 0.6) 100%);
-  backdrop-filter: blur(24px) saturate(190%);
-  -webkit-backdrop-filter: blur(24px) saturate(190%);
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  box-shadow: 0 12px 40px -8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.45);
-  max-width: 100%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%), rgba(10, 18, 36, 0.35);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 32px -6px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  overflow: hidden;
+  transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.site-header.is-scrolled .site-header__pill,
+.site-header.is-open .site-header__pill {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.05) 100%), rgba(8, 16, 34, 0.55);
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .logo {
@@ -578,11 +589,11 @@ ul, ol { margin: 0; padding: 0; }
   align-items: center;
   flex: none;
   text-decoration: none;
-  padding-left: 6px;
+  padding-left: 2px;
   padding-right: 8px;
 }
 .logo__img {
-  height: 18px;
+  height: 19px;
   width: auto;
   max-width: none;
   display: block;
@@ -607,7 +618,9 @@ ul, ol { margin: 0; padding: 0; }
 }
 
 .nav-pills {
-  position: relative;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: none;
   align-items: center;
   gap: 2px;
