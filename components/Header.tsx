@@ -99,99 +99,45 @@ export function Header() {
 
   return (
     <>
-      <header className={`site-header${scrolled ? ' is-scrolled' : ''}${open ? ' is-open' : ''}`}>
-        <div className="site-header__bar">
+      <header
+        className={`site-header${scrolled ? ' is-scrolled' : ''}${open ? ' is-open' : ''}`}
+        onPointerLeave={hoverClose}
+      >
+        <div
+          className="site-header__pill"
+          style={{
+            backdropFilter: 'blur(24px) saturate(190%)',
+            WebkitBackdropFilter: 'blur(24px) saturate(190%)',
+          }}
+        >
           <Logo />
 
-          <nav aria-label="Main" style={{ position: 'relative' }} onPointerLeave={hoverClose}>
-            <div
-              className="nav-pills"
-              style={{
-                backdropFilter: 'blur(24px) saturate(190%)',
-                WebkitBackdropFilter: 'blur(24px) saturate(190%)',
-              }}
-            >
-              {nav.map((m) => {
-                const id = `mega-${m.label.replace(/\W+/g, '-').toLowerCase()}`;
-                const isOpen = open === m.label;
-                return (
-                  <button
-                    key={m.label}
-                    ref={(el) => { triggers.current[m.label] = el; }}
-                    className={`nav-pill${current === m.label ? ' is-current' : ''}`}
-                    aria-expanded={isOpen}
-                    aria-controls={id}
-                    onPointerEnter={hoverOpen(m.label)}
-                    onClick={() => {
-                      // A mouse click right after hover-open keeps the menu open instead of toggling it shut.
-                      if (isOpen && Date.now() - hoverAt.current < 500) return;
-                      setOpen(isOpen ? null : m.label);
-                    }}
-                  >
-                    {m.label}
-                    <Icon name="chev" />
-                  </button>
-                );
-              })}
-              <Link className={`nav-pill${pathname.startsWith('/contact') ? ' is-current' : ''}`} href="/contact/">
-                Contact
-              </Link>
-            </div>
-
+          <nav aria-label="Main" className="nav-pills">
             {nav.map((m) => {
               const id = `mega-${m.label.replace(/\W+/g, '-').toLowerCase()}`;
-              const foot = megaFoot[m.label];
-              const cols = m.columns ?? m.groups.length;
+              const isOpen = open === m.label;
               return (
-                <div
+                <button
                   key={m.label}
-                  id={id}
-                  className={`mega${open === m.label ? ' is-open' : ''}`}
-                  style={{
-                    ['--mega-w' as string]: `${megaWidth[m.label] ?? 860}px`,
-                    ['--cols' as string]: cols,
-                    backdropFilter: 'blur(32px) saturate(190%)',
-                    WebkitBackdropFilter: 'blur(32px) saturate(190%)',
-                  } as React.CSSProperties}
-                  onPointerEnter={() => window.clearTimeout(closeTimer.current)}
-                  aria-hidden={open !== m.label}
-                  inert={open !== m.label ? true : undefined}
+                  ref={(el) => { triggers.current[m.label] = el; }}
+                  className={`nav-pill${current === m.label ? ' is-current' : ''}`}
+                  aria-expanded={isOpen}
+                  aria-controls={id}
+                  onPointerEnter={hoverOpen(m.label)}
+                  onClick={() => {
+                    // A mouse click right after hover-open keeps the menu open instead of toggling it shut.
+                    if (isOpen && Date.now() - hoverAt.current < 500) return;
+                    setOpen(isOpen ? null : m.label);
+                  }}
                 >
-                  <div className="mega__grid">
-                    {m.groups.map((g) => (
-                      <div key={g.title}>
-                        {g.href ? (
-                          <Link className="mega__title" href={g.href}>
-                            {g.title}
-                          </Link>
-                        ) : (
-                          <span className="mega__title">{g.title}</span>
-                        )}
-                        <ul className="mega__links">
-                          {g.links.map((l) => (
-                            <li key={l.href + l.label}>
-                              <Link className="mega__link" href={l.href}>
-                                <span className="mega__label">{l.label}</span>
-                                {l.note ? <span className="mega__note">{l.note}</span> : null}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                  {foot ? (
-                    <div className="mega__foot">
-                      <span>{foot.text}</span>
-                      <Link className="text-link" href={foot.href}>
-                        {foot.label}
-                        <Icon name="arrow" />
-                      </Link>
-                    </div>
-                  ) : null}
-                </div>
+                  {m.label}
+                  <Icon name="chev" />
+                </button>
               );
             })}
+            <Link className={`nav-pill${pathname.startsWith('/contact') ? ' is-current' : ''}`} href="/contact/">
+              Contact
+            </Link>
           </nav>
 
           <div className="header-actions">
@@ -204,15 +150,66 @@ export function Header() {
               aria-expanded={drawer}
               aria-controls="drawer"
               onClick={() => setDrawer(true)}
-              style={{
-                backdropFilter: 'blur(24px) saturate(190%)',
-                WebkitBackdropFilter: 'blur(24px) saturate(190%)',
-              }}
             >
               <Icon name="menu" />
             </button>
           </div>
         </div>
+
+        {nav.map((m) => {
+          const id = `mega-${m.label.replace(/\W+/g, '-').toLowerCase()}`;
+          const foot = megaFoot[m.label];
+          const cols = m.columns ?? m.groups.length;
+          return (
+            <div
+              key={m.label}
+              id={id}
+              className={`mega${open === m.label ? ' is-open' : ''}`}
+              style={{
+                ['--mega-w' as string]: `${megaWidth[m.label] ?? 860}px`,
+                ['--cols' as string]: cols,
+                backdropFilter: 'blur(32px) saturate(190%)',
+                WebkitBackdropFilter: 'blur(32px) saturate(190%)',
+              } as React.CSSProperties}
+              onPointerEnter={() => window.clearTimeout(closeTimer.current)}
+              aria-hidden={open !== m.label}
+              inert={open !== m.label ? true : undefined}
+            >
+              <div className="mega__grid">
+                {m.groups.map((g) => (
+                  <div key={g.title}>
+                    {g.href ? (
+                      <Link className="mega__title" href={g.href}>
+                        {g.title}
+                      </Link>
+                    ) : (
+                      <span className="mega__title">{g.title}</span>
+                    )}
+                    <ul className="mega__links">
+                      {g.links.map((l) => (
+                        <li key={l.href + l.label}>
+                          <Link className="mega__link" href={l.href}>
+                            <span className="mega__label">{l.label}</span>
+                            {l.note ? <span className="mega__note">{l.note}</span> : null}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+              {foot ? (
+                <div className="mega__foot">
+                  <span>{foot.text}</span>
+                  <Link className="text-link" href={foot.href}>
+                    {foot.label}
+                    <Icon name="arrow" />
+                  </Link>
+                </div>
+              ) : null}
+            </div>
+          );
+        })}
       </header>
 
       <div
