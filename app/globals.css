@@ -943,13 +943,9 @@ a.mega__title:hover { color: var(--gold-pale); }
   align-items: center;
   justify-content: center;
   height: 30px;
-  min-width: 74px;
-  max-width: 74px;
-  padding: 0 12px;
+  padding: 0 14px;
   border-radius: 999px;
   background: var(--metal);
-  background-size: 140% 100%;
-  background-position: 0% 0;
   color: #2a1d05;
   font-weight: 600;
   font-size: 11.5px;
@@ -962,49 +958,18 @@ a.mega__title:hover { color: var(--gold-pale); }
     0 4px 14px -4px rgba(221, 187, 110, 0.5);
   text-decoration: none;
   cursor: pointer;
-  overflow: hidden;
   white-space: nowrap;
   flex: none;
   z-index: 1;
-  transition:
-    max-width 0.4s var(--ease-out),
-    padding 0.4s var(--ease-out),
-    box-shadow 0.35s var(--ease-out),
-    background-position 0.7s var(--ease-out);
-}
-.proof__faces .proof__badge::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  z-index: 0;
-  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.65) 48%, transparent 66%);
-  transform: translateX(-120%);
-  transition: transform 0.7s var(--ease-out);
-  pointer-events: none;
 }
 .proof__faces .proof__badge + .proof__badge {
   margin-left: -12px;
 }
 .proof__faces .proof__badge:hover,
 .proof__faces .proof__badge:focus-visible {
-  max-width: 140px;
-  padding: 0 18px;
-  z-index: 15;
-  background-position: 100% 0;
-  box-shadow:
-    0 0 0 2px var(--gold-pale),
-    inset 0 1px 0 rgba(255, 250, 230, 0.9),
-    inset 0 -1px 0 rgba(90, 60, 10, 0.45),
-    0 8px 24px -4px rgba(221, 187, 110, 0.75);
-}
-.proof__faces .proof__badge:hover::after,
-.proof__faces .proof__badge:focus-visible::after {
-  transform: translateX(120%);
+  z-index: 10;
 }
 .proof__badge-label {
-  position: relative;
-  z-index: 1;
   display: inline-block;
   line-height: 1;
   white-space: nowrap;
