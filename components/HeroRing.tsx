@@ -164,7 +164,9 @@ export function HeroRing() {
                 <rect x="-400" y="-200" width="2400" height="1400" fill="url(#hr-fade)" />
               </mask>
               <mask id="hr-ticks" maskUnits="userSpaceOnUse" x="0" y={VB_Y} width={VB_W} height={VB_H}>
-                <circle cx={CX} cy={CY} r={R} stroke="#fff" strokeWidth="58" strokeDasharray={TICKS} />
+                <g className="ring-spin ring-spin--outer">
+                  <circle cx={CX} cy={CY} r={R} stroke="#fff" strokeWidth="58" strokeDasharray={TICKS} />
+                </g>
               </mask>
               <filter id="hr-blur-xl" x="-50%" y="-50%" width="200%" height="200%">
                 <feGaussianBlur stdDeviation="46" />
@@ -193,15 +195,17 @@ export function HeroRing() {
               </g>
               <circle cx={CX} cy={CY} r={R - 150} stroke="#C49A45" strokeOpacity=".16" strokeWidth="1" />
 
-              {/* segmented ring */}
-              <circle cx={CX} cy={CY} r={R} stroke="url(#hr-tick)" strokeWidth="58" strokeDasharray={TICKS} filter="url(#hr-blur-sm)" opacity=".7" />
-              <circle cx={CX} cy={CY} r={R} stroke="url(#hr-tick)" strokeWidth="58" strokeDasharray={TICKS} />
+              {/* segmented chakra ring rotating anticlockwise */}
+              <g className="ring-spin ring-spin--outer">
+                <circle cx={CX} cy={CY} r={R} stroke="url(#hr-tick)" strokeWidth="58" strokeDasharray={TICKS} filter="url(#hr-blur-sm)" opacity=".7" />
+                <circle cx={CX} cy={CY} r={R} stroke="url(#hr-tick)" strokeWidth="58" strokeDasharray={TICKS} />
+                <circle cx={CX} cy={CY} r={R + 52} stroke="#DDBB6E" strokeOpacity=".18" strokeWidth="1" strokeDasharray="2 10" />
+              </g>
 
               {/* edges */}
               <circle cx={CX} cy={CY} r={R - 31} stroke="#F6E3A6" strokeWidth="6" strokeOpacity=".55" filter="url(#hr-blur-sm)" />
               <circle cx={CX} cy={CY} r={R - 31} stroke="#FFF4D0" strokeWidth="1.6" />
               <circle cx={CX} cy={CY} r={R + 33} stroke="#DDBB6E" strokeOpacity=".45" strokeWidth="1" />
-              <circle cx={CX} cy={CY} r={R + 52} stroke="#DDBB6E" strokeOpacity=".18" strokeWidth="1" strokeDasharray="2 10" />
 
               {/* light sweep, masked to the ticks so it reads as the segments lighting up */}
               <g mask="url(#hr-ticks)">

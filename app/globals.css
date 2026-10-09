@@ -925,6 +925,7 @@ a.mega__title:hover { color: var(--gold-pale); }
 @keyframes sweep { from { transform: rotate(-58deg); } to { transform: rotate(58deg); } }
 .ring-spin { transform-box: view-box; transform-origin: 800px 1060px; animation: spin 180s linear infinite; }
 .ring-spin--rev { animation-duration: 240s; animation-direction: reverse; }
+.ring-spin--outer { animation-duration: 160s; animation-direction: reverse; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .ring-breathe { animation: breathe 7s ease-in-out infinite; }
 @keyframes breathe { 50% { opacity: 0.62; } }
