@@ -280,9 +280,7 @@ export default function Home() {
                   <Icon name={commitIcons[i]} />
                 </span>
                 <h3 className="h3">{c.title}</h3>
-                <p className="muted" style={{ gridColumn: "auto" }}>
-                  {c.text}
-                </p>
+                <p className="muted">{c.text}</p>
               </li>
             ))}
           </ul>
