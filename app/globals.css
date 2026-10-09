@@ -1222,6 +1222,16 @@ a.mega__title:hover { color: var(--gold-pale); }
   transform: translateX(3px);
 }
 
+/* Why UElement mega dropdown layout */
+.mega--why {
+  padding: 22px 28px 20px 28px;
+}
+
+.mega-why {
+  display: flex;
+  flex-direction: column;
+}
+
 /* Resources mega dropdown layout */
 .mega--resources {
   padding: 22px 28px 20px 28px;

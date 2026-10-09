@@ -11,7 +11,7 @@ const megaWidth: Record<string, number> = {
   Platforms: 1060,
   Solutions: 1060,
   Services: 1060,
-  'Why UElement': 460,
+  'Why UElement': 1060,
   Resources: 1100,
 };
 
@@ -295,6 +295,68 @@ const servicesData = {
   },
 };
 
+const whyUElementData = {
+  title: 'Proof Over Promises',
+  summary: 'Sovereign by design, honest maturity labels on everything we build, and fixed-scope first steps with measurable results.',
+  ctaText: 'Explore Why UElement →',
+  ctaHref: '/why-uelement/',
+  items: [
+    {
+      code: 'WHY · 01',
+      badge: 'CORE ADVANTAGE',
+      badgeType: 'gold' as const,
+      title: 'The UElement Advantage',
+      summary: 'Sovereign architecture, quantum-ready from day one, and one unified data plane across IT & OT.',
+      href: '/why-uelement/advantage/',
+    },
+    {
+      code: 'WHY · 02',
+      badge: 'CASE STUDIES',
+      badgeType: 'green' as const,
+      title: 'Customer Success Stories',
+      summary: 'Real enterprise engagements and mission-critical deployments shared with customer permission.',
+      href: '/why-uelement/success-stories/',
+    },
+    {
+      code: 'WHY · 03',
+      badge: 'OPEN SCIENCE',
+      badgeType: 'blue' as const,
+      title: 'Research & Community',
+      summary: 'NIST standards input, deeptech research, publications, and open conference talks.',
+      href: '/why-uelement/research/',
+    },
+    {
+      code: 'WHY · 04',
+      badge: 'CSR & IMPACT',
+      badgeType: 'slate' as const,
+      title: 'Corporate Social Responsibility',
+      summary: 'Digital literacy, deeptech skilling, and an honest account of our environmental footprint.',
+      href: '/why-uelement/csr/',
+    },
+    {
+      code: 'WHY · 05',
+      badge: 'AWARDS & PRESS',
+      badgeType: 'gold' as const,
+      title: 'Industry Recognition',
+      summary: 'Deeptech accelerator programmes, institutional awards, and national media coverage.',
+      href: '/why-uelement/recognition/',
+    },
+    {
+      code: 'WHY · 06',
+      badge: 'LEADERSHIP',
+      badgeType: 'slate' as const,
+      title: 'Founder Pedigree & Track Record',
+      summary: 'Two decades across VMware, BMC, and telecom infrastructure with two earlier successful acquisitions.',
+      href: '/company/',
+    },
+  ],
+  footerLinks: [
+    { label: 'READ OUR FOUNDING MISSION', href: '/company/mission/' },
+    { label: 'COMPARE: USUAL VS US', href: '/why-uelement/advantage/' },
+    { label: 'SEE ALL 5 EVIDENCE PILLARS', href: '/why-uelement/' },
+  ],
+};
+
 const resourcesData = [
   {
     title: 'Company',
@@ -541,6 +603,7 @@ export function Header() {
           const isPlatforms = m.label === 'Platforms';
           const isSolutions = m.label === 'Solutions';
           const isServices = m.label === 'Services';
+          const isWhyUElement = m.label === 'Why UElement';
           const isResources = m.label === 'Resources';
           const foot = megaFoot[m.label];
           const cols = m.columns ?? m.groups.length;
@@ -549,7 +612,7 @@ export function Header() {
             <div
               key={m.label}
               id={id}
-              className={`mega${isPlatforms ? ' mega--platforms' : ''}${isSolutions ? ' mega--solutions' : ''}${isServices ? ' mega--services' : ''}${isResources ? ' mega--resources' : ''}${open === m.label ? ' is-open' : ''}`}
+              className={`mega${isPlatforms ? ' mega--platforms' : ''}${isSolutions ? ' mega--solutions' : ''}${isServices ? ' mega--services' : ''}${isWhyUElement ? ' mega--why' : ''}${isResources ? ' mega--resources' : ''}${open === m.label ? ' is-open' : ''}`}
               style={{
                 ['--mega-w' as string]: `${megaWidth[m.label] ?? 860}px`,
                 ['--cols' as string]: cols,
@@ -740,6 +803,49 @@ export function Header() {
                     <Link href={servicesData.footer.ctaHref} className="mega-services__footer-cta">
                       {servicesData.footer.ctaText} <Icon name="arrow" />
                     </Link>
+                  </div>
+                </div>
+              ) : isWhyUElement ? (
+                <div className="mega-why">
+                  {/* Top Header Label */}
+                  <div className="mega-platform__header">
+                    <span className="mega-platform__tag">WHY UELEMENT & PROOF PILLARS</span>
+                  </div>
+
+                  {/* Hero Banner Card */}
+                  <div className="mega-platform__hero">
+                    <div className="mega-platform__hero-info">
+                      <h3 className="mega-platform__hero-title">{whyUElementData.title}</h3>
+                      <p className="mega-platform__hero-desc">{whyUElementData.summary}</p>
+                    </div>
+                    <Link href={whyUElementData.ctaHref} className="btn btn--metal btn--sm mega-platform__hero-btn">
+                      {whyUElementData.ctaText}
+                    </Link>
+                  </div>
+
+                  {/* 3-Column Why Grid with 6 Cards */}
+                  <div className="mega-platform__grid" style={{ marginTop: '16px' }}>
+                    {whyUElementData.items.map((item) => (
+                      <Link key={item.href + item.title} href={item.href} className="mega-platform__card">
+                        <div className="mega-platform__card-top">
+                          <span className="mega-platform__card-code">{item.code}</span>
+                          <span className={`mega-platform__card-badge mega-platform__card-badge--${item.badgeType}`}>
+                            {item.badge}
+                          </span>
+                        </div>
+                        <h4 className="mega-platform__card-title">{item.title}</h4>
+                        <p className="mega-platform__card-summary">{item.summary}</p>
+                      </Link>
+                    ))}
+                  </div>
+
+                  {/* Bottom Footer Links */}
+                  <div className="mega-platform__footer">
+                    {whyUElementData.footerLinks.map((link) => (
+                      <Link key={link.href + link.label} href={link.href} className="mega-platform__footer-link">
+                        {link.label} <Icon name="arrow" />
+                      </Link>
+                    ))}
                   </div>
                 </div>
               ) : isResources ? (
