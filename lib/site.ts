@@ -140,6 +140,7 @@ export const nav: NavMenu[] = [
           { label: 'Careers', href: '/company/careers/' },
           { label: 'Our Mission', href: '/company/mission/' },
           { label: 'Investor Relations', href: '/company/investors/' },
+          { label: 'Brand Guidelines', href: '/company/brand/' },
           { label: 'FAQs', href: '/company/faqs/' },
         ],
       },

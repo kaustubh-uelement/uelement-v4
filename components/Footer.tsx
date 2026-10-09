@@ -29,6 +29,7 @@ const cols: { title: string; links: [string, string][] }[] = [
       ['Careers', '/company/careers/'],
       ['Partnerships', '/partnerships/'],
       ['Investor relations', '/company/investors/'],
+      ['Brand guidelines', '/company/brand/'],
     ],
   },
   {

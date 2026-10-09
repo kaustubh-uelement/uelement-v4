@@ -1,0 +1,620 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>UElement Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Montserrat:wght@600&family=Noto+Sans+Devanagari:wght@500&family=Onest:wght@400..700&display=swap">
+<style>
+
+
+:root{--abyss:#060b18;--abyss-2:#08101f;--enamel:#0d1a34;--enamel-2:#132548;--enamel-3:#1a2f58;--paper:#f6f0e4;--paper-2:#fbf8f1;--creme:#ede3cf;--creme-2:#e3d6bb;--ink:#0e1b36;--text:#2b3452;--text-2:#4e5774;--mist:#b4bed0;--mist-2:#8994ab;--gold-ink:#8a6522;--gold:#c49a45;--gold-soft:#ddbb6e;--gold-pale:#f1d894;--metal:linear-gradient(118deg, #6e4f18 0%, #b98e3a 18%, #f6e3a6 38%, #c49a45 55%, #f1d894 72%, #8f6a28 100%);--metal-soft:linear-gradient(118deg, #a07a33 0%, #e9cf8b 35%, #c9a04c 60%, #f3dfa2 82%, #a98336 100%);--metal-edge:linear-gradient(180deg, #fff4d2e6, #8a652299);--paper-noise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .32 0 0 0 0 .25 0 0 0 0 .12 0 0 0 .075 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");--font-sans:"Onest Variable", "Onest", system-ui, -apple-system, "Segoe UI", sans-serif;--font-serif:"Instrument Serif", "Iowan Old Style", Georgia, serif;--r-panel:0;--r-card:20px;--r-small:14px;--gutter:clamp(20px, 4vw, 56px);--frame:0px;--header-h:76px;--ease-out:cubic-bezier(.16, 1, .3, 1);--ease-in-out:cubic-bezier(.65, 0, .35, 1);--lightningcss-light: ;--lightningcss-dark:initial;color-scheme:dark}@media (min-width:900px){:root{--frame:0px}}*,:before,:after{box-sizing:border-box}html{-moz-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:calc(var(--header-h) + 24px)}body{background:var(--abyss);color:var(--paper);font-family:var(--font-sans);font-feature-settings:"ss01", "cv01";-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;margin:0;font-size:17px;line-height:1.6;overflow-x:hidden}img,svg,canvas{max-width:100%;display:block}a{color:inherit;text-decoration:none}button{font:inherit;color:inherit}p{margin:0}h1,h2,h3,h4{margin:0;font-weight:500}ul,ol{margin:0;padding:0}::selection{background:var(--gold-pale);color:var(--ink)}:focus-visible{outline:2px solid var(--gold-soft);outline-offset:3px;border-radius:6px}.skip-link{z-index:100;background:var(--paper);color:var(--ink);border-radius:999px;padding:10px 16px;font-weight:600;position:absolute;top:-60px;left:16px}.skip-link:focus{top:16px}.sr-only{clip:rect(0, 0, 0, 0);white-space:nowrap;border:0;width:1px;height:1px;margin:-1px;padding:0;position:absolute;overflow:hidden}.frame{padding:var(--frame);gap:var(--frame);grid-template-columns:minmax(0,1fr);display:grid}.panel{border-radius:var(--r-panel);isolation:isolate;position:relative;overflow:clip}.panel--enamel{color:var(--paper);background:linear-gradient(#0d1a34 0%,#0a1530 100%)}.panel--deep{color:var(--paper);background:linear-gradient(#050a16 0%,#0b1730 100%)}.panel--paper{color:var(--ink);--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;background:linear-gradient(#fbf8f1 0%,#f3ebdb 100%)}.panel--creme{color:var(--ink);--lightningcss-light:initial;--lightningcss-dark: ;color-scheme:light;background:linear-gradient(#efe6d3 0%,#e7dbc2 100%)}.wrap{width:100%;max-width:1240px;padding-inline:var(--gutter);margin-inline:auto}.wrap--narrow{max-width:920px}.section{padding-block:clamp(72px,9vw,132px)}.section--tight{padding-block:clamp(56px,6vw,88px)}.display{letter-spacing:-.042em;text-wrap:balance;font-size:clamp(36px,6.6vw,96px);font-weight:500;line-height:.98}.h1{letter-spacing:-.038em;text-wrap:balance;font-size:clamp(34px,5.2vw,74px);font-weight:500;line-height:1.02}.h2{letter-spacing:-.032em;text-wrap:balance;font-size:clamp(30px,3.7vw,52px);font-weight:500;line-height:1.06}.h3{letter-spacing:-.015em;font-size:clamp(20px,1.6vw,23px);font-weight:560;line-height:1.25}.h4{letter-spacing:-.005em;font-size:17px;font-weight:600;line-height:1.35}.lede{text-wrap:pretty;max-width:62ch;font-size:clamp(17px,1.45vw,20px);line-height:1.6}.serif{font-family:var(--font-serif);letter-spacing:-.01em;font-weight:400}.statement{font-family:var(--font-serif);letter-spacing:-.015em;text-wrap:balance;font-size:clamp(34px,4.4vw,64px);line-height:1.08}.small{font-size:14.5px;line-height:1.55}.muted{color:var(--mist)}.panel--paper .muted,.panel--creme .muted,.paper-card .muted{color:var(--text-2)}.prose p+p{margin-top:1em}.prose{max-width:66ch}.metal-text{background:var(--metal);color:#0000;-webkit-background-clip:text;background-clip:text}.gold{color:var(--gold-soft)}.panel--paper .gold,.panel--creme .gold{color:var(--gold-ink)}.chip{letter-spacing:0;color:var(--paper);-webkit-backdrop-filter:blur(12px);white-space:nowrap;background:linear-gradient(#ffffff14,#ffffff08);border:1px solid #f1d89433;border-radius:999px;align-items:center;gap:10px;padding:5px 14px 5px 5px;font-size:13.5px;font-weight:500;line-height:1.2;display:inline-flex}.chip__icon{background:var(--metal);color:#3a2808;border-radius:999px;place-items:center;width:24px;height:24px;display:grid;box-shadow:inset 0 1px #fff9,0 2px 6px #00000059}.chip__icon svg{width:13px;height:13px}.chip--plain{padding:6px 14px}.panel--paper .chip,.panel--creme .chip,.paper-card .chip{color:var(--ink);background:#ffffffa6;border-color:#8a65223d;box-shadow:0 1px 2px #0e1b360f}.btn{--h:50px;min-height:var(--h);letter-spacing:-.005em;cursor:pointer;white-space:nowrap;isolation:isolate;transition:transform .35s var(--ease-out), box-shadow .35s var(--ease-out), background-color .3s;border:0;border-radius:999px;justify-content:center;align-items:center;gap:10px;padding:0 24px;font-size:15.5px;font-weight:560;display:inline-flex;position:relative;overflow:hidden}.btn:active{transform:translateY(1px)scale(.99)}.btn svg{width:16px;height:16px}.btn--sm{--h:40px;padding:0 18px;font-size:14.5px}.btn--metal{background:var(--metal);color:#2a1d05;text-shadow:0 1px #fff5d773;transition:background-position .9s var(--ease-out), transform .35s var(--ease-out), box-shadow .35s var(--ease-out);background-position:0 0;background-size:140% 100%;box-shadow:inset 0 1px #fffae6bf,inset 0 -1px #5a3c0a73,0 1px #0003,0 10px 28px -10px #ddbb6e8c}.btn--metal:after{content:"";z-index:-1;transition:transform .9s var(--ease-out);background:linear-gradient(105deg,#0000 30%,#ffffffa6 48%,#0000 66%);position:absolute;inset:0;transform:translate(-120%)}.btn--metal:hover{background-position:100% 0;box-shadow:inset 0 1px #fffae6cc,inset 0 -1px #5a3c0a73,0 14px 34px -10px #ddbb6eb3}.btn--metal:hover:after{transform:translate(120%)}.btn--glass{color:var(--paper);-webkit-backdrop-filter:blur(14px);background:linear-gradient(#ffffff1a,#ffffff0a);box-shadow:inset 0 0 0 1px #ffffff24,inset 0 1px #ffffff1f}.btn--glass:hover{background-color:#ffffff0f;box-shadow:inset 0 0 0 1px #f1d89466,inset 0 1px #ffffff29}.btn--creme{color:var(--ink);background:var(--paper);box-shadow:inset 0 1px #fff,0 6px 20px -8px #00000080}.btn--creme:hover{background:var(--paper-2)}.btn--ink{color:var(--paper);background:var(--ink);box-shadow:inset 0 1px #ffffff1f,0 8px 22px -10px #0e1b3699}.btn--ink:hover{background:#172a52}.btn--line{color:var(--ink);background:0 0;box-shadow:inset 0 0 0 1px #0e1b3638}.btn--line:hover{box-shadow:inset 0 0 0 1px var(--gold-ink);background:#ffffff80}.actions{flex-wrap:wrap;align-items:center;gap:12px;display:flex}.text-link{color:var(--gold-soft);transition:background-size .4s var(--ease-out);background-image:linear-gradient(currentColor,currentColor);background-position:0 100%;background-repeat:no-repeat;background-size:0% 1px;align-items:center;gap:8px;padding-bottom:2px;font-weight:560;display:inline-flex}.text-link:hover{background-size:100% 1px}.text-link svg{width:14px;height:14px}.panel--paper .text-link,.panel--creme .text-link,.paper-card .text-link{color:var(--gold-ink)}.paper-card{border-radius:var(--r-card);background-color:var(--paper-2);background-image:var(--paper-noise), linear-gradient(165deg, #fffefb 0%, #f7f1e5 100%);color:var(--ink);position:relative;box-shadow:inset 0 1px #fff,inset 0 0 0 1px #fff9,0 0 0 1px #8a65221a,0 1px 2px #0e1b360d,0 8px 24px -12px #0e1b362e,0 30px 60px -30px #0e1b3638}.paper-card--pad{padding:clamp(24px,2.4vw,34px)}.panel--enamel .paper-card,.panel--deep .paper-card{box-shadow:inset 0 1px #fff,0 0 0 1px #f1d89440,0 30px 70px -30px #000c}.glass-card{border-radius:var(--r-card);-webkit-backdrop-filter:blur(22px)saturate(140%);background:linear-gradient(170deg,#ffffff16 0%,#ffffff06 60%,#ffffff0a 100%);position:relative;box-shadow:inset 0 1px #ffffff1f,0 24px 50px -30px #000000b3}.glass-card:before{content:"";border-radius:inherit;-webkit-mask-composite:xor;pointer-events:none;background:linear-gradient(160deg,#f1d89473,#ffffff14 35%,#ffffff0a 70%,#f1d8942e);padding:1px;position:absolute;inset:0;-webkit-mask-image:linear-gradient(#000 0 0),linear-gradient(#000 0 0);-webkit-mask-position:0 0,0 0;-webkit-mask-size:auto,auto;-webkit-mask-repeat:repeat,repeat;-webkit-mask-clip:content-box,border-box;-webkit-mask-origin:content-box,border-box;-webkit-mask-composite:xor;mask-composite:exclude;-webkit-mask-source-type:auto,auto;mask-mode:match-source,match-source}.glass-card--pad{padding:clamp(24px,2.4vw,34px)}.panel--paper .glass-card,.panel--creme .glass-card{color:var(--ink);background:linear-gradient(170deg,#ffffffbf,#ffffff59);box-shadow:inset 0 1px #fff,0 20px 40px -24px #0e1b364d}.metal-rule{background:linear-gradient(90deg, transparent, #ddbb6eb3 20%, var(--gold-pale) 50%, #ddbb6eb3 80%, transparent);border:0;height:1px;margin:0}.metal-plate{background:var(--metal);color:#2a1d05;box-shadow:inset 0 1px #fffae6cc,inset 0 -2px #5a3c0a66,0 18px 40px -18px #ddbb6e99}.medal{background:var(--metal);color:#33240a;letter-spacing:.02em;text-shadow:0 1px #fff5d799;border-radius:999px;flex:none;place-items:center;width:44px;height:44px;font-size:14px;font-weight:650;display:grid;box-shadow:inset 0 1px #fffae6cc,inset 0 -2px 3px #5a3c0a59,0 6px 14px -6px #00000080}.medal svg{width:18px;height:18px}.medal--lg{width:56px;height:56px;font-size:16px}.status{white-space:nowrap;border-radius:999px;align-items:center;gap:7px;padding:4px 11px;font-size:12.5px;font-weight:600;line-height:1.3;display:inline-flex}.status:before{content:"";background:currentColor;border-radius:99px;width:6px;height:6px}.status--gold{background:var(--metal);color:#33240a;box-shadow:inset 0 1px #fffae6b3}.status--gold:before{background:#33240a}.status--line{color:var(--gold-soft);box-shadow:inset 0 0 0 1px #ddbb6e8c}.status--dash{color:var(--mist);border:1px dashed #b4bed080;padding:3px 10px}.status--dash:before{background:0 0;border:1px solid;width:5px;height:5px}.panel--paper .status--line,.paper-card .status--line{color:var(--gold-ink);box-shadow:inset 0 0 0 1px #8a652273}.panel--paper .status--dash,.paper-card .status--dash{color:var(--text-2);border-color:#4e577473}.stack>*+*{margin-top:var(--stack,20px)}.grid{gap:var(--gap,16px);display:grid}.grid-2{gap:var(--gap,16px);grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));display:grid}.grid-3{gap:var(--gap,16px);grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));display:grid}.grid-4{gap:var(--gap,16px);grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));display:grid}.section-head{gap:18px;max-width:820px;margin-bottom:clamp(36px,4.5vw,64px);display:grid}.section-head--split{grid-template-columns:1fr;align-items:end;max-width:none}@media (min-width:900px){.section-head--split{grid-template-columns:1.1fr .9fr;gap:48px}}.section-head--center{text-align:center;justify-items:center;margin-inline:auto}.card-link{height:100%;transition:transform .45s var(--ease-out), box-shadow .45s var(--ease-out);flex-direction:column;gap:12px;display:flex}.card-link:hover{transform:translateY(-3px)}.card-link .card-foot{margin-top:auto;padding-top:10px}.list-check{gap:12px;list-style:none;display:grid}.list-check li{grid-template-columns:22px 1fr;align-items:start;gap:12px;display:grid}.list-check li:before{content:"";background:var(--metal);border-radius:2px;justify-self:center;width:10px;height:10px;margin-top:.55em;transform:rotate(45deg);box-shadow:0 0 0 3px #ddbb6e24}.crumbs{color:var(--mist);flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:14px;display:flex}.crumbs a{color:var(--mist);transition:color .2s}.crumbs a:hover{color:var(--gold-pale)}.crumbs span[aria-hidden]{opacity:.5}.placeholder{color:inherit;background:#ddbb6e24;border:1px dashed #c49a4599;border-radius:6px;padding:1px 6px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em}.site-header{z-index:60;top:var(--frame);left:var(--frame);right:var(--frame);height:var(--header-h);pointer-events:none;position:fixed}.site-header__bar{pointer-events:auto;max-width:none;height:100%;transition:background-color .5s var(--ease-out), box-shadow .5s var(--ease-out), backdrop-filter .5s;border-radius:0;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;margin:0 auto;padding:0 clamp(16px,3vw,40px);display:grid}.site-header.is-scrolled .site-header__bar,.site-header.is-open .site-header__bar{-webkit-backdrop-filter:blur(22px)saturate(150%);background:#081022f0;box-shadow:inset 0 -1px #f1d89424,0 20px 40px -24px #0009}.logo{color:var(--paper);justify-self:start;align-items:center;gap:11px;display:inline-flex}.logo__mark{flex:none;width:34px;height:34px}.logo__word{letter-spacing:-.02em;font-size:19px;font-weight:620;line-height:1}.logo__sub{letter-spacing:.02em;color:var(--gold-soft);margin-top:4px;font-size:10.5px;font-weight:500;display:block}.nav-pills{-webkit-backdrop-filter:blur(16px);background:linear-gradient(#ffffff12,#ffffff06);border-radius:999px;align-items:center;gap:2px;padding:5px;display:none;box-shadow:inset 0 0 0 1px #ffffff17,inset 0 1px #ffffff14}.nav-pill{height:40px;color:var(--mist);cursor:pointer;background:0 0;border:0;border-radius:999px;align-items:center;gap:6px;padding:0 15px;font-size:14.5px;font-weight:500;transition:color .25s,background-color .25s;display:inline-flex;position:relative}.nav-pill:hover,.nav-pill[aria-expanded=true]{color:var(--paper);background:#ffffff0f}.nav-pill svg{width:12px;height:12px;transition:transform .35s var(--ease-out);opacity:.7}.nav-pill[aria-expanded=true] svg{transform:rotate(180deg)}.nav-pill.is-current{color:#2a1d05;background:var(--metal);box-shadow:inset 0 1px #fffae6bf,0 4px 14px -6px #ddbb6e99}.header-actions{justify-self:end;align-items:center;gap:10px;display:flex}.header-cta{display:none}.menu-btn{cursor:pointer;width:46px;height:46px;color:var(--paper);background:#ffffff12;border:0;border-radius:999px;place-items:center;display:inline-grid;box-shadow:inset 0 0 0 1px #ffffff1f}.menu-btn svg{width:20px;height:20px}@media (min-width:1080px){.nav-pills,.header-cta{display:inline-flex}.menu-btn{display:none}}.mega{width:min(calc(100vw - 2 * var(--frame) - 24px), var(--mega-w,860px));opacity:0;visibility:hidden;pointer-events:none;transition:opacity .28s var(--ease-out), transform .4s var(--ease-out), visibility 0s linear .3s;-webkit-backdrop-filter:blur(28px)saturate(160%);background:linear-gradient(170deg,#142446,#091124);border-radius:26px;padding:26px;position:absolute;top:calc(100% + 8px);left:50%;transform:translate(-50%,-6px);box-shadow:inset 0 1px #ffffff1a,inset 0 0 0 1px #ffffff12,0 40px 80px -30px #000000d9}.mega.is-open{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .28s var(--ease-out), transform .4s var(--ease-out), visibility 0s;transform:translate(-50%)}.mega__grid{grid-template-columns:repeat(var(--cols,3), minmax(0, 1fr));gap:22px 28px;display:grid}.mega__title{color:var(--gold-soft);border-bottom:1px solid #f1d89429;align-items:center;gap:8px;width:100%;margin-bottom:10px;padding-bottom:10px;font-size:13px;font-weight:600;display:inline-flex}a.mega__title:hover{color:var(--gold-pale)}.mega__links{gap:2px;list-style:none;display:grid}.mega__link{border-radius:12px;margin-inline:-10px;padding:8px 10px;transition:background-color .2s;display:block}.mega__link:hover,.mega__link:focus-visible{background:#ffffff0f}.mega__label{color:var(--paper);font-size:14.5px;font-weight:520;line-height:1.35;display:block}.mega__note{color:var(--mist-2);margin-top:2px;font-size:12.5px;line-height:1.4;display:block}.mega__foot{color:var(--mist);border-top:1px solid #ffffff12;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-top:22px;padding-top:18px;font-size:13.5px;display:flex}.drawer{z-index:70;padding:calc(var(--frame) + 8px);-webkit-backdrop-filter:blur(26px)saturate(150%);opacity:0;visibility:hidden;transition:opacity .35s var(--ease-out), visibility 0s linear .35s;background:#050a16fb;flex-direction:column;display:flex;position:fixed;inset:0}.drawer.is-open{opacity:1;visibility:visible;transition:opacity .35s var(--ease-out), visibility 0s}.drawer__top{justify-content:space-between;align-items:center;height:60px;padding:0 8px;display:flex}.drawer__body{overscroll-behavior:contain;flex:1;padding:16px 8px 24px;overflow-y:auto}.drawer__item{border-bottom:1px solid #ffffff14}.drawer__btn{letter-spacing:-.02em;cursor:pointer;text-align:left;background:0 0;border:0;justify-content:space-between;align-items:center;width:100%;padding:18px 4px;font-size:22px;font-weight:500;display:flex}.drawer__btn svg{width:18px;height:18px;transition:transform .35s var(--ease-out);color:var(--gold-soft)}.drawer__btn[aria-expanded=true] svg{transform:rotate(45deg)}.drawer__panel{transition:grid-template-rows .4s var(--ease-out);grid-template-rows:0fr;display:grid}.drawer__panel.is-open{grid-template-rows:1fr}.drawer__panel>div{overflow:hidden}.drawer__group{padding:4px 4px 18px}.drawer__group-title{color:var(--gold-soft);margin:8px 0 6px;font-size:13px;font-weight:600;display:block}.drawer__group a:not(.drawer__group-title){color:var(--mist);padding:7px 0;font-size:16px;display:block}.drawer__group a:hover{color:var(--paper)}.drawer__foot{gap:10px;padding:16px 8px 8px;display:grid}.page-hero{min-height:clamp(520px,74vh,760px);padding-top:calc(var(--header-h) + 48px);align-items:flex-end;display:flex}.page-hero__inner{z-index:2;gap:24px;width:100%;padding-bottom:clamp(48px,6vw,88px);display:grid;position:relative}.page-hero__art{z-index:0;aspect-ratio:1;opacity:.95;pointer-events:none;width:min(900px,92vw);position:absolute;bottom:-38%;right:-6%}.page-hero__art canvas{width:100%;height:100%}.page-hero:after{content:"";z-index:1;pointer-events:none;background:linear-gradient(90deg,#0a152ef2 0%,#0a152eb3 45%,#0a152e00 75%);position:absolute;inset:0}@media (max-width:899px){.page-hero__art{opacity:.5;width:120vw;bottom:-30%;right:-30%}.page-hero:after{background:linear-gradient(#0a152e66,#0a152eeb 70%)}}.page-hero .h1{max-width:15ch}.page-hero__meta{flex-wrap:wrap;align-items:center;gap:10px;display:flex}.hero{min-height:max(760px, min(100svh - 2 * var(--frame), 1040px));padding-top:calc(var(--header-h) + clamp(40px, 7vh, 88px));text-align:center;flex-direction:column;align-items:center;display:flex}.hero__inner{z-index:3;justify-items:center;gap:24px;display:grid;position:relative}.hero__title{max-width:21ch;color:var(--paper);font-size:clamp(34px,5.4vw,80px)}.hero__lede{max-width:56ch;color:var(--mist);margin-inline:auto}.hero__actions{justify-content:center;margin-top:6px}.hero__sparks{z-index:2;pointer-events:none;width:100%;height:100%;position:absolute;inset:0}.hero__stage{z-index:1;flex:1;width:100%;min-height:clamp(250px,36vh,440px);margin-top:clamp(8px,2vh,28px);position:relative}.hero__ring{pointer-events:none;width:clamp(780px,122%,2100px);position:absolute;top:0;left:50%;transform:translate(-50%)}.hero__ring svg{width:100%;height:auto;overflow:visible}.hero__horizon{z-index:3;text-align:center;justify-items:center;gap:6px;display:grid;position:absolute;bottom:clamp(28px,5vh,56px);left:0;right:0}.hero__motto{letter-spacing:.04em;color:var(--gold-pale);opacity:.85;font-size:15px}.hero__statement{font-family:var(--font-serif);color:var(--paper);letter-spacing:-.005em;font-size:clamp(24px,2.4vw,34px)}.proof{-webkit-backdrop-filter:blur(12px);color:var(--mist);background:linear-gradient(#ffffff14,#ffffff08);border-radius:999px;align-items:center;gap:12px;max-width:100%;padding:6px 16px 6px 6px;font-size:13.5px;display:inline-flex;box-shadow:inset 0 0 0 1px #ffffff1a}.proof__faces{display:flex}.proof__faces .medal{letter-spacing:0;width:28px;height:28px;box-shadow:0 0 0 2px var(--enamel), inset 0 1px 0 #fffae6cc;font-size:9px}.proof__faces .medal+.medal{margin-left:-5px}.proof strong{color:var(--paper);font-weight:560}@media (max-width:560px){.proof__text{white-space:normal;text-align:left;line-height:1.35}}.hero-seq{opacity:0;animation:seq-in 1.1s var(--ease-out) forwards;animation-delay:calc(var(--i,0) * .11s + .2s);transform:translateY(14px)}@keyframes seq-in{to{opacity:1;transform:none}}.ring-rise{opacity:0;animation:ring-in 2.2s var(--ease-out) .25s forwards;transform:translateY(10%)}@keyframes ring-in{to{opacity:1;transform:none}}.ring-sweep{transform-box:view-box;transform-origin:800px 1060px;animation:sweep 11s var(--ease-in-out) 1.2s infinite alternate;transform:rotate(-58deg)}@keyframes sweep{0%{transform:rotate(-58deg)}to{transform:rotate(58deg)}}.ring-spin{transform-box:view-box;transform-origin:800px 1060px;animation:180s linear infinite spin}.ring-spin--rev{animation-duration:240s;animation-direction:reverse}@keyframes spin{to{transform:rotate(360deg)}}.ring-breathe{animation:7s ease-in-out infinite breathe}@keyframes breathe{50%{opacity:.62}}.founder-row{grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px;display:grid}.founder{align-items:center;gap:14px;padding:14px 16px;display:flex}.founder__name{font-size:15.5px;font-weight:600;line-height:1.3}.founder__role{color:var(--text-2);font-size:13.5px}.pillar{align-content:start;gap:14px;display:grid}.pillar__icon{width:46px;height:46px}.vm-grid{gap:16px;display:grid}@media (min-width:900px){.vm-grid{grid-template-columns:1fr 1fr}}.vm{align-content:start;gap:22px;min-height:320px;padding:clamp(28px,3.4vw,48px);display:grid}.vm__label{color:var(--gold-soft);align-items:center;gap:10px;font-size:14px;font-weight:600;display:flex}.vm__label:after{content:"";background:linear-gradient(90deg,#ddbb6e80,#0000);flex:1;height:1px}.belief-list{border-top:1px solid #0e1b361f;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:0;display:grid}.belief{border-bottom:1px solid #0e1b361f;align-content:start;gap:8px;padding:28px 28px 30px 0;display:grid}@media (min-width:760px){.belief{padding-right:36px}}.commit-list{counter-reset:c;gap:10px;list-style:none;display:grid}.commit{grid-template-columns:56px 1fr;align-items:start;gap:18px;padding:22px 24px;display:grid}@media (min-width:900px){.commit{grid-template-columns:56px minmax(0,.9fr) minmax(0,1.1fr);align-items:center;gap:28px}}.site-footer{color:var(--paper);background:linear-gradient(#0a1428 0%,#060b18 100%);padding-top:clamp(56px,6vw,80px);position:relative}.site-footer:before{content:"";background:linear-gradient(90deg,#0000,#ddbb6e8c 30%,#f1d894cc 50%,#ddbb6e8c 70%,#0000);height:1px;position:absolute;top:0;left:0;right:0}.footer-top{gap:40px;display:grid}@media (min-width:960px){.footer-top{grid-template-columns:minmax(0,.8fr) minmax(0,2fr);gap:64px}}.footer-brand{align-content:start;justify-items:start;gap:16px;display:grid}.footer-statement{font-family:var(--font-serif);color:var(--paper);font-size:24px;line-height:1.2}.footer-cols{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 24px;display:grid}@media (min-width:760px){.footer-cols{grid-template-columns:repeat(4,minmax(0,1fr))}}.footer-col h3{color:var(--gold-soft);margin-bottom:14px;font-size:13.5px;font-weight:600}.footer-col ul{gap:9px;list-style:none;display:grid}.footer-col a{color:var(--mist);font-size:14.5px;transition:color .2s}.footer-col a:hover{color:var(--paper)}.footer-contact{color:var(--mist);border-top:1px solid #ffffff14;flex-wrap:wrap;gap:8px 32px;margin-top:clamp(40px,5vw,56px);padding-block:22px;font-size:14.5px;display:flex}.footer-contact a{color:var(--gold-soft)}.footer-contact a:hover{color:var(--gold-pale)}.footer-legal{color:var(--mist-2);border-top:1px solid #ffffff14;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;padding-block:20px 28px;font-size:13px;display:flex}.footer-legal nav{gap:18px;display:flex}.footer-legal a:hover{color:var(--paper)}.product-row{align-items:center;gap:14px 28px;padding:26px 28px;display:grid}@media (min-width:860px){.product-row{grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr) auto}}.product-row__name{flex-wrap:wrap;align-items:center;gap:10px;display:flex}.cap-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:14px;display:grid}.cap{align-content:start;gap:10px;padding:26px;display:grid}.kv{gap:0;display:grid}.kv>div{border-bottom:1px solid #0e1b361a;gap:4px 24px;padding:16px 0;display:grid}@media (min-width:700px){.kv>div{grid-template-columns:200px 1fr}}.kv dt{color:var(--gold-ink);font-size:14.5px;font-weight:600}.kv dd{margin:0}.compare{border-collapse:separate;border-spacing:0;width:100%;font-size:15.5px}.compare th{text-align:left;padding:16px 20px;font-size:14px;font-weight:600}.compare td{vertical-align:top;border-top:1px solid #0e1b361a;padding:18px 20px}.compare td:first-child{color:var(--text-2)}.compare td:last-child{font-weight:540}.compare th:last-child,.compare td:last-child{background:#ffffff8c}@media (max-width:640px){.compare,.compare tbody,.compare tr,.compare td{display:block}.compare thead{display:none}.compare tr{border-top:1px solid #0e1b361a;padding:14px 0}.compare td{border:0;padding:4px 0;background:0 0!important}.compare td:first-child:before{content:"Usual: ";font-weight:600}.compare td:last-child:before{content:"With UElement: ";color:var(--gold-ink);font-weight:600}}.empty{justify-items:start;gap:18px;padding:clamp(32px,4vw,56px);display:grid}.timeline{gap:0;list-style:none;display:grid;position:relative}.timeline li{border-bottom:1px solid #0e1b361a;grid-template-columns:96px 1fr;gap:24px;padding:22px 0;display:grid}.timeline .year{font-family:var(--font-serif);color:var(--gold-ink);font-size:30px;line-height:1}.steps{counter-reset:s;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:14px;list-style:none;display:grid}.steps li{align-content:start;gap:12px;padding:24px;display:grid}.faq{gap:10px;display:grid}.faq details{border-radius:var(--r-small)}.faq summary{cursor:pointer;letter-spacing:-.01em;justify-content:space-between;align-items:center;gap:20px;padding:22px 24px;font-size:17.5px;font-weight:560;list-style:none;display:flex}.faq summary::-webkit-details-marker{display:none}.faq summary svg{width:18px;height:18px;color:var(--gold-ink);transition:transform .35s var(--ease-out);flex:none}.faq details[open] summary svg{transform:rotate(45deg)}.faq .faq__a{max-width:70ch;color:var(--text);padding:0 24px 24px}.form{gap:16px;display:grid}.form__row{grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px;display:grid}.field{gap:7px;display:grid}.field label{font-size:14px;font-weight:560}.field .hint{color:var(--text-2);font-size:13px}.input{width:100%;min-height:50px;color:var(--ink);font:inherit;background:#ffffffbf;border:1px solid #0e1b3629;border-radius:14px;padding:12px 16px;font-size:16px;transition:border-color .2s,box-shadow .2s,background-color .2s}.input:hover{border-color:#0e1b364d}.input:focus{border-color:var(--gold-ink);background:#fff;outline:none;box-shadow:0 0 0 4px #c49a4538}textarea.input{resize:vertical;min-height:140px}select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%238A6522' stroke-width='1.6'/%3E%3C/svg%3E");background-position:right 16px center;background-repeat:no-repeat;padding-right:40px}.form__note{color:var(--text-2);font-size:13.5px}.form__done{gap:12px;padding:8px 0;display:grid}@media (prefers-reduced-motion:reduce){*,:before,:after{scroll-behavior:auto!important;transition-duration:.001ms!important;animation-duration:.001ms!important;animation-iteration-count:1!important}.hero-seq,.ring-rise{opacity:1;transform:none}.ring-sweep{animation:none;transform:rotate(0)}}svg.gold{flex:none;width:18px;height:18px}.contact-list{gap:10px;list-style:none;display:grid}.contact-list li{align-items:center;gap:10px;display:flex}.contact-list svg{flex:none;width:15px;height:15px}
+
+:root{color-scheme:dark}
+html,body{background:#060b18}
+.site-header{top:env(safe-area-inset-top,0px)}
+.demo-toast{position:fixed;z-index:90;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);max-width:calc(100% - 32px);padding:12px 18px;border-radius:14px;background:#f6f0e4;color:#0e1b36;font:500 14px/1.45 var(--font-sans);box-shadow:0 18px 40px -16px rgba(0,0,0,.7)}
+
+/* Brand page — builds on the site tokens above */
+.bp-hero{min-height:0;align-items:center;padding-top:calc(var(--header-h) + clamp(40px,6vw,72px))}
+.bp-hero__glow{position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(40% 55% at 78% 48%,#c49a4540,#0000 70%),radial-gradient(30% 40% at 88% 70%,#1a2f5899,#0000 70%)}
+.bp-hero::after{display:none}
+.bp-hero__inner{grid-template-columns:minmax(0,1fr);align-items:center;gap:clamp(36px,5vw,72px);padding-bottom:clamp(56px,7vw,104px)}
+@media (min-width:900px){.bp-hero__inner{grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr)}}
+.bp-hero__copy{display:grid;gap:22px;justify-items:start;min-width:0}
+.bp-hero__copy .h1{max-width:17ch}
+.bp-hero__mark{display:grid;justify-items:center;gap:18px}
+.bp-hero__caption{color:var(--mist);font-size:13.5px;letter-spacing:.04em}
+.bp-hero__caption span{color:var(--gold-pale);font-weight:600}
+
+.mark92{container-type:inline-size;width:96px;aspect-ratio:1;max-width:100%;border-radius:22%;display:grid;place-items:center;position:relative;color:#fff;
+  background:linear-gradient(150deg,#ffffff3d 0%,#ffffff12 55%,#ffffff21 100%);-webkit-backdrop-filter:blur(18px) saturate(150%);backdrop-filter:blur(18px) saturate(150%);
+  box-shadow:inset 0 1px 0 #ffffff80,inset 0 0 0 1px #ffffff33,0 24px 48px -24px #000c}
+.mark92 span{font-family:"Montserrat",var(--font-sans);font-weight:600;font-size:46cqw;letter-spacing:-.02em;line-height:1;text-shadow:0 1px 10px #0003}
+.mark92--hero{width:min(320px,64vw)}
+.mark92--hero::before{content:"";position:absolute;inset:-14%;z-index:-1;border-radius:30%;background:var(--metal);opacity:.55;filter:blur(36px)}
+.mark92--tinted{background:linear-gradient(150deg,#1a2f58e6,#0e1b36d9);box-shadow:inset 0 1px 0 #ffffff40,inset 0 0 0 1px #ffffff1f,0 20px 40px -20px #0e1b3699}
+.mark92--gold span{color:var(--gold-soft)}
+.mark92--stretch span{transform:scaleX(1.55)}
+
+.bp-mark-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}
+.bp-stage{margin:0;border-radius:var(--r-card);overflow:hidden;display:grid;grid-template-rows:auto auto}
+.bp-stage>.mark92{width:120px;justify-self:center;margin-block:48px}
+.bp-stage figcaption{display:grid;gap:4px;padding:18px 22px;font-size:14.5px;line-height:1.5}
+.bp-stage figcaption span{opacity:.75}
+.bp-stage--dark{background:radial-gradient(60% 70% at 50% 40%,#1a2f58,#060b18);box-shadow:inset 0 0 0 1px #ffffff14}
+.bp-stage--dark figcaption{background:#ffffff08;border-top:1px solid #ffffff12}
+.bp-stage--gold{background:var(--metal)}
+.bp-stage--gold figcaption{background:#0e1b36e6;color:var(--paper)}
+.bp-stage--light{background:var(--paper);color:var(--ink)}
+.bp-stage--light figcaption{border-top:1px solid #0e1b361a}
+
+.bp-mark-rules{margin-top:16px}
+.bp-space{display:grid;gap:18px;align-content:start}
+.bp-space__demo{display:grid;place-items:center;padding:12px;border-radius:var(--r-small);background:#060b1899}
+.bp-space__zone{padding:36px;border:1px dashed #ddbb6e8c;border-radius:10px;background:repeating-linear-gradient(45deg,#ddbb6e0f 0 6px,#0000 6px 12px)}
+.bp-space__zone .mark92{width:72px}
+.bp-lockups{display:grid;gap:12px;margin-top:20px}
+.bp-lockup{border-radius:var(--r-small);padding:22px 24px}
+.bp-lockup--dark{background:#060b18;box-shadow:inset 0 0 0 1px #ffffff14}
+.bp-lockup--light{background:var(--paper)}
+.bp-lockup--light .logo{color:var(--ink)}
+.bp-lockup--light .logo__sub{color:var(--gold-ink)}
+
+.bp-subhead{margin-top:clamp(48px,6vw,72px);margin-bottom:18px}
+.bp-donts{--gap:14px}
+.bp-dont{padding:18px 18px 22px;display:grid;gap:12px;align-content:start}
+.bp-dont__art{height:140px;border-radius:var(--r-small);display:grid;place-items:center;position:relative;overflow:hidden;background:radial-gradient(60% 70% at 50% 40%,#1a2f58,#060b18)}
+.bp-dont__art::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,#0000 calc(50% - 1px),#ef8e7acc calc(50% - 1px) calc(50% + 1px),#0000 calc(50% + 1px))}
+.bp-dont__art .mark92{width:80px}
+.bp-dont__art--busy{background:repeating-linear-gradient(115deg,#c49a45 0 10px,#f1d894 10px 18px,#1a2f58 18px 30px)}
+.bp-naked{font-family:"Montserrat",var(--font-sans);font-weight:600;font-size:40px;color:#fff}
+.bp-deva-glyph{font-family:"Noto Sans Devanagari",sans-serif;font-weight:500;font-size:46cqw;line-height:1}
+.bp-no{justify-self:start;font-size:12.5px;font-weight:600;color:#f3a594;border-radius:999px;padding:3px 10px;box-shadow:inset 0 0 0 1px #ef8e7a73}
+.bp-dont p{color:var(--mist)}
+
+.bp-em{font-style:italic}
+.bp-tagline{display:grid;gap:18px;padding:clamp(28px,3.4vw,48px)}
+.bp-tagline .statement{max-width:22ch}
+.bp-lines{margin-top:16px}
+.bp-line{display:grid;gap:14px;align-content:start}
+.bp-deva{font-family:"Noto Sans Devanagari",sans-serif;font-weight:500;font-size:clamp(24px,2.4vw,30px);letter-spacing:.04em;color:var(--ink);line-height:1.4}
+.bp-serif-line{font-family:var(--font-serif);font-size:clamp(26px,2.5vw,32px);line-height:1.15;color:var(--ink)}
+
+.bp-balance{display:flex;height:64px;border-radius:var(--r-small);overflow:hidden;box-shadow:0 0 0 1px #0e1b361f;margin-bottom:28px}
+.bp-balance span{display:flex;align-items:flex-end;padding:10px 14px;color:var(--paper);font-size:13px;min-width:0;white-space:nowrap;overflow:hidden}
+.bp-balance b{font-weight:600}
+@media (max-width:560px){.bp-balance span:nth-child(3) b{display:none}}
+.bp-swatch-groups{display:grid;gap:28px}
+.bp-group-title{font-size:14px;font-weight:600;color:var(--gold-ink);margin-bottom:12px}
+.bp-swatches{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.bp-swatches--4{grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))}
+.bp-swatch{all:unset;box-sizing:border-box;cursor:pointer;display:grid;gap:3px;padding:10px 10px 16px;border-radius:var(--r-card);background-color:var(--paper-2);background-image:var(--paper-noise),linear-gradient(165deg,#fffefb 0%,#f7f1e5 100%);color:var(--ink);transition:transform .35s var(--ease-out);box-shadow:inset 0 1px #fff,0 0 0 1px #8a65221a,0 8px 24px -12px #0e1b362e}
+.bp-swatch:hover{transform:translateY(-2px)}
+.bp-swatch:focus-visible{outline:2px solid var(--gold-ink);outline-offset:3px}
+.bp-swatch__chip{height:92px;border-radius:12px;margin-bottom:10px;box-shadow:inset 0 0 0 1px #0000000f}
+.bp-swatch__chip--light{box-shadow:inset 0 0 0 1px #0e1b361f}
+.bp-swatch__name{font-weight:600;font-size:15.5px;padding-inline:6px}
+.bp-swatch__val{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--text);font-variant-numeric:tabular-nums;padding-inline:6px}
+.bp-swatch__role{font-size:13.5px;color:var(--text-2);padding-inline:6px}
+.bp-colour-notes{margin-top:28px}
+.bp-metal{border-radius:var(--r-card);padding:clamp(24px,2.4vw,34px);display:grid;gap:12px;align-content:start}
+.bp-contrast{width:100%;border-collapse:collapse;margin-top:14px;font-size:14.5px;font-variant-numeric:tabular-nums}
+.bp-contrast th{text-align:left;font-size:13px;font-weight:600;color:var(--text-2);padding:8px 8px 8px 0}
+.bp-contrast td{border-top:1px solid #0e1b361a;padding:10px 8px 10px 0;vertical-align:middle}
+.bp-pair{display:inline-block;border-radius:8px;padding:4px 10px;font-weight:560;box-shadow:inset 0 0 0 1px #0e1b361a;white-space:nowrap}
+@media (max-width:520px){.bp-contrast th:nth-child(3),.bp-contrast td:nth-child(3){display:none}}
+
+.bp-faces{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr))}
+.bp-face{display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;padding:clamp(22px,2.4vw,30px);align-items:start}
+.bp-face__spec{font-size:clamp(64px,6vw,84px);line-height:1;color:var(--ink);min-width:1.4em;padding-top:4px}
+.bp-face__body{display:grid;gap:8px;min-width:0}
+.bp-sample{margin-top:6px;padding-top:12px;border-top:1px solid #0e1b361a;font-size:18px;color:var(--ink)}
+@media (max-width:480px){.bp-face{grid-template-columns:1fr;gap:12px}}
+.bp-scale-wrap{margin-top:16px;padding:8px clamp(16px,2.4vw,30px);overflow-x:auto}
+.bp-scale{width:100%;min-width:560px;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.bp-scale th{text-align:left;font-size:13px;font-weight:600;color:var(--gold-ink);padding:14px 16px 10px 0}
+.bp-scale td{border-top:1px solid #0e1b361a;padding:14px 16px 14px 0;vertical-align:baseline;font-size:14.5px;color:var(--text-2);white-space:nowrap}
+.bp-scale td:last-child{color:var(--ink);white-space:normal}
+
+.bp-voice{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))}
+.bp-voice__pair{display:grid;gap:14px;align-content:start}
+.bp-say{display:grid;grid-template-columns:52px minmax(0,1fr);gap:12px;font-size:15.5px;line-height:1.5}
+.bp-say span{font-size:12px;font-weight:600;border-radius:999px;padding:3px 0;text-align:center;align-self:start;margin-top:1px}
+.bp-say--yes{color:var(--paper)}
+.bp-say--yes span{background:var(--metal);color:#33240a}
+.bp-say--no{color:var(--mist-2);text-decoration:line-through;text-decoration-color:#ef8e7a99}
+.bp-say--no span{color:#f3a594;box-shadow:inset 0 0 0 1px #ef8e7a73;text-decoration:none}
+
+.bp-never{display:block;margin-top:6px;font-size:13.5px;color:var(--text-2)}
+.bp-families{display:grid;gap:12px;margin-top:clamp(36px,4vw,52px);grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}
+.bp-family{display:grid;gap:12px;align-content:start}
+.bp-family__name{font-size:clamp(26px,2.4vw,32px);font-weight:560;letter-spacing:-.03em;line-height:1.1}
+.bp-family__list{list-style:none;display:grid;gap:0}
+.bp-family__list li{display:grid;gap:2px;padding:10px 0;border-top:1px solid #0e1b361a}
+.bp-family__list b{font-weight:600}
+.bp-family__list span{font-size:13.5px;color:var(--text-2)}
+
+.bp-kit{display:grid;gap:18px;align-content:start}
+.bp-copyline{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding-top:16px;border-top:1px solid #ffffff14}
+.bp-copyline__label{color:var(--mist);font-size:14px}
+.bp-copyline__value{color:var(--gold-pale);font-weight:560;user-select:all}
+.bp-facts{display:grid;gap:0;padding-top:6px;border-top:1px solid #ffffff14}
+.bp-facts div{display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px;padding:9px 0;border-bottom:1px solid #ffffff0f}
+.bp-facts dt{color:var(--gold-soft);font-weight:560}
+.bp-facts dd{margin:0;color:var(--paper);overflow-wrap:anywhere}
+</style>
+<div hidden=""><!--$--><!--/$--></div><a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="site-header__bar"><a class="logo" aria-label="UElement home" href="/"><svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="lm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F6E3A6"></stop><stop offset=".45" stop-color="#C49A45"></stop><stop offset=".75" stop-color="#F1D894"></stop><stop offset="1" stop-color="#8F6A28"></stop></linearGradient></defs><circle cx="20" cy="20" r="18.5" fill="none" stroke="url(#lm)" stroke-width="1.4" stroke-dasharray="1.6 2.4"></circle><path d="M12.5 11v9.5a7.5 7.5 0 0 0 15 0V11" fill="none" stroke="url(#lm)" stroke-width="3.4" stroke-linecap="round"></path><circle cx="20" cy="11" r="2.2" fill="url(#lm)"></circle></svg><span><span class="logo__word">UElement</span><span class="logo__sub">सशक्त सक्षम सुरक्षित</span></span></a><nav aria-label="Main" style="position:relative"><div class="nav-pills"><button class="nav-pill" aria-expanded="false" aria-controls="mega-platforms">Platforms<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button><button class="nav-pill" aria-expanded="false" aria-controls="mega-solutions">Solutions<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button><button class="nav-pill" aria-expanded="false" aria-controls="mega-services">Services<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button><button class="nav-pill" aria-expanded="false" aria-controls="mega-why-uelement">Why UElement<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button><button class="nav-pill" aria-expanded="false" aria-controls="mega-resources">Resources<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button><a class="nav-pill" href="/contact/">Contact</a></div><div id="mega-platforms" class="mega" style="--mega-w:900px;--cols:3" aria-hidden="true" inert=""><div class="mega__grid"><div><a class="mega__title" href="/platforms/u92-quantum/">U92 Quantum</a><ul class="mega__links"><li><a class="mega__link" href="/platforms/u92-quantum/vyu/"><span class="mega__label">U92-Vyu</span><span class="mega__note">Cryptographic discovery</span></a></li><li><a class="mega__link" href="/platforms/u92-quantum/pqc/"><span class="mega__label">U92-PQc</span><span class="mega__note">Post-quantum migration</span></a></li><li><a class="mega__link" href="/platforms/u92-quantum/cryptoag/"><span class="mega__label">U92-CryptoAG</span><span class="mega__note">Crypto-agility</span></a></li><li><a class="mega__link" href="/platforms/u92-quantum/qkd/"><span class="mega__label">U92-QKD</span><span class="mega__note">Quantum key distribution</span></a></li><li><a class="mega__link" href="/platforms/u92-quantum/qnet/"><span class="mega__label">U92-QNet</span><span class="mega__note">Quantum-safe networking</span></a></li><li><a class="mega__link" href="/platforms/u92-quantum/qml/"><span class="mega__label">U92-QML</span><span class="mega__note">Quantum machine learning</span></a></li></ul></div><div><a class="mega__title" href="/platforms/u92-enterprise/">U92 Enterprise</a><ul class="mega__links"><li><a class="mega__link" href="/platforms/u92-enterprise/nexus/"><span class="mega__label">Nexus</span><span class="mega__note">The enterprise digital fabric</span></a></li><li><a class="mega__link" href="/platforms/u92-enterprise/vizor/"><span class="mega__label">Vizor</span><span class="mega__note">Observability, security, compliance</span></a></li><li><a class="mega__link" href="/platforms/u92-enterprise/kayak/"><span class="mega__label">Kayak</span><span class="mega__note">Everything as a Service</span></a></li></ul></div><div><a class="mega__title" href="/platforms/u92-deeptech/">U92 Deeptech</a><ul class="mega__links"><li><a class="mega__link" href="/platforms/u92-deeptech/kalamos/"><span class="mega__label">KalaMOS</span><span class="mega__note">Sovereign edge-AI OS</span></a></li><li><a class="mega__link" href="/platforms/u92-deeptech/bosc3/"><span class="mega__label">BoSC3</span><span class="mega__note">Agentic command and control</span></a></li><li><a class="mega__link" href="/platforms/u92-deeptech/nobisgrid/"><span class="mega__label">NobisGRID</span><span class="mega__note">Self-healing mesh</span></a></li><li><a class="mega__link" href="/platforms/u92-deeptech/magchain/"><span class="mega__label">MagCHAIN</span><span class="mega__note">Tamper-evident custody</span></a></li></ul></div></div><div class="mega__foot"><span>Every product carries an honest maturity label.</span><a class="text-link" href="/platforms/">All platforms<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"></path></svg></a></div></div><div id="mega-solutions" class="mega" style="--mega-w:760px;--cols:2" aria-hidden="true" inert=""><div class="mega__grid"><div><span class="mega__title">By need</span><ul class="mega__links"><li><a class="mega__link" href="/solutions/business-transformation/"><span class="mega__label">Business Transformation</span><span class="mega__note">Digital presence, portals, automation</span></a></li><li><a class="mega__link" href="/solutions/enterprise-security/"><span class="mega__label">Enterprise Security</span><span class="mega__note">Quantum-safe, observable, compliant</span></a></li><li><a class="mega__link" href="/solutions/edge-ai/"><span class="mega__label">Edge AI</span><span class="mega__note">Offline-capable AI and networks</span></a></li></ul></div><div><a class="mega__title" href="/solutions/industries/">By industry</a><ul class="mega__links"><li><a class="mega__link" href="/solutions/industries/bfsi/"><span class="mega__label">BFSI</span></a></li><li><a class="mega__link" href="/solutions/industries/capital-markets/"><span class="mega__label">Capital Markets</span></a></li><li><a class="mega__link" href="/solutions/industries/government-psus/"><span class="mega__label">Government &amp; PSUs</span></a></li><li><a class="mega__link" href="/solutions/industries/it-software/"><span class="mega__label">IT &amp; Software</span></a></li><li><a class="mega__link" href="/solutions/industries/healthcare-pharma/"><span class="mega__label">Healthcare &amp; Pharma</span></a></li><li><a class="mega__link" href="/solutions/industries/satellite-telecom/"><span class="mega__label">Satellite &amp; Telecom</span></a></li><li><a class="mega__link" href="/solutions/industries/"><span class="mega__label">All 18 industries</span></a></li></ul></div></div><div class="mega__foot"><span>Eighteen industries, three solution areas.</span><a class="text-link" href="/solutions/">All solutions<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"></path></svg></a></div></div><div id="mega-services" class="mega" style="--mega-w:760px;--cols:2" aria-hidden="true" inert=""><div class="mega__grid"><div><span class="mega__title">Services</span><ul class="mega__links"><li><a class="mega__link" href="/services/enterprise-security/"><span class="mega__label">Enterprise Security</span></a></li><li><a class="mega__link" href="/services/business-transformation/"><span class="mega__label">Business Transformation</span></a></li><li><a class="mega__link" href="/services/infrastructure/"><span class="mega__label">Infrastructure</span></a></li><li><a class="mega__link" href="/services/edge-ai-advisory/"><span class="mega__label">Edge AI and Advisory</span></a></li><li><a class="mega__link" href="/services/quantum-applications/"><span class="mega__label">Quantum Application Development &amp; Consulting</span></a></li></ul></div><div><span class="mega__title">Engineering</span><ul class="mega__links"><li><a class="mega__link" href="/services/saas-engineering/"><span class="mega__label">SaaS Product Engineering</span></a></li><li><a class="mega__link" href="/services/ai-applications/"><span class="mega__label">AI Application Development</span></a></li><li><a class="mega__link" href="/services/telecom-satcom/"><span class="mega__label">Telecom &amp; Satellite Communication</span></a></li><li><a class="mega__link" href="/services/mvp-prototyping/"><span class="mega__label">MVP Product Design &amp; Prototyping</span></a></li></ul></div></div><div class="mega__foot"><span>Every engagement starts with a fixed-scope first step.</span><a class="text-link" href="/services/">All services<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"></path></svg></a></div></div><div id="mega-why-uelement" class="mega" style="--mega-w:460px;--cols:1" aria-hidden="true" inert=""><div class="mega__grid"><div><span class="mega__title">Why UElement</span><ul class="mega__links"><li><a class="mega__link" href="/why-uelement/advantage/"><span class="mega__label">The UElement Advantage</span><span class="mega__note">What changes when you work with us</span></a></li><li><a class="mega__link" href="/why-uelement/success-stories/"><span class="mega__label">Customer Success Stories</span><span class="mega__note">Real work, shared with permission</span></a></li><li><a class="mega__link" href="/why-uelement/research/"><span class="mega__label">Research &amp; Community</span><span class="mega__note">Standards input, talks and writing</span></a></li><li><a class="mega__link" href="/why-uelement/csr/"><span class="mega__label">Corporate Social Responsibility</span><span class="mega__note">Digital literacy and skilling</span></a></li><li><a class="mega__link" href="/why-uelement/recognition/"><span class="mega__label">Industry Recognition</span><span class="mega__note">Awards, programmes and media</span></a></li></ul></div></div><div class="mega__foot"><span>Proof over promises.</span><a class="text-link" href="/why-uelement/">Why UElement<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"></path></svg></a></div></div><div id="mega-resources" class="mega" style="--mega-w:1100px;--cols:4" aria-hidden="true" inert=""><div class="mega__grid"><div><a class="mega__title" href="/company/">Company</a><ul class="mega__links"><li><a class="mega__link" href="/company/"><span class="mega__label">About Us</span></a></li><li><a class="mega__link" href="/company/careers/"><span class="mega__label">Careers</span></a></li><li><a class="mega__link" href="/company/mission/"><span class="mega__label">Our Mission</span></a></li><li><a class="mega__link" href="/company/investors/"><span class="mega__label">Investor Relations</span></a></li><li><a class="mega__link" href="/company/brand/"><span class="mega__label">Brand Guidelines</span></a></li><li><a class="mega__link" href="/company/faqs/"><span class="mega__label">FAQs</span></a></li></ul></div><div><a class="mega__title" href="/partnerships/">Partnerships</a><ul class="mega__links"><li><a class="mega__link" href="/partnerships/"><span class="mega__label">UElement Partnerships</span></a></li><li><a class="mega__link" href="/partnerships/value-added-reseller/"><span class="mega__label">Become a Value Added Reseller</span></a></li><li><a class="mega__link" href="/partnerships/technology-alliance/"><span class="mega__label">Form a Technology Alliance</span></a></li><li><a class="mega__link" href="/partnerships/gtm-partnership/"><span class="mega__label">Explore GTM Partnership</span></a></li></ul></div><div><a class="mega__title" href="/resources/">Resource Center</a><ul class="mega__links"><li><a class="mega__link" href="/resources/blogs/"><span class="mega__label">Blogs</span></a></li><li><a class="mega__link" href="/resources/webinars/"><span class="mega__label">Webinars</span></a></li><li><a class="mega__link" href="/resources/media-gallery/"><span class="mega__label">Media Gallery</span></a></li><li><a class="mega__link" href="/resources/newsroom/"><span class="mega__label">Newsroom</span></a></li><li><a class="mega__link" href="/resources/events/"><span class="mega__label">Events</span></a></li></ul></div><div><a class="mega__title" href="/support/">Support &amp; Services</a><ul class="mega__links"><li><a class="mega__link" href="/support/knowledge-base/"><span class="mega__label">Knowledge Base</span></a></li><li><a class="mega__link" href="/support/user-guides/"><span class="mega__label">User Guides</span></a></li><li><a class="mega__link" href="/support/customer-portal/"><span class="mega__label">Customer Portal</span></a></li><li><a class="mega__link" href="/support/service-quote/"><span class="mega__label">Get Service Quote</span></a></li><li><a class="mega__link" href="/support/get-support/"><span class="mega__label">Get Support Now</span></a></li><li><a class="mega__link" href="/support/demo/"><span class="mega__label">Get Demo</span></a></li><li><a class="mega__link" href="/support/suggestion/"><span class="mega__label">Submit Suggestion</span></a></li></ul></div></div><div class="mega__foot"><span>contact@uelement.in</span><a class="text-link" href="/contact/">Contact us<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"></path></svg></a></div></div></nav><div class="header-actions"><a class="btn btn--metal btn--sm header-cta" href="/support/demo/">Book a demo</a><button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h16M4 16h16"></path></svg></button></div></div></header><div id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Menu" inert=""><div class="drawer__top"><a class="logo" aria-label="UElement home" href="/"><svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="lm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F6E3A6"></stop><stop offset=".45" stop-color="#C49A45"></stop><stop offset=".75" stop-color="#F1D894"></stop><stop offset="1" stop-color="#8F6A28"></stop></linearGradient></defs><circle cx="20" cy="20" r="18.5" fill="none" stroke="url(#lm)" stroke-width="1.4" stroke-dasharray="1.6 2.4"></circle><path d="M12.5 11v9.5a7.5 7.5 0 0 0 15 0V11" fill="none" stroke="url(#lm)" stroke-width="3.4" stroke-linecap="round"></path><circle cx="20" cy="11" r="2.2" fill="url(#lm)"></circle></svg><span><span class="logo__word">UElement</span><span class="logo__sub">सशक्त सक्षम सुरक्षित</span></span></a><button class="menu-btn" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button></div><div class="drawer__body"><div class="drawer__item"><button class="drawer__btn" aria-expanded="false">Platforms<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button><div class="drawer__panel"><div><div class="drawer__group"><a class="drawer__group-title" href="/platforms/">Overview</a></div><div class="drawer__group"><a class="drawer__group-title" href="/platforms/u92-quantum/">U92 Quantum</a><a href="/platforms/u92-quantum/vyu/">U92-Vyu</a><a href="/platforms/u92-quantum/pqc/">U92-PQc</a><a href="/platforms/u92-quantum/cryptoag/">U92-CryptoAG</a><a href="/platforms/u92-quantum/qkd/">U92-QKD</a><a href="/platforms/u92-quantum/qnet/">U92-QNet</a><a href="/platforms/u92-quantum/qml/">U92-QML</a></div><div class="drawer__group"><a class="drawer__group-title" href="/platforms/u92-enterprise/">U92 Enterprise</a><a href="/platforms/u92-enterprise/nexus/">Nexus</a><a href="/platforms/u92-enterprise/vizor/">Vizor</a><a href="/platforms/u92-enterprise/kayak/">Kayak</a></div><div class="drawer__group"><a class="drawer__group-title" href="/platforms/u92-deeptech/">U92 Deeptech</a><a href="/platforms/u92-deeptech/kalamos/">KalaMOS</a><a href="/platforms/u92-deeptech/bosc3/">BoSC3</a><a href="/platforms/u92-deeptech/nobisgrid/">NobisGRID</a><a href="/platforms/u92-deeptech/magchain/">MagCHAIN</a></div></div></div></div><div class="drawer__item"><button class="drawer__btn" aria-expanded="false">Solutions<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button><div class="drawer__panel"><div><div class="drawer__group"><a class="drawer__group-title" href="/solutions/">Overview</a></div><div class="drawer__group"><span class="drawer__group-title">By need</span><a href="/solutions/business-transformation/">Business Transformation</a><a href="/solutions/enterprise-security/">Enterprise Security</a><a href="/solutions/edge-ai/">Edge AI</a></div><div class="drawer__group"><a class="drawer__group-title" href="/solutions/industries/">By industry</a><a href="/solutions/industries/bfsi/">BFSI</a><a href="/solutions/industries/capital-markets/">Capital Markets</a><a href="/solutions/industries/government-psus/">Government &amp; PSUs</a><a href="/solutions/industries/it-software/">IT &amp; Software</a><a href="/solutions/industries/healthcare-pharma/">Healthcare &amp; Pharma</a><a href="/solutions/industries/satellite-telecom/">Satellite &amp; Telecom</a><a href="/solutions/industries/">All 18 industries</a></div></div></div></div><div class="drawer__item"><button class="drawer__btn" aria-expanded="false">Services<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button><div class="drawer__panel"><div><div class="drawer__group"><a class="drawer__group-title" href="/services/">Overview</a></div><div class="drawer__group"><span class="drawer__group-title">Services</span><a href="/services/enterprise-security/">Enterprise Security</a><a href="/services/business-transformation/">Business Transformation</a><a href="/services/infrastructure/">Infrastructure</a><a href="/services/edge-ai-advisory/">Edge AI and Advisory</a><a href="/services/quantum-applications/">Quantum Application Development &amp; Consulting</a></div><div class="drawer__group"><span class="drawer__group-title">Engineering</span><a href="/services/saas-engineering/">SaaS Product Engineering</a><a href="/services/ai-applications/">AI Application Development</a><a href="/services/telecom-satcom/">Telecom &amp; Satellite Communication</a><a href="/services/mvp-prototyping/">MVP Product Design &amp; Prototyping</a></div></div></div></div><div class="drawer__item"><button class="drawer__btn" aria-expanded="false">Why UElement<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button><div class="drawer__panel"><div><div class="drawer__group"><a class="drawer__group-title" href="/why-uelement/">Overview</a></div><div class="drawer__group"><span class="drawer__group-title">Why UElement</span><a href="/why-uelement/advantage/">The UElement Advantage</a><a href="/why-uelement/success-stories/">Customer Success Stories</a><a href="/why-uelement/research/">Research &amp; Community</a><a href="/why-uelement/csr/">Corporate Social Responsibility</a><a href="/why-uelement/recognition/">Industry Recognition</a></div></div></div></div><div class="drawer__item"><button class="drawer__btn" aria-expanded="false">Resources<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button><div class="drawer__panel"><div><div class="drawer__group"><a class="drawer__group-title" href="/resources/">Overview</a></div><div class="drawer__group"><a class="drawer__group-title" href="/company/">Company</a><a href="/company/">About Us</a><a href="/company/careers/">Careers</a><a href="/company/mission/">Our Mission</a><a href="/company/investors/">Investor Relations</a><a href="/company/brand/">Brand Guidelines</a><a href="/company/faqs/">FAQs</a></div><div class="drawer__group"><a class="drawer__group-title" href="/partnerships/">Partnerships</a><a href="/partnerships/">UElement Partnerships</a><a href="/partnerships/value-added-reseller/">Become a Value Added Reseller</a><a href="/partnerships/technology-alliance/">Form a Technology Alliance</a><a href="/partnerships/gtm-partnership/">Explore GTM Partnership</a></div><div class="drawer__group"><a class="drawer__group-title" href="/resources/">Resource Center</a><a href="/resources/blogs/">Blogs</a><a href="/resources/webinars/">Webinars</a><a href="/resources/media-gallery/">Media Gallery</a><a href="/resources/newsroom/">Newsroom</a><a href="/resources/events/">Events</a></div><div class="drawer__group"><a class="drawer__group-title" href="/support/">Support &amp; Services</a><a href="/support/knowledge-base/">Knowledge Base</a><a href="/support/user-guides/">User Guides</a><a href="/support/customer-portal/">Customer Portal</a><a href="/support/service-quote/">Get Service Quote</a><a href="/support/get-support/">Get Support Now</a><a href="/support/demo/">Get Demo</a><a href="/support/suggestion/">Submit Suggestion</a></div></div></div></div><div class="drawer__item"><a class="drawer__btn" href="/contact/">Contact</a></div></div><div class="drawer__foot"><a class="btn btn--metal" href="/support/demo/">Book a demo</a><a class="btn btn--glass" href="mailto:contact@uelement.in">contact@uelement.in</a></div></div><div class="frame"><main id="main" class="frame" style="padding:0"><div data-view="home" class="frame" style="padding:0"><section class="panel panel--deep hero" aria-labelledby="hero-title"><canvas class="hero__sparks" aria-hidden="true"></canvas><div class="wrap hero__inner"><div class="hero-seq" style="--i:0"><span class="proof"><span class="proof__faces" aria-hidden="true"><span class="medal">CG</span><span class="medal">VJ</span><span class="medal">SS</span><span class="medal">KN</span></span><span class="proof__text"><strong>Built in India, deployable anywhere.</strong> Founded by engineers from VMware, Ericsson and IIT Bombay.</span></span></div><h1 id="hero-title" class="display hero__title hero-seq" style="--i:1">Sovereign DeepTech systems for Enterprise Resilience.</h1><p class="lede hero__lede hero-seq" style="--i:2">UElement is a DeepTech company from Pune, India. We build frontier technology that keeps the systems societies run on safe, and helps this planet recover.</p><div class="actions hero__actions hero-seq" style="--i:3"><a class="btn btn--metal" href="/contact/">Talk to us</a><a class="btn btn--glass" href="/company/mission/">Read our mission</a></div></div><div class="hero__stage"><div class="hero__ring" aria-hidden="true"><div class="ring-rise"><svg viewBox="0 200 1600 700" fill="none"><defs><linearGradient id="hr-tick" gradientUnits="userSpaceOnUse" x1="0" y1="300" x2="0" y2="820"><stop offset="0" stop-color="#FFF4D0"></stop><stop offset=".22" stop-color="#F1D894"></stop><stop offset=".55" stop-color="#C49A45" stop-opacity=".75"></stop><stop offset="1" stop-color="#8A6522" stop-opacity=".15"></stop></linearGradient><radialGradient id="hr-fade" gradientUnits="userSpaceOnUse" cx="800" cy="300" r="760"><stop offset="0" stop-color="#fff"></stop><stop offset=".55" stop-color="#fff" stop-opacity=".75"></stop><stop offset="1" stop-color="#fff" stop-opacity="0"></stop></radialGradient><radialGradient id="hr-core" gradientUnits="userSpaceOnUse" cx="800" cy="320" r="720"><stop offset="0" stop-color="#C49A45" stop-opacity=".16"></stop><stop offset=".5" stop-color="#0D1A34" stop-opacity=".2"></stop><stop offset="1" stop-color="#050A16" stop-opacity="0"></stop></radialGradient><mask id="hr-mask" maskUnits="userSpaceOnUse" x="-400" y="-200" width="2400" height="1400"><rect x="-400" y="-200" width="2400" height="1400" fill="url(#hr-fade)"></rect></mask><mask id="hr-ticks" maskUnits="userSpaceOnUse" x="0" y="200" width="1600" height="700"><circle cx="800" cy="1060" r="760" stroke="#fff" stroke-width="58" stroke-dasharray="2.4 7.6"></circle></mask><filter id="hr-blur-xl" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="46"></feGaussianBlur></filter><filter id="hr-blur-md" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="14"></feGaussianBlur></filter><filter id="hr-blur-sm" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="4"></feGaussianBlur></filter></defs><g mask="url(#hr-mask)"><circle cx="800" cy="1060" r="720" fill="url(#hr-core)"></circle><circle class="ring-breathe" cx="800" cy="1060" r="760" stroke="#DDBB6E" stroke-opacity=".28" stroke-width="190" filter="url(#hr-blur-xl)"></circle><g class="ring-spin"><circle cx="800" cy="1060" r="688" stroke="#C49A45" stroke-opacity=".5" stroke-width="12" stroke-dasharray="1.2 12"></circle></g><g class="ring-spin ring-spin--rev"><circle cx="800" cy="1060" r="642" stroke="#DDBB6E" stroke-opacity=".35" stroke-width="2" stroke-dasharray="140 50 24 50"></circle></g><circle cx="800" cy="1060" r="610" stroke="#C49A45" stroke-opacity=".16" stroke-width="1"></circle><circle cx="800" cy="1060" r="760" stroke="url(#hr-tick)" stroke-width="58" stroke-dasharray="2.4 7.6" filter="url(#hr-blur-sm)" opacity=".7"></circle><circle cx="800" cy="1060" r="760" stroke="url(#hr-tick)" stroke-width="58" stroke-dasharray="2.4 7.6"></circle><circle cx="800" cy="1060" r="729" stroke="#F6E3A6" stroke-width="6" stroke-opacity=".55" filter="url(#hr-blur-sm)"></circle><circle cx="800" cy="1060" r="729" stroke="#FFF4D0" stroke-width="1.6"></circle><circle cx="800" cy="1060" r="793" stroke="#DDBB6E" stroke-opacity=".45" stroke-width="1"></circle><circle cx="800" cy="1060" r="812" stroke="#DDBB6E" stroke-opacity=".18" stroke-width="1" stroke-dasharray="2 10"></circle><g mask="url(#hr-ticks)"><g class="ring-sweep"><circle cx="800" cy="1060" r="760" stroke="#FFFBEA" stroke-width="60" stroke-dasharray="360 6000" stroke-dashoffset="180" transform="rotate(-90 800 1060)"></circle></g></g><g class="ring-sweep"><circle cx="800" cy="1060" r="760" stroke="#F6E3A6" stroke-opacity=".3" stroke-width="76" stroke-dasharray="300 6000" stroke-dashoffset="150" transform="rotate(-90 800 1060)" filter="url(#hr-blur-md)"></circle></g></g></svg></div></div><div class="hero__horizon hero-seq" style="--i:6"><p class="hero__statement">No Plan B. No Planet B.</p><p class="hero__motto" lang="hi">सशक्त · सक्षम · सुरक्षित</p></div></div></section><section class="panel panel--paper section" aria-labelledby="who"><div class="wrap"><div class="section-head section-head--split"><div style="display:grid;gap:18px;justify-items:start"><span class="chip"><span class="chip__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8.5" r="3"></circle><path d="M3.5 19c.6-3 2.8-5 5.5-5s4.9 2 5.5 5"></path><circle cx="17" cy="9.5" r="2.4"></circle><path d="M16 14.2c2.3.2 4 1.9 4.5 4.8"></path></svg></span>Who we are</span><h2 id="who" class="h2">Not just a company. An aggregation of thoughts.</h2></div><div class="prose muted" style="font-size:18px"><p>UElement is a shared mindset and one common goal we all want to walk towards. Anything once in ruins can be rebuilt. History shows it, our scriptures teach it, and our culture carries it. It starts with mindset.</p><p>Some of the loudest visions of the future treat Earth as a place to leave behind. We disagree. The talent, capital and intelligence the world is building now are enough to repair what we have, if we choose to point them there.</p></div></div><div class="founder-row"><div class="paper-card founder"><span class="medal">CG</span><span><span class="founder__name" style="display:block">Chaitanya Ghate</span><span class="founder__role">Co-founder &amp; CMD</span></span></div><div class="paper-card founder"><span class="medal">VJ</span><span><span class="founder__name" style="display:block">Vikalp Jambhulkar</span><span class="founder__role">Co-founder &amp; CEO</span></span></div><div class="paper-card founder"><span class="medal">SS</span><span><span class="founder__name" style="display:block">Satrajit Sengupta</span><span class="founder__role">Co-founder &amp; CTO</span></span></div><div class="paper-card founder"><span class="medal">KN</span><span><span class="founder__name" style="display:block">Kaustubh Narwade</span><span class="founder__role">Co-founder &amp; CPO</span></span></div></div><div style="margin-top:28px"><a class="text-link" href="/company/">About UElement<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"></path></svg></a></div></div></section><section class="panel panel--enamel section"><div class="wrap"><div class="section-head  "><div><span class="chip"><span class="chip__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1.6"></circle><ellipse cx="12" cy="12" rx="9" ry="3.6"></ellipse><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(60 12 12)"></ellipse><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(-60 12 12)"></ellipse></svg></span>What we do</span></div><h2 class="h2">We build frontier technology for the systems that cannot fail.</h2></div><div class="grid-3"><a class="glass-card glass-card--pad card-link" href="/platforms/u92-quantum/"><span class="medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="15" r="4"></circle><path d="m11 12 8.5-8.5M16 7l2.5 2.5M14 9l2 2"></path></svg></span><h3 class="h3" style="margin-top:12px">Quantum security</h3><p class="muted">Helping banks and critical infrastructure stay secure as quantum computing changes cryptography.</p><span class="card-foot text-link">U92 Quantum<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"></path></svg></span></a><a class="glass-card glass-card--pad card-link" href="/platforms/u92-enterprise/"><span class="medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 4 8.5 4.5L12 13 3.5 8.5 12 4Zm-8.5 8L12 16.5l8.5-4.5M3.5 15.5 12 20l8.5-4.5"></path></svg></span><h3 class="h3" style="margin-top:12px">Enterprise data and AI</h3><p class="muted">Giving businesses one clear view of their digital presence, operations and compliance.</p><span class="card-foot text-link">U92 Enterprise<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"></path></svg></span></a><a class="glass-card glass-card--pad card-link" href="/platforms/u92-deeptech/"><span class="medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="6" r="2"></circle><circle cx="19" cy="6" r="2"></circle><circle cx="12" cy="12" r="2"></circle><circle cx="5" cy="18" r="2"></circle><circle cx="19" cy="18" r="2"></circle><path d="M6.6 7.2 10.4 10.8M17.4 7.2l-3.8 3.6M6.6 16.8l3.8-3.6M17.4 16.8l-3.8-3.6M7 6h10M7 18h10"></path></svg></span><h3 class="h3" style="margin-top:12px">Sovereign edge</h3><p class="muted">Researching resilient, offline-capable AI and networks for places where connectivity fails.</p><span class="card-foot text-link">U92 Deeptech<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"></path></svg></span></a></div></div></section><section class="panel panel--paper section"><div class="wrap"><div class="section-head  "><div><span class="chip"><span class="chip__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z"></path></svg></span>Vision and mission</span></div><h2 class="h2">Where we want to go.</h2></div><div class="vm-grid"><article class="paper-card vm"><span class="vm__label" style="color:var(--gold-ink)">Our vision</span><p class="statement" style="font-size:clamp(30px, 3.4vw, 46px)">A future where humanity and technology progress together, and the planet grows healthier because of both.</p><p class="muted">A future with no need for the words “global warming”, and no apocalyptic ending.</p></article><article class="metal-plate vm" style="border-radius:var(--r-card)"><span class="vm__label" style="color:#4a3410">Our mission</span><p class="statement" style="font-size:clamp(30px, 3.4vw, 46px);color:#2a1d05">Build frontier technology that earns its place by leaving people and the planet better off, not just the balance sheet.</p><a class="btn btn--ink" style="justify-self:start" href="/company/mission/">Read the full mission</a></article></div></div></section><section class="panel panel--creme section" aria-labelledby="beliefs"><div class="wrap"><div class="section-head section-head--split"><div style="display:grid;gap:18px;justify-items:start"><span class="chip"><span class="chip__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.7.5 1 1.2 1 2V16h5v-.1c0-.8.3-1.5 1-2A6 6 0 0 0 12 3Z"></path></svg></span>What we believe</span><h2 id="beliefs" class="h2">We repair. We do not plan an exit.</h2></div></div><div class="belief-list"><div class="belief"><h3 class="h3">Mindset comes first</h3><p class="muted">Every rebuild in history began with people who refused to accept ruin as final.</p></div><div class="belief"><h3 class="h3">Brainy and by heart</h3><p class="muted">Intelligence without conscience is how the world got here. We hire, build and sell with both.</p></div><div class="belief"><h3 class="h3">AI beside humanity</h3><p class="muted">The most capable intelligence ever built should work with people, under human judgement.</p></div><div class="belief"><h3 class="h3">Profit funds purpose</h3><p class="muted">We must be profitable to last, but profit is the fuel, not the destination.</p></div><div class="belief"><h3 class="h3">Proof over promises</h3><p class="muted">We claim only what we can show. Every product carries an honest maturity label.</p></div><div class="belief"><h3 class="h3">Sovereign by design</h3><p class="muted">Built in India, deployable anywhere, owned and controlled by the people who use it.</p></div></div></div></section><section class="panel panel--enamel section"><div class="wrap"><div class="section-head  "><div><span class="chip"><span class="chip__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.8l-5.2 2.8 1-5.8-4.3-4.1 5.9-.8L12 3.5Z"></path></svg></span>Our commitments</span></div><h2 class="h2">Five commitments we will measure ourselves by.</h2><p class="lede muted">We will report on each of them honestly, once a year, with real numbers or none.</p></div><ul class="commit-list"><li class="glass-card commit"><span class="medal medal--lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3.1 8.2 7.5 9.5 4.4-1.3 7.5-4.9 7.5-9.5V6L12 3Zm-3 9 2.2 2.2L15.5 10"></path></svg></span><h3 class="h3">Protect the systems societies run on</h3><p class="muted" style="grid-column:auto">Banks, power, water, telecom and healthcare must keep working through the quantum transition.</p></li><li class="glass-card commit"><span class="medal medal--lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"></path><circle cx="12" cy="12" r="3"></circle></svg></span><h3 class="h3">Help every system see its own footprint</h3><p class="muted" style="grid-column:auto">You cannot reduce what you cannot see. Observability is where efficiency starts.</p></li><li class="glass-card commit"><span class="medal medal--lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14H5Zm0 0 8-8"></path></svg></span><h3 class="h3">Cut waste in the physical economy</h3><p class="muted" style="grid-column:auto">Every asset reused is one not manufactured.</p></li><li class="glass-card commit"><span class="medal medal--lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8.5" r="3"></circle><path d="M3.5 19c.6-3 2.8-5 5.5-5s4.9 2 5.5 5"></path><circle cx="17" cy="9.5" r="2.4"></circle><path d="M16 14.2c2.3.2 4 1.9 4.5 4.8"></path></svg></span><h3 class="h3">Keep AI beside humanity</h3><p class="muted" style="grid-column:auto">A human in the loop for every decision that matters, and people trained into frontier roles.</p></li><li class="glass-card commit"><span class="medal medal--lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.8l-5.2 2.8 1-5.8-4.3-4.1 5.9-.8L12 3.5Z"></path></svg></span><h3 class="h3">Be the proof, inside UElement</h3><p class="muted" style="grid-column:auto">A company that preaches repair must practise it, and report on it honestly every year.</p></li></ul></div></section><section class="panel panel--paper section" aria-labelledby="talk"><div class="wrap" style="display:grid;gap:40px;grid-template-columns:repeat(auto-fit, minmax(min(100%, 420px), 1fr));align-items:start"><div style="display:grid;gap:22px;justify-items:start"><span class="chip"><span class="chip__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 3.5V17H6.5A2.5 2.5 0 0 1 4 14.5v-8Z"></path></svg></span>Let’s talk</span><h2 id="talk" class="h2">Building something that cannot fail? We’d like to hear about it.</h2><p class="lede muted">Every engagement starts with a small, fixed-scope first step, so you can judge our work before you commit to more.</p><div class="actions"><a class="btn btn--ink" href="/contact/">Talk to us</a><a class="btn btn--line" href="/support/demo/">Book a demo</a></div></div><div class="grid" style="--gap:12px"><a class="paper-card founder card-link" href="mailto:contact@uelement.in" style="flex-direction:row"><span class="medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"></rect><path d="m4 7 8 6 8-6"></path></svg></span><span><span class="founder__name" style="display:block">contact@uelement.in</span><span class="founder__role">Write to us about a project, a partnership or a role.</span></span></a><a class="paper-card founder card-link" href="tel:+917620690561" style="flex-direction:row"><span class="medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16.5 16.5 0 0 1 4.5 5.5a2 2 0 0 1 2-2Z"></path></svg></span><span><span class="founder__name" style="display:block">+91 76206 90561</span><span class="founder__role">Call us to talk it through</span></span></a><div class="paper-card founder"><span class="medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"></path><circle cx="12" cy="10" r="2.4"></circle></svg></span><span><span class="founder__name" style="display:block">Wakad, Pune, Maharashtra 411057, India</span><span class="founder__role">Working with customers globally</span></span></div><a class="paper-card founder card-link" style="flex-direction:row" href="/company/careers/"><span class="medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8.5" r="3"></circle><path d="M3.5 19c.6-3 2.8-5 5.5-5s4.9 2 5.5 5"></path><circle cx="17" cy="9.5" r="2.4"></circle><path d="M16 14.2c2.3.2 4 1.9 4.5 4.8"></path></svg></span><span><span class="founder__name" style="display:block">Want to build with us?</span><span class="founder__role">We hire people who are brainy and by heart.</span></span></a></div></div></section><!--$--><!--/$--></div><div data-view="brand" hidden>
+<section class="panel panel--deep page-hero bp-hero" aria-labelledby="brand-title">
+  <div class="bp-hero__glow" aria-hidden="true"></div>
+  <div class="wrap page-hero__inner bp-hero__inner">
+    <div class="bp-hero__copy">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/company/">Company</a><span aria-hidden="true">/</span><span>Brand</span></nav>
+      <span class="chip"><span class="chip__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M8 1.5 14.5 8 8 14.5 1.5 8Z"/></svg></span>Brand guidelines</span>
+      <h1 id="brand-title" class="h1">How UElement looks, sounds and names things.</h1>
+      <p class="lede muted">For our team, partners, resellers and the press. Use these rules wherever UElement appears in your work, from a co-branded proposal to a news story.</p>
+      <div class="actions">
+        <a class="btn btn--metal" href="#brand-kit">Get the brand kit</a>
+        <a class="btn btn--glass" href="#brand-naming">Naming rules</a>
+      </div>
+    </div>
+    <div class="bp-hero__mark">
+      <div class="mark92 mark92--hero" role="img" aria-label="The UElement 92 mark"><span>92</span></div>
+      <p class="bp-hero__caption"><span>U</span> · Uranium · atomic number 92</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel panel--paper section" aria-labelledby="brand-essence">
+  <div class="wrap">
+    <div class="section-head section-head--split">
+      <div style="display:grid;gap:18px;justify-items:start">
+        <span class="chip"><span class="chip__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="8" cy="8" r="5.5"/><circle cx="8" cy="8" r="1.6" fill="currentColor"/></svg></span>Brand essence</span>
+        <h2 id="brand-essence" class="h2">Three lines carry the whole brand.</h2>
+      </div>
+      <p class="prose muted" style="font-size:18px">Each line has one job. Use them as written. Do not rephrase, translate loosely or combine them into a new slogan.</p>
+    </div>
+    <article class="paper-card bp-tagline">
+      <span class="vm__label" style="color:var(--gold-ink)">Master tagline</span>
+      <p class="statement">Sovereign <span class="bp-em">DeepTech</span> for the systems that cannot fail.</p>
+      <p class="muted small">Sits under the UElement name on decks, proposals, email signatures and the website. Always ends with a full stop.</p>
+    </article>
+    <div class="grid-3 bp-lines">
+      <article class="paper-card paper-card--pad bp-line">
+        <span class="vm__label" style="color:var(--gold-ink)">Motto</span>
+        <p class="bp-deva" lang="hi">सशक्त · सक्षम · सुरक्षित</p>
+        <p class="small"><strong>Sashakt · Saksham · Surakshit</strong><br><span class="muted">Empowered · Capable · Secure</span></p>
+        <p class="muted small">Always in Devanagari, with middle dots between the words. Used under the wordmark and in footers.</p>
+      </article>
+      <article class="paper-card paper-card--pad bp-line">
+        <span class="vm__label" style="color:var(--gold-ink)">Manifesto line</span>
+        <p class="bp-serif-line">No Plan B. No Planet B.</p>
+        <p class="muted small">Our stance on repair over escape. For campaign moments, talks and the website, not for product sheets.</p>
+      </article>
+      <article class="paper-card paper-card--pad bp-line">
+        <span class="vm__label" style="color:var(--gold-ink)">Origin line</span>
+        <p class="bp-serif-line">Built in India, deployable anywhere.</p>
+        <p class="muted small">How we describe where we come from. We serve customers across the Americas, UK and Europe, the Middle East and Africa, and JAPAC.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="panel panel--enamel section" aria-labelledby="brand-mark">
+  <div class="wrap">
+    <div class="section-head section-head--split">
+      <div style="display:grid;gap:18px;justify-items:start">
+        <span class="chip"><span class="chip__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="2.5" width="11" height="11" rx="3"/></svg></span>The mark</span>
+        <h2 id="brand-mark" class="h2">92, set in white on frosted glass.</h2>
+      </div>
+      <p class="prose muted" style="font-size:18px">The U in UElement stands for uranium, element 92. The numerals are the anchor of our identity. They are always white Montserrat, always on a frosted glass tile, and never replaced by a letter or glyph.</p>
+    </div>
+
+    <div class="bp-mark-grid">
+      <figure class="bp-stage bp-stage--dark">
+        <div class="mark92" role="img" aria-label="92 mark on a dark ground"><span>92</span></div>
+        <figcaption><strong>On dark grounds</strong><span>Clear glass over Abyss or Enamel. The default.</span></figcaption>
+      </figure>
+      <figure class="bp-stage bp-stage--gold">
+        <div class="mark92" role="img" aria-label="92 mark over the brand metal"><span>92</span></div>
+        <figcaption><strong>Over the brand metal</strong><span>For covers and event backdrops. The glass softens the gold behind it.</span></figcaption>
+      </figure>
+      <figure class="bp-stage bp-stage--light">
+        <div class="mark92 mark92--tinted" role="img" aria-label="92 mark on a light ground"><span>92</span></div>
+        <figcaption><strong>On light grounds</strong><span>Use the Ink-tinted glass so the white numerals keep their contrast.</span></figcaption>
+      </figure>
+    </div>
+
+    <div class="grid-2 bp-mark-rules">
+      <div class="glass-card glass-card--pad bp-space">
+        <h3 class="h4">Clear space and size</h3>
+        <div class="bp-space__demo" aria-hidden="true"><div class="bp-space__zone"><div class="mark92"><span>92</span></div></div></div>
+        <ul class="list-check small">
+          <li><span>Keep clear space of half the tile's width on every side. Nothing else enters it.</span></li>
+          <li><span>Smallest size is 24 px on screen and 8 mm in print. Below that, use the UElement name in text.</span></li>
+        </ul>
+      </div>
+      <div class="glass-card glass-card--pad">
+        <h3 class="h4">Digital lockup</h3>
+        <p class="muted small" style="margin-top:8px">The website and apps pair the monogram with the name and motto. Use this lockup in navigation bars and footers only.</p>
+        <div class="bp-lockups">
+          <div class="bp-lockup bp-lockup--dark"><span class="logo"><svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.5" fill="none" stroke="url(#lm)" stroke-width="1.4" stroke-dasharray="1.6 2.4"></circle><path d="M12.5 11v9.5a7.5 7.5 0 0 0 15 0V11" fill="none" stroke="url(#lm)" stroke-width="3.4" stroke-linecap="round"></path><circle cx="20" cy="11" r="2.2" fill="url(#lm)"></circle></svg><span><span class="logo__word">UElement</span><span class="logo__sub">सशक्त सक्षम सुरक्षित</span></span></span></div>
+          <div class="bp-lockup bp-lockup--light"><span class="logo"><svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.5" fill="none" stroke="#8a6522" stroke-width="1.4" stroke-dasharray="1.6 2.4"></circle><path d="M12.5 11v9.5a7.5 7.5 0 0 0 15 0V11" fill="none" stroke="#8a6522" stroke-width="3.4" stroke-linecap="round"></path><circle cx="20" cy="11" r="2.2" fill="#8a6522"></circle></svg><span><span class="logo__word">UElement</span><span class="logo__sub">सशक्त सक्षम सुरक्षित</span></span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="h3 bp-subhead">Four ways to break the mark</h3>
+    <div class="grid-4 bp-donts">
+      <div class="glass-card bp-dont"><div class="bp-dont__art"><div class="mark92"><span class="bp-deva-glyph" lang="hi">उ</span></div></div><span class="bp-no">Don't</span><p class="small">Replace the numerals with the Devanagari उ or any other letter.</p></div>
+      <div class="glass-card bp-dont"><div class="bp-dont__art"><div class="mark92 mark92--gold"><span>92</span></div></div><span class="bp-no">Don't</span><p class="small">Recolour the numerals. They are white in every application.</p></div>
+      <div class="glass-card bp-dont"><div class="bp-dont__art"><div class="mark92 mark92--stretch"><span>92</span></div></div><span class="bp-no">Don't</span><p class="small">Stretch, skew, rotate or outline the mark.</p></div>
+      <div class="glass-card bp-dont"><div class="bp-dont__art bp-dont__art--busy"><span class="bp-naked">92</span></div><span class="bp-no">Don't</span><p class="small">Drop the glass and set the numerals straight onto photos or patterns.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel panel--paper section" aria-labelledby="brand-colour">
+  <div class="wrap">
+    <div class="section-head section-head--split">
+      <div style="display:grid;gap:18px;justify-items:start">
+        <span class="chip"><span class="chip__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="6" cy="6" r="3.5"/><circle cx="10" cy="10" r="3.5"/></svg></span>Colour</span>
+        <h2 id="brand-colour" class="h2">Deep enamel, warm paper, a little gold.</h2>
+      </div>
+      <p class="prose muted" style="font-size:18px">Most of a UElement page is dark enamel or warm paper. Gold is the accent and should never fill more than about a tenth of the space. Select any value to copy it.</p>
+    </div>
+
+    <div class="bp-balance" role="img" aria-label="Typical colour balance: 55 percent enamel, 35 percent paper, 8 percent gold, 2 percent mist">
+      <span style="flex:55;background:linear-gradient(90deg,#060b18,#0d1a34)"><b>Enamel 55%</b></span>
+      <span style="flex:35;background:linear-gradient(90deg,#f6f0e4,#ede3cf);color:var(--ink)"><b>Paper 35%</b></span>
+      <span style="flex:8;background:var(--metal);color:#2a1d05"><b>Gold</b></span>
+      <span style="flex:2;background:#b4bed0"></span>
+    </div>
+
+    <div class="bp-swatch-groups">
+      <div class="bp-swatch-group">
+        <h3 class="bp-group-title">Foundations</h3>
+        <div class="bp-swatches">
+          <button class="paper-card bp-swatch" data-copy="#060B18" type="button"><span class="bp-swatch__chip" style="background:#060b18"></span><span class="bp-swatch__name">Abyss</span><span class="bp-swatch__val">#060B18 · 6 11 24</span><span class="bp-swatch__role">Page ground, footer</span></button>
+          <button class="paper-card bp-swatch" data-copy="#0D1A34" type="button"><span class="bp-swatch__chip" style="background:#0d1a34"></span><span class="bp-swatch__name">Enamel</span><span class="bp-swatch__val">#0D1A34 · 13 26 52</span><span class="bp-swatch__role">Dark sections, slide grounds</span></button>
+          <button class="paper-card bp-swatch" data-copy="#0E1B36" type="button"><span class="bp-swatch__chip" style="background:#0e1b36"></span><span class="bp-swatch__name">Ink</span><span class="bp-swatch__val">#0E1B36 · 14 27 54</span><span class="bp-swatch__role">Text on paper, dark buttons</span></button>
+        </div>
+      </div>
+      <div class="bp-swatch-group">
+        <h3 class="bp-group-title">Grounds</h3>
+        <div class="bp-swatches">
+          <button class="paper-card bp-swatch" data-copy="#F6F0E4" type="button"><span class="bp-swatch__chip bp-swatch__chip--light" style="background:#f6f0e4"></span><span class="bp-swatch__name">Paper</span><span class="bp-swatch__val">#F6F0E4 · 246 240 228</span><span class="bp-swatch__role">Light sections, text on dark</span></button>
+          <button class="paper-card bp-swatch" data-copy="#EDE3CF" type="button"><span class="bp-swatch__chip bp-swatch__chip--light" style="background:#ede3cf"></span><span class="bp-swatch__name">Creme</span><span class="bp-swatch__val">#EDE3CF · 237 227 207</span><span class="bp-swatch__role">Alternate light sections</span></button>
+          <button class="paper-card bp-swatch" data-copy="#B4BED0" type="button"><span class="bp-swatch__chip" style="background:#b4bed0"></span><span class="bp-swatch__name">Mist</span><span class="bp-swatch__val">#B4BED0 · 180 190 208</span><span class="bp-swatch__role">Secondary text on dark</span></button>
+        </div>
+      </div>
+      <div class="bp-swatch-group">
+        <h3 class="bp-group-title">Gold</h3>
+        <div class="bp-swatches bp-swatches--4">
+          <button class="paper-card bp-swatch" data-copy="#C49A45" type="button"><span class="bp-swatch__chip" style="background:#c49a45"></span><span class="bp-swatch__name">Gold</span><span class="bp-swatch__val">#C49A45 · 196 154 69</span><span class="bp-swatch__role">Rules, icons, fills</span></button>
+          <button class="paper-card bp-swatch" data-copy="#DDBB6E" type="button"><span class="bp-swatch__chip" style="background:#ddbb6e"></span><span class="bp-swatch__name">Gold soft</span><span class="bp-swatch__val">#DDBB6E · 221 187 110</span><span class="bp-swatch__role">Gold text on dark</span></button>
+          <button class="paper-card bp-swatch" data-copy="#F1D894" type="button"><span class="bp-swatch__chip bp-swatch__chip--light" style="background:#f1d894"></span><span class="bp-swatch__name">Gold pale</span><span class="bp-swatch__val">#F1D894 · 241 216 148</span><span class="bp-swatch__role">Highlights, selection</span></button>
+          <button class="paper-card bp-swatch" data-copy="#8A6522" type="button"><span class="bp-swatch__chip" style="background:#8a6522"></span><span class="bp-swatch__name">Gold ink</span><span class="bp-swatch__val">#8A6522 · 138 101 34</span><span class="bp-swatch__role">Gold text on paper</span></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2 bp-colour-notes">
+      <div class="metal-plate bp-metal">
+        <span class="vm__label" style="color:#4a3410">Brand metal</span>
+        <p class="h3" style="color:#2a1d05">A six-stop gold gradient at 118°.</p>
+        <p class="small" style="color:#3a2808">Reserved for primary buttons, medals and status marks. Never use it as a section background or behind running text.</p>
+      </div>
+      <div class="paper-card paper-card--pad">
+        <h3 class="h4">Contrast for text</h3>
+        <table class="bp-contrast">
+          <caption class="sr-only">Contrast ratios of text and ground pairs</caption>
+          <thead><tr><th scope="col">Text on ground</th><th scope="col">Ratio</th><th scope="col">Use</th></tr></thead>
+          <tbody>
+            <tr><td><span class="bp-pair" style="background:#f6f0e4;color:#0e1b36">Ink on Paper</span></td><td>15.1 : 1</td><td><span class="status status--line">Any text</span></td></tr>
+            <tr><td><span class="bp-pair" style="background:#060b18;color:#ddbb6e">Gold soft on Abyss</span></td><td>10.7 : 1</td><td><span class="status status--line">Any text</span></td></tr>
+            <tr><td><span class="bp-pair" style="background:#f6f0e4;color:#8a6522">Gold ink on Paper</span></td><td>4.7 : 1</td><td><span class="status status--line">Body and up</span></td></tr>
+            <tr><td><span class="bp-pair" style="background:#f6f0e4;color:#c49a45">Gold on Paper</span></td><td>2.3 : 1</td><td><span class="status status--dash">Never for text</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="panel panel--creme section" aria-labelledby="brand-type">
+  <div class="wrap">
+    <div class="section-head section-head--split">
+      <div style="display:grid;gap:18px;justify-items:start">
+        <span class="chip"><span class="chip__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 13 8 3l5 10M5 9h6"/></svg></span>Typography</span>
+        <h2 id="brand-type" class="h2">One working face, one voice for statements.</h2>
+      </div>
+      <p class="prose muted" style="font-size:18px">Onest does almost everything. Instrument Serif speaks only when we make a statement. Montserrat exists for the 92 mark and nothing else. All three are free on Google Fonts.</p>
+    </div>
+    <div class="bp-faces">
+      <article class="paper-card bp-face">
+        <div class="bp-face__spec" style="font-family:var(--font-sans);font-weight:560">Aa</div>
+        <div class="bp-face__body">
+          <span class="vm__label" style="color:var(--gold-ink)">Onest · 400 to 700</span>
+          <h3 class="h3">Headlines, body, interface</h3>
+          <p class="muted small">Headlines at weight 500 with tight tracking. Body at 400. Labels and buttons at 560 to 600.</p>
+          <p class="bp-sample" style="font-family:var(--font-sans)">Quantum-safe migration for banks, one application at a time.</p>
+        </div>
+      </article>
+      <article class="paper-card bp-face">
+        <div class="bp-face__spec" style="font-family:var(--font-serif)">Aa</div>
+        <div class="bp-face__body">
+          <span class="vm__label" style="color:var(--gold-ink)">Instrument Serif · Regular</span>
+          <h3 class="h3">Statements and pull quotes</h3>
+          <p class="muted small">One serif line per section at most. Never for body copy, buttons or labels.</p>
+          <p class="bp-sample" style="font-family:var(--font-serif);font-size:26px;line-height:1.15">No Plan B. No Planet B.</p>
+        </div>
+      </article>
+      <article class="paper-card bp-face">
+        <div class="bp-face__spec" style="font-family:'Montserrat',sans-serif;font-weight:600">92</div>
+        <div class="bp-face__body">
+          <span class="vm__label" style="color:var(--gold-ink)">Montserrat · SemiBold</span>
+          <h3 class="h3">The 92 mark only</h3>
+          <p class="muted small">Do not use Montserrat for headings or body text. Keeping it to the mark keeps the mark distinct.</p>
+        </div>
+      </article>
+      <article class="paper-card bp-face">
+        <div class="bp-face__spec" lang="hi" style="font-family:'Noto Sans Devanagari',sans-serif;font-weight:500">अ</div>
+        <div class="bp-face__body">
+          <span class="vm__label" style="color:var(--gold-ink)">Noto Sans Devanagari · Medium</span>
+          <h3 class="h3">The motto and Hindi or Marathi copy</h3>
+          <p class="muted small">Pairs with Onest at the same visual weight. Set the motto with a little extra letter spacing.</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="paper-card bp-scale-wrap">
+      <table class="bp-scale">
+        <caption class="sr-only">Type scale</caption>
+        <thead><tr><th scope="col">Style</th><th scope="col">Size on desktop</th><th scope="col">Line height</th><th scope="col">Sample</th></tr></thead>
+        <tbody>
+          <tr><td>Display</td><td>96 px</td><td>0.98</td><td><span style="font-size:34px;font-weight:500;letter-spacing:-.042em;line-height:1">Sovereign DeepTech</span></td></tr>
+          <tr><td>Heading 1</td><td>74 px</td><td>1.02</td><td><span style="font-size:28px;font-weight:500;letter-spacing:-.038em">The UElement brand</span></td></tr>
+          <tr><td>Heading 2</td><td>52 px</td><td>1.06</td><td><span style="font-size:23px;font-weight:500;letter-spacing:-.032em">What we believe</span></td></tr>
+          <tr><td>Heading 3</td><td>23 px</td><td>1.25</td><td><span style="font-size:19px;font-weight:560">Proof over promises</span></td></tr>
+          <tr><td>Lede</td><td>20 px</td><td>1.6</td><td><span style="font-size:17px">Every engagement starts with a fixed-scope first step.</span></td></tr>
+          <tr><td>Body</td><td>17 px</td><td>1.6</td><td><span style="font-size:15px">We claim only what we can show.</span></td></tr>
+          <tr><td>Small</td><td>14.5 px</td><td>1.55</td><td><span style="font-size:13px">Wakad, Pune, Maharashtra 411057, India</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="panel panel--enamel section" aria-labelledby="brand-voice">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="chip"><span class="chip__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2.5 4.5h11v6h-6l-3 2.5v-2.5h-2Z"/></svg></span>Voice</span></div>
+      <h2 id="brand-voice" class="h2">Calm, specific and provable.</h2>
+      <p class="lede muted">We write for CISOs, bank boards and engineers who have heard every promise before. The way to earn their attention is to be exact.</p>
+    </div>
+    <div class="bp-voice">
+      <div class="glass-card glass-card--pad bp-voice__pair">
+        <h3 class="h4">Claim only what you can show</h3>
+        <p class="bp-say bp-say--yes"><span>Write</span>Paid pilot with an insurer, covering one web application.</p>
+        <p class="bp-say bp-say--no"><span>Not</span>Trusted by India's leading financial institutions.</p>
+      </div>
+      <div class="glass-card glass-card--pad bp-voice__pair">
+        <h3 class="h4">Name the risk without selling fear</h3>
+        <p class="bp-say bp-say--yes"><span>Write</span>Data encrypted today can be stored now and decrypted later. Migration takes years, so planning starts now.</p>
+        <p class="bp-say bp-say--no"><span>Not</span>Quantum computers will break your bank tomorrow.</p>
+      </div>
+      <div class="glass-card glass-card--pad bp-voice__pair">
+        <h3 class="h4">Say what it does, plainly</h3>
+        <p class="bp-say bp-say--yes"><span>Write</span>Finds every algorithm and key in an application and lists what must change.</p>
+        <p class="bp-say bp-say--no"><span>Not</span>A revolutionary, unhackable, next-generation security paradigm.</p>
+      </div>
+      <div class="glass-card glass-card--pad bp-voice__pair">
+        <h3 class="h4">Label maturity honestly</h3>
+        <p class="bp-say bp-say--yes"><span>Write</span>In research. In pilot. Generally available.</p>
+        <p class="bp-say bp-say--no"><span>Not</span>Calling a prototype a platform, or a roadmap item a feature.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="brand-naming" class="panel panel--paper section" aria-labelledby="brand-naming-title">
+  <div class="wrap">
+    <div class="section-head section-head--split">
+      <div style="display:grid;gap:18px;justify-items:start">
+        <span class="chip"><span class="chip__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 3h6l4 4v6H3Z"/><path d="M6 8h4M6 10.5h3"/></svg></span>Naming</span>
+        <h2 id="brand-naming-title" class="h2">Write every name exactly as it appears here.</h2>
+      </div>
+      <p class="prose muted" style="font-size:18px">Our names use deliberate capital letters. Keep them, including in headings, slide titles and labels where the rest of the text is set in capitals.</p>
+    </div>
+
+    <dl class="kv bp-rules">
+      <div><dt>Company</dt><dd><strong>UElement</strong>, one word, capital U and E. The legal name is <strong>UElement Technologies Private Limited</strong>.<span class="bp-never">Never: Uelement · U-Element · UELEMENT in running text · Unified Element</span></dd></div>
+      <div><dt>DeepTech</dt><dd>One word, capital D and T. Keep it prominent in anything that describes what we do.<span class="bp-never">Never: Deeptech · deep tech · Deep-Tech</span></dd></div>
+      <div><dt>Internal codenames</dt><dd>Element and isotope names such as U92, U234 and U235 are for internal projects only. They never appear in proposals, decks, the website or press material.</dd></div>
+      <div><dt>Where we work</dt><dd>UElement serves customers globally. Describe our reach as global, never as a single region.</dd></div>
+    </dl>
+
+    <div class="bp-families">
+      <article class="paper-card paper-card--pad bp-family">
+        <span class="vm__label" style="color:var(--gold-ink)">Quantum security</span>
+        <p class="bp-family__name">UElement AdviQ</p>
+        <p class="muted small">Cryptographic discovery and post-quantum migration. Write the product as AdviQ, with a capital Q.</p>
+      </article>
+      <article class="paper-card paper-card--pad bp-family">
+        <span class="vm__label" style="color:var(--gold-ink)">Enterprise platforms</span>
+        <p class="bp-family__name">MainSTAY</p>
+        <ul class="bp-family__list">
+          <li><b>Nexus</b><span>The enterprise digital fabric</span></li>
+          <li><b>Vizor</b><span>Observability, security and compliance</span></li>
+          <li><b>Kayak</b><span>Everything as a Service</span></li>
+        </ul>
+      </article>
+      <article class="paper-card paper-card--pad bp-family">
+        <span class="vm__label" style="color:var(--gold-ink)">Sovereign edge</span>
+        <p class="bp-family__name">MainSPAR</p>
+        <ul class="bp-family__list">
+          <li><b>KalAMOS</b><span>Sovereign edge-AI OS</span></li>
+          <li><b>BoSC3</b><span>Agentic command and control</span></li>
+          <li><b>NobisGRID</b><span>Self-healing mesh</span></li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="brand-kit" class="panel panel--deep section" aria-labelledby="brand-kit-title">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="chip"><span class="chip__icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M8 2v8m-3.5-3.5L8 10l3.5-3.5M3 13h10"/></svg></span>Brand kit and press</span></div>
+      <h2 id="brand-kit-title" class="h2">Using our brand in your work.</h2>
+    </div>
+    <div class="grid-2">
+      <div class="glass-card glass-card--pad bp-kit">
+        <h3 class="h3">Request the brand kit</h3>
+        <p class="muted">We send the kit on request so every partner gets the current version.</p>
+        <ul class="list-check small">
+          <li><span>The 92 mark for dark and light grounds, as SVG and PNG</span></li>
+          <li><span>The UElement wordmark and digital lockup</span></li>
+          <li><span>Colour values for screen and print</span></li>
+          <li><span>Font names and links</span></li>
+        </ul>
+        <div class="bp-copyline">
+          <span class="bp-copyline__label">Write to</span>
+          <span class="bp-copyline__value">contact@uelement.in</span>
+          <button class="btn btn--glass btn--sm" type="button" data-copy="contact@uelement.in">Copy address</button>
+        </div>
+      </div>
+      <div class="glass-card glass-card--pad bp-kit">
+        <h3 class="h3">Partners, resellers and press</h3>
+        <ul class="list-check small">
+          <li><span>Ask us before placing our mark next to yours. Send the draft and we will review it.</span></li>
+          <li><span>Give the two marks equal height and keep the clear space around each.</span></li>
+          <li><span>Describe us with the master tagline, or as a DeepTech company from Pune, India.</span></li>
+          <li><span>Use product names exactly as listed above, and label pilots as pilots.</span></li>
+        </ul>
+        <dl class="bp-facts small">
+          <div><dt>Legal name</dt><dd>UElement Technologies Private Limited</dd></div>
+          <div><dt>CIN</dt><dd>U63990PN2026PTC251047</dd></div>
+          <div><dt>Head office</dt><dd>Wakad, Pune, Maharashtra 411057, India</dd></div>
+          <div><dt>Website</dt><dd>www.uelement.in</dd></div>
+          <div><dt>Phone</dt><dd>+91 76206 90561</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+</main><footer class="site-footer"><div class="wrap"><div class="footer-top"><div class="footer-brand"><a class="logo" aria-label="UElement home" href="/"><svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="lm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F6E3A6"></stop><stop offset=".45" stop-color="#C49A45"></stop><stop offset=".75" stop-color="#F1D894"></stop><stop offset="1" stop-color="#8F6A28"></stop></linearGradient></defs><circle cx="20" cy="20" r="18.5" fill="none" stroke="url(#lm)" stroke-width="1.4" stroke-dasharray="1.6 2.4"></circle><path d="M12.5 11v9.5a7.5 7.5 0 0 0 15 0V11" fill="none" stroke="url(#lm)" stroke-width="3.4" stroke-linecap="round"></path><circle cx="20" cy="11" r="2.2" fill="url(#lm)"></circle></svg><span><span class="logo__word">UElement</span><span class="logo__sub">सशक्त सक्षम सुरक्षित</span></span></a><p class="footer-statement">No Plan B. No Planet B.</p></div><nav class="footer-cols" aria-label="Footer"><div class="footer-col"><h3>Platforms</h3><ul><li><a href="/platforms/u92-quantum/">U92 Quantum</a></li><li><a href="/platforms/u92-enterprise/">U92 Enterprise</a></li><li><a href="/platforms/u92-deeptech/">U92 Deeptech</a></li></ul></div><div class="footer-col"><h3>Solutions</h3><ul><li><a href="/solutions/business-transformation/">Business Transformation</a></li><li><a href="/solutions/enterprise-security/">Enterprise Security</a></li><li><a href="/solutions/edge-ai/">Edge AI</a></li><li><a href="/solutions/industries/">Industries</a></li><li><a href="/services/">Services</a></li></ul></div><div class="footer-col"><h3>Company</h3><ul><li><a href="/company/">About us</a></li><li><a href="/why-uelement/">Why UElement</a></li><li><a href="/company/careers/">Careers</a></li><li><a href="/partnerships/">Partnerships</a></li><li><a href="/company/investors/">Investor relations</a></li><li><a href="/company/brand/">Brand guidelines</a></li></ul></div><div class="footer-col"><h3>Help</h3><ul><li><a href="/support/">Support</a></li><li><a href="/resources/">Resources</a></li><li><a href="/company/faqs/">FAQs</a></li><li><a href="/contact/">Contact</a></li></ul></div></nav></div><div class="footer-contact"><a href="mailto:contact@uelement.in">contact@uelement.in</a><a href="tel:+917620690561">+91 76206 90561</a><span>Wakad, Pune, Maharashtra 411057, India</span></div><div class="footer-legal"><span>© 2026 <!-- -->UElement Technologies Private Limited<!-- -->. CIN <!-- -->U63990PN2026PTC251047</span><nav aria-label="Legal"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/sitemap.xml">Sitemap</a></nav></div></div></footer></div>
+<div id="demo-toast" class="demo-toast" role="status" hidden></div>
+<script>(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // header state
+  var header = document.querySelector('.site-header');
+  function onScroll(){ header.classList.toggle('is-scrolled', window.scrollY > 24); }
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  // mega menus
+  var pills = Array.prototype.slice.call(document.querySelectorAll('button.nav-pill'));
+  var timer, hoverAt = 0, current = null;
+  function openMenu(btn){
+    pills.forEach(function(b){
+      var m = document.getElementById(b.getAttribute('aria-controls'));
+      var on = b === btn;
+      b.setAttribute('aria-expanded', on ? 'true' : 'false');
+      if (m){ m.classList.toggle('is-open', on); if (on){ m.removeAttribute('inert'); m.setAttribute('aria-hidden','false'); } else { m.setAttribute('inert',''); m.setAttribute('aria-hidden','true'); } }
+    });
+    header.classList.toggle('is-open', !!btn);
+    current = btn;
+  }
+  pills.forEach(function(b){
+    b.addEventListener('click', function(){ var isOpen = b.getAttribute('aria-expanded') === 'true'; if (isOpen && Date.now() - hoverAt < 500) return; openMenu(isOpen ? null : b); });
+    b.addEventListener('pointerenter', function(e){ if (e.pointerType !== 'mouse') return; clearTimeout(timer); if (current !== b) hoverAt = Date.now(); openMenu(b); });
+  });
+  var navEl = document.querySelector('nav[aria-label="Main"]');
+  navEl.addEventListener('pointerleave', function(e){ if (e.pointerType !== 'mouse') return; clearTimeout(timer); timer = setTimeout(function(){ openMenu(null); }, 180); });
+  document.querySelectorAll('.mega').forEach(function(m){ m.addEventListener('pointerenter', function(){ clearTimeout(timer); }); });
+  document.addEventListener('pointerdown', function(e){ if (!e.target.closest('.site-header')) openMenu(null); });
+
+  // drawer
+  var drawer = document.getElementById('drawer');
+  function setDrawer(on){ drawer.classList.toggle('is-open', on); if (on) drawer.removeAttribute('inert'); else drawer.setAttribute('inert',''); document.documentElement.style.overflow = on ? 'hidden' : ''; }
+  document.querySelector('button[aria-label="Open menu"]').addEventListener('click', function(){ setDrawer(true); });
+  document.querySelector('button[aria-label="Close menu"]').addEventListener('click', function(){ setDrawer(false); });
+  document.querySelectorAll('.drawer__btn').forEach(function(b){
+    if (b.tagName !== 'BUTTON') return;
+    b.addEventListener('click', function(){
+      var open = b.getAttribute('aria-expanded') === 'true';
+      document.querySelectorAll('button.drawer__btn').forEach(function(o){ o.setAttribute('aria-expanded','false'); o.nextElementSibling && o.nextElementSibling.classList.remove('is-open'); });
+      if (!open){ b.setAttribute('aria-expanded','true'); b.nextElementSibling.classList.add('is-open'); }
+    });
+  });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape'){ openMenu(null); setDrawer(false); } });
+
+  // demo: only the Home page is included, so internal links show a note instead of a dead page
+  var toast = document.getElementById('demo-toast'), tt;
+  function say(msg){ toast.textContent = msg; toast.hidden = false; clearTimeout(tt); tt = setTimeout(function(){ toast.hidden = true; }, 3200); }
+  var views = { home: document.querySelector('[data-view="home"]'), brand: document.querySelector('[data-view="brand"]') };
+  var resPill = document.querySelector('button.nav-pill[aria-controls="mega-resources"]');
+  function show(name, push){
+    Object.keys(views).forEach(function(k){ views[k].hidden = k !== name; });
+    if (resPill) resPill.classList.toggle('is-current', name === 'brand');
+    openMenu(null); setDrawer(false);
+    if (push){ try { if (name === 'brand') location.hash = 'brand'; else history.replaceState(null, '', location.pathname + location.search); } catch(err){} }
+    window.scrollTo(0, 0);
+  }
+  var routes = { '/': 'home', '/company/brand/': 'brand' };
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href]'); if (!a) return;
+    var h = a.getAttribute('href');
+    if (routes[h]){ e.preventDefault(); show(routes[h], true); return; }
+    if (h.charAt(0) === '/' ){ e.preventDefault(); say('This demo includes the Home and Brand pages. The full site has this page at ' + h); }
+  });
+  window.addEventListener('hashchange', function(){
+    var hh = location.hash.slice(1);
+    if (hh === 'brand') show('brand', false);
+    else if (hh.indexOf('brand') === 0 && views.brand.hidden) { show('brand', false); var t = document.getElementById(hh); if (t) t.scrollIntoView(); }
+    else if (hh === '') show('home', false);
+  });
+  if (location.hash.slice(1).indexOf('brand') === 0) show('brand', false);
+
+  // copy buttons on the brand page
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-copy]'); if (!b) return;
+    var v = b.getAttribute('data-copy');
+    function done(){ say('Copied ' + v); }
+    try { navigator.clipboard.writeText(v).then(done, function(){ say(v + ' (select and copy it from the page)'); }); }
+    catch(err){ say(v + ' (select and copy it from the page)'); }
+  });
+
+  // hero sparks and stars
+  var canvas = document.querySelector('.hero__sparks'), hero = canvas && canvas.parentElement, wrap = hero && hero.querySelector('.hero__ring');
+  if (!canvas || !wrap) return;
+  var ctx = canvas.getContext('2d'), VB_W = 1600, VB_Y = 200, CY = 1060, R = 760;
+  var w=0,h=0,ring={cx:0,cy:0,r:0},stars=[],sparks=[],start=performance.now(),last=start,acc=0;
+  function measure(){
+    var dpr = Math.min(window.devicePixelRatio||1,2); w = hero.clientWidth; h = hero.clientHeight;
+    canvas.width = Math.round(w*dpr); canvas.height = Math.round(h*dpr); ctx.setTransform(dpr,0,0,dpr,0,0);
+    var k = wrap.offsetWidth / VB_W, top = wrap.getBoundingClientRect().top - hero.getBoundingClientRect().top;
+    ring = {cx:w/2, cy:top+(CY-VB_Y)*k, r:R*k};
+    var n = Math.round(w*h/5200); stars = [];
+    for (var i=0;i<n;i++) stars.push({x:Math.random()*w,y:Math.random()*h,s:Math.random()<.08?1.3+Math.random()*.7:.4+Math.random()*.7,p:Math.random()*6.28,f:.4+Math.random()*1.4});
+  }
+  function emit(){
+    var t=(Math.random()+Math.random()-1)*1.25, nx=Math.sin(t), ny=-Math.cos(t), j=(Math.random()-.5)*ring.r*.05;
+    sparks.push({x:ring.cx+nx*(ring.r+j),y:ring.cy+ny*(ring.r+j),vx:nx*(6+Math.random()*14)+(Math.random()-.5)*6,vy:ny*(10+Math.random()*18)-(8+Math.random()*16),life:2.2+Math.random()*3.2,age:0,s:.6+Math.random()*1.5});
+  }
+  function frame(now){
+    var dt=Math.min((now-last)/1000,.05); last=now; var t=(now-start)/1000;
+    ctx.clearRect(0,0,w,h);
+    stars.forEach(function(s){ var inside=Math.hypot(s.x-ring.cx,s.y-ring.cy)<ring.r-30; var tw=reduce?.7:.55+.45*Math.sin(t*s.f+s.p); ctx.fillStyle='rgba(232,226,210,'+((inside?.25:.7)*tw).toFixed(3)+')'; ctx.fillRect(s.x,s.y,s.s,s.s); });
+    if (!reduce && t>1.4){ acc+=dt; var rate=w<700?.09:.05; while(acc>rate){ emit(); acc-=rate; } }
+    for (var i=sparks.length-1;i>=0;i--){ var p=sparks[i]; p.age+=dt; if(p.age>p.life){ sparks.splice(i,1); continue; }
+      p.x+=p.vx*dt; p.y+=p.vy*dt; p.vx*=.995; var a=Math.sin(Math.PI*Math.min(1,p.age/p.life))*.9;
+      var g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.s*4); g.addColorStop(0,'rgba(255,240,196,'+a.toFixed(3)+')'); g.addColorStop(.35,'rgba(241,216,148,'+(a*.45).toFixed(3)+')'); g.addColorStop(1,'rgba(196,154,69,0)');
+      ctx.fillStyle=g; ctx.beginPath(); ctx.arc(p.x,p.y,p.s*4,0,6.283); ctx.fill(); }
+    if (!reduce) requestAnimationFrame(frame);
+  }
+  measure(); new ResizeObserver(measure).observe(hero); requestAnimationFrame(frame);
+})();
+</script>
+
+</body></html>
