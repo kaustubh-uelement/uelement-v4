@@ -3,7 +3,7 @@
 export const company = {
   name: 'UElement Technologies Private Limited',
   short: 'UElement',
-  tagline: 'Sovereign DeepTech systems for Resilient Enterprise.',
+  tagline: 'Sovereign DeepTech systems for Resilient Enterprises.',
   statement: 'No Plan B. No Planet B.',
   devanagari: 'सशक्त · सक्षम · सुरक्षित',
   email: 'contact@uelement.in',

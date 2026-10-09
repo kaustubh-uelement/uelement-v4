@@ -144,11 +144,9 @@ export function HeroRing() {
       <div className="ring-rise">
         <svg viewBox={`0 ${VB_Y} ${VB_W} ${VB_H}`} fill="none">
             <defs>
-              <linearGradient id="hr-tick" gradientUnits="userSpaceOnUse" x1="0" y1="300" x2="0" y2="820">
-                <stop offset="0" stopColor="#FFF4D0" />
-                <stop offset=".22" stopColor="#F1D894" />
-                <stop offset=".55" stopColor="#C49A45" stopOpacity=".75" />
-                <stop offset="1" stopColor="#8A6522" stopOpacity=".15" />
+              <linearGradient id="hr-tick" gradientUnits="userSpaceOnUse" x1="0" y1="200" x2="0" y2="1000">
+                <stop offset="0" stopColor="#FFF4D0" stopOpacity="0.85" />
+                <stop offset="100%" stopColor="#DDBB6E" stopOpacity="0.85" />
               </linearGradient>
               <radialGradient id="hr-fade" gradientUnits="userSpaceOnUse" cx="800" cy="300" r="760">
                 <stop offset="0" stopColor="#fff" />
@@ -179,6 +177,7 @@ export function HeroRing() {
               </filter>
             </defs>
 
+            {/* interior haze and halo */}
             <g mask="url(#hr-mask)">
               {/* interior haze */}
               <circle cx={CX} cy={CY} r={R - 40} fill="url(#hr-core)" />
@@ -194,48 +193,48 @@ export function HeroRing() {
                 <circle cx={CX} cy={CY} r={R - 118} stroke="#DDBB6E" strokeOpacity=".35" strokeWidth="2" strokeDasharray="140 50 24 50" />
               </g>
               <circle cx={CX} cy={CY} r={R - 150} stroke="#C49A45" strokeOpacity=".16" strokeWidth="1" />
+            </g>
 
-              {/* segmented chakra ring rotating anticlockwise */}
-              <g className="ring-spin ring-spin--outer">
-                <circle cx={CX} cy={CY} r={R} stroke="url(#hr-tick)" strokeWidth="58" strokeDasharray={TICKS} filter="url(#hr-blur-sm)" opacity=".7" />
-                <circle cx={CX} cy={CY} r={R} stroke="url(#hr-tick)" strokeWidth="58" strokeDasharray={TICKS} />
-                <circle cx={CX} cy={CY} r={R + 52} stroke="#DDBB6E" strokeOpacity=".18" strokeWidth="1" strokeDasharray="2 10" />
-              </g>
+            {/* segmented chakra ring rotating anticlockwise with constant solid color */}
+            <g className="ring-spin ring-spin--outer">
+              <circle cx={CX} cy={CY} r={R} stroke="#DDBB6E" strokeOpacity=".35" strokeWidth="58" strokeDasharray={TICKS} filter="url(#hr-blur-sm)" />
+              <circle cx={CX} cy={CY} r={R} stroke="#DDBB6E" strokeOpacity=".8" strokeWidth="58" strokeDasharray={TICKS} />
+              <circle cx={CX} cy={CY} r={R + 52} stroke="#DDBB6E" strokeOpacity=".25" strokeWidth="1" strokeDasharray="2 10" />
+            </g>
 
-              {/* edges */}
-              <circle cx={CX} cy={CY} r={R - 31} stroke="#F6E3A6" strokeWidth="6" strokeOpacity=".55" filter="url(#hr-blur-sm)" />
-              <circle cx={CX} cy={CY} r={R - 31} stroke="#FFF4D0" strokeWidth="1.6" />
-              <circle cx={CX} cy={CY} r={R + 33} stroke="#DDBB6E" strokeOpacity=".45" strokeWidth="1" />
+            {/* edges */}
+            <circle cx={CX} cy={CY} r={R - 31} stroke="#F6E3A6" strokeWidth="6" strokeOpacity=".55" filter="url(#hr-blur-sm)" />
+            <circle cx={CX} cy={CY} r={R - 31} stroke="#FFF4D0" strokeWidth="1.6" />
+            <circle cx={CX} cy={CY} r={R + 33} stroke="#DDBB6E" strokeOpacity=".45" strokeWidth="1" />
 
-              {/* light sweep, masked to the ticks so it reads as the segments lighting up */}
-              <g mask="url(#hr-ticks)">
-                <g className="ring-sweep">
-                  <circle
-                    cx={CX}
-                    cy={CY}
-                    r={R}
-                    stroke="#FFFBEA"
-                    strokeWidth="60"
-                    strokeDasharray="360 6000"
-                    strokeDashoffset="180"
-                    transform={`rotate(-90 ${CX} ${CY})`}
-                  />
-                </g>
-              </g>
+            {/* light sweep, masked to the ticks so it reads as the segments lighting up */}
+            <g mask="url(#hr-ticks)">
               <g className="ring-sweep">
                 <circle
                   cx={CX}
                   cy={CY}
                   r={R}
-                  stroke="#F6E3A6"
-                  strokeOpacity=".3"
-                  strokeWidth="76"
-                  strokeDasharray="300 6000"
-                  strokeDashoffset="150"
+                  stroke="#FFFBEA"
+                  strokeWidth="60"
+                  strokeDasharray="360 6000"
+                  strokeDashoffset="180"
                   transform={`rotate(-90 ${CX} ${CY})`}
-                  filter="url(#hr-blur-md)"
                 />
               </g>
+            </g>
+            <g className="ring-sweep">
+              <circle
+                cx={CX}
+                cy={CY}
+                r={R}
+                stroke="#F6E3A6"
+                strokeOpacity=".3"
+                strokeWidth="76"
+                strokeDasharray="300 6000"
+                strokeDashoffset="150"
+                transform={`rotate(-90 ${CX} ${CY})`}
+                filter="url(#hr-blur-md)"
+              />
             </g>
           </svg>
       </div>

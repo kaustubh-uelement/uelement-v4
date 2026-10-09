@@ -574,15 +574,31 @@ ul, ol { margin: 0; padding: 0; }
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
   flex: none;
-  color: var(--paper);
   text-decoration: none;
-  padding-right: 4px;
+  padding-left: 6px;
+  padding-right: 8px;
 }
-.logo__mark { width: 28px; height: 28px; flex: none; }
-.logo__word { font-size: 16.5px; font-weight: 650; letter-spacing: -0.02em; line-height: 1; }
-.logo__sub { display: none; }
+.logo__img {
+  height: 18px;
+  width: auto;
+  max-width: none;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+}
+.footer-brand .logo {
+  padding: 0;
+}
+.footer-brand .logo__img {
+  height: 24px;
+}
+.drawer__top .logo {
+  padding: 0;
+}
+.drawer__top .logo__img {
+  height: 22px;
+}
 
 .nav-main {
   position: static;
@@ -851,11 +867,11 @@ a.mega__title:hover { color: var(--gold-pale); }
   flex: 1;
   width: 100%;
   min-height: clamp(250px, 36vh, 440px);
-  margin-top: clamp(8px, 2vh, 28px);
+  margin-top: clamp(0px, 1.5vh, 16px);
 }
 .hero__ring {
   position: absolute;
-  top: 0;
+  top: -36px;
   left: 50%;
   width: clamp(780px, 122%, 2100px);
   transform: translateX(-50%);

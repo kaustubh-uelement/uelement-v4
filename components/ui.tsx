@@ -21,27 +21,17 @@ export function StatusBadge({ status }: { status: Status }) {
   return <span className={`status status--${statusTone[status]}`}>{status}</span>;
 }
 
-// Replace the mark below with UElement's official logo file when it is available.
-export function Logo() {
+export function Logo({ className = '' }: { className?: string }) {
   return (
-    <Link href="/" className="logo" aria-label="UElement home">
-      <svg className="logo__mark" viewBox="0 0 40 40" aria-hidden="true">
-        <defs>
-          <linearGradient id="lm" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#F6E3A6" />
-            <stop offset=".45" stopColor="#C49A45" />
-            <stop offset=".75" stopColor="#F1D894" />
-            <stop offset="1" stopColor="#8F6A28" />
-          </linearGradient>
-        </defs>
-        <circle cx="20" cy="20" r="18.5" fill="none" stroke="url(#lm)" strokeWidth="1.4" strokeDasharray="1.6 2.4" />
-        <path d="M12.5 11v9.5a7.5 7.5 0 0 0 15 0V11" fill="none" stroke="url(#lm)" strokeWidth="3.4" strokeLinecap="round" />
-        <circle cx="20" cy="11" r="2.2" fill="url(#lm)" />
-      </svg>
-      <span>
-        <span className="logo__word">UElement</span>
-        <span className="logo__sub">सशक्त सक्षम सुरक्षित</span>
-      </span>
+    <Link href="/" className={`logo ${className}`.trim()} aria-label="UElement home">
+      <img
+        src="/logo.png"
+        alt="UElement"
+        className="logo__img"
+        width={136}
+        height={20}
+        loading="eager"
+      />
     </Link>
   );
 }

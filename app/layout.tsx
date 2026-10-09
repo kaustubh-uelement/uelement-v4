@@ -15,6 +15,17 @@ export const metadata: Metadata = {
   },
   description:
     'UElement is a DeepTech company from Pune, India, building quantum-safe security, an enterprise data platform and sovereign edge AI for the systems that cannot fail.',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon-32.png', type: 'image/png', sizes: '32x32' },
+      { url: '/icon-192.png', type: 'image/png', sizes: '192x192' },
+      { url: '/icon.png', type: 'image/png', sizes: '512x512' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
   openGraph: {
     type: 'website',
     siteName: 'UElement',
