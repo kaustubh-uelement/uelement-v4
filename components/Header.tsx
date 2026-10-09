@@ -104,7 +104,13 @@ export function Header() {
           <Logo />
 
           <nav aria-label="Main" style={{ position: 'relative' }} onPointerLeave={hoverClose}>
-            <div className="nav-pills">
+            <div
+              className="nav-pills"
+              style={{
+                backdropFilter: 'blur(24px) saturate(190%)',
+                WebkitBackdropFilter: 'blur(24px) saturate(190%)',
+              }}
+            >
               {nav.map((m) => {
                 const id = `mega-${m.label.replace(/\W+/g, '-').toLowerCase()}`;
                 const isOpen = open === m.label;
@@ -141,7 +147,12 @@ export function Header() {
                   key={m.label}
                   id={id}
                   className={`mega${open === m.label ? ' is-open' : ''}`}
-                  style={{ ['--mega-w' as string]: `${megaWidth[m.label] ?? 860}px`, ['--cols' as string]: cols } as React.CSSProperties}
+                  style={{
+                    ['--mega-w' as string]: `${megaWidth[m.label] ?? 860}px`,
+                    ['--cols' as string]: cols,
+                    backdropFilter: 'blur(32px) saturate(190%)',
+                    WebkitBackdropFilter: 'blur(32px) saturate(190%)',
+                  } as React.CSSProperties}
                   onPointerEnter={() => window.clearTimeout(closeTimer.current)}
                   aria-hidden={open !== m.label}
                   inert={open !== m.label ? true : undefined}
@@ -187,17 +198,46 @@ export function Header() {
             <Link className="btn btn--metal btn--sm header-cta" href="/support/demo/">
               Book a demo
             </Link>
-            <button className="menu-btn" aria-label="Open menu" aria-expanded={drawer} aria-controls="drawer" onClick={() => setDrawer(true)}>
+            <button
+              className="menu-btn"
+              aria-label="Open menu"
+              aria-expanded={drawer}
+              aria-controls="drawer"
+              onClick={() => setDrawer(true)}
+              style={{
+                backdropFilter: 'blur(24px) saturate(190%)',
+                WebkitBackdropFilter: 'blur(24px) saturate(190%)',
+              }}
+            >
               <Icon name="menu" />
             </button>
           </div>
         </div>
       </header>
 
-      <div id="drawer" className={`drawer${drawer ? ' is-open' : ''}`} role="dialog" aria-modal="true" aria-label="Menu" inert={!drawer ? true : undefined}>
+      <div
+        id="drawer"
+        className={`drawer${drawer ? ' is-open' : ''}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
+        inert={!drawer ? true : undefined}
+        style={{
+          backdropFilter: 'blur(28px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(28px) saturate(180%)',
+        }}
+      >
         <div className="drawer__top">
           <Logo />
-          <button className="menu-btn" aria-label="Close menu" onClick={() => setDrawer(false)}>
+          <button
+            className="menu-btn"
+            aria-label="Close menu"
+            onClick={() => setDrawer(false)}
+            style={{
+              backdropFilter: 'blur(24px) saturate(190%)',
+              WebkitBackdropFilter: 'blur(24px) saturate(190%)',
+            }}
+          >
             <Icon name="close" />
           </button>
         </div>
