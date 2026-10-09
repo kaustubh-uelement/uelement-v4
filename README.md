@@ -27,7 +27,7 @@ Upload the contents of `out/` to any static host (Netlify, Vercel, Cloudflare Pa
 
 ## Forms
 
-Forms work without a backend: they open the visitor's email app with the message written out to `contact@uelement.in`.
+Forms work without a backend: they open the visitor's email app with the message written out to `contact@uelement.co`.
 To receive submissions directly, set `formEndpoint` in `lib/site.ts` to a form service URL (Formspree, Basin, Web3Forms or your own API).
 
 ## Before launch

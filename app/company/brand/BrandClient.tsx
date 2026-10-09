@@ -801,7 +801,7 @@ export function BrandClient() {
                 </div>
                 <div>
                   <dt>Website</dt>
-                  <dd>www.uelement.in</dd>
+                  <dd>www.uelement.co</dd>
                 </div>
                 <div>
                   <dt>Phone</dt>

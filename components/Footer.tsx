@@ -53,13 +53,16 @@ const cols: { title: string; links: FooterLinkItem[] }[] = [
 const socialLinks = [
   { name: 'linkedin' as const, label: 'LinkedIn', href: company.socials?.linkedin || 'https://www.linkedin.com/company/uelement/' },
   { name: 'github' as const, label: 'GitHub', href: company.socials?.github || 'https://github.com/uelement' },
-  { name: 'instagram' as const, label: 'Instagram', href: company.socials?.instagram || 'https://www.instagram.com/uelement.in/' },
+  { name: 'instagram' as const, label: 'Instagram', href: company.socials?.instagram || 'https://www.instagram.com/uelement_technologies/' },
   { name: 'twitter' as const, label: 'Twitter / X', href: company.socials?.twitter || 'https://x.com/uelement_in' },
 ];
 
 export function Footer() {
   return (
     <footer className="site-footer">
+      <div className="footer-bg-watermark" aria-hidden="true">
+        <img src="/logo.png" alt="" className="footer-bg-watermark__img" />
+      </div>
       <div className="wrap">
         <div className="footer-top">
           <div className="footer-brand">
