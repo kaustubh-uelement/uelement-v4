@@ -24,7 +24,6 @@ export function HeroSparks() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let w = 0, h = 0, dpr = 1, raf = 0, visible = true;
     let ring = { cx: 0, cy: 0, r: 0 };
     const start = performance.now();
@@ -84,13 +83,13 @@ export function HeroSparks() {
       for (const s of stars) {
         const dx = s.x - ring.cx, dy = s.y - ring.cy;
         const inside = Math.hypot(dx, dy) < ring.r - 30;
-        const tw = reduce ? 0.7 : 0.55 + 0.45 * Math.sin(t * s.f + s.p);
+        const tw = 0.55 + 0.45 * Math.sin(t * s.f + s.p);
         const a = (inside ? 0.25 : 0.7) * tw * (s.y < h * 0.12 ? 0.5 : 1);
         ctx.fillStyle = `rgba(232, 226, 210, ${a.toFixed(3)})`;
         ctx.fillRect(s.x, s.y, s.s, s.s);
       }
 
-      if (!reduce && t > 1.4) {
+      if (t > 1.4) {
         acc += dt;
         const rate = w < 700 ? 0.09 : 0.05;
         while (acc > rate) { emit(); acc -= rate; }
@@ -115,16 +114,16 @@ export function HeroSparks() {
         ctx.fill();
       }
 
-      if (!reduce && visible) raf = requestAnimationFrame(frame);
+      if (visible) raf = requestAnimationFrame(frame);
     };
 
     measure();
-    const ro = new ResizeObserver(() => { measure(); if (reduce) frame(performance.now()); });
+    const ro = new ResizeObserver(() => { measure(); });
     ro.observe(hero);
     const io = new IntersectionObserver(([e]) => {
       const was = visible;
       visible = e.isIntersecting;
-      if (visible && !was && !reduce) { last = performance.now(); raf = requestAnimationFrame(frame); }
+      if (visible && !was) { last = performance.now(); raf = requestAnimationFrame(frame); }
     });
     io.observe(hero);
     raf = requestAnimationFrame(frame);

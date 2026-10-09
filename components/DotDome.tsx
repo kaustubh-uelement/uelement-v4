@@ -12,7 +12,6 @@ export function DotDome({ density = 1400 }: { density?: number }) {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const n = density;
     // Fibonacci sphere
     const pts: [number, number, number][] = [];
@@ -80,7 +79,7 @@ export function DotDome({ density = 1400 }: { density?: number }) {
     const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; });
     io.observe(canvas);
     resize();
-    if (!reduce) raf = requestAnimationFrame(loop);
+    raf = requestAnimationFrame(loop);
 
     return () => {
       cancelAnimationFrame(raf);

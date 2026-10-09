@@ -31,6 +31,12 @@ const whatWeDo: { icon: IconName; title: string; text: string; href: string; lin
 
 const commitIcons: IconName[] = ['shield', 'eye', 'leaf', 'people', 'star'];
 
+const heroPillBadges = [
+  { label: 'Quantum', short: 'Q', href: '/platforms/u92-quantum/' },
+  { label: 'Enterprise', short: 'E', href: '/platforms/u92-enterprise/' },
+  { label: 'Deeptech', short: 'D', href: '/platforms/u92-deeptech/' },
+];
+
 export default function Home() {
   return (
     <>
@@ -40,11 +46,18 @@ export default function Home() {
         <div className="wrap hero__inner">
           <div className="hero-seq" style={{ ['--i' as string]: 0 } as React.CSSProperties}>
             <span className="proof">
-              <span className="proof__faces" aria-hidden="true">
-                {founders.map((f) => (
-                  <span className="medal" key={f.initials}>
-                    {f.initials}
-                  </span>
+              <span className="proof__faces" aria-label="Platforms: Quantum, Enterprise, Deeptech">
+                {heroPillBadges.map((b) => (
+                  <Link
+                    href={b.href}
+                    className="proof__badge"
+                    key={b.label}
+                    title={b.label}
+                    aria-label={b.label}
+                  >
+                    <span className="proof__badge-short">{b.short}</span>
+                    <span className="proof__badge-full">{b.label}</span>
+                  </Link>
                 ))}
               </span>
               <span className="proof__text">
@@ -70,12 +83,6 @@ export default function Home() {
         </div>
         <div className="hero__stage">
           <HeroRing />
-          <div className="hero__horizon hero-seq" style={{ ['--i' as string]: 6 } as React.CSSProperties}>
-            <p className="hero__statement">{company.statement}</p>
-            <p className="hero__motto" lang="hi">
-              {company.devanagari}
-            </p>
-          </div>
         </div>
       </section>
 
