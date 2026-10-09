@@ -771,6 +771,276 @@ a.mega__title:hover { color: var(--gold-pale); }
   color: rgba(220, 230, 248, 0.85);
 }
 
+/* Platforms mega dropdown layout */
+.mega--platforms {
+  padding: 22px 28px 20px 28px;
+}
+
+.mega-platform {
+  display: flex;
+  flex-direction: column;
+}
+
+.mega-platform__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mega-platform__tag {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgba(220, 230, 248, 0.6);
+}
+
+.mega-platform__body {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 22px;
+  align-items: stretch;
+}
+
+.mega-platform__tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  padding-right: 16px;
+}
+
+.mega-platform__tab-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: rgba(220, 230, 248, 0.75);
+  font-size: 14.5px;
+  font-weight: 550;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.mega-platform__tab-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+}
+
+.mega-platform__tab-btn.is-active {
+  background: linear-gradient(135deg, rgba(241, 216, 148, 0.16) 0%, rgba(255, 255, 255, 0.06) 100%);
+  border-color: rgba(241, 216, 148, 0.3);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 4px 14px -4px rgba(0, 0, 0, 0.4);
+}
+
+.mega-platform__tab-chev {
+  width: 13px;
+  height: 13px;
+  opacity: 0.5;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.mega-platform__tab-btn:hover .mega-platform__tab-chev {
+  opacity: 0.9;
+  transform: translateX(2px);
+}
+
+.mega-platform__tab-btn.is-active .mega-platform__tab-chev {
+  opacity: 1;
+  color: var(--gold-soft);
+  transform: translateX(2px);
+}
+
+.mega-platform__content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 290px;
+}
+
+.mega-platform__hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.mega-platform__hero-info {
+  flex: 1;
+}
+
+.mega-platform__hero-title {
+  font-size: 17.5px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  margin: 0 0 4px 0;
+}
+
+.mega-platform__hero-desc {
+  font-size: 12.5px;
+  color: rgba(210, 222, 245, 0.78);
+  line-height: 1.45;
+  margin: 0;
+  max-width: 520px;
+}
+
+.mega-platform__hero-btn {
+  flex: none;
+  font-size: 13px;
+  height: 36px;
+  padding: 0 18px;
+}
+
+.mega-platform__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.mega-platform__card {
+  display: flex;
+  flex-direction: column;
+  padding: 13px 15px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: background 0.22s ease, border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+  text-decoration: none;
+}
+
+.mega-platform__card:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(241, 216, 148, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.mega-platform__card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+
+.mega-platform__card-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(210, 222, 245, 0.65);
+  letter-spacing: 0.05em;
+}
+
+.mega-platform__card-badge {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 999px;
+  line-height: 1.3;
+}
+
+.mega-platform__card-badge--gold {
+  background: rgba(221, 187, 110, 0.14);
+  color: #f1d894;
+  border: 1px solid rgba(221, 187, 110, 0.35);
+}
+
+.mega-platform__card-badge--green {
+  background: rgba(34, 197, 94, 0.14);
+  color: #86efac;
+  border: 1px solid rgba(34, 197, 94, 0.35);
+}
+
+.mega-platform__card-badge--blue {
+  background: rgba(96, 165, 250, 0.14);
+  color: #93c5fd;
+  border: 1px solid rgba(96, 165, 250, 0.35);
+}
+
+.mega-platform__card-badge--slate {
+  background: rgba(148, 163, 184, 0.12);
+  color: #cbd5e1;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.mega-platform__card-title {
+  font-size: 14px;
+  font-weight: 650;
+  color: #ffffff;
+  line-height: 1.3;
+  margin: 0 0 4px 0;
+  transition: color 0.2s;
+}
+
+.mega-platform__card:hover .mega-platform__card-title {
+  color: var(--gold-pale);
+}
+
+.mega-platform__card-summary {
+  font-size: 11.5px;
+  color: rgba(200, 215, 240, 0.72);
+  line-height: 1.42;
+  margin: 0;
+}
+
+.mega-platform__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 32px;
+  padding-top: 14px;
+  margin-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.mega-platform__footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(220, 230, 248, 0.8);
+  transition: color 0.2s;
+  text-decoration: none;
+}
+
+.mega-platform__footer-link svg {
+  width: 12px;
+  height: 12px;
+  color: var(--gold-soft);
+  transition: transform 0.2s;
+}
+
+.mega-platform__footer-link:hover {
+  color: #ffffff;
+}
+
+.mega-platform__footer-link:hover svg {
+  transform: translateX(3px);
+}
+
 /* Mobile drawer */
 .drawer {
   position: fixed;
