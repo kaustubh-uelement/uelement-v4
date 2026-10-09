@@ -9,8 +9,8 @@ import { Logo } from './ui';
 
 const megaWidth: Record<string, number> = {
   Platforms: 1060,
-  Solutions: 760,
-  Services: 760,
+  Solutions: 1060,
+  Services: 1060,
   'Why UElement': 460,
   Resources: 1100,
 };
@@ -152,6 +152,149 @@ const platformsData = [
   },
 ];
 
+const solutionsData = [
+  {
+    id: 'industries',
+    tabLabel: 'For Industries',
+    title: 'UElement for Industries',
+    summary: 'Security and sovereign intelligence tuned for your industry.',
+    ctaText: 'See All Industries →',
+    ctaHref: '/solutions/industries/',
+    gridCols: 4,
+    items: [
+      { title: 'BFSI', summary: 'Quantum-safe banking & RBI/SEBI compliant posture.', href: '/solutions/industries/bfsi/' },
+      { title: 'Capital Markets', summary: 'Deterministic low-latency trading & zero-trust custody.', href: '/solutions/industries/capital-markets/' },
+      { title: 'IT Software', summary: 'Digital fabric, identity federation & AI governance.', href: '/solutions/industries/it-software/' },
+      { title: 'Healthcare & Pharma', summary: 'HIPAA/DPDP records & serialized drug provenance.', href: '/solutions/industries/healthcare-pharma/' },
+      { title: 'Government & PSUs', summary: 'Sovereign cloud & CERT-In readiness.', href: '/solutions/industries/government-psus/' },
+      { title: 'Aerospace & Defence', summary: 'Tactical DDIL autonomy & anti-jam mesh.', href: '/solutions/industries/aerospace-defence/' },
+      { title: 'Manufacturing', summary: 'Purdue-native telemetry across 40+ OT protocols.', href: '/solutions/industries/manufacturing/' },
+      { title: 'Startup & SMEs', summary: 'Rapid digital front door & elastic fabric.', href: '/solutions/industries/startups-smes/' },
+      { title: 'Satellite & Telecom', summary: 'Space-to-ground QKD & resilient 5G mesh.', href: '/solutions/industries/satellite-telecom/' },
+      { title: 'Energy & Gas', summary: 'SCADA security & critical grid telemetry.', href: '/solutions/industries/energy-gas/' },
+      { title: 'Water & Public Infra', summary: 'Municipal SCADA security & IoT asset control.', href: '/solutions/industries/water-public-infra/' },
+      { title: 'Datacenter', summary: 'Rack unit metering & custody telemetry.', href: '/solutions/industries/data-centres/' },
+      { title: 'Retail & Ecommerce', summary: 'High-concurrency storefronts & fraud defense.', href: '/solutions/industries/retail-ecommerce/' },
+      { title: 'Logistics & Supply Chain', summary: 'End-to-end custody tracking & yard automation.', href: '/solutions/industries/logistics-supply-chain/' },
+      { title: 'Environment', summary: 'Emissions telemetry & sensor audit provenance.', href: '/solutions/industries/environment/' },
+      { title: 'Agriculture', summary: 'Edge AI crop sensing & irrigation telemetry.', href: '/solutions/industries/agriculture/' },
+      { title: 'Education', summary: 'Campus zero-trust identity & student privacy.', href: '/solutions/industries/education/' },
+      { title: 'Consulting & Services', summary: 'Client portals, verified security posture & brand presence.', href: '/solutions/industries/consulting-services/' },
+    ],
+  },
+  {
+    id: 'business-transformation',
+    tabLabel: 'For Business Transformation',
+    title: 'Business Transformation',
+    summary: 'Modernise how you sell, serve and operate, starting with everything your customers see.',
+    ctaText: 'Explore Transformation →',
+    ctaHref: '/solutions/business-transformation/',
+    gridCols: 3,
+    items: [
+      { title: 'Digital Front Door', summary: 'Websites, SEO, GenAI search and mobile apps on one platform.', href: '/solutions/business-transformation/' },
+      { title: 'Workflows & Automation', summary: 'Content workflows, agentic AI assistants and end-to-end business logic.', href: '/solutions/business-transformation/' },
+      { title: 'Multi-Channel Portals', summary: 'Applicant tracking, partner, dealer and customer support portals.', href: '/solutions/business-transformation/' },
+      { title: 'Brand & Social Management', summary: 'Social media, brand assets, and multi-agency governance.', href: '/solutions/business-transformation/' },
+      { title: 'Unified Identity', summary: 'Single customer and partner sign-in layer across all properties.', href: '/solutions/business-transformation/' },
+      { title: 'Operational Visibility', summary: 'One unified view of customer journeys, costs and analytics.', href: '/solutions/business-transformation/' },
+    ],
+  },
+  {
+    id: 'enterprise-security',
+    tabLabel: 'For Enterprise Security',
+    title: 'Enterprise Security',
+    summary: 'Become quantum-safe, see every system and produce compliance evidence as you operate.',
+    ctaText: 'Explore Security →',
+    ctaHref: '/solutions/enterprise-security/',
+    gridCols: 3,
+    items: [
+      { title: 'Cryptographic Inventory', summary: 'Build a CBOM to identify every vulnerable key, certificate and algorithm.', href: '/solutions/enterprise-security/' },
+      { title: 'Post-Quantum Migration', summary: 'Migrate to NIST PQC standards with hybrid TLS and zero downtime.', href: '/solutions/enterprise-security/' },
+      { title: 'Crypto-Agility', summary: 'Rotate algorithms via policy configuration rather than application rewrites.', href: '/solutions/enterprise-security/' },
+      { title: 'Unified Observability', summary: 'Single telemetry fabric across 7 enterprise dimensions in IT and OT.', href: '/solutions/enterprise-security/' },
+      { title: 'Automated Compliance', summary: 'Continuous evidence generation for RBI, SEBI CSCRF, CERT-In and DPDP.', href: '/solutions/enterprise-security/' },
+      { title: 'xBOM On Demand', summary: 'Software, crypto, quantum and AI bills of materials generated automatically.', href: '/solutions/enterprise-security/' },
+    ],
+  },
+  {
+    id: 'edge-ai',
+    tabLabel: 'For Edge AI',
+    title: 'Edge AI',
+    summary: 'AI and networks that keep working where connectivity fails. We turn the edge into the cloud.',
+    ctaText: 'Explore Edge AI →',
+    ctaHref: '/solutions/edge-ai/',
+    gridCols: 3,
+    items: [
+      { title: 'Offline-Capable AI', summary: 'Light and Standard local OS builds running inference directly on edge devices.', href: '/solutions/edge-ai/' },
+      { title: 'Agentic Field Ops', summary: 'Command & control coordinating teams and field machines with human oversight.', href: '/solutions/edge-ai/' },
+      { title: 'Self-Healing Mesh', summary: 'Decentralized networks that automatically reroute links when nodes drop out.', href: '/solutions/edge-ai/' },
+      { title: 'Tamper-Evident Custody', summary: 'Immutable audit ledgers tracking custody, provenance and sensor proof.', href: '/solutions/edge-ai/' },
+      { title: 'Tactical DDIL Autonomy', summary: 'Built for disconnected, intermittent, and limited-bandwidth environments.', href: '/solutions/edge-ai/' },
+      { title: 'Sensor Mesh Arrays', summary: 'Distributed environmental, agricultural and industrial grid telemetry.', href: '/solutions/edge-ai/' },
+    ],
+  },
+];
+
+const servicesData = {
+  title: 'Managed & Engineering Services',
+  summary: 'Sovereign deeptech, post-quantum defense, and autonomous edge intelligence engineered for your mission.',
+  ctaText: 'Explore All Services →',
+  ctaHref: '/services/',
+  items: [
+    {
+      title: 'Enterprise Security',
+      summary: 'Post-quantum migration, cryptographic inventory & zero-trust posture.',
+      href: '/services/enterprise-security/',
+    },
+    {
+      title: 'Business Transformation',
+      summary: 'Modernize core platforms, automate workflows & unify legacy systems.',
+      href: '/services/business-transformation/',
+    },
+    {
+      title: 'Infrastructure',
+      summary: 'Sovereign cloud, hybrid compute, HSM lifecycle & datacenter metering.',
+      href: '/services/infrastructure/',
+    },
+    {
+      title: 'Edge AI and Advisory',
+      summary: 'Tactical DDIL model optimization, sensor integration & edge OS deployment.',
+      href: '/services/edge-ai-advisory/',
+    },
+    {
+      title: 'Quantum Application Development & Consulting',
+      summary: 'PQC algorithm integration, QKD network planning & quantum readiness audits.',
+      href: '/services/quantum-applications/',
+    },
+    {
+      title: 'SaaS Product Engineering',
+      summary: 'Full-stack multi-tenant architectures, digital front doors & scalable APIs.',
+      href: '/services/saas-engineering/',
+    },
+    {
+      title: 'AI Application Development',
+      summary: 'Domain-specific fine-tuning, RAG pipelines, agentic orchestration & evaluation harnesses.',
+      href: '/services/ai-applications/',
+    },
+    {
+      title: 'Telecom & Satellite Communication',
+      summary: 'Optical quantum links, space-to-ground key exchange & resilient mesh networks.',
+      href: '/services/telecom-satcom/',
+    },
+    {
+      title: 'MVP Product Design & Prototyping',
+      summary: 'Rapid 0-to-1 prototype build, architecture validation & production-ready PoVs.',
+      href: '/services/mvp-prototyping/',
+    },
+  ],
+  footer: {
+    heading: 'Looking for custom deeptech consulting or advisory?',
+    subtext: 'Our deeptech architects and engineers are here to partner with your team.',
+    ctaText: 'Schedule an Advisory Session',
+    ctaHref: '/contact/',
+  },
+};
+
 const megaFoot: Record<string, { text: string; label: string; href: string }> = {
   Platforms: { text: 'Every product carries an honest maturity label.', label: 'All platforms', href: '/platforms/' },
   Solutions: { text: 'Eighteen industries, three solution areas.', label: 'All solutions', href: '/solutions/' },
@@ -173,6 +316,7 @@ export function Header() {
   const pathname = usePathname() || '/';
   const [open, setOpen] = useState<string | null>(null);
   const [activePlatformTab, setActivePlatformTab] = useState('u92-quantum');
+  const [activeSolutionTab, setActiveSolutionTab] = useState('industries');
   const [drawer, setDrawer] = useState(false);
   const [acc, setAcc] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
@@ -236,6 +380,7 @@ export function Header() {
   };
 
   const currentPlatform = platformsData.find((p) => p.id === activePlatformTab) || platformsData[0];
+  const currentSolution = solutionsData.find((s) => s.id === activeSolutionTab) || solutionsData[0];
 
   return (
     <>
@@ -299,6 +444,8 @@ export function Header() {
         {nav.map((m) => {
           const id = `mega-${m.label.replace(/\W+/g, '-').toLowerCase()}`;
           const isPlatforms = m.label === 'Platforms';
+          const isSolutions = m.label === 'Solutions';
+          const isServices = m.label === 'Services';
           const foot = megaFoot[m.label];
           const cols = m.columns ?? m.groups.length;
 
@@ -306,7 +453,7 @@ export function Header() {
             <div
               key={m.label}
               id={id}
-              className={`mega${isPlatforms ? ' mega--platforms' : ''}${open === m.label ? ' is-open' : ''}`}
+              className={`mega${isPlatforms ? ' mega--platforms' : ''}${isSolutions ? ' mega--solutions' : ''}${isServices ? ' mega--services' : ''}${open === m.label ? ' is-open' : ''}`}
               style={{
                 ['--mega-w' as string]: `${megaWidth[m.label] ?? 860}px`,
                 ['--cols' as string]: cols,
@@ -390,6 +537,112 @@ export function Header() {
                     </Link>
                     <Link href="/platforms/" className="mega-platform__footer-link">
                       ALL PLATFORMS <Icon name="arrow" />
+                    </Link>
+                  </div>
+                </div>
+              ) : isSolutions ? (
+                <div className="mega-platform">
+                  {/* Top Header Label */}
+                  <div className="mega-platform__header">
+                    <span className="mega-platform__tag">SOLUTIONS & USE CASES</span>
+                  </div>
+
+                  {/* Body: Left Sidebar Tabs + Right Solution Content */}
+                  <div className="mega-platform__body">
+                    {/* Left Sidebar Tabs */}
+                    <div className="mega-platform__tabs" role="tablist" aria-label="Solution area selection">
+                      {solutionsData.map((sol) => {
+                        const isActive = sol.id === activeSolutionTab;
+                        return (
+                          <button
+                            key={sol.id}
+                            type="button"
+                            role="tab"
+                            aria-selected={isActive}
+                            className={`mega-platform__tab-btn${isActive ? ' is-active' : ''}`}
+                            onClick={() => setActiveSolutionTab(sol.id)}
+                            onPointerEnter={() => setActiveSolutionTab(sol.id)}
+                          >
+                            <span>{sol.tabLabel}</span>
+                            <svg className="mega-platform__tab-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                              <polyline points="9 18 15 12 9 6" />
+                            </svg>
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    {/* Right Main Content */}
+                    <div className="mega-platform__content">
+                      {/* Hero Banner Card */}
+                      <div className="mega-platform__hero">
+                        <div className="mega-platform__hero-info">
+                          <h3 className="mega-platform__hero-title">{currentSolution.title}</h3>
+                          <p className="mega-platform__hero-desc">{currentSolution.summary}</p>
+                        </div>
+                        <Link href={currentSolution.ctaHref} className="btn btn--metal btn--sm mega-platform__hero-btn">
+                          {currentSolution.ctaText}
+                        </Link>
+                      </div>
+
+                      {/* Solutions / Industries Grid */}
+                      <div className={`mega-solutions__grid${currentSolution.gridCols === 4 ? ' mega-solutions__grid--4' : ' mega-solutions__grid--3'}`}>
+                        {currentSolution.items.map((item) => (
+                          <Link key={item.href + item.title} href={item.href} className="mega-solutions__card">
+                            <h4 className="mega-solutions__card-title">{item.title}</h4>
+                            <p className="mega-solutions__card-summary">{item.summary}</p>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Bottom Footer Links */}
+                  <div className="mega-platform__footer">
+                    <Link href="/solutions/" className="mega-platform__footer-link">
+                      SEE ALL SOLUTIONS <Icon name="arrow" />
+                    </Link>
+                    <Link href="/solutions/industries/" className="mega-platform__footer-link">
+                      EXPLORE ALL 18 INDUSTRIES <Icon name="arrow" />
+                    </Link>
+                  </div>
+                </div>
+              ) : isServices ? (
+                <div className="mega-services">
+                  {/* Top Header Label */}
+                  <div className="mega-platform__header">
+                    <span className="mega-platform__tag">SERVICES</span>
+                  </div>
+
+                  {/* Hero Banner Card */}
+                  <div className="mega-platform__hero">
+                    <div className="mega-platform__hero-info">
+                      <h3 className="mega-platform__hero-title">{servicesData.title}</h3>
+                      <p className="mega-platform__hero-desc">{servicesData.summary}</p>
+                    </div>
+                    <Link href={servicesData.ctaHref} className="btn btn--metal btn--sm mega-platform__hero-btn">
+                      {servicesData.ctaText}
+                    </Link>
+                  </div>
+
+                  {/* 3-Column Services Grid */}
+                  <div className="mega-services__grid">
+                    {servicesData.items.map((srv) => (
+                      <Link key={srv.href} href={srv.href} className="mega-services__card">
+                        <h4 className="mega-services__card-title">{srv.title}</h4>
+                        <p className="mega-services__card-summary">{srv.summary}</p>
+                      </Link>
+                    ))}
+                  </div>
+
+                  {/* Footer Advisory Callout */}
+                  <div className="mega-services__footer">
+                    <div className="mega-services__footer-text">
+                      <h5 className="mega-services__footer-heading">{servicesData.footer.heading}</h5>
+                      <p className="mega-services__footer-subtext">{servicesData.footer.subtext}</p>
+                    </div>
+                    <Link href={servicesData.footer.ctaHref} className="mega-services__footer-cta">
+                      {servicesData.footer.ctaText} <Icon name="arrow" />
                     </Link>
                   </div>
                 </div>
