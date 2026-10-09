@@ -32,9 +32,9 @@ const whatWeDo: { icon: IconName; title: string; text: string; href: string; lin
 const commitIcons: IconName[] = ['shield', 'eye', 'leaf', 'people', 'star'];
 
 const heroPillBadges = [
-  { label: 'Quantum', short: 'Q', href: '/platforms/u92-quantum/' },
-  { label: 'Enterprise', short: 'E', href: '/platforms/u92-enterprise/' },
-  { label: 'Deeptech', short: 'D', href: '/platforms/u92-deeptech/' },
+  { label: 'Quantum', href: '/platforms/u92-quantum/' },
+  { label: 'Enterprise', href: '/platforms/u92-enterprise/' },
+  { label: 'Deeptech', href: '/platforms/u92-deeptech/' },
 ];
 
 export default function Home() {
@@ -55,8 +55,7 @@ export default function Home() {
                     title={b.label}
                     aria-label={b.label}
                   >
-                    <span className="proof__badge-short">{b.short}</span>
-                    <span className="proof__badge-full">{b.label}</span>
+                    <span className="proof__badge-label">{b.label}</span>
                   </Link>
                 ))}
               </span>
