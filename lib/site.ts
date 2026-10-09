@@ -12,6 +12,12 @@ export const company = {
   address: 'Wakad, Pune, Maharashtra 411057, India',
   cin: 'U63990PN2026PTC251047',
   site: 'https://www.uelement.in',
+  socials: {
+    linkedin: 'https://www.linkedin.com/company/uelement-technologies/posts/?feedView=all',
+    github: 'https://github.com/UElement',
+    instagram: 'https://www.instagram.com/uelement_technologies/',
+    twitter: 'https://x.com/uelement_tech',
+  },
   // Set this to a form service URL (Formspree, Basin, your own API) to receive form posts.
   // While it is empty, forms open the visitor's email app with the message pre-filled.
   formEndpoint: '',

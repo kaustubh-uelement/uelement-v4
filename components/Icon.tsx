@@ -2,7 +2,8 @@
 type Name =
   | 'spark' | 'shield' | 'globe' | 'layers' | 'mesh' | 'atom' | 'eye' | 'cube' | 'key'
   | 'chev' | 'plus' | 'menu' | 'close' | 'arrow' | 'mail' | 'phone' | 'pin' | 'compass'
-  | 'leaf' | 'people' | 'book' | 'chat' | 'star' | 'handshake' | 'lifebuoy' | 'play' | 'image' | 'calendar' | 'news' | 'bulb' | 'quote';
+  | 'leaf' | 'people' | 'book' | 'chat' | 'star' | 'handshake' | 'lifebuoy' | 'play' | 'image' | 'calendar' | 'news' | 'bulb' | 'quote'
+  | 'linkedin' | 'github' | 'instagram' | 'twitter' | 'x';
 
 const paths: Record<Name, React.ReactNode> = {
   spark: <path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6" />,
@@ -36,6 +37,11 @@ const paths: Record<Name, React.ReactNode> = {
   news: <path d="M4 5h13v14H6a2 2 0 0 1-2-2V5Zm13 4h3v8a2 2 0 0 1-2 2M7.5 9h6M7.5 12.5h6M7.5 16h4" />,
   bulb: <path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.7.5 1 1.2 1 2V16h5v-.1c0-.8.3-1.5 1-2A6 6 0 0 0 12 3Z" />,
   quote: <path d="M6 17c-1.5-1-2-2.6-2-4.5C4 9 6 6.6 9 6l.5 1.5C7.8 8.2 7 9.4 7 11h3v6H6Zm9 0c-1.5-1-2-2.6-2-4.5C13 9 15 6.6 18 6l.5 1.5c-1.7.7-2.5 1.9-2.5 3.5h3v6h-4Z" />,
+  linkedin: <><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></>,
+  github: <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />,
+  instagram: <><rect x="2.5" y="2.5" width="19" height="19" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none" /></>,
+  twitter: <path d="M4 4l6.5 8.5L4 20h3l5.2-6.5L17.5 20H20l-6.8-8.9L19.5 4h-3l-4.9 6.2L7.2 4H4z" />,
+  x: <path d="M4 4l6.5 8.5L4 20h3l5.2-6.5L17.5 20H20l-6.8-8.9L19.5 4h-3l-4.9 6.2L7.2 4H4z" />,
 };
 
 export function Icon({ name, className, title }: { name: Name; className?: string; title?: string }) {
