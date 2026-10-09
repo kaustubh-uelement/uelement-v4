@@ -1,40 +1,46 @@
-import Link from 'next/link';
-import { HeroRing, HeroSparks } from '@/components/HeroRing';
-import { Icon, type IconName } from '@/components/Icon';
-import { Chip, SectionHead, ArrowLink } from '@/components/ui';
-import { company } from '@/lib/site';
-import { founders, beliefs, commitments } from '@/lib/content';
+import Link from "next/link";
+import { HeroRing, HeroSparks } from "@/components/HeroRing";
+import { Icon, type IconName } from "@/components/Icon";
+import { Chip, SectionHead, ArrowLink } from "@/components/ui";
+import { company } from "@/lib/site";
+import { founders, beliefs, commitments } from "@/lib/content";
 
-const whatWeDo: { icon: IconName; title: string; text: string; href: string; link: string }[] = [
+const whatWeDo: {
+  icon: IconName;
+  title: string;
+  text: string;
+  href: string;
+  link: string;
+}[] = [
   {
-    icon: 'key',
-    title: 'Quantum security',
-    text: 'Helping banks and critical infrastructure stay secure as quantum computing changes cryptography.',
-    href: '/platforms/u92-quantum/',
-    link: 'U92 Quantum',
+    icon: "key",
+    title: "Quantum security",
+    text: "Helping banks and critical infrastructure stay secure as quantum computing changes cryptography.",
+    href: "/platforms/u92-quantum/",
+    link: "U92 Quantum",
   },
   {
-    icon: 'layers',
-    title: 'Enterprise data and AI',
-    text: 'Giving businesses one clear view of their digital presence, operations and compliance.',
-    href: '/platforms/u92-enterprise/',
-    link: 'U92 Enterprise',
+    icon: "layers",
+    title: "Enterprise data and AI",
+    text: "Giving businesses one clear view of their digital presence, operations and compliance.",
+    href: "/platforms/u92-enterprise/",
+    link: "U92 Enterprise",
   },
   {
-    icon: 'mesh',
-    title: 'Sovereign edge',
-    text: 'Researching resilient, offline-capable AI and networks for places where connectivity fails.',
-    href: '/platforms/u92-deeptech/',
-    link: 'U92 Deeptech',
+    icon: "mesh",
+    title: "Sovereign edge",
+    text: "Researching resilient, offline-capable AI and networks for places where connectivity fails.",
+    href: "/platforms/u92-deeptech/",
+    link: "U92 Deeptech",
   },
 ];
 
-const commitIcons: IconName[] = ['shield', 'eye', 'leaf', 'people', 'star'];
+const commitIcons: IconName[] = ["shield", "eye", "leaf", "people", "star"];
 
 const heroPillBadges = [
-  { label: 'Quantum', href: '/platforms/u92-quantum/' },
-  { label: 'Enterprise', href: '/platforms/u92-enterprise/' },
-  { label: 'Deeptech', href: '/platforms/u92-deeptech/' },
+  { label: "Quantum", href: "/platforms/u92-quantum/" },
+  { label: "Enterprise", href: "/platforms/u92-enterprise/" },
+  { label: "Deeptech", href: "/platforms/u92-deeptech/" },
 ];
 
 export default function Home() {
@@ -44,9 +50,15 @@ export default function Home() {
       <section className="panel panel--deep hero" aria-labelledby="hero-title">
         <HeroSparks />
         <div className="wrap hero__inner">
-          <div className="hero-seq" style={{ ['--i' as string]: 0 } as React.CSSProperties}>
+          <div
+            className="hero-seq"
+            style={{ ["--i" as string]: 0 } as React.CSSProperties}
+          >
             <span className="proof">
-              <span className="proof__faces" aria-label="Platforms: Quantum, Enterprise, Deeptech">
+              <span
+                className="proof__faces"
+                aria-label="Platforms: Quantum, Enterprise, Deeptech"
+              >
                 {heroPillBadges.map((b) => (
                   <Link
                     href={b.href}
@@ -60,18 +72,32 @@ export default function Home() {
                 ))}
               </span>
               <span className="proof__text">
-                <strong>Built in India, deployable anywhere.</strong> Developed by engineers from VMware, Ericsson , COEP & IIT Bombay.
+                <strong>Built in India, deployable anywhere.</strong> Developed
+                by engineers from VMware, Ericsson , COEP & IIT Bombay.
               </span>
             </span>
           </div>
-          <h1 id="hero-title" className="display hero__title hero-seq" style={{ ['--i' as string]: 1 } as React.CSSProperties}>
+          <h1
+            id="hero-title"
+            className="display hero__title hero-seq"
+            style={{ ["--i" as string]: 1 } as React.CSSProperties}
+          >
             {company.tagline}
           </h1>
-          <p className="lede hero__lede hero-seq" style={{ ['--i' as string]: 2 } as React.CSSProperties}>
-            UElement is a DeepTech company from Pune, India. We build frontier technology that keeps the systems societies run on safe, and helps this
-            planet recover.
+          <p
+            className="lede hero__lede hero-seq"
+            style={{ ["--i" as string]: 2 } as React.CSSProperties}
+          >
+            Building Quantum-safe Security and Enterprise Platforms for the
+            systems that cannot fail. Our U92 Quantum Security platform helps
+            BFSI & Critical Infrastructure move every cryptographic key to
+            post-quantum standards and our U92 Enterprise platform gives growing
+            companies super intelligent solutions to run their digital business.
           </p>
-          <div className="actions hero__actions hero-seq" style={{ ['--i' as string]: 3 } as React.CSSProperties}>
+          <div
+            className="actions hero__actions hero-seq"
+            style={{ ["--i" as string]: 3 } as React.CSSProperties}
+          >
             <Link className="btn btn--metal" href="/contact/">
               Talk to us
             </Link>
@@ -89,7 +115,7 @@ export default function Home() {
       <section className="panel panel--paper section" aria-labelledby="who">
         <div className="wrap">
           <div className="section-head section-head--split">
-            <div style={{ display: 'grid', gap: 18, justifyItems: 'start' }}>
+            <div style={{ display: "grid", gap: 18, justifyItems: "start" }}>
               <Chip icon="people">Who we are</Chip>
               <h2 id="who" className="h2">
                 Not just a company. An aggregation of thoughts.
@@ -97,12 +123,16 @@ export default function Home() {
             </div>
             <div className="prose muted" style={{ fontSize: 18 }}>
               <p>
-                UElement is a shared mindset and one common goal we all want to walk towards. Anything once in ruins can be rebuilt. History shows it, our
-                scriptures teach it, and our culture carries it. It starts with mindset.
+                UElement is a shared mindset and one common goal we all want to
+                walk towards. Anything once in ruins can be rebuilt. History
+                shows it, our scriptures teach it, and our culture carries it.
+                It starts with mindset.
               </p>
               <p>
-                Some of the loudest visions of the future treat Earth as a place to leave behind. We disagree. The talent, capital and intelligence the
-                world is building now are enough to repair what we have, if we choose to point them there.
+                Some of the loudest visions of the future treat Earth as a place
+                to leave behind. We disagree. The talent, capital and
+                intelligence the world is building now are enough to repair what
+                we have, if we choose to point them there.
               </p>
             </div>
           </div>
@@ -112,7 +142,7 @@ export default function Home() {
               <div className="paper-card founder" key={f.name}>
                 <span className="medal">{f.initials}</span>
                 <span>
-                  <span className="founder__name" style={{ display: 'block' }}>
+                  <span className="founder__name" style={{ display: "block" }}>
                     {f.name}
                   </span>
                   <span className="founder__role">{f.role}</span>
@@ -129,10 +159,18 @@ export default function Home() {
       {/* What we do */}
       <section className="panel panel--enamel section">
         <div className="wrap">
-          <SectionHead chip="What we do" chipIcon="atom" title="We build frontier technology for the systems that cannot fail." />
+          <SectionHead
+            chip="What we do"
+            chipIcon="atom"
+            title="We build frontier technology for the systems that cannot fail."
+          />
           <div className="grid-3">
             {whatWeDo.map((w) => (
-              <Link href={w.href} className="glass-card glass-card--pad card-link" key={w.title}>
+              <Link
+                href={w.href}
+                className="glass-card glass-card--pad card-link"
+                key={w.title}
+              >
                 <span className="medal">
                   <Icon name={w.icon} />
                 </span>
@@ -153,25 +191,50 @@ export default function Home() {
       {/* Vision and mission */}
       <section className="panel panel--paper section">
         <div className="wrap">
-          <SectionHead chip="Vision and mission" chipIcon="compass" title="Where we want to go." />
+          <SectionHead
+            chip="Vision and mission"
+            chipIcon="compass"
+            title="Where we want to go."
+          />
           <div className="vm-grid">
             <article className="paper-card vm">
-              <span className="vm__label" style={{ color: 'var(--gold-ink)' }}>
+              <span className="vm__label" style={{ color: "var(--gold-ink)" }}>
                 Our vision
               </span>
-              <p className="statement" style={{ fontSize: 'clamp(30px, 3.4vw, 46px)' }}>
-                A future where humanity and technology progress together, and the planet grows healthier because of both.
+              <p
+                className="statement"
+                style={{ fontSize: "clamp(30px, 3.4vw, 46px)" }}
+              >
+                A future where humanity and technology progress together, and
+                the planet grows healthier because of both.
               </p>
-              <p className="muted">A future with no need for the words “global warming”, and no apocalyptic ending.</p>
+              <p className="muted">
+                A future with no need for the words “global warming”, and no
+                apocalyptic ending.
+              </p>
             </article>
-            <article className="metal-plate vm" style={{ borderRadius: 'var(--r-card)' }}>
-              <span className="vm__label" style={{ color: '#4a3410' }}>
+            <article
+              className="metal-plate vm"
+              style={{ borderRadius: "var(--r-card)" }}
+            >
+              <span className="vm__label" style={{ color: "#4a3410" }}>
                 Our mission
               </span>
-              <p className="statement" style={{ fontSize: 'clamp(30px, 3.4vw, 46px)', color: '#2a1d05' }}>
-                Build frontier technology that earns its place by leaving people and the planet better off, not just the balance sheet.
+              <p
+                className="statement"
+                style={{
+                  fontSize: "clamp(30px, 3.4vw, 46px)",
+                  color: "#2a1d05",
+                }}
+              >
+                Build frontier technology that earns its place by leaving people
+                and the planet better off, not just the balance sheet.
               </p>
-              <Link className="btn btn--ink" href="/company/mission/" style={{ justifySelf: 'start' }}>
+              <Link
+                className="btn btn--ink"
+                href="/company/mission/"
+                style={{ justifySelf: "start" }}
+              >
                 Read the full mission
               </Link>
             </article>
@@ -183,7 +246,7 @@ export default function Home() {
       <section className="panel panel--creme section" aria-labelledby="beliefs">
         <div className="wrap">
           <div className="section-head section-head--split">
-            <div style={{ display: 'grid', gap: 18, justifyItems: 'start' }}>
+            <div style={{ display: "grid", gap: 18, justifyItems: "start" }}>
               <Chip icon="bulb">What we believe</Chip>
               <h2 id="beliefs" className="h2">
                 We repair. We do not plan an exit.
@@ -217,7 +280,7 @@ export default function Home() {
                   <Icon name={commitIcons[i]} />
                 </span>
                 <h3 className="h3">{c.title}</h3>
-                <p className="muted" style={{ gridColumn: 'auto' }}>
+                <p className="muted" style={{ gridColumn: "auto" }}>
                   {c.text}
                 </p>
               </li>
@@ -228,13 +291,25 @@ export default function Home() {
 
       {/* Let's talk */}
       <section className="panel panel--paper section" aria-labelledby="talk">
-        <div className="wrap" style={{ display: 'grid', gap: 40, gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 420px), 1fr))', alignItems: 'start' }}>
-          <div style={{ display: 'grid', gap: 22, justifyItems: 'start' }}>
+        <div
+          className="wrap"
+          style={{
+            display: "grid",
+            gap: 40,
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(min(100%, 420px), 1fr))",
+            alignItems: "start",
+          }}
+        >
+          <div style={{ display: "grid", gap: 22, justifyItems: "start" }}>
             <Chip icon="chat">Let’s talk</Chip>
             <h2 id="talk" className="h2">
               Building something that cannot fail? We’d like to hear about it.
             </h2>
-            <p className="lede muted">Every engagement starts with a small, fixed-scope first step, so you can judge our work before you commit to more.</p>
+            <p className="lede muted">
+              Every engagement starts with a small, fixed-scope first step, so
+              you can judge our work before you commit to more.
+            </p>
             <div className="actions">
               <Link className="btn btn--ink" href="/contact/">
                 Talk to us
@@ -244,27 +319,42 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="grid" style={{ ['--gap' as string]: '12px' } as React.CSSProperties}>
-            <a className="paper-card founder card-link" href={`mailto:${company.email}`} style={{ flexDirection: 'row' }}>
+          <div
+            className="grid"
+            style={{ ["--gap" as string]: "12px" } as React.CSSProperties}
+          >
+            <a
+              className="paper-card founder card-link"
+              href={`mailto:${company.email}`}
+              style={{ flexDirection: "row" }}
+            >
               <span className="medal">
                 <Icon name="mail" />
               </span>
               <span>
-                <span className="founder__name" style={{ display: 'block' }}>
+                <span className="founder__name" style={{ display: "block" }}>
                   {company.email}
                 </span>
-                <span className="founder__role">Write to us about a project, a partnership or a role.</span>
+                <span className="founder__role">
+                  Write to us about a project, a partnership or a role.
+                </span>
               </span>
             </a>
-            <a className="paper-card founder card-link" href={`tel:${company.phoneHref}`} style={{ flexDirection: 'row' }}>
+            <a
+              className="paper-card founder card-link"
+              href={`tel:${company.phoneHref}`}
+              style={{ flexDirection: "row" }}
+            >
               <span className="medal">
                 <Icon name="phone" />
               </span>
               <span>
-                <span className="founder__name" style={{ display: 'block' }}>
+                <span className="founder__name" style={{ display: "block" }}>
                   {company.phone}
                 </span>
-                <span className="founder__role">Call us to talk it through</span>
+                <span className="founder__role">
+                  Call us to talk it through
+                </span>
               </span>
             </a>
             <div className="paper-card founder">
@@ -272,21 +362,29 @@ export default function Home() {
                 <Icon name="pin" />
               </span>
               <span>
-                <span className="founder__name" style={{ display: 'block' }}>
+                <span className="founder__name" style={{ display: "block" }}>
                   {company.address}
                 </span>
-                <span className="founder__role">Working with customers globally</span>
+                <span className="founder__role">
+                  Working with customers globally
+                </span>
               </span>
             </div>
-            <Link className="paper-card founder card-link" href="/company/careers/" style={{ flexDirection: 'row' }}>
+            <Link
+              className="paper-card founder card-link"
+              href="/company/careers/"
+              style={{ flexDirection: "row" }}
+            >
               <span className="medal">
                 <Icon name="people" />
               </span>
               <span>
-                <span className="founder__name" style={{ display: 'block' }}>
+                <span className="founder__name" style={{ display: "block" }}>
                   Want to build with us?
                 </span>
-                <span className="founder__role">We hire people who are brainy and by heart.</span>
+                <span className="founder__role">
+                  We hire people who are brainy and by heart.
+                </span>
               </span>
             </Link>
           </div>

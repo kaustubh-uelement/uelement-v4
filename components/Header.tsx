@@ -295,6 +295,104 @@ const servicesData = {
   },
 };
 
+const resourcesData = [
+  {
+    title: 'Company',
+    cards: [
+      {
+        title: 'Company',
+        note: 'About us, mission and vision, founders',
+        href: '/company/',
+      },
+      {
+        title: 'Careers',
+        note: 'Open roles, how we hire (brainy and by heart)',
+        href: '/company/careers/',
+      },
+      {
+        title: 'Investor Relations',
+        note: 'Company facts, contact for investors',
+        href: '/company/investors/',
+      },
+      {
+        title: 'Brand Guidelines',
+        note: 'Logos, colours, typography & assets',
+        href: '/company/brand/',
+      },
+    ],
+  },
+  {
+    title: 'Partnerships',
+    cards: [
+      {
+        title: 'Partnerships',
+        note: 'Perforce, miniOrange, Marma Security and other partners; how to partner',
+        href: '/partnerships/',
+      },
+      {
+        title: 'Value Added Reseller',
+        note: 'Deliver quantum-safe & observable systems',
+        href: '/partnerships/value-added-reseller/',
+      },
+      {
+        title: 'Technology Alliance',
+        note: 'Integrate with our platform & research',
+        href: '/partnerships/technology-alliance/',
+      },
+      {
+        title: 'GTM Partnership',
+        note: 'Joint delivery & regional alliances',
+        href: '/partnerships/gtm-partnership/',
+      },
+    ],
+  },
+  {
+    title: 'Service & Support',
+    cards: [
+      {
+        title: 'Service & Support',
+        note: 'Raise a ticket, documentation, service hours',
+        href: '/support/',
+      },
+      {
+        title: 'Customer Portal',
+        note: 'Manage deployments & support tickets',
+        href: '/support/customer-portal/',
+      },
+      {
+        title: 'Knowledge Base',
+        note: 'Guides, architecture notes & FAQs',
+        href: '/support/knowledge-base/',
+      },
+      {
+        title: 'User Guides',
+        note: 'Step-by-step product walkthroughs',
+        href: '/support/user-guides/',
+      },
+    ],
+  },
+  {
+    title: 'Blogs & Media',
+    cards: [
+      {
+        title: 'Blogs & Media',
+        note: 'Articles, talks, interviews, press kit',
+        href: '/resources/blogs/',
+      },
+      {
+        title: 'News Articles',
+        note: 'Announcements and coverage',
+        href: '/resources/media-gallery/',
+      },
+      {
+        title: 'Webinars & Tech Talks',
+        note: 'Deeptech sessions and recordings',
+        href: '/resources/webinars/',
+      },
+    ],
+  },
+];
+
 const megaFoot: Record<string, { text: string; label: string; href: string }> = {
   Platforms: { text: 'Every product carries an honest maturity label.', label: 'All platforms', href: '/platforms/' },
   Solutions: { text: 'Eighteen industries, three solution areas.', label: 'All solutions', href: '/solutions/' },
@@ -420,9 +518,6 @@ export function Header() {
                 </button>
               );
             })}
-            <Link className={`nav-pill${pathname.startsWith('/contact') ? ' is-current' : ''}`} href="/contact/">
-              Contact
-            </Link>
           </nav>
 
           <div className="header-actions">
@@ -446,6 +541,7 @@ export function Header() {
           const isPlatforms = m.label === 'Platforms';
           const isSolutions = m.label === 'Solutions';
           const isServices = m.label === 'Services';
+          const isResources = m.label === 'Resources';
           const foot = megaFoot[m.label];
           const cols = m.columns ?? m.groups.length;
 
@@ -453,7 +549,7 @@ export function Header() {
             <div
               key={m.label}
               id={id}
-              className={`mega${isPlatforms ? ' mega--platforms' : ''}${isSolutions ? ' mega--solutions' : ''}${isServices ? ' mega--services' : ''}${open === m.label ? ' is-open' : ''}`}
+              className={`mega${isPlatforms ? ' mega--platforms' : ''}${isSolutions ? ' mega--solutions' : ''}${isServices ? ' mega--services' : ''}${isResources ? ' mega--resources' : ''}${open === m.label ? ' is-open' : ''}`}
               style={{
                 ['--mega-w' as string]: `${megaWidth[m.label] ?? 860}px`,
                 ['--cols' as string]: cols,
@@ -643,6 +739,40 @@ export function Header() {
                     </div>
                     <Link href={servicesData.footer.ctaHref} className="mega-services__footer-cta">
                       {servicesData.footer.ctaText} <Icon name="arrow" />
+                    </Link>
+                  </div>
+                </div>
+              ) : isResources ? (
+                <div className="mega-resources">
+                  {/* Top Header Label */}
+                  <div className="mega-platform__header">
+                    <span className="mega-platform__tag">RESOURCES & SUPPORT</span>
+                  </div>
+
+                  {/* 4 Columns Grid */}
+                  <div className="mega-resources__grid">
+                    {resourcesData.map((col) => (
+                      <div key={col.title} className="mega-resources__col">
+                        <h4 className="mega-resources__col-title">{col.title}</h4>
+                        <div className="mega-resources__col-cards">
+                          {col.cards.map((c) => (
+                            <Link key={c.href + c.title} href={c.href} className="mega-resources__card">
+                              <h5 className="mega-resources__card-title">{c.title}</h5>
+                              <p className="mega-resources__card-note">{c.note}</p>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Bottom Footer Links */}
+                  <div className="mega-platform__footer">
+                    <Link href="/contact/" className="mega-platform__footer-link">
+                      HAVE QUESTIONS? CONTACT OUR TEAM <Icon name="arrow" />
+                    </Link>
+                    <Link href="/support/demo/" className="mega-platform__footer-link">
+                      BOOK A DEMO <Icon name="arrow" />
                     </Link>
                   </div>
                 </div>

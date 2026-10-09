@@ -31,26 +31,35 @@ export function ContactForm({ kind, context }: { kind: FormKind; context?: strin
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const subject = `${cfg.subject}${context ? `: ${context}` : ''} from ${data.get('name') || 'website visitor'}`;
-    if (company.formEndpoint) {
-      setState('sending');
-      try {
-        data.append('_subject', subject);
-        const res = await fetch(company.formEndpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
-        setState(res.ok ? 'sent' : 'error');
-      } catch {
+    const web3Key = process.env.NEXT_PUBLIC_WEB3FORMS_KEY || 'c6046867-2696-40a4-9d08-3fef8c9526ae';
+
+    setState('sending');
+    try {
+      const object: Record<string, any> = Object.fromEntries(data.entries());
+      object.access_key = web3Key;
+      object.subject = subject;
+      object.from_name = 'UElement Website';
+
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(object),
+      });
+      const result = await res.json();
+      if (res.ok && result.success) {
+        setState('sent');
+        formRef.current?.reset();
+      } else {
+        console.error('Web3Forms error:', result);
         setState('error');
       }
-      return;
+    } catch (err) {
+      console.error('Web3Forms submit error:', err);
+      setState('error');
     }
-    const body = cfg.fields
-      .map((f) => {
-        const v = String(data.get(f.name) || '').trim();
-        return v ? `${f.label}: ${f.type === 'textarea' ? '\n' + v : v}` : '';
-      })
-      .filter(Boolean)
-      .join('\n\n');
-    window.location.href = `mailto:${company.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setState('mailto');
   }
 
   if (state === 'sent') {

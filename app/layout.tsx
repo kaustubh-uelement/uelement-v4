@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
 import '@fontsource-variable/onest';
 import '@fontsource/instrument-serif/400.css';
 import '@fontsource/instrument-serif/400-italic.css';
@@ -6,6 +7,8 @@ import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { company } from '@/lib/site';
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-SF70DJKM92';
 
 export const metadata: Metadata = {
   metadataBase: new URL(company.site),
@@ -74,6 +77,28 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
         </div>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
+        {GA_ID && (
+          <>
+            <Script
+              strategy="afterInteractive"
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+            />
+            <Script
+              id="google-analytics"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${GA_ID}', {
+                    page_path: window.location.pathname,
+                  });
+                `,
+              }}
+            />
+          </>
+        )}
       </body>
     </html>
   );
