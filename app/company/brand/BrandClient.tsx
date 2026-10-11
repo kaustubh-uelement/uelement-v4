@@ -829,7 +829,7 @@ export function BrandClient() {
                 Talk to us
               </Link>
               <Link className="btn btn--line" href="/support/demo/">
-                Book a demo
+                Book a Demo
               </Link>
             </div>
           </div>

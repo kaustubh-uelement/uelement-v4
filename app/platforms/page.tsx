@@ -28,7 +28,7 @@ export default function PlatformsPage() {
         lede="Quantum-safe security, one data plane for the enterprise and sovereign AI at the edge. Each product carries an honest maturity label, so you know what is live and what is still being built."
       >
         <Link className="btn btn--metal" href="/support/demo/">
-          Book a demo
+          Book a Demo
         </Link>
         <a className="btn btn--glass" href="#maturity">
           What the labels mean

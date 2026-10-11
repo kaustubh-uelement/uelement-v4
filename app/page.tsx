@@ -89,20 +89,17 @@ export default function Home() {
             style={{ ["--i" as string]: 2 } as React.CSSProperties}
           >
             Building Quantum-safe Security and Enterprise Platforms for the
-            systems that cannot fail. Our U92 Quantum Security platform helps
-            BFSI & Critical Infrastructure move every cryptographic key to
-            post-quantum standards and our U92 Enterprise platform gives growing
-            companies super intelligent solutions to run their digital business.
+            systems that cannot fail.
           </p>
           <div
             className="actions hero__actions hero-seq"
             style={{ ["--i" as string]: 3 } as React.CSSProperties}
           >
             <Link className="btn btn--metal" href="/contact/">
-              Talk to us
+              Contact Us
             </Link>
             <Link className="btn btn--glass" href="/company/mission/">
-              Read our mission
+              Our Mission
             </Link>
           </div>
         </div>
@@ -313,7 +310,7 @@ export default function Home() {
                 Talk to us
               </Link>
               <Link className="btn btn--line" href="/support/demo/">
-                Book a demo
+                Book a Demo
               </Link>
             </div>
           </div>

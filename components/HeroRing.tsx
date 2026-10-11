@@ -66,7 +66,7 @@ export function HeroSparks() {
         vy: ny * (10 + Math.random() * 18) - (8 + Math.random() * 16),
         life: 2.2 + Math.random() * 3.2,
         age: 0,
-        s: 0.6 + Math.random() * 1.5,
+        s: 0.9 + Math.random() * 2.2,
       });
     };
 
@@ -105,8 +105,8 @@ export function HeroSparks() {
         const k = p.age / p.life;
         const a = Math.sin(Math.PI * Math.min(1, k)) * 0.9;
         const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.s * 4);
-        g.addColorStop(0, `rgba(255, 240, 196, ${a.toFixed(3)})`);
-        g.addColorStop(0.35, `rgba(241, 216, 148, ${(a * 0.45).toFixed(3)})`);
+        g.addColorStop(0, `rgba(255, 248, 220, ${Math.min(1, a * 1.15).toFixed(3)})`);
+        g.addColorStop(0.35, `rgba(241, 216, 148, ${(a * 0.65).toFixed(3)})`);
         g.addColorStop(1, 'rgba(196, 154, 69, 0)');
         ctx.fillStyle = g;
         ctx.beginPath();
@@ -199,7 +199,28 @@ export function HeroRing() {
             <g className="ring-spin ring-spin--outer">
               <circle cx={CX} cy={CY} r={R} stroke="#DDBB6E" strokeOpacity=".35" strokeWidth="58" strokeDasharray={TICKS} filter="url(#hr-blur-sm)" />
               <circle cx={CX} cy={CY} r={R} stroke="#DDBB6E" strokeOpacity=".8" strokeWidth="58" strokeDasharray={TICKS} />
-              <circle cx={CX} cy={CY} r={R + 52} stroke="#DDBB6E" strokeOpacity=".25" strokeWidth="1" strokeDasharray="2 10" />
+              {/* Outer decorative dotted arc: enlarged, brightened with warm gold bloom */}
+              <circle
+                cx={CX}
+                cy={CY}
+                r={R + 54}
+                stroke="#F1D894"
+                strokeOpacity="0.5"
+                strokeWidth="11"
+                strokeDasharray="0.1 18"
+                strokeLinecap="round"
+                filter="url(#hr-blur-sm)"
+              />
+              <circle
+                cx={CX}
+                cy={CY}
+                r={R + 54}
+                stroke="#FFFBEA"
+                strokeOpacity="0.95"
+                strokeWidth="5.5"
+                strokeDasharray="0.1 18"
+                strokeLinecap="round"
+              />
             </g>
 
             {/* edges */}

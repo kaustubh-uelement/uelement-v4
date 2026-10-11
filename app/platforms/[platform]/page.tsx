@@ -45,7 +45,7 @@ export default async function PlatformPage({ params }: { params: Promise<{ platf
     <>
       <PageHero crumbs={[{ label: 'Platforms', href: '/platforms/' }, { label: p.name }]} chip={`${p.name}, ${p.short.toLowerCase()}`} chipIcon="layers" title={p.promise} lede={p.summary}>
         <Link className="btn btn--metal" href={p.slug === 'u92-deeptech' ? '/partnerships/technology-alliance/' : '/support/demo/'}>
-          {p.slug === 'u92-deeptech' ? 'Become a design partner' : 'Book a demo'}
+          {p.slug === 'u92-deeptech' ? 'Become a design partner' : 'Book a Demo'}
         </Link>
         <a className="btn btn--glass" href="#products">
           See the products

@@ -32,7 +32,7 @@ export default async function ProductPage({ params }: { params: Promise<{ platfo
   const others = p.products.filter((y) => y.slug !== x.slug);
   const inds = industries.filter((i) => i.products.includes(x.slug));
   const primary = ready
-    ? { label: 'Book a demo', href: `/support/demo/?product=${encodeURIComponent(x.name)}` }
+    ? { label: 'Book a Demo', href: `/support/demo/?product=${encodeURIComponent(x.name)}` }
     : { label: x.status === 'Designed' || x.status === 'Research' ? 'Become a design partner' : 'Talk to us', href: x.status === 'Designed' || x.status === 'Research' ? '/partnerships/technology-alliance/' : '/contact/' };
 
   return (

@@ -8,11 +8,11 @@ import { Icon } from './Icon';
 import { Logo } from './ui';
 
 const megaWidth: Record<string, number> = {
-  Platforms: 1060,
-  Solutions: 1060,
-  Services: 1060,
-  'Why UElement': 1060,
-  Resources: 1100,
+  Platforms: 1125,
+  Solutions: 1125,
+  Services: 1125,
+  'Why UElement': 1125,
+  Resources: 1125,
 };
 
 const platformsData = [
@@ -551,8 +551,8 @@ export function Header() {
         <div
           className="site-header__pill"
           style={{
-            backdropFilter: 'blur(24px) saturate(190%)',
-            WebkitBackdropFilter: 'blur(24px) saturate(190%)',
+            backdropFilter: 'blur(34px) saturate(190%)',
+            WebkitBackdropFilter: 'blur(34px) saturate(190%)',
           }}
         >
           <Logo />
@@ -584,7 +584,7 @@ export function Header() {
 
           <div className="header-actions">
             <Link className="btn btn--metal btn--sm header-cta" href="/support/demo/">
-              Book a demo
+              Book a Demo
             </Link>
             <button
               className="menu-btn"
@@ -994,7 +994,7 @@ export function Header() {
         </div>
         <div className="drawer__foot">
           <Link className="btn btn--metal" href="/support/demo/">
-            Book a demo
+            Book a Demo
           </Link>
           <a className="btn btn--glass" href={`mailto:${company.email}`}>
             {company.email}
