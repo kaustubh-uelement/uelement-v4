@@ -3,7 +3,7 @@ import { HeroRing, HeroSparks } from "@/components/HeroRing";
 import { Icon, type IconName } from "@/components/Icon";
 import { Chip, SectionHead, ArrowLink } from "@/components/ui";
 import { company } from "@/lib/site";
-import { founders, beliefs, commitments } from "@/lib/content";
+import { beliefs, commitments } from "@/lib/content";
 
 const whatWeDo: {
   icon: IconName;
@@ -112,41 +112,25 @@ export default function Home() {
       <section className="panel panel--paper section" aria-labelledby="who">
         <div className="wrap">
           <div className="section-head section-head--split">
-            <div style={{ display: "grid", gap: 18, justifyItems: "start" }}>
+            <div style={{ display: "grid", gap: 18, justifyItems: "start", alignSelf: "start" }}>
               <Chip icon="people">Who we are</Chip>
               <h2 id="who" className="h2">
-                Not just a company. An aggregation of thoughts.
+                Rooted in Purpose. Built to Protect.
               </h2>
             </div>
             <div className="prose muted" style={{ fontSize: 18 }}>
               <p>
-                UElement is a shared mindset and one common goal we all want to
-                walk towards. Anything once in ruins can be rebuilt. History
-                shows it, our scriptures teach it, and our culture carries it.
-                It starts with mindset.
+                at UElement, <em>We are driven by a shared Mindset and a singular Goal;</em> to rebuild and fortify what matters. History, culture and our deepest traditions teach us that anything broken can be restored. While the loudest voices today look to abandon Earth for the future, we believe differently.
               </p>
               <p>
-                Some of the loudest visions of the future treat Earth as a place
-                to leave behind. We disagree. The talent, capital and
-                intelligence the world is building now are enough to repair what
-                we have, if we choose to point them there.
+                Humanity already possesses the Talent, Capital and Intelligence required to repair our world — We simply need to Direct it with Purpose.
+              </p>
+              <p>
+                That purpose drives our Technology. Our <em>U92 Quantum Security</em> platform equips BFSI and critical infrastructure with post-quantum cryptography to protect systems that cannot fail. Alongside it, our <em>U92 Enterprise Fabric</em> platform empowers growing businesses with the intelligent solutions they need to confidently scale their digital operations.
               </p>
             </div>
           </div>
 
-          <div className="founder-row">
-            {founders.map((f) => (
-              <div className="paper-card founder" key={f.name}>
-                <span className="medal">{f.initials}</span>
-                <span>
-                  <span className="founder__name" style={{ display: "block" }}>
-                    {f.name}
-                  </span>
-                  <span className="founder__role">{f.role}</span>
-                </span>
-              </div>
-            ))}
-          </div>
           <div style={{ marginTop: 28 }}>
             <ArrowLink href="/company/">About UElement</ArrowLink>
           </div>
