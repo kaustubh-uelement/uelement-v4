@@ -31,7 +31,7 @@ const cols: { title: string; links: FooterLinkItem[] }[] = [
   {
     title: 'Company',
     links: [
-      { label: 'About us', href: '/company/', desc: 'Mission, vision & founders' },
+      { label: 'About us', href: '/company/', desc: 'Mission, vision & purpose' },
       { label: 'Why UElement', href: '/why-uelement/', desc: 'Proof over promises' },
       { label: 'Careers', href: '/company/careers/', desc: 'Brainy and by heart' },
       { label: 'Partnerships', href: '/partnerships/', desc: 'Alliances & VAR network' },
