@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { PageHero, SectionHead, CtaPanel, Chip } from '@/components/ui';
-import { founders, timeline, partners } from '@/lib/content';
+import { timeline, partners } from '@/lib/content';
 import { company } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'About us',
-  description: 'UElement Technologies is a DeepTech company from Wakad, Pune, founded by four engineers and operators.',
+  description: 'UElement Technologies is a DeepTech company from Wakad, Pune, building frontier technology for resilient enterprises.',
   alternates: { canonical: '/company/' },
 };
 
@@ -55,25 +55,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="panel panel--enamel section">
-        <div className="wrap">
-          <SectionHead chip="Founders" chipIcon="people" title="Four founders, one common goal." />
-          <div className="grid-4">
-            {founders.map((f) => (
-              <article className="glass-card glass-card--pad" key={f.name} style={{ display: 'grid', gap: 12, alignContent: 'start' }}>
-                <span className="medal medal--lg">{f.initials}</span>
-                <h3 className="h3" style={{ marginTop: 6 }}>
-                  {f.name}
-                </h3>
-                <p className="gold small" style={{ fontWeight: 560 }}>
-                  {f.role}
-                </p>
-                <p className="muted small">{f.bio}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <section className="panel panel--creme section">
         <div className="wrap">

@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { PageHero } from '@/components/ui';
 import { EmptyState } from '@/components/blocks';
-import { resourceSections, founders } from '@/lib/content';
+import { resourceSections } from '@/lib/content';
 import { company } from '@/lib/site';
 
 export function generateStaticParams() {
@@ -49,10 +49,6 @@ export default async function ResourceSectionPage({ params }: { params: Promise<
                     {company.name} is a DeepTech company from Wakad, Pune, India. It builds quantum-safe security (U92 Quantum), a unified enterprise data
                     plane (U92 Enterprise) and sovereign edge AI (U92 Deeptech), and works with customers globally.
                   </dd>
-                </div>
-                <div>
-                  <dt>Founders</dt>
-                  <dd>{founders.map((f) => `${f.name}, ${f.role}`).join('; ')}</dd>
                 </div>
                 <div>
                   <dt>Headquarters</dt>

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 const pages: { icon: IconName; title: string; text: string; href: string; link: string }[] = [
-  { icon: 'star', title: 'The UElement Advantage', text: 'Sovereign by design, quantum-ready from day one, one data plane, and founders who have shipped before.', href: '/why-uelement/advantage/', link: 'Read more' },
+  { icon: 'star', title: 'The UElement Advantage', text: 'Sovereign by design, quantum-ready from day one, one data plane, and engineering leaders who have shipped before.', href: '/why-uelement/advantage/', link: 'Read more' },
   { icon: 'quote', title: 'Customer Success Stories', text: 'Real engagements, shared with our customers’ permission.', href: '/why-uelement/success-stories/', link: 'Read the stories' },
   { icon: 'book', title: 'Research & Community', text: 'Standards input, talks, writing and open work, each with a public source.', href: '/why-uelement/research/', link: 'See our contributions' },
   { icon: 'leaf', title: 'Corporate Social Responsibility', text: 'Digital literacy, skilling and an honest account of our own footprint.', href: '/why-uelement/csr/', link: 'See our commitments' },

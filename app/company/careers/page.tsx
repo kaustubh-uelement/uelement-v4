@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const what = [
   { title: 'Brainy and by heart', text: 'We look for people with both. Skill matters, and so does how you treat people and the planet.' },
   { title: 'Real work from day one', text: 'Interns and early-career engineers work on post-quantum cryptography, AI and security in production.' },
-  { title: 'A path to the top', text: 'One of our co-founders joined as an intern. Ownership is earned here, and it can be earned.' },
+  { title: 'A path to the top', text: 'Interns and early engineers grow into leadership here. Ownership is earned, and it can be earned.' },
 ];
 
 export default function CareersPage() {

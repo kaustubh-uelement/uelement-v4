@@ -52,7 +52,7 @@ export default function InvestorsPage() {
         </div>
       </section>
 
-      <FormSection kind="investor" chip="Investor enquiries" title="Talk to the founders." text="Tell us about your fund or your interest, and we will send the deck and arrange a call." />
+      <FormSection kind="investor" chip="Investor enquiries" title="Talk to our leadership team." text="Tell us about your fund or your interest, and we will send the deck and arrange a call." />
     </>
   );
 }
