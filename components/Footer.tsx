@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { company } from '@/lib/site';
 import { Logo } from './ui';
 import { Icon } from './Icon';
+import { RestrictedButton } from './RestrictedModal';
 
 interface FooterLinkItem {
   label: string;
@@ -88,14 +89,24 @@ export function Footer() {
               <div className="footer-col" key={c.title}>
                 <h3>{c.title}</h3>
                 <ul>
-                  {c.links.map((link) => (
-                    <li key={link.href}>
-                      <Link href={link.href} className="footer-link">
-                        <span className="footer-link__label">{link.label}</span>
-                        <span className="footer-link__desc">{link.desc}</span>
-                      </Link>
-                    </li>
-                  ))}
+                  {c.links.map((link) => {
+                    const isRestricted = link.label === 'U92 Deeptech' || link.href.includes('u92-deeptech');
+                    return (
+                      <li key={link.label}>
+                        {isRestricted ? (
+                          <RestrictedButton className="footer-link footer-link--btn">
+                            <span className="footer-link__label">{link.label}</span>
+                            <span className="footer-link__desc">{link.desc}</span>
+                          </RestrictedButton>
+                        ) : (
+                          <Link href={link.href} className="footer-link">
+                            <span className="footer-link__label">{link.label}</span>
+                            <span className="footer-link__desc">{link.desc}</span>
+                          </Link>
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ))}

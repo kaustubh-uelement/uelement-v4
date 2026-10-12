@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { nav, company } from '@/lib/site';
 import { Icon } from './Icon';
 import { Logo } from './ui';
+import { triggerRestrictedNotice } from './RestrictedModal';
 
 const megaWidth: Record<string, number> = {
   Platforms: 1125,
@@ -663,25 +664,60 @@ export function Header() {
                           <h3 className="mega-platform__hero-title">{currentPlatform.title}</h3>
                           <p className="mega-platform__hero-desc">{currentPlatform.summary}</p>
                         </div>
-                        <Link href={currentPlatform.ctaHref} className="btn btn--metal btn--sm mega-platform__hero-btn">
-                          {currentPlatform.ctaText}
-                        </Link>
+                        {currentPlatform.id === 'u92-deeptech' ? (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setOpen(null);
+                              triggerRestrictedNotice();
+                            }}
+                            className="btn btn--metal btn--sm mega-platform__hero-btn"
+                          >
+                            {currentPlatform.ctaText}
+                          </button>
+                        ) : (
+                          <Link href={currentPlatform.ctaHref} className="btn btn--metal btn--sm mega-platform__hero-btn">
+                            {currentPlatform.ctaText}
+                          </Link>
+                        )}
                       </div>
 
                       {/* Products Grid */}
                       <div className="mega-platform__grid">
-                        {currentPlatform.products.map((prod) => (
-                          <Link key={prod.href} href={prod.href} className="mega-platform__card">
-                            <div className="mega-platform__card-top">
-                              <span className="mega-platform__card-code">{prod.code}</span>
-                              <span className={`mega-platform__card-badge mega-platform__card-badge--${prod.badgeType}`}>
-                                {prod.badge}
-                              </span>
-                            </div>
-                            <h4 className="mega-platform__card-title">{prod.title}</h4>
-                            <p className="mega-platform__card-summary">{prod.summary}</p>
-                          </Link>
-                        ))}
+                        {currentPlatform.products.map((prod) => {
+                          const isRestricted = currentPlatform.id === 'u92-deeptech';
+                          return isRestricted ? (
+                            <button
+                              key={prod.title}
+                              type="button"
+                              onClick={() => {
+                                setOpen(null);
+                                triggerRestrictedNotice();
+                              }}
+                              className="mega-platform__card"
+                            >
+                              <div className="mega-platform__card-top">
+                                <span className="mega-platform__card-code">{prod.code}</span>
+                                <span className={`mega-platform__card-badge mega-platform__card-badge--${prod.badgeType}`}>
+                                  {prod.badge}
+                                </span>
+                              </div>
+                              <h4 className="mega-platform__card-title">{prod.title}</h4>
+                              <p className="mega-platform__card-summary">{prod.summary}</p>
+                            </button>
+                          ) : (
+                            <Link key={prod.href} href={prod.href} className="mega-platform__card">
+                              <div className="mega-platform__card-top">
+                                <span className="mega-platform__card-code">{prod.code}</span>
+                                <span className={`mega-platform__card-badge mega-platform__card-badge--${prod.badgeType}`}>
+                                  {prod.badge}
+                                </span>
+                              </div>
+                              <h4 className="mega-platform__card-title">{prod.title}</h4>
+                              <p className="mega-platform__card-summary">{prod.summary}</p>
+                            </Link>
+                          );
+                        })}
                       </div>
                     </div>
                   </div>
@@ -965,22 +1001,51 @@ export function Header() {
                         Overview
                       </Link>
                     </div>
-                    {m.groups.map((g) => (
-                      <div className="drawer__group" key={g.title}>
-                        {g.href ? (
-                          <Link className="drawer__group-title" href={g.href}>
-                            {g.title}
-                          </Link>
-                        ) : (
-                          <span className="drawer__group-title">{g.title}</span>
-                        )}
-                        {g.links.map((l) => (
-                          <Link key={l.href + l.label} href={l.href}>
-                            {l.label}
-                          </Link>
-                        ))}
-                      </div>
-                    ))}
+                    {m.groups.map((g) => {
+                      const isGroupRestricted = g.title === 'U92 Deeptech';
+                      return (
+                        <div className="drawer__group" key={g.title}>
+                          {isGroupRestricted ? (
+                            <button
+                              type="button"
+                              className="drawer__group-title drawer__group-title--btn"
+                              onClick={() => {
+                                setDrawer(false);
+                                triggerRestrictedNotice();
+                              }}
+                            >
+                              {g.title}
+                            </button>
+                          ) : g.href ? (
+                            <Link className="drawer__group-title" href={g.href}>
+                              {g.title}
+                            </Link>
+                          ) : (
+                            <span className="drawer__group-title">{g.title}</span>
+                          )}
+                          {g.links.map((l) => {
+                            const isLinkRestricted = isGroupRestricted || l.href.includes('u92-deeptech');
+                            return isLinkRestricted ? (
+                              <button
+                                key={l.label}
+                                type="button"
+                                className="drawer__link-btn"
+                                onClick={() => {
+                                  setDrawer(false);
+                                  triggerRestrictedNotice();
+                                }}
+                              >
+                                {l.label}
+                              </button>
+                            ) : (
+                              <Link key={l.href + l.label} href={l.href}>
+                                {l.label}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>

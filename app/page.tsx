@@ -2,6 +2,7 @@ import Link from "next/link";
 import { HeroRing, HeroSparks } from "@/components/HeroRing";
 import { Icon, type IconName } from "@/components/Icon";
 import { Chip, SectionHead, ArrowLink } from "@/components/ui";
+import { RestrictedButton } from "@/components/RestrictedModal";
 import { company } from "@/lib/site";
 import { beliefs, commitments } from "@/lib/content";
 
@@ -59,17 +60,29 @@ export default function Home() {
                 className="proof__faces"
                 aria-label="Platforms: Quantum, Enterprise, Deeptech"
               >
-                {heroPillBadges.map((b) => (
-                  <Link
-                    href={b.href}
-                    className="proof__badge"
-                    key={b.label}
-                    title={b.label}
-                    aria-label={b.label}
-                  >
-                    <span className="proof__badge-label">{b.label}</span>
-                  </Link>
-                ))}
+                {heroPillBadges.map((b) => {
+                  const isRestricted = b.label === 'Deeptech' || b.href.includes('u92-deeptech');
+                  return isRestricted ? (
+                    <RestrictedButton
+                      className="proof__badge"
+                      key={b.label}
+                      title={b.label}
+                      aria-label={b.label}
+                    >
+                      <span className="proof__badge-label">{b.label}</span>
+                    </RestrictedButton>
+                  ) : (
+                    <Link
+                      href={b.href}
+                      className="proof__badge"
+                      key={b.label}
+                      title={b.label}
+                      aria-label={b.label}
+                    >
+                      <span className="proof__badge-label">{b.label}</span>
+                    </Link>
+                  );
+                })}
               </span>
               <span className="proof__text">
                 <strong className="proof__title">Built in India, deployable anywhere.</strong>{" "}
@@ -148,25 +161,46 @@ export default function Home() {
             title="We build frontier technology for the systems that cannot fail."
           />
           <div className="grid-3">
-            {whatWeDo.map((w) => (
-              <Link
-                href={w.href}
-                className="glass-card glass-card--pad card-link"
-                key={w.title}
-              >
-                <span className="medal">
-                  <Icon name={w.icon} />
-                </span>
-                <h3 className="h3" style={{ marginTop: 12 }}>
-                  {w.title}
-                </h3>
-                <p className="muted">{w.text}</p>
-                <span className="card-foot text-link">
-                  {w.link}
-                  <Icon name="arrow" />
-                </span>
-              </Link>
-            ))}
+            {whatWeDo.map((w) => {
+              const isRestricted = w.href.includes('u92-deeptech');
+              return isRestricted ? (
+                <RestrictedButton
+                  className="glass-card glass-card--pad card-link"
+                  style={{ textAlign: 'left', font: 'inherit', width: '100%', cursor: 'pointer' }}
+                  key={w.title}
+                >
+                  <span className="medal">
+                    <Icon name={w.icon} />
+                  </span>
+                  <h3 className="h3" style={{ marginTop: 12 }}>
+                    {w.title}
+                  </h3>
+                  <p className="muted">{w.text}</p>
+                  <span className="card-foot text-link">
+                    {w.link}
+                    <Icon name="arrow" />
+                  </span>
+                </RestrictedButton>
+              ) : (
+                <Link
+                  href={w.href}
+                  className="glass-card glass-card--pad card-link"
+                  key={w.title}
+                >
+                  <span className="medal">
+                    <Icon name={w.icon} />
+                  </span>
+                  <h3 className="h3" style={{ marginTop: 12 }}>
+                    {w.title}
+                  </h3>
+                  <p className="muted">{w.text}</p>
+                  <span className="card-foot text-link">
+                    {w.link}
+                    <Icon name="arrow" />
+                  </span>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

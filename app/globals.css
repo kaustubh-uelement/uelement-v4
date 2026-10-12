@@ -2695,5 +2695,238 @@ svg.gold { width: 18px; height: 18px; flex: none; }
   color: var(--gold-pale);
 }
 
+/* ---------- Restricted Access Notice Modal (Sovereign Glassmorphism) ---------- */
+
+.restricted-overlay-wrap {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  pointer-events: none;
+}
+
+.restricted-overlay-wrap.is-visible {
+  pointer-events: auto;
+}
+
+.restricted-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  background: rgba(3, 7, 16, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-out);
+}
+
+.restricted-backdrop.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.restricted-modal-container {
+  position: fixed;
+  inset: 0;
+  z-index: 1101;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 3.5vw, 28px);
+  pointer-events: none;
+}
+
+.restricted-modal {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  border-radius: 22px;
+  padding: clamp(24px, 3.6vw, 32px);
+  pointer-events: auto;
+  background: 
+    radial-gradient(ellipse 70% 55% at 20% 0%, rgba(241, 216, 148, 0.12), transparent 70%),
+    radial-gradient(ellipse 55% 65% at 85% 100%, rgba(221, 187, 110, 0.10), transparent 70%),
+    linear-gradient(155deg, rgba(215, 180, 120, 0.14) 0%, rgba(26, 20, 14, 0.76) 35%, rgba(12, 10, 8, 0.90) 100%);
+  backdrop-filter: blur(34px) saturate(190%);
+  -webkit-backdrop-filter: blur(34px) saturate(190%);
+  border: 1px solid rgba(221, 187, 110, 0.32);
+  box-shadow: 0 36px 90px -16px rgba(0, 0, 0, 0.85), 0 10px 28px -6px rgba(180, 140, 50, 0.22), inset 0 1px 0 rgba(255, 250, 235, 0.45), inset 0 0 28px rgba(241, 216, 148, 0.05);
+  overflow: hidden;
+  transform: scale(0.94) translateY(14px);
+  opacity: 0;
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s var(--ease-out);
+}
+
+.restricted-modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 250, 235, 0.85) 30%, rgba(241, 216, 148, 0.95) 50%, rgba(255, 250, 235, 0.85) 70%, transparent);
+  pointer-events: none;
+}
+
+.restricted-modal.is-visible {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.restricted-modal__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.restricted-modal__badge {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+  background: rgba(241, 216, 148, 0.12);
+  border: 1px solid rgba(221, 187, 110, 0.38);
+  color: var(--gold-soft);
+  flex-shrink: 0;
+  box-shadow: inset 0 1px 0 rgba(255, 250, 235, 0.3), 0 4px 14px -2px rgba(180, 140, 50, 0.25);
+}
+
+.restricted-modal__badge svg {
+  width: 22px;
+  height: 22px;
+}
+
+.restricted-modal__title-group {
+  flex: 1;
+  min-width: 0;
+}
+
+.restricted-modal__kicker {
+  display: inline-block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  margin-bottom: 4px;
+}
+
+.restricted-modal__title {
+  font-size: clamp(20px, 2.4vw, 24px);
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.restricted-modal__close-btn {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--mist);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+
+.restricted-modal__close-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border-color: rgba(241, 216, 148, 0.4);
+}
+
+.restricted-modal__close-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.restricted-modal__content {
+  margin-bottom: 24px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(221, 187, 110, 0.15);
+}
+
+.restricted-modal__body {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: rgba(245, 240, 232, 0.92);
+  margin: 0;
+  letter-spacing: 0.005em;
+}
+
+.restricted-modal__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.restricted-modal__btn {
+  min-width: 130px;
+  justify-content: center;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Button resets for restricted items to look and feel like native links/cards */
+button.mega-platform__card {
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+}
+
+button.drawer__group-title--btn {
+  font-family: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  padding: 0;
+}
+
+button.drawer__link-btn {
+  display: block;
+  padding: 7px 0;
+  color: var(--mist);
+  font-size: 16px;
+  font-family: inherit;
+  font-weight: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: color 0.15s ease;
+}
+
+button.drawer__link-btn:hover {
+  color: var(--gold-pale);
+}
+
+button.footer-link--btn {
+  font: inherit;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+
 
 

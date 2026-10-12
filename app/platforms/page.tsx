@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { PageHero, Chip, StatusBadge, CtaPanel } from '@/components/ui';
 import { Icon } from '@/components/Icon';
 import { platforms } from '@/lib/content';
+import { RestrictedButton } from '@/components/RestrictedModal';
 
 export const metadata: Metadata = {
   title: 'Platforms',
@@ -49,23 +50,55 @@ export default function PlatformsPage() {
                   {p.promise}
                 </p>
                 <p className="muted">{p.summary}</p>
-                <Link className={`btn ${dark ? 'btn--glass' : 'btn--ink'}`} href={`/platforms/${p.slug}/`}>
-                  Explore {p.name}
-                </Link>
+                {p.slug === 'u92-deeptech' ? (
+                  <RestrictedButton className={`btn ${dark ? 'btn--glass' : 'btn--ink'}`}>
+                    Explore {p.name}
+                  </RestrictedButton>
+                ) : (
+                  <Link className={`btn ${dark ? 'btn--glass' : 'btn--ink'}`} href={`/platforms/${p.slug}/`}>
+                    Explore {p.name}
+                  </Link>
+                )}
               </div>
               <ul style={{ listStyle: 'none', display: 'grid', gap: 10 }}>
-                {p.products.map((x) => (
-                  <li key={x.slug}>
-                    <Link href={`/platforms/${p.slug}/${x.slug}/`} className={`${dark ? 'glass-card' : 'paper-card'} card-link`} style={{ padding: '22px 24px', flexDirection: 'row', alignItems: 'center', gap: 18 }}>
-                      <span style={{ flex: 1, display: 'grid', gap: 4 }}>
-                        <span className="h4">{x.name}</span>
-                        <span className="muted small">{x.short}</span>
-                      </span>
-                      <StatusBadge status={x.status} />
-                      <Icon name="arrow" className="gold" />
-                    </Link>
-                  </li>
-                ))}
+                {p.products.map((x) => {
+                  const isRestricted = p.slug === 'u92-deeptech';
+                  return (
+                    <li key={x.slug}>
+                      {isRestricted ? (
+                        <RestrictedButton
+                          className={`${dark ? 'glass-card' : 'paper-card'} card-link`}
+                          style={{
+                            padding: '22px 24px',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            gap: 18,
+                            width: '100%',
+                            font: 'inherit',
+                            textAlign: 'left',
+                            cursor: 'pointer',
+                          }}
+                        >
+                          <span style={{ flex: 1, display: 'grid', gap: 4 }}>
+                            <span className="h4">{x.name}</span>
+                            <span className="muted small">{x.short}</span>
+                          </span>
+                          <StatusBadge status={x.status} />
+                          <Icon name="arrow" className="gold" />
+                        </RestrictedButton>
+                      ) : (
+                        <Link href={`/platforms/${p.slug}/${x.slug}/`} className={`${dark ? 'glass-card' : 'paper-card'} card-link`} style={{ padding: '22px 24px', flexDirection: 'row', alignItems: 'center', gap: 18 }}>
+                          <span style={{ flex: 1, display: 'grid', gap: 4 }}>
+                            <span className="h4">{x.name}</span>
+                            <span className="muted small">{x.short}</span>
+                          </span>
+                          <StatusBadge status={x.status} />
+                          <Icon name="arrow" className="gold" />
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </section>
