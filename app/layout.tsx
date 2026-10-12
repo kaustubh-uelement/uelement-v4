@@ -6,6 +6,7 @@ import '@fontsource/instrument-serif/400-italic.css';
 import './globals.css';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { ScrollToTop } from '@/components/ScrollToTop';
 import { company } from '@/lib/site';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-SF70DJKM92';
@@ -76,6 +77,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </main>
           <Footer />
         </div>
+        <ScrollToTop />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
         {GA_ID && (
           <>

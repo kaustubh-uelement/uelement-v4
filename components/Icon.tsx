@@ -1,7 +1,7 @@
 // A small, consistent icon set (1.6px strokes, 24px grid).
 type Name =
   | 'spark' | 'shield' | 'globe' | 'layers' | 'mesh' | 'atom' | 'eye' | 'cube' | 'key'
-  | 'chev' | 'plus' | 'menu' | 'close' | 'arrow' | 'mail' | 'phone' | 'pin' | 'compass'
+  | 'chev' | 'chev-up' | 'plus' | 'menu' | 'close' | 'arrow' | 'arrow-up' | 'mail' | 'phone' | 'pin' | 'compass'
   | 'leaf' | 'people' | 'book' | 'chat' | 'star' | 'handshake' | 'lifebuoy' | 'play' | 'image' | 'calendar' | 'news' | 'bulb' | 'quote'
   | 'linkedin' | 'github' | 'instagram' | 'twitter' | 'x';
 
@@ -16,10 +16,12 @@ const paths: Record<Name, React.ReactNode> = {
   cube: <path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Zm0 0v0M4 7.5l8 4.5 8-4.5M12 12v9" />,
   key: <><circle cx="8" cy="15" r="4" /><path d="m11 12 8.5-8.5M16 7l2.5 2.5M14 9l2 2" /></>,
   chev: <path d="m6 9 6 6 6-6" />,
+  'chev-up': <path d="m18 15-6-6-6 6" />,
   plus: <path d="M12 5v14M5 12h14" />,
   menu: <path d="M4 8h16M4 16h16" />,
   close: <path d="M6 6l12 12M18 6 6 18" />,
   arrow: <path d="M7 17 17 7M9 7h8v8" />,
+  'arrow-up': <path d="M12 19V5M5 12l7-7 7 7" />,
   mail: <><rect x="3.5" y="5.5" width="17" height="13" rx="2.5" /><path d="m4 7 8 6 8-6" /></>,
   phone: <path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16.5 16.5 0 0 1 4.5 5.5a2 2 0 0 1 2-2Z" />,
   pin: <><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z" /><circle cx="12" cy="10" r="2.4" /></>,
