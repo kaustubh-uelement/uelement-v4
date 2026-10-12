@@ -372,12 +372,7 @@ export const services: Service[] = [
 ];
 
 // ---------- Company ----------
-export const founders = [
-  { initials: 'CG', name: 'Chaitanya Ghate', role: 'Co-founder & CMD', bio: 'Second-time founder. R&D at VMware and BMC BladeLogic, AT&T data-centre storage at Tech Mahindra, then principal architect.' },
-  { initials: 'VJ', name: 'Vikalp Jambhulkar', role: 'Co-founder & CEO', bio: 'IIT Bombay and IIM Ahmedabad. Growth leader at PepsiCo, The Label Life and Switchcart Technologies.' },
-  { initials: 'SS', name: 'Satrajit Sengupta', role: 'Co-founder & CTO', bio: 'NIT Durgapur. Sixteen years as a telecom architect at Ericsson; principal architect at Calsoft.' },
-  { initials: 'KN', name: 'Kaustubh Narwade', role: 'Co-founder & CPO', bio: 'Joined as an intern and earned co-founder. Full-stack SaaS, cloud and DevOps; product owner for Vizor.' },
-];
+export const founders: { initials: string; name: string; role: string; bio: string }[] = [];
 
 export const beliefs = [
   { title: 'Mindset comes first', text: 'Every rebuild in history began with people who refused to accept ruin as final.' },
@@ -422,10 +417,10 @@ export const faqs = [
 ];
 
 export const timeline = [
-  { year: '2014', text: 'Our founder starts Viragh Microsystems; its products are later acquired by Promark Softwares.' },
+  { year: '2014', text: 'Viragh Microsystems is founded; its products are later acquired by Promark Softwares.' },
   { year: '2019', text: 'TES Labs, a profitable 3D-printing startup, is acquired by Signet Solutions.' },
   { year: '2026', text: 'UElement Technologies is incorporated in Pune and wins its first paying customer.' },
-  { year: 'Today', text: 'Three platforms, four founders and a growing team in Wakad, Pune.' },
+  { year: 'Today', text: 'Three platforms and an expanding engineering team in Wakad, Pune.' },
 ];
 
 export function allProducts() {
@@ -450,7 +445,7 @@ export const advantages = [
   { title: 'Quantum-ready from day one', text: 'Post-quantum cryptography is designed in, not bolted on. We pair PQC software now with QKD through partners later, the same dual track India’s national roadmap chose.' },
   { title: 'One data plane', text: 'Our enterprise products share one identity, one data layer and one audit trail. Add the next one without re-platforming.' },
   { title: 'Proof before promises', text: 'Start with a fixed-scope step: a quantum readiness scan, a 45-day proof of value or a Nexus package. Decide on more once you have seen results.' },
-  { title: 'Founders who have shipped', text: 'Two decades across VMware, BMC, Ericsson and enterprise infrastructure, two earlier startups, and deep roots in banking and telecom.' },
+  { title: 'Engineers who have shipped', text: 'Decades of collective experience across VMware, BMC, Ericsson and enterprise infrastructure, with deep roots in banking and telecom.' },
   { title: 'Humans stay in charge', text: 'Every AI feature we ship explains its outputs and keeps a person in the loop for decisions that matter.' },
 ];
 
@@ -515,7 +510,7 @@ export const research = [
     title: 'Talks and media',
     text: 'Explaining the quantum threat in plain language.',
     items: [
-      { title: 'All India Radio: [TOPIC]', meta: 'Chaitanya Ghate', date: '[MONTH YEAR]' },
+      { title: 'All India Radio: [TOPIC]', meta: 'Technical Leadership', date: '[MONTH YEAR]' },
       { title: '[TALK OR PANEL TITLE]', meta: '[Event], [Speaker]', date: '[MONTH YEAR]' },
     ],
   },
@@ -538,7 +533,7 @@ export const research = [
 
 export const csr = [
   { kind: 'Digital literacy', title: 'Understanding the algorithms', text: 'A school curriculum that helps students spot misinformation and understand the algorithms that shape what they see online.', measure: 'Schools reached: [NUMBER], students: [NUMBER]' },
-  { kind: 'Skilling', title: 'Training the next frontier engineers', text: 'Interns and early-career engineers learn post-quantum cryptography, AI and security on real work. One of our co-founders joined us as an intern.', measure: 'People trained this year: [NUMBER]' },
+  { kind: 'Skilling', title: 'Training the next frontier engineers', text: 'Interns and early-career engineers learn post-quantum cryptography, AI and security on real work, growing into leadership roles.', measure: 'People trained this year: [NUMBER]' },
   { kind: 'Our footprint', title: 'Measuring ourselves first', text: 'We track our own cloud, travel and office footprint, and choose lower-carbon options when costs are close.', measure: 'Baseline published: [YEAR]' },
 ];
 
@@ -624,7 +619,7 @@ export const resourceSections = [
     icon: 'image',
     title: 'Photos, logos and brand assets.',
     lede: 'Images of our team and work, and the brand assets you need to write about us.',
-    empty: 'The gallery is being prepared. For logos, founder photos or product images, write to us and we will send them.',
+    empty: 'The gallery is being prepared. For logos, team photos or product images, write to us and we will send them.',
     action: { label: 'Request brand assets', href: '/contact/?topic=Media' },
   },
   {

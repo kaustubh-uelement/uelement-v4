@@ -199,14 +199,14 @@ export function HeroRing() {
             <g className="ring-spin ring-spin--outer">
               <circle cx={CX} cy={CY} r={R} stroke="#DDBB6E" strokeOpacity=".35" strokeWidth="58" strokeDasharray={TICKS} filter="url(#hr-blur-sm)" />
               <circle cx={CX} cy={CY} r={R} stroke="#DDBB6E" strokeOpacity=".8" strokeWidth="58" strokeDasharray={TICKS} />
-              {/* Outer decorative dotted arc: enlarged, brightened with warm gold bloom */}
+              {/* Outer decorative dotted arc: refined star dots with warm gold bloom */}
               <circle
                 cx={CX}
                 cy={CY}
                 r={R + 54}
                 stroke="#F1D894"
                 strokeOpacity="0.5"
-                strokeWidth="11"
+                strokeWidth="5.5"
                 strokeDasharray="0.1 18"
                 strokeLinecap="round"
                 filter="url(#hr-blur-sm)"
@@ -217,7 +217,7 @@ export function HeroRing() {
                 r={R + 54}
                 stroke="#FFFBEA"
                 strokeOpacity="0.95"
-                strokeWidth="5.5"
+                strokeWidth="2.75"
                 strokeDasharray="0.1 18"
                 strokeLinecap="round"
               />

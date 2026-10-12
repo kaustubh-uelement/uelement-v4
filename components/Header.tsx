@@ -363,7 +363,7 @@ const resourcesData = [
     cards: [
       {
         title: 'Company',
-        note: 'About us, mission and vision, founders',
+        note: 'About us, mission, vision & culture',
         href: '/company/',
       },
       {
