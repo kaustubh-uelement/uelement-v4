@@ -61,7 +61,8 @@ export default function Home() {
                 aria-label="Platforms: Quantum, Enterprise, Deeptech"
               >
                 {heroPillBadges.map((b) => {
-                  const isRestricted = b.label === 'Deeptech' || b.href.includes('u92-deeptech');
+                  const isRestricted =
+                    b.label === "Deeptech" || b.href.includes("u92-deeptech");
                   return isRestricted ? (
                     <RestrictedButton
                       className="proof__badge"
@@ -85,9 +86,12 @@ export default function Home() {
                 })}
               </span>
               <span className="proof__text">
-                <strong className="proof__title">Built in India, deployable anywhere.</strong>{" "}
+                <strong className="proof__title">
+                  Built in India, deployable anywhere.
+                </strong>{" "}
                 <span className="proof__subtitle">
-                  Developed by engineers from VMware, Ericsson, COEP & IIT Bombay.
+                  Developed by engineers from VMware, Ericsson, COEP & IIT
+                  Bombay.
                 </span>
               </span>
             </span>
@@ -103,8 +107,7 @@ export default function Home() {
             className="lede hero__lede hero-seq"
             style={{ ["--i" as string]: 2 } as React.CSSProperties}
           >
-            Building Quantum-safe Security and Enterprise Platforms for the
-            systems that cannot fail.
+            Rooted in Purpose. Built to Protect.
           </p>
           <div
             className="actions hero__actions hero-seq"
@@ -127,21 +130,42 @@ export default function Home() {
       <section className="panel panel--paper section" aria-labelledby="who">
         <div className="wrap">
           <div className="section-head section-head--split">
-            <div style={{ display: "grid", gap: 18, justifyItems: "start", alignSelf: "start" }}>
+            <div
+              style={{
+                display: "grid",
+                gap: 18,
+                justifyItems: "start",
+                alignSelf: "start",
+              }}
+            >
               <Chip icon="people">Who we are</Chip>
               <h2 id="who" className="h2">
-                Rooted in Purpose. Built to Protect.
+                Building DeepTech, Quantum-safe security and Enterprise
+                platforms for critical Infrastructure.
               </h2>
             </div>
             <div className="prose muted" style={{ fontSize: 18 }}>
               <p>
-                at UElement, <em>We are driven by a shared Mindset and a singular Goal;</em> to rebuild and fortify what matters. History, culture and our deepest traditions teach us that anything broken can be restored. While the loudest voices today look to abandon Earth for the future, we believe differently.
+                at UElement,{" "}
+                <em>We are driven by a shared Mindset and a singular Goal;</em>{" "}
+                to rebuild and fortify what matters. History, culture and our
+                deepest traditions teach us that anything broken can be
+                restored. While the loudest voices today look to abandon Earth
+                for the future, we believe differently.
               </p>
               <p>
-                Humanity already possesses the Talent, Capital and Intelligence required to repair our world — We simply need to Direct it with Purpose.
+                Humanity already possesses the Talent, Capital and Intelligence
+                required to repair our world — We simply need to Direct it with
+                Purpose.
               </p>
               <p>
-                That purpose drives our Technology. Our <em>U92 Quantum Security</em> platform equips BFSI and critical infrastructure with post-quantum cryptography to protect systems that cannot fail. Alongside it, our <em>U92 Enterprise Fabric</em> platform empowers growing businesses with the intelligent solutions they need to confidently scale their digital operations.
+                That purpose drives our Technology. Our{" "}
+                <em>U92 Quantum Security</em> platform equips BFSI and critical
+                infrastructure with post-quantum cryptography to protect systems
+                that cannot fail. Alongside it, our{" "}
+                <em>U92 Enterprise Fabric</em> platform empowers growing
+                businesses with the intelligent solutions they need to
+                confidently scale their digital operations.
               </p>
             </div>
           </div>
@@ -162,11 +186,16 @@ export default function Home() {
           />
           <div className="grid-3">
             {whatWeDo.map((w) => {
-              const isRestricted = w.href.includes('u92-deeptech');
+              const isRestricted = w.href.includes("u92-deeptech");
               return isRestricted ? (
                 <RestrictedButton
                   className="glass-card glass-card--pad card-link"
-                  style={{ textAlign: 'left', font: 'inherit', width: '100%', cursor: 'pointer' }}
+                  style={{
+                    textAlign: "left",
+                    font: "inherit",
+                    width: "100%",
+                    cursor: "pointer",
+                  }}
                   key={w.title}
                 >
                   <span className="medal">
