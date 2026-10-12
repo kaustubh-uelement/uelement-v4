@@ -201,8 +201,10 @@ export function CbomScannerModal() {
   // Step 5: Results
   const [results, setResults] = useState<ScanResults | null>(null);
 
-  // PDF Download Lead Gate Modal
+  // PDF Download & Full Inventory Lead Gate Modal (Brainly/Quora-style)
   const [showPdfLeadModal, setShowPdfLeadModal] = useState(false);
+  const [authModalPurpose, setAuthModalPurpose] = useState<'unlock_table' | 'download_pdf' | 'export_json'>('unlock_table');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [pdfLeadForm, setPdfLeadForm] = useState({
     name: '',
     email: '',
@@ -212,6 +214,32 @@ export function CbomScannerModal() {
   });
   const [pdfLeadErrors, setPdfLeadErrors] = useState<Record<string, string>>({});
   const [isSubmittingPdfLead, setIsSubmittingPdfLead] = useState(false);
+
+  // Restore enterprise user session from localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('uelement_pqc_user');
+        if (saved) {
+          const u = JSON.parse(saved);
+          if (u?.email && u?.name) {
+            setProfile((prev) => ({ ...prev, ...u }));
+            setPdfLeadForm((prev) => ({ ...prev, ...u }));
+            setIsLoggedIn(true);
+          }
+        }
+      } catch (err) {
+        // ignore localStorage access errors
+      }
+    }
+  }, []);
+
+  // Sync profile email & name to logged in state
+  useEffect(() => {
+    if (profile.email && profile.name && !isLoggedIn) {
+      setIsLoggedIn(true);
+    }
+  }, [profile.email, profile.name, isLoggedIn]);
 
   // Handle open / close via event or URL query
   useEffect(() => {
@@ -853,6 +881,20 @@ export function CbomScannerModal() {
   const downloadCbomJson = () => {
     if (!results) return;
 
+    if (!isLoggedIn && !(profile.email && profile.name)) {
+      setAuthModalPurpose('export_json');
+      setPdfLeadForm((prev) => ({
+        ...prev,
+        name: profile.name || '',
+        email: profile.email || '',
+        company: profile.company || '',
+        title: profile.title || '',
+        phone: profile.phone || '',
+      }));
+      setShowPdfLeadModal(true);
+      return;
+    }
+
     let cyclonedxJson = '';
     if (results.raw?.cbom) {
       // Direct raw verified CycloneDX 1.6 document from backend engine
@@ -1423,10 +1465,24 @@ export function CbomScannerModal() {
     doc.save(`Vyu_CBOM_Assessment_(${sanitizedName}).pdf`);
   };
 
+  const handleUnlockTableClick = () => {
+    setAuthModalPurpose('unlock_table');
+    setPdfLeadForm((prev) => ({
+      ...prev,
+      name: profile.name || '',
+      email: profile.email || '',
+      company: profile.company || '',
+      title: profile.title || '',
+      phone: profile.phone || '',
+    }));
+    setShowPdfLeadModal(true);
+  };
+
   const handlePdfButtonClick = () => {
-    if (profile.email && profile.name) {
+    if (isLoggedIn || (profile.email && profile.name)) {
       downloadPDFReport();
     } else {
+      setAuthModalPurpose('download_pdf');
       setPdfLeadForm((prev) => ({
         ...prev,
         name: profile.name || '',
@@ -1469,9 +1525,23 @@ export function CbomScannerModal() {
       consent: true,
     };
     setProfile((prev) => ({ ...prev, ...updatedProfile }));
+    setIsLoggedIn(true);
+
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('uelement_pqc_user', JSON.stringify(updatedProfile));
+      } catch (err) {}
+    }
+
+    const eventTitle =
+      authModalPurpose === 'download_pdf'
+        ? 'Assessment PDF Download'
+        : authModalPurpose === 'export_json'
+          ? 'CycloneDX JSON Export'
+          : 'CBOM Full Inventory Unlock';
 
     await dispatchLeadCapture(
-      'Assessment PDF Download',
+      eventTitle,
       {
         'Target Asset': results?.target || targetConfig.target,
         'Readiness Score': `${results?.score ?? 'N/A'}/100`,
@@ -1481,7 +1551,12 @@ export function CbomScannerModal() {
 
     setIsSubmittingPdfLead(false);
     setShowPdfLeadModal(false);
-    downloadPDFReport(updatedProfile);
+
+    if (authModalPurpose === 'download_pdf') {
+      downloadPDFReport(updatedProfile);
+    } else if (authModalPurpose === 'export_json') {
+      setTimeout(() => downloadCbomJson(), 100);
+    }
   };
 
   if (!isOpen) return null;
@@ -2610,16 +2685,44 @@ export function CbomScannerModal() {
                 </div>
               </div>
 
-              {/* ── TAB 1: CBOM TABLE ── */}
+              {/* ── TAB 1: CBOM TABLE (INSPECT-PROOF BRAINLY/QUORA LOCK) ── */}
               {activeTab === 'cbom' && (
                 <div
                   style={{
+                    position: 'relative',
                     borderRadius: '14px',
                     border: '1px solid rgba(221, 187, 110, 0.2)',
                     overflow: 'hidden',
                     background: 'rgba(0, 0, 0, 0.3)',
                   }}
                 >
+                  {/* Authenticated Full Access Banner */}
+                  {isLoggedIn && (
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '10px 18px',
+                        background: 'rgba(34, 197, 94, 0.08)',
+                        borderBottom: '1px solid rgba(34, 197, 94, 0.25)',
+                        fontSize: '12.5px',
+                        color: '#86efac',
+                        flexWrap: 'wrap',
+                        gap: '8px',
+                      }}
+                    >
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontWeight: 600 }}>
+                        <CheckCircle2 size={15} />
+                        Full Enterprise Inventory Unlocked ({results.cbom.length} Cryptographic Assets)
+                      </span>
+                      <span style={{ fontSize: '11.5px', color: 'rgba(245, 240, 232, 0.7)' }}>
+                        Authenticated as <strong style={{ color: '#ffffff' }}>{profile.email}</strong>
+                        {profile.company ? ` (${profile.company})` : ''}
+                      </span>
+                    </div>
+                  )}
+
                   <div style={{ overflowX: 'auto' }}>
                     <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
                       <thead>
@@ -2637,19 +2740,24 @@ export function CbomScannerModal() {
                         </tr>
                       </thead>
                       <tbody>
-                        {results.cbom.map((row, i) => (
+                        {/* ── ROWS 0 & 1: ALWAYS UNLOCKED REAL FIRST TWO ASSETS ── */}
+                        {results.cbom.slice(0, 2).map((row, i) => (
                           <tr
-                            key={i}
+                            key={`real-head-${i}`}
                             style={{
                               borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
                               background: i % 2 === 1 ? 'rgba(255, 255, 255, 0.02)' : 'transparent',
                             }}
                           >
-                            <td style={{ padding: '12px 16px', color: '#ffffff', fontWeight: 500 }}>{row.asset}</td>
+                            <td style={{ padding: '12px 16px', color: '#ffffff', fontWeight: 500 }}>
+                              {row.asset}
+                            </td>
                             <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.85)', fontFamily: 'ui-monospace, monospace', fontSize: '12px' }}>
                               {row.primitive}
                             </td>
-                            <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.7)' }}>{row.purpose}</td>
+                            <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.7)' }}>
+                              {row.purpose}
+                            </td>
                             <td style={{ padding: '12px 16px' }}>
                               <span
                                 style={{
@@ -2681,7 +2789,11 @@ export function CbomScannerModal() {
                                         : '#86efac',
                                 }}
                               >
-                                {row.verdict === 'broken' ? 'Broken (Shor)' : row.verdict === 'weak' ? 'Weak (Grover)' : 'Quantum-Safe'}
+                                {row.verdict === 'broken'
+                                  ? 'Broken (Shor)'
+                                  : row.verdict === 'weak'
+                                    ? 'Weak (Grover)'
+                                    : 'Quantum-Safe'}
                               </span>
                             </td>
                             <td style={{ padding: '12px 16px', color: 'var(--gold-soft)', fontWeight: 500 }}>
@@ -2689,21 +2801,290 @@ export function CbomScannerModal() {
                             </td>
                           </tr>
                         ))}
+
+                        {/* ── IF LOGGED IN: RENDER REMAINING REAL UNREDACTED ROWS (INDEX 2 ONWARDS) ── */}
+                        {isLoggedIn &&
+                          results.cbom.slice(2).map((row, i) => (
+                            <tr
+                              key={`real-rest-${i + 2}`}
+                              style={{
+                                borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+                                background: (i + 2) % 2 === 1 ? 'rgba(255, 255, 255, 0.02)' : 'transparent',
+                              }}
+                            >
+                              <td style={{ padding: '12px 16px', color: '#ffffff', fontWeight: 500 }}>{row.asset}</td>
+                              <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.85)', fontFamily: 'ui-monospace, monospace', fontSize: '12px' }}>
+                                {row.primitive}
+                              </td>
+                              <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.7)' }}>{row.purpose}</td>
+                              <td style={{ padding: '12px 16px' }}>
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    padding: '2px 8px',
+                                    borderRadius: '999px',
+                                    fontSize: '11px',
+                                    fontWeight: 700,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.04em',
+                                    background:
+                                      row.verdict === 'broken'
+                                        ? 'rgba(239, 68, 68, 0.18)'
+                                        : row.verdict === 'weak'
+                                          ? 'rgba(245, 158, 11, 0.18)'
+                                          : 'rgba(34, 197, 94, 0.18)',
+                                    border: `1px solid ${
+                                      row.verdict === 'broken'
+                                        ? 'rgba(239, 68, 68, 0.45)'
+                                        : row.verdict === 'weak'
+                                          ? 'rgba(245, 158, 11, 0.45)'
+                                          : 'rgba(34, 197, 94, 0.45)'
+                                    }`,
+                                    color:
+                                      row.verdict === 'broken'
+                                        ? '#fca5a5'
+                                        : row.verdict === 'weak'
+                                          ? '#fcd34d'
+                                          : '#86efac',
+                                  }}
+                                >
+                                  {row.verdict === 'broken' ? 'Broken (Shor)' : row.verdict === 'weak' ? 'Weak (Grover)' : 'Quantum-Safe'}
+                                </span>
+                              </td>
+                              <td style={{ padding: '12px 16px', color: 'var(--gold-soft)', fontWeight: 500 }}>
+                                {row.replacement}
+                              </td>
+                            </tr>
+                          ))}
+
+                        {/* ── IF NOT LOGGED IN: INSPECT-PROOF REDACTED DUMMY ROWS WITH CSS BLUR ── */}
+                        {!isLoggedIn &&
+                          [
+                            {
+                              asset: 'Intermediate Certificate Authority [Protected]',
+                              primitive: '••••••••••••••••••••••••••••',
+                              purpose: 'Trust Hierarchy Validation',
+                              verdict: 'broken',
+                              replacement: '••••••••••••••••••••••••••••',
+                            },
+                            {
+                              asset: 'Transport Bulk Cipher [Protected]',
+                              primitive: '••••••••••••••••••••••••••••',
+                              purpose: 'Payload Confidentiality',
+                              verdict: 'weak',
+                              replacement: '••••••••••••••••••••••••••••',
+                            },
+                            {
+                              asset: 'Handshake Transcript Hash [Protected]',
+                              primitive: '••••••••••••••••••••••••••••',
+                              purpose: 'Integrity Verification',
+                              verdict: 'weak',
+                              replacement: '••••••••••••••••••••••••••••',
+                            },
+                            {
+                              asset: 'Session Ticket Key [Protected]',
+                              primitive: '••••••••••••••••••••••••••••',
+                              purpose: 'Resumption Protection',
+                              verdict: 'broken',
+                              replacement: '••••••••••••••••••••••••••••',
+                            },
+                          ].map((row, i) => (
+                            <tr
+                              key={`locked-${i}`}
+                              style={{
+                                borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
+                                background: (i + 2) % 2 === 1 ? 'rgba(255, 255, 255, 0.02)' : 'transparent',
+                                filter: 'blur(5px)',
+                                WebkitFilter: 'blur(5px)',
+                                opacity: 0.35,
+                                userSelect: 'none',
+                                WebkitUserSelect: 'none',
+                                pointerEvents: 'none',
+                              }}
+                            >
+                              <td style={{ padding: '12px 16px', color: '#ffffff', fontWeight: 500 }}>{row.asset}</td>
+                              <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.85)', fontFamily: 'ui-monospace, monospace', fontSize: '12px' }}>
+                                {row.primitive}
+                              </td>
+                              <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.7)' }}>{row.purpose}</td>
+                              <td style={{ padding: '12px 16px' }}>
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    padding: '2px 8px',
+                                    borderRadius: '999px',
+                                    fontSize: '11px',
+                                    fontWeight: 700,
+                                    textTransform: 'uppercase',
+                                    background: 'rgba(239, 68, 68, 0.18)',
+                                    border: '1px solid rgba(239, 68, 68, 0.45)',
+                                    color: '#fca5a5',
+                                  }}
+                                >
+                                  LOCKED
+                                </span>
+                              </td>
+                              <td style={{ padding: '12px 16px', color: 'var(--gold-soft)', fontWeight: 500 }}>
+                                {row.replacement}
+                              </td>
+                            </tr>
+                          ))}
                       </tbody>
                     </table>
                   </div>
+
+                  {/* ── QUORA / BRAINLY FROSTED GLASS LOCK OVERLAY ── */}
+                  {!isLoggedIn && (
+                    <div
+                      style={{
+                        position: 'relative',
+                        marginTop: '-165px',
+                        zIndex: 10,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: '36px 20px 32px',
+                        background:
+                          'linear-gradient(180deg, rgba(12, 10, 8, 0.2) 0%, rgba(14, 11, 8, 0.92) 32%, rgba(10, 8, 6, 0.98) 100%)',
+                        backdropFilter: 'blur(10px) saturate(180%)',
+                        WebkitBackdropFilter: 'blur(10px) saturate(180%)',
+                        textAlign: 'center',
+                        borderTop: '1px solid rgba(221, 187, 110, 0.28)',
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: '46px',
+                          height: '46px',
+                          borderRadius: '50%',
+                          background: 'rgba(221, 187, 110, 0.14)',
+                          border: '1px solid rgba(221, 187, 110, 0.45)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: 'var(--gold-soft)',
+                          marginBottom: '14px',
+                          boxShadow: '0 0 24px rgba(221, 187, 110, 0.2)',
+                        }}
+                      >
+                        <Lock size={20} />
+                      </div>
+
+                      <div
+                        style={{
+                          display: 'inline-block',
+                          padding: '3px 12px',
+                          borderRadius: '999px',
+                          background: 'rgba(221, 187, 110, 0.12)',
+                          border: '1px solid rgba(221, 187, 110, 0.35)',
+                          color: 'var(--gold-soft)',
+                          fontSize: '11px',
+                          fontWeight: 700,
+                          letterSpacing: '0.06em',
+                          textTransform: 'uppercase',
+                          marginBottom: '10px',
+                        }}
+                      >
+                        2 OF {results.cbom.length} ASSETS VISIBLE · {Math.max(0, results.cbom.length - 2)} LOCKED
+                      </div>
+
+                      <h4
+                        style={{
+                          margin: '0 0 8px 0',
+                          fontSize: '19px',
+                          fontWeight: 600,
+                          color: '#ffffff',
+                          fontFamily: 'serif',
+                          letterSpacing: '0.01em',
+                        }}
+                      >
+                        Unlock Full Cryptographic Bill of Materials
+                      </h4>
+
+                      <p
+                        style={{
+                          margin: '0 0 20px 0',
+                          fontSize: '13px',
+                          color: 'rgba(245, 240, 232, 0.75)',
+                          maxWidth: '520px',
+                          lineHeight: 1.55,
+                        }}
+                      >
+                        Sign in with your corporate account to view all {results.cbom.length} detected cryptographic assets, Shor &amp; Grover exposure matrices, and official NIST FIPS 203/204/205 transition roadmaps.
+                      </p>
+
+                      <button
+                        type="button"
+                        onClick={handleUnlockTableClick}
+                        className="btn btn--metal"
+                        style={{
+                          padding: '11px 26px',
+                          fontSize: '13.5px',
+                          fontWeight: 600,
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          boxShadow: '0 8px 24px rgba(221, 187, 110, 0.25)',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <Lock size={15} />
+                        Sign In to Unlock Full Report ({Math.max(0, results.cbom.length - 2)} More Assets)
+                      </button>
+
+                      <span
+                        style={{
+                          display: 'block',
+                          marginTop: '12px',
+                          fontSize: '11px',
+                          color: 'rgba(245, 240, 232, 0.5)',
+                        }}
+                      >
+                        Free Instant Access · Enterprise Corporate Verification
+                      </span>
+                    </div>
+                  )}
                 </div>
               )}
 
-              {/* ── TAB 2: FINDINGS ── */}
+              {/* ── TAB 2: FINDINGS (FIRST TWO VISIBLE, REST LOCKED) ── */}
               {activeTab === 'findings' && (
-                <div style={{ display: 'grid', gap: '12px' }}>
-                  {results.findings.map((f, i) => {
+                <div style={{ position: 'relative', display: 'grid', gap: '12px' }}>
+                  {/* Authenticated Full Access Banner */}
+                  {isLoggedIn && (
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '10px 18px',
+                        background: 'rgba(34, 197, 94, 0.08)',
+                        border: '1px solid rgba(34, 197, 94, 0.25)',
+                        borderRadius: '12px',
+                        fontSize: '12.5px',
+                        color: '#86efac',
+                        flexWrap: 'wrap',
+                        gap: '8px',
+                      }}
+                    >
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontWeight: 600 }}>
+                        <CheckCircle2 size={15} />
+                        Full Vulnerability Audit Unlocked ({results.findings.length} Threat Vectors)
+                      </span>
+                      <span style={{ fontSize: '11.5px', color: 'rgba(245, 240, 232, 0.7)' }}>
+                        Authenticated as <strong style={{ color: '#ffffff' }}>{profile.email}</strong>
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Real First 2 Findings (Always Visible) */}
+                  {results.findings.slice(0, 2).map((f, i) => {
                     const sevColor =
                       f.sev === 'critical' ? '#ef4444' : f.sev === 'high' ? '#f97316' : f.sev === 'medium' ? '#f59e0b' : '#94a3b8';
                     return (
                       <div
-                        key={i}
+                        key={`real-f-${i}`}
                         style={{
                           padding: '16px 20px',
                           borderRadius: '12px',
@@ -2742,47 +3123,466 @@ export function CbomScannerModal() {
                       </div>
                     );
                   })}
-                </div>
-              )}
 
-              {/* ── TAB 3: MIGRATION ROADMAP PLAN ── */}
-              {activeTab === 'plan' && (
-                <div style={{ display: 'grid', gap: '14px' }}>
-                  {results.plan.map((p, i) => (
-                    <div
-                      key={i}
-                      style={{
-                        padding: '18px 20px',
-                        borderRadius: '14px',
-                        background: 'rgba(0, 0, 0, 0.3)',
-                        border: '1px solid rgba(221, 187, 110, 0.2)',
-                      }}
-                    >
+                  {/* If Logged In: Real findings from index 2 onwards */}
+                  {isLoggedIn &&
+                    results.findings.slice(2).map((f, i) => {
+                      const sevColor =
+                        f.sev === 'critical' ? '#ef4444' : f.sev === 'high' ? '#f97316' : f.sev === 'medium' ? '#f59e0b' : '#94a3b8';
+                      return (
+                        <div
+                          key={`real-f-rest-${i + 2}`}
+                          style={{
+                            padding: '16px 20px',
+                            borderRadius: '12px',
+                            background: 'rgba(0, 0, 0, 0.32)',
+                            border: '1px solid rgba(221, 187, 110, 0.2)',
+                            borderLeft: `4px solid ${sevColor}`,
+                          }}
+                        >
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+                            <span
+                              style={{
+                                padding: '2px 8px',
+                                borderRadius: '4px',
+                                fontSize: '10.5px',
+                                fontWeight: 700,
+                                textTransform: 'uppercase',
+                                background: `${sevColor}22`,
+                              color: sevColor,
+                            }}
+                          >
+                            {f.sev}
+                          </span>
+                          <h4 style={{ margin: 0, fontSize: '15px', color: '#ffffff', fontWeight: 600 }}>{f.title}</h4>
+                        </div>
+                        <p style={{ margin: '0 0 10px 0', fontSize: '13.5px', color: 'rgba(245, 240, 232, 0.8)', lineHeight: 1.5 }}>
+                          {f.detail}
+                        </p>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px', fontSize: '12px' }}>
+                          <span style={{ color: 'var(--gold-soft)' }}>
+                            <strong>Action:</strong> {f.fix}
+                          </span>
+                          <span style={{ color: 'rgba(245, 240, 232, 0.5)', fontFamily: 'ui-monospace, monospace' }}>
+                            Standard: {f.std}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+
+                  {/* If NOT Logged In: Redacted dummy masked finding cards with blur (Inspect-Proof) */}
+                  {!isLoggedIn && results.findings.length > 2 && (
+                    <div style={{ position: 'relative', display: 'grid', gap: '12px', overflow: 'hidden' }}>
                       <div
                         style={{
-                          display: 'inline-block',
-                          padding: '3px 10px',
-                          borderRadius: '999px',
-                          fontSize: '11px',
-                          fontWeight: 700,
-                          textTransform: 'uppercase',
-                          background: 'rgba(241, 216, 148, 0.12)',
-                          color: 'var(--gold-soft)',
-                          marginBottom: '8px',
+                          display: 'grid',
+                          gap: '12px',
+                          filter: 'blur(5px)',
+                          WebkitFilter: 'blur(5px)',
+                          opacity: 0.35,
+                          userSelect: 'none',
+                          WebkitUserSelect: 'none',
+                          pointerEvents: 'none',
                         }}
                       >
-                        {p.phase}
+                        {[
+                          {
+                            sev: 'high',
+                            title: 'Cryptographic Key Exchange Quantum Vulnerability [Protected]',
+                            detail: '••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••',
+                            fix: '••••••••••••••••••••••••••••••••••••••••••••••••••••',
+                            std: 'NIST FIPS 203',
+                          },
+                          {
+                            sev: 'medium',
+                            title: 'Symmetric Cipher Grover Reduction Risk [Protected]',
+                            detail: '••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••',
+                            fix: '••••••••••••••••••••••••••••••••••••••••••••••••••••',
+                            std: 'NSA CNSA 2.0',
+                          },
+                        ].map((df, di) => (
+                          <div
+                            key={`locked-f-${di}`}
+                            style={{
+                              padding: '16px 20px',
+                              borderRadius: '12px',
+                              background: 'rgba(0, 0, 0, 0.32)',
+                              border: '1px solid rgba(221, 187, 110, 0.15)',
+                              borderLeft: '4px solid #f97316',
+                            }}
+                          >
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+                              <span style={{ padding: '2px 8px', borderRadius: '4px', fontSize: '10.5px', fontWeight: 700, textTransform: 'uppercase', background: 'rgba(249, 115, 22, 0.18)', color: '#fdba74' }}>
+                                LOCKED
+                              </span>
+                              <h4 style={{ margin: 0, fontSize: '15px', color: '#ffffff', fontWeight: 600 }}>{df.title}</h4>
+                            </div>
+                            <p style={{ margin: '0 0 10px 0', fontSize: '13.5px', color: 'rgba(245, 240, 232, 0.8)', lineHeight: 1.5 }}>
+                              {df.detail}
+                            </p>
+                          </div>
+                        ))}
                       </div>
-                      <h4 style={{ margin: '0 0 6px 0', fontSize: '16px', color: '#ffffff', fontWeight: 600 }}>{p.title}</h4>
-                      <p style={{ margin: 0, fontSize: '13.5px', color: 'rgba(245, 240, 232, 0.8)', lineHeight: 1.5 }}>
-                        {p.desc}
-                      </p>
+
+                      {/* Quora/Brainly Lock Banner for Findings */}
+                      <div
+                        style={{
+                          position: 'relative',
+                          marginTop: '-120px',
+                          zIndex: 10,
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          padding: '32px 20px 28px',
+                          background: 'linear-gradient(180deg, rgba(12, 10, 8, 0.15) 0%, rgba(14, 11, 8, 0.92) 32%, rgba(10, 8, 6, 0.98) 100%)',
+                          backdropFilter: 'blur(10px) saturate(180%)',
+                          WebkitBackdropFilter: 'blur(10px) saturate(180%)',
+                          textAlign: 'center',
+                          borderRadius: '12px',
+                          borderTop: '1px solid rgba(221, 187, 110, 0.28)',
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: '44px',
+                            height: '44px',
+                            borderRadius: '50%',
+                            background: 'rgba(221, 187, 110, 0.14)',
+                            border: '1px solid rgba(221, 187, 110, 0.45)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: 'var(--gold-soft)',
+                            marginBottom: '12px',
+                            boxShadow: '0 0 24px rgba(221, 187, 110, 0.2)',
+                          }}
+                        >
+                          <Lock size={20} />
+                        </div>
+
+                        <div
+                          style={{
+                            display: 'inline-block',
+                            padding: '3px 12px',
+                            borderRadius: '999px',
+                            background: 'rgba(221, 187, 110, 0.12)',
+                            border: '1px solid rgba(221, 187, 110, 0.35)',
+                            color: 'var(--gold-soft)',
+                            fontSize: '11px',
+                            fontWeight: 700,
+                            letterSpacing: '0.06em',
+                            textTransform: 'uppercase',
+                            marginBottom: '10px',
+                          }}
+                        >
+                          2 OF {results.findings.length} VULNERABILITIES VISIBLE · {Math.max(0, results.findings.length - 2)} LOCKED
+                        </div>
+
+                        <h4
+                          style={{
+                            margin: '0 0 8px 0',
+                            fontSize: '19px',
+                            fontWeight: 600,
+                            color: '#ffffff',
+                            fontFamily: 'serif',
+                            letterSpacing: '0.01em',
+                          }}
+                        >
+                          Unlock Full Vulnerability Analysis
+                        </h4>
+
+                        <p
+                          style={{
+                            margin: '0 0 18px 0',
+                            fontSize: '13px',
+                            color: 'rgba(245, 240, 232, 0.75)',
+                            maxWidth: '520px',
+                            lineHeight: 1.55,
+                          }}
+                        >
+                          Sign in with your corporate account to view all {results.findings.length} detected vulnerabilities, Shor &amp; Grover risk matrices, and remediation actions.
+                        </p>
+
+                        <button
+                          type="button"
+                          onClick={handleUnlockTableClick}
+                          className="btn btn--metal"
+                          style={{
+                            padding: '11px 26px',
+                            fontSize: '13.5px',
+                            fontWeight: 600,
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            boxShadow: '0 8px 24px rgba(221, 187, 110, 0.25)',
+                            cursor: 'pointer',
+                          }}
+                        >
+                          <Lock size={15} />
+                          Sign In to Unlock All Vulnerabilities ({Math.max(0, results.findings.length - 2)} More)
+                        </button>
+                      </div>
                     </div>
-                  ))}
+                  )}
                 </div>
               )}
 
-              {/* ── TAB 4: TECHNICAL ATTRIBUTES ── */}
+              {/* ── TAB 3: MIGRATION ROADMAP PLAN (HIDE FULL WHEN NOT LOGGED IN) ── */}
+              {activeTab === 'plan' && (
+                <div style={{ position: 'relative', display: 'grid', gap: '14px' }}>
+                  {/* If Logged In: Render full roadmap */}
+                  {isLoggedIn ? (
+                    <>
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          padding: '10px 18px',
+                          background: 'rgba(34, 197, 94, 0.08)',
+                          border: '1px solid rgba(34, 197, 94, 0.25)',
+                          borderRadius: '12px',
+                          fontSize: '12.5px',
+                          color: '#86efac',
+                          flexWrap: 'wrap',
+                          gap: '8px',
+                        }}
+                      >
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontWeight: 600 }}>
+                          <CheckCircle2 size={15} />
+                          NIST Migration Roadmap Unlocked ({results.plan.length} Phased Milestones)
+                        </span>
+                        <span style={{ fontSize: '11.5px', color: 'rgba(245, 240, 232, 0.7)' }}>
+                          Authenticated as <strong style={{ color: '#ffffff' }}>{profile.email}</strong>
+                        </span>
+                      </div>
+                      {results.plan.map((p, i) => (
+                        <div
+                          key={i}
+                          style={{
+                            padding: '18px 20px',
+                            borderRadius: '14px',
+                            background: 'rgba(0, 0, 0, 0.3)',
+                            border: '1px solid rgba(221, 187, 110, 0.2)',
+                          }}
+                        >
+                          <div
+                            style={{
+                              display: 'inline-block',
+                              padding: '3px 10px',
+                              borderRadius: '999px',
+                              fontSize: '11px',
+                              fontWeight: 700,
+                              textTransform: 'uppercase',
+                              background: 'rgba(241, 216, 148, 0.12)',
+                              color: 'var(--gold-soft)',
+                              marginBottom: '8px',
+                            }}
+                          >
+                            {p.phase}
+                          </div>
+                          <h4 style={{ margin: '0 0 6px 0', fontSize: '16px', color: '#ffffff', fontWeight: 600 }}>{p.title}</h4>
+                          <p style={{ margin: 0, fontSize: '13.5px', color: 'rgba(245, 240, 232, 0.8)', lineHeight: 1.5 }}>
+                            {p.desc}
+                          </p>
+                        </div>
+                      ))}
+                    </>
+                  ) : (
+                    /* If NOT Logged In: Completely hide full roadmap, render blurred dummy phases + centered frosted glass lock card */
+                    <div
+                      style={{
+                        position: 'relative',
+                        borderRadius: '16px',
+                        overflow: 'hidden',
+                        border: '1px solid rgba(221, 187, 110, 0.25)',
+                        background: 'rgba(0, 0, 0, 0.35)',
+                        minHeight: '380px',
+                      }}
+                    >
+                      {/* Blurred Dummy Cards (Inspect-Proof: real plan is NOT in DOM) */}
+                      <div
+                        style={{
+                          display: 'grid',
+                          gap: '14px',
+                          padding: '24px',
+                          filter: 'blur(6px)',
+                          WebkitFilter: 'blur(6px)',
+                          opacity: 0.25,
+                          userSelect: 'none',
+                          WebkitUserSelect: 'none',
+                          pointerEvents: 'none',
+                        }}
+                      >
+                        {[
+                          {
+                            phase: 'Phase 1: Discovery & Crypto-Agility',
+                            title: 'Enterprise Cryptographic Inventory Mapping',
+                            desc: '••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••',
+                          },
+                          {
+                            phase: 'Phase 2: Hybrid KEM Pilot',
+                            title: 'FIPS 203 ML-KEM Deployment & Dual-Handshake Integration',
+                            desc: '••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••',
+                          },
+                          {
+                            phase: 'Phase 3: Digital Signature Transition',
+                            title: 'FIPS 204 ML-DSA PKI Hierarchy & Root CA Modernization',
+                            desc: '••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••',
+                          },
+                          {
+                            phase: 'Phase 4: Full Compliance & Enforcement',
+                            title: 'CNSA 2.0 Post-Quantum Lockdown & Classical Sunset',
+                            desc: '••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••',
+                          },
+                        ].map((p, i) => (
+                          <div
+                            key={i}
+                            style={{
+                              padding: '18px 20px',
+                              borderRadius: '14px',
+                              background: 'rgba(0, 0, 0, 0.3)',
+                              border: '1px solid rgba(221, 187, 110, 0.15)',
+                            }}
+                          >
+                            <div
+                              style={{
+                                display: 'inline-block',
+                                padding: '3px 10px',
+                                borderRadius: '999px',
+                                fontSize: '11px',
+                                fontWeight: 700,
+                                textTransform: 'uppercase',
+                                background: 'rgba(241, 216, 148, 0.12)',
+                                color: 'var(--gold-soft)',
+                                marginBottom: '8px',
+                              }}
+                            >
+                              {p.phase}
+                            </div>
+                            <h4 style={{ margin: '0 0 6px 0', fontSize: '16px', color: '#ffffff', fontWeight: 600 }}>{p.title}</h4>
+                            <p style={{ margin: 0, fontSize: '13.5px', color: 'rgba(245, 240, 232, 0.8)', lineHeight: 1.5 }}>
+                              {p.desc}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Centered Frosted Glass Lock Card */}
+                      <div
+                        style={{
+                          position: 'absolute',
+                          inset: 0,
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          padding: '36px 24px',
+                          background: 'radial-gradient(ellipse 70% 65% at 50% 50%, rgba(14, 11, 8, 0.88), rgba(8, 7, 5, 0.96))',
+                          backdropFilter: 'blur(10px) saturate(180%)',
+                          WebkitBackdropFilter: 'blur(10px) saturate(180%)',
+                          textAlign: 'center',
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: '48px',
+                            height: '48px',
+                            borderRadius: '50%',
+                            background: 'rgba(221, 187, 110, 0.14)',
+                            border: '1px solid rgba(221, 187, 110, 0.45)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: 'var(--gold-soft)',
+                            marginBottom: '14px',
+                            boxShadow: '0 0 24px rgba(221, 187, 110, 0.25)',
+                          }}
+                        >
+                          <Lock size={22} />
+                        </div>
+
+                        <div
+                          style={{
+                            display: 'inline-block',
+                            padding: '3px 12px',
+                            borderRadius: '999px',
+                            background: 'rgba(221, 187, 110, 0.12)',
+                            border: '1px solid rgba(221, 187, 110, 0.35)',
+                            color: 'var(--gold-soft)',
+                            fontSize: '11px',
+                            fontWeight: 700,
+                            letterSpacing: '0.06em',
+                            textTransform: 'uppercase',
+                            marginBottom: '10px',
+                          }}
+                        >
+                          FULL MIGRATION ROADMAP LOCKED
+                        </div>
+
+                        <h4
+                          style={{
+                            margin: '0 0 8px 0',
+                            fontSize: '19px',
+                            fontWeight: 600,
+                            color: '#ffffff',
+                            fontFamily: 'serif',
+                            letterSpacing: '0.01em',
+                          }}
+                        >
+                          Unlock Post-Quantum Migration Architecture
+                        </h4>
+
+                        <p
+                          style={{
+                            margin: '0 0 22px 0',
+                            fontSize: '13.5px',
+                            color: 'rgba(245, 240, 232, 0.75)',
+                            maxWidth: '520px',
+                            lineHeight: 1.55,
+                          }}
+                        >
+                          Access the complete phased engineering roadmap, hybrid ML-KEM integration patterns, FIPS 204/205 signature upgrades, and HSM crypto-agility timelines.
+                        </p>
+
+                        <button
+                          type="button"
+                          onClick={handleUnlockTableClick}
+                          className="btn btn--metal"
+                          style={{
+                            padding: '11px 26px',
+                            fontSize: '13.5px',
+                            fontWeight: 600,
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            boxShadow: '0 8px 24px rgba(221, 187, 110, 0.25)',
+                            cursor: 'pointer',
+                          }}
+                        >
+                          <Lock size={15} />
+                          Sign In to Unlock Phased Migration Roadmap
+                        </button>
+
+                        <span
+                          style={{
+                            display: 'block',
+                            marginTop: '12px',
+                            fontSize: '11px',
+                            color: 'rgba(245, 240, 232, 0.5)',
+                          }}
+                        >
+                          Free Instant Access · Enterprise Corporate Verification
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* ── TAB 4: TECHNICAL ATTRIBUTES (DONT HIDE ANYTHING) ── */}
               {activeTab === 'detail' && (
                 <div
                   style={{
@@ -2805,7 +3605,7 @@ export function CbomScannerModal() {
                           <td style={{ padding: '12px 18px', color: 'var(--gold-soft)', fontWeight: 500, width: '38%' }}>
                             {k}
                           </td>
-                          <td style={{ padding: '12px 18px', color: '#ffffff', fontFamily: 'ui-monospace, monospace' }}>
+                          <td style={{ padding: '12px 16px', color: '#ffffff', fontFamily: 'ui-monospace, monospace' }}>
                             {v}
                           </td>
                         </tr>
@@ -2885,13 +3685,25 @@ export function CbomScannerModal() {
                 marginBottom: '6px',
               }}
             >
-              BOARD-READY EXECUTIVE REPORT
+              {authModalPurpose === 'download_pdf'
+                ? 'BOARD-READY EXECUTIVE REPORT'
+                : authModalPurpose === 'export_json'
+                  ? 'ENTERPRISE CYCLONEDX 1.6 EXPORT'
+                  : 'ENTERPRISE ACCESS GATE'}
             </span>
             <h3 style={{ margin: '0 0 8px 0', color: '#ffffff', fontSize: '20px', fontWeight: 600 }}>
-              Download Assessment PDF
+              {authModalPurpose === 'download_pdf'
+                ? 'Download Assessment PDF'
+                : authModalPurpose === 'export_json'
+                  ? 'Export Full CycloneDX JSON'
+                  : 'Sign In to Unlock Full Cryptographic Inventory'}
             </h3>
             <p style={{ margin: '0 0 18px 0', fontSize: '13px', color: 'rgba(245, 240, 232, 0.75)', lineHeight: 1.5 }}>
-              Enter your corporate email and organisation name. Your executive audit report will be stamped with your organisation and downloaded immediately.
+              {authModalPurpose === 'download_pdf'
+                ? 'Enter your corporate credentials. Your executive audit report will be stamped with your organisation, downloaded immediately, and the full cryptographic inventory unlocked.'
+                : authModalPurpose === 'export_json'
+                  ? 'Enter your corporate credentials to export the complete unredacted CycloneDX 1.6 Cryptographic BOM and unlock all cryptographic assets.'
+                  : `Showing 1 of ${results?.cbom?.length || 19} detected assets. Sign in with your corporate email to unlock the full cryptographic inventory, Shor & Grover matrices, and official NIST FIPS 203/204/205 remediation guidance.`}
             </p>
 
             <form onSubmit={handlePdfLeadSubmit} style={{ display: 'grid', gap: '12px' }}>
@@ -2988,7 +3800,13 @@ export function CbomScannerModal() {
                   fontSize: '14px',
                 }}
               >
-                {isSubmittingPdfLead ? 'Generating Report...' : 'Download Stamped PDF Assessment'}
+                {isSubmittingPdfLead
+                  ? 'Verifying & Unlocking...'
+                  : authModalPurpose === 'download_pdf'
+                    ? 'Download Stamped PDF Assessment'
+                    : authModalPurpose === 'export_json'
+                      ? 'Export Full CycloneDX JSON'
+                      : 'Unlock Full Cryptographic Inventory'}
               </button>
             </form>
           </div>
