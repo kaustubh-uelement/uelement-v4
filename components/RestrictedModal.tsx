@@ -87,6 +87,10 @@ export function RestrictedModal() {
           aria-modal="true"
           aria-labelledby="restricted-modal-title"
           aria-describedby="restricted-modal-desc"
+          style={{
+            backdropFilter: 'blur(34px) saturate(190%)',
+            WebkitBackdropFilter: 'blur(34px) saturate(190%)',
+          }}
         >
           {/* Header */}
           <div className="restricted-modal__header">

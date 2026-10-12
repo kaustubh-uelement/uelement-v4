@@ -59,6 +59,10 @@ export function CookieModal() {
           role="dialog"
           aria-modal="true"
           aria-labelledby="cookie-modal-title"
+          style={{
+            backdropFilter: 'blur(34px) saturate(190%)',
+            WebkitBackdropFilter: 'blur(34px) saturate(190%)',
+          }}
         >
           {/* Header */}
           <div className="cookie-modal__header">

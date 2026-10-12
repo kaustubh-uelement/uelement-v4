@@ -37,6 +37,10 @@ export function ScrollToTop() {
       onClick={scrollToTop}
       aria-label="Scroll to top"
       title="Scroll to top"
+      style={{
+        backdropFilter: 'blur(30px) saturate(190%)',
+        WebkitBackdropFilter: 'blur(30px) saturate(190%)',
+      }}
     >
       <Icon name="arrow-up" />
     </button>
