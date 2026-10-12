@@ -51,7 +51,7 @@ export default function Home() {
         <HeroSparks />
         <div className="wrap hero__inner">
           <div
-            className="hero-seq"
+            className="hero-seq hero__proof-wrap"
             style={{ ["--i" as string]: 0 } as React.CSSProperties}
           >
             <span className="proof">
@@ -72,8 +72,10 @@ export default function Home() {
                 ))}
               </span>
               <span className="proof__text">
-                <strong>Built in India, deployable anywhere.</strong> Developed
-                by engineers from VMware, Ericsson , COEP & IIT Bombay.
+                <strong className="proof__title">Built in India, deployable anywhere.</strong>{" "}
+                <span className="proof__subtitle">
+                  Developed by engineers from VMware, Ericsson, COEP & IIT Bombay.
+                </span>
               </span>
             </span>
           </div>

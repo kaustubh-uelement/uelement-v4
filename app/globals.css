@@ -1525,6 +1525,8 @@ a.mega__title:hover { color: var(--gold-pale); }
   white-space: nowrap;
 }
 .proof strong { color: var(--paper); font-weight: 560; }
+.proof__title { font-weight: 560; color: var(--paper); }
+.proof__subtitle { color: inherit; }
 .proof__text {
   text-align: left;
   line-height: 1.4;
@@ -1534,14 +1536,14 @@ a.mega__title:hover { color: var(--gold-pale); }
   .hero {
     min-height: auto;
     padding-top: calc(var(--header-h) + 16px);
-    padding-bottom: 28px;
+    padding-bottom: 24px;
   }
   .hero__inner {
     gap: 16px;
     padding-inline: 0;
   }
   .hero__title {
-    font-size: clamp(28px, 7.6vw, 38px);
+    font-size: clamp(27px, 7.2vw, 36px);
     line-height: 1.15;
     letter-spacing: -0.025em;
     max-width: 100%;
@@ -1550,17 +1552,34 @@ a.mega__title:hover { color: var(--gold-pale); }
     font-size: 14px;
     line-height: 1.55;
     max-width: 100%;
+    padding-inline: 4px;
   }
   .hero__actions {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    max-width: 320px;
+    max-width: 340px;
     gap: 10px;
     margin-top: 4px;
   }
   .hero__actions .btn {
-    width: 100%;
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 42px;
+    height: 42px;
+    padding: 0 16px;
+    font-size: 13.5px;
+    width: auto;
+  }
+  @media (max-width: 330px) {
+    .hero__actions {
+      flex-direction: column;
+    }
+    .hero__actions .btn {
+      width: 100%;
+    }
   }
   .hero__stage {
     min-height: 170px;
@@ -1583,37 +1602,9 @@ a.mega__title:hover { color: var(--gold-pale); }
     font-size: 18.5px;
   }
 
+  .hero__proof-wrap,
   .proof {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 10px;
-    padding: 12px 14px;
-    border-radius: 18px;
-    width: 100%;
-    max-width: 360px;
-    margin-inline: auto;
-    box-sizing: border-box;
-  }
-  .proof__faces {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-left: 6px;
-  }
-  .proof__faces .proof__badge {
-    height: 28px;
-    padding: 0 12px;
-    font-size: 11px;
-  }
-  .proof__faces .proof__badge + .proof__badge {
-    margin-left: -8px;
-  }
-  .proof__text {
-    font-size: 12.5px;
-    line-height: 1.45;
-    text-align: center;
+    display: none !important;
   }
 }
 
@@ -1896,6 +1887,83 @@ a.mega__title:hover { color: var(--gold-pale); }
   transition: color 0.2s;
 }
 .footer-legal a:hover { color: var(--paper); }
+
+/* ---------- Responsive layout refinements (mobile & tablet decluttering) ---------- */
+
+@media (max-width: 640px) {
+  /* Breathe and declutter section spacing */
+  .section { padding-block: 48px; }
+  .section--tight { padding-block: 36px; }
+  .section-head { gap: 12px; margin-bottom: 24px; }
+  .section-head .h2 { font-size: clamp(23px, 6.2vw, 29px); line-height: 1.18; }
+  .section-head .lede { font-size: 14.5px; line-height: 1.55; }
+
+  /* Who we are */
+  .section .prose { font-size: 15px !important; line-height: 1.6; }
+  .section .prose p + p { margin-top: 0.85em; }
+
+  /* What we do cards */
+  .grid-3 { gap: 12px; }
+  .glass-card--pad { padding: 18px 16px; border-radius: 16px; }
+  .card-link { gap: 10px; }
+  .card-link .medal { width: 38px; height: 38px; }
+  .card-link .medal svg { width: 16px; height: 16px; }
+  .card-link .h3 { font-size: 17px; margin-top: 4px !important; }
+  .card-link p { font-size: 13.5px; line-height: 1.5; }
+  .card-link .card-foot { font-size: 13.5px; padding-top: 4px; }
+
+  /* Vision & Mission */
+  .vm-grid { gap: 12px; }
+  .vm { padding: 20px 16px; min-height: 0; gap: 12px; border-radius: 16px; }
+  .vm .statement { font-size: clamp(21px, 5.5vw, 26px) !important; line-height: 1.22; }
+  .vm p.muted { font-size: 13.5px; line-height: 1.5; }
+  .vm .btn { min-height: 42px; height: 42px; padding: 0 18px; font-size: 13.5px; }
+
+  /* Beliefs */
+  .belief { padding: 16px 0; gap: 6px; }
+  .belief .h3 { font-size: 17px; }
+  .belief .muted { font-size: 13.5px; line-height: 1.5; }
+
+  /* Commitments */
+  .commit-list { gap: 10px; }
+  .commit {
+    padding: 16px 14px;
+    border-radius: 16px;
+    gap: 10px 12px;
+  }
+  .commit .medal { width: 40px; height: 40px; }
+  .commit .medal svg { width: 16px; height: 16px; }
+  .commit .h3 { font-size: 16px; line-height: 1.28; }
+  .commit .muted { font-size: 13.5px; line-height: 1.5; }
+
+  /* Talk & Contact cards */
+  .paper-card.founder { padding: 14px 14px; gap: 12px; border-radius: 14px; }
+  .founder__name { font-size: 14.5px; }
+  .founder__role { font-size: 12.5px; }
+  .founder .medal { width: 36px; height: 36px; }
+  .founder .medal svg { width: 15px; height: 15px; }
+
+  /* Footer */
+  .site-footer { padding-top: 44px; }
+  .footer-top { gap: 28px; }
+  .footer-brand { gap: 14px; }
+  .footer-statement { font-size: 18px; }
+  .footer-cols { gap: 24px 16px; }
+  .footer-col h3 { font-size: 13px; margin-bottom: 12px; }
+  .footer-col ul { gap: 10px; }
+  .footer-link__label { font-size: 13.5px; }
+  .footer-link__desc { font-size: 11.5px; }
+  .footer-contact { margin-top: 32px; padding-block: 18px; font-size: 13px; gap: 12px 20px; }
+  .footer-contact__info { gap: 6px 18px; }
+  .footer-legal { padding-block: 16px 22px; font-size: 12px; gap: 8px 16px; }
+}
+
+@media (min-width: 641px) and (max-width: 899px) {
+  .section { padding-block: clamp(54px, 6.5vw, 76px); }
+  .section-head { margin-bottom: 32px; }
+  .glass-card--pad, .paper-card--pad { padding: 22px 20px; }
+  .vm { min-height: 0; padding: 26px 22px; }
+}
 
 /* ---------- Content blocks ---------- */
 
