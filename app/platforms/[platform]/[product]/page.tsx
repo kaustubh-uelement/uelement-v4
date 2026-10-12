@@ -5,6 +5,7 @@ import { PageHero, SectionHead, StatusBadge, CtaPanel } from '@/components/ui';
 import { ProductCard } from '@/components/blocks';
 import { platforms, industries } from '@/lib/content';
 import { Icon } from '@/components/Icon';
+import { CbomScannerModal, CbomScannerTrigger } from '@/components/CbomScannerModal';
 
 export function generateStaticParams() {
   return platforms.flatMap((p) => p.products.map((x) => ({ platform: p.slug, product: x.slug })));
@@ -50,9 +51,18 @@ export default async function ProductPage({ params }: { params: Promise<{ platfo
         }
         lede={x.summary}
       >
-        <Link className="btn btn--metal" href={primary.href}>
-          {primary.label}
-        </Link>
+        {x.slug === 'vyu' ? (
+          <CbomScannerTrigger label="Run Free CBOM Scan" className="btn btn--metal" />
+        ) : (
+          <Link className="btn btn--metal" href={primary.href}>
+            {primary.label}
+          </Link>
+        )}
+        {x.slug === 'vyu' ? (
+          <Link className="btn btn--glass" href={primary.href}>
+            {primary.label}
+          </Link>
+        ) : null}
         <a className="btn btn--glass" href="#start">
           How to start
         </a>
@@ -102,9 +112,14 @@ export default async function ProductPage({ params }: { params: Promise<{ platfo
               {x.start.title}
             </h2>
             <p style={{ color: '#3d2c0c', fontSize: 18 }}>{x.start.text}</p>
-            <Link className="btn btn--ink" href={primary.href} style={{ justifySelf: 'start' }}>
-              {primary.label}
-            </Link>
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+              {x.slug === 'vyu' ? (
+                <CbomScannerTrigger label="Start CBOM Scan" className="btn btn--ink" />
+              ) : null}
+              <Link className={x.slug === 'vyu' ? 'btn btn--glass' : 'btn btn--ink'} href={primary.href} style={{ justifySelf: 'start', ...(x.slug === 'vyu' ? { color: '#2a1d05', borderColor: 'rgba(74, 52, 16, 0.4)' } : {}) }}>
+                {primary.label}
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -123,6 +138,8 @@ export default async function ProductPage({ params }: { params: Promise<{ platfo
       ) : null}
 
       <CtaPanel />
+
+      {x.slug === 'vyu' ? <CbomScannerModal /> : null}
     </>
   );
 }

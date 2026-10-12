@@ -2925,6 +2925,31 @@ button.footer-link--btn {
   padding: 0;
 }
 
+/* CBOM Scanner Modal Styles */
+.cbom-scrollable-body::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.cbom-scrollable-body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 999px;
+}
+
+.cbom-scrollable-body::-webkit-scrollbar-thumb {
+  background: rgba(221, 187, 110, 0.35);
+  border-radius: 999px;
+}
+
+.cbom-scrollable-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(221, 187, 110, 0.6);
+}
+
+.spin {
+  animation: spin 1.2s linear infinite;
+}
+
+
 
 
 

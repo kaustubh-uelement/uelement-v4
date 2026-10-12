@@ -1,0 +1,18 @@
+{
+  "name": "vyuh-pqc-scanner-service",
+  "version": "0.1.0",
+  "description": "Production PQC Readiness and CBOM Discovery Scanner Microservice",
+  "type": "module",
+  "main": "server.mjs",
+  "scripts": {
+    "start": "node --experimental-strip-types server.mjs",
+    "dev": "node --experimental-strip-types --watch server.mjs",
+    "test": "node --experimental-strip-types --test test/*.test.mjs"
+  },
+  "keywords": ["pqc", "cbom", "quantum-readiness", "scanner", "cyclonedx"],
+  "author": "UElement",
+  "license": "ISC",
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
