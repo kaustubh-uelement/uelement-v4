@@ -138,7 +138,7 @@ export default function Home() {
                 alignSelf: "start",
               }}
             >
-              <Chip icon="people">Who we are</Chip>
+              <Chip icon="people">Who We Are</Chip>
               <h2 id="who" className="h2">
                 Building DeepTech, Quantum-safe security solutions &amp; Enterprise
                 platforms for critical Infrastructure.
@@ -153,13 +153,16 @@ export default function Home() {
                 restored. While the loudest voices today look to abandon Earth
                 for the future, we believe differently.
               </p>
-              <p style={{ fontStyle: "italic" }}>
-                <em>
+              <blockquote className="quote-callout">
+                <span className="quote-callout__mark" aria-hidden="true">
+                  “
+                </span>
+                <p className="quote-callout__text">
                   Humanity already possesses the Talent, Capital and Intelligence
-                  required to repair our world — We simply need to Direct it with
+                  required to repair our world - We simply need to Direct it with
                   Purpose.
-                </em>
-              </p>
+                </p>
+              </blockquote>
             </div>
             <div
               className="prose muted"
@@ -192,7 +195,7 @@ export default function Home() {
       <section className="panel panel--enamel section">
         <div className="wrap">
           <SectionHead
-            chip="What we do"
+            chip="What We Do"
             chipIcon="atom"
             title="We build frontier technology for the systems that cannot fail."
           />
@@ -250,7 +253,7 @@ export default function Home() {
       <section className="panel panel--paper section">
         <div className="wrap">
           <SectionHead
-            chip="Vision and mission"
+            chip="Vision and Mission"
             chipIcon="compass"
             title="Where we want to go."
           />
@@ -305,7 +308,7 @@ export default function Home() {
         <div className="wrap">
           <div className="section-head section-head--split">
             <div style={{ display: "grid", gap: 18, justifyItems: "start" }}>
-              <Chip icon="bulb">What we believe</Chip>
+              <Chip icon="bulb">What We Believe</Chip>
               <h2 id="beliefs" className="h2">
                 We repair. We do not plan an exit.
               </h2>
@@ -326,7 +329,7 @@ export default function Home() {
       <section className="panel panel--enamel section">
         <div className="wrap">
           <SectionHead
-            chip="Our commitments"
+            chip="Our Commitments"
             chipIcon="star"
             title="Five commitments we will measure ourselves by."
             text="We will report on each of them honestly, once a year, with real numbers or none."
@@ -358,7 +361,7 @@ export default function Home() {
           }}
         >
           <div style={{ display: "grid", gap: 22, justifyItems: "start" }}>
-            <Chip icon="chat">Let’s talk</Chip>
+            <Chip icon="chat">Let’s Talk</Chip>
             <h2 id="talk" className="h2">
               Building something that cannot fail? We’d like to hear about it.
             </h2>

@@ -11,7 +11,7 @@ export function FormSection({
   kind,
   title,
   text,
-  chip = 'Get in touch',
+  chip = 'Get In Touch',
   context,
   aside,
 }: {

@@ -307,6 +307,40 @@ ol {
   max-width: 66ch;
 }
 
+.quote-callout {
+  border-top: 1px solid rgba(138, 101, 34, 0.28);
+  border-bottom: 1px solid rgba(138, 101, 34, 0.28);
+  padding: 30px 20px 28px;
+  margin: 28px 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.quote-callout__mark {
+  font-family: var(--font-serif);
+  font-size: 54px;
+  line-height: 0.6;
+  color: var(--gold-ink);
+  opacity: 0.85;
+  user-select: none;
+  display: block;
+}
+
+.quote-callout__text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(23px, 2.3vw, 30px);
+  line-height: 1.35;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin: 0;
+  max-width: 620px;
+  text-wrap: balance;
+}
+
 .metal-text {
   background: var(--metal);
   -webkit-background-clip: text;
@@ -334,6 +368,7 @@ ol {
   font-weight: 500;
   line-height: 1.2;
   letter-spacing: 0;
+  text-transform: capitalize;
   color: var(--paper);
   background: linear-gradient(
     180deg,
