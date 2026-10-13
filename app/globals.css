@@ -569,8 +569,8 @@ ul, ol { margin: 0; padding: 0; }
   padding: 0 10px 0 18px;
   border-radius: 999px;
   background: 
-    radial-gradient(ellipse 50% 120% at 10% 50%, rgba(241, 216, 148, 0.18), transparent 75%),
-    linear-gradient(90deg, rgba(255, 248, 235, 0.14) 0%, rgba(26, 20, 14, 0.68) 45%, rgba(12, 10, 8, 0.84) 100%);
+    radial-gradient(ellipse 50% 120% at 90% 50%, rgba(241, 216, 148, 0.18), transparent 75%),
+    linear-gradient(90deg, rgba(12, 10, 8, 0.84) 0%, rgba(26, 20, 14, 0.68) 55%, rgba(255, 248, 235, 0.14) 100%);
   backdrop-filter: blur(34px) saturate(190%);
   -webkit-backdrop-filter: blur(34px) saturate(190%);
   border: 1px solid rgba(221, 187, 110, 0.32);
@@ -586,8 +586,8 @@ ul, ol { margin: 0; padding: 0; }
 .site-header.is-scrolled .site-header__pill,
 .site-header.is-open .site-header__pill {
   background: 
-    radial-gradient(ellipse 50% 120% at 10% 50%, rgba(241, 216, 148, 0.20), transparent 75%),
-    linear-gradient(90deg, rgba(255, 248, 235, 0.16) 0%, rgba(26, 20, 14, 0.74) 45%, rgba(12, 10, 8, 0.88) 100%);
+    radial-gradient(ellipse 50% 120% at 90% 50%, rgba(241, 216, 148, 0.20), transparent 75%),
+    linear-gradient(90deg, rgba(12, 10, 8, 0.88) 0%, rgba(26, 20, 14, 0.74) 55%, rgba(255, 248, 235, 0.16) 100%);
   box-shadow: 0 28px 70px -14px rgba(0, 0, 0, 0.8), 0 8px 24px -6px rgba(180, 140, 50, 0.2), inset 0 1px 0 rgba(255, 250, 235, 0.45), inset 0 0 24px rgba(241, 216, 148, 0.06);
   border-color: rgba(221, 187, 110, 0.35);
 }
