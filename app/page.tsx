@@ -204,12 +204,11 @@ export default function Home() {
               const isRestricted = w.href.includes("u92-deeptech");
               return isRestricted ? (
                 <RestrictedButton
-                  className="glass-card glass-card--pad card-link"
+                  className="glass-card glass-card--pad card-link card-link--disabled"
                   style={{
                     textAlign: "left",
                     font: "inherit",
                     width: "100%",
-                    cursor: "pointer",
                   }}
                   key={w.title}
                 >

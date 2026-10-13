@@ -834,6 +834,32 @@ ol {
 .card-link .card-foot {
   margin-top: auto;
   padding-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.card-link--disabled {
+  opacity: 0.76;
+  cursor: pointer;
+}
+.card-link--disabled:hover {
+  opacity: 0.88;
+  transform: translateY(-2px);
+}
+.card-link--disabled .medal {
+  opacity: 0.88;
+}
+.card-link--disabled .h3 {
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+.card-link--disabled .muted {
+  color: var(--mist) !important;
+  opacity: 0.85;
+}
+.card-link--disabled .card-foot {
+  opacity: 0.85;
 }
 
 .list-check {
