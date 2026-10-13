@@ -1668,7 +1668,7 @@ export function CbomScannerModal() {
                 gap: '6px',
                 padding: '4px 12px',
                 borderRadius: '999px',
-                fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace',
+                fontFamily: 'var(--font-sans)',
                 fontSize: '11px',
                 fontWeight: 700,
                 letterSpacing: '0.08em',
@@ -1712,13 +1712,13 @@ export function CbomScannerModal() {
           <h2
             id="cbom-scanner-title"
             style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(24px, 3vw, 32px)',
-              fontWeight: 400,
+              fontFamily: 'var(--font-sans)',
+              fontSize: 'clamp(22px, 2.8vw, 30px)',
+              fontWeight: 650,
               letterSpacing: '-0.02em',
               color: '#ffffff',
               margin: '0 0 6px 0',
-              lineHeight: 1.2,
+              lineHeight: 1.25,
             }}
           >
             Vyu: <span className="gold">Cryptographic Bill of Materials Scanner</span>
@@ -1788,7 +1788,7 @@ export function CbomScannerModal() {
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <span
                     style={{
-                      fontFamily: 'ui-monospace, monospace',
+                      fontFamily: 'var(--font-sans)',
                       fontSize: '11px',
                       fontWeight: 700,
                       color: 'var(--gold-soft)',
@@ -2029,7 +2029,7 @@ export function CbomScannerModal() {
                       letterSpacing: '0.4em',
                       fontSize: '24px',
                       fontWeight: 700,
-                      fontFamily: 'ui-monospace, monospace',
+                      fontFamily: 'var(--font-sans)',
                       padding: '12px',
                       background: 'rgba(0, 0, 0, 0.5)',
                       border: '1px solid rgba(221, 187, 110, 0.35)',
@@ -2438,11 +2438,11 @@ export function CbomScannerModal() {
 
               <span
                 style={{
-                  fontFamily: 'ui-monospace, monospace',
-                  fontSize: '12px',
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: '11.5px',
                   fontWeight: 700,
                   color: 'var(--gold-soft)',
-                  letterSpacing: '0.1em',
+                  letterSpacing: '0.08em',
                   textTransform: 'uppercase',
                   marginBottom: '8px',
                 }}
@@ -2451,8 +2451,10 @@ export function CbomScannerModal() {
               </span>
               <h3
                 style={{
-                  fontFamily: 'var(--font-serif)',
-                  fontSize: '28px',
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: '26px',
+                  fontWeight: 650,
+                  letterSpacing: '-0.015em',
                   color: '#ffffff',
                   margin: '0 0 12px 0',
                 }}
@@ -2752,7 +2754,7 @@ export function CbomScannerModal() {
                             <td style={{ padding: '12px 16px', color: '#ffffff', fontWeight: 500 }}>
                               {row.asset}
                             </td>
-                            <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.85)', fontFamily: 'ui-monospace, monospace', fontSize: '12px' }}>
+                            <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.85)', fontFamily: 'var(--font-sans)', fontSize: '13px' }}>
                               {row.primitive}
                             </td>
                             <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.7)' }}>
@@ -2813,7 +2815,7 @@ export function CbomScannerModal() {
                               }}
                             >
                               <td style={{ padding: '12px 16px', color: '#ffffff', fontWeight: 500 }}>{row.asset}</td>
-                              <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.85)', fontFamily: 'ui-monospace, monospace', fontSize: '12px' }}>
+                              <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.85)', fontFamily: 'var(--font-sans)', fontSize: '13px' }}>
                                 {row.primitive}
                               </td>
                               <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.7)' }}>{row.purpose}</td>
@@ -2903,7 +2905,7 @@ export function CbomScannerModal() {
                               }}
                             >
                               <td style={{ padding: '12px 16px', color: '#ffffff', fontWeight: 500 }}>{row.asset}</td>
-                              <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.85)', fontFamily: 'ui-monospace, monospace', fontSize: '12px' }}>
+                              <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.85)', fontFamily: 'var(--font-sans)', fontSize: '13px' }}>
                                 {row.primitive}
                               </td>
                               <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.7)' }}>{row.purpose}</td>
@@ -2993,10 +2995,10 @@ export function CbomScannerModal() {
                         style={{
                           margin: '0 0 8px 0',
                           fontSize: '19px',
-                          fontWeight: 600,
+                          fontWeight: 650,
                           color: '#ffffff',
-                          fontFamily: 'serif',
-                          letterSpacing: '0.01em',
+                          fontFamily: 'var(--font-sans)',
+                          letterSpacing: '-0.01em',
                         }}
                       >
                         Unlock Full Cryptographic Bill of Materials
@@ -3116,7 +3118,7 @@ export function CbomScannerModal() {
                           <span style={{ color: 'var(--gold-soft)' }}>
                             <strong>Action:</strong> {f.fix}
                           </span>
-                          <span style={{ color: 'rgba(245, 240, 232, 0.5)', fontFamily: 'ui-monospace, monospace' }}>
+                          <span style={{ color: 'rgba(245, 240, 232, 0.5)', fontFamily: 'var(--font-sans)', fontSize: '11.5px' }}>
                             Standard: {f.std}
                           </span>
                         </div>
@@ -3163,7 +3165,7 @@ export function CbomScannerModal() {
                           <span style={{ color: 'var(--gold-soft)' }}>
                             <strong>Action:</strong> {f.fix}
                           </span>
-                          <span style={{ color: 'rgba(245, 240, 232, 0.5)', fontFamily: 'ui-monospace, monospace' }}>
+                          <span style={{ color: 'rgba(245, 240, 232, 0.5)', fontFamily: 'var(--font-sans)', fontSize: '11.5px' }}>
                             Standard: {f.std}
                           </span>
                         </div>
@@ -3284,10 +3286,10 @@ export function CbomScannerModal() {
                           style={{
                             margin: '0 0 8px 0',
                             fontSize: '19px',
-                            fontWeight: 600,
+                            fontWeight: 650,
                             color: '#ffffff',
-                            fontFamily: 'serif',
-                            letterSpacing: '0.01em',
+                            fontFamily: 'var(--font-sans)',
+                            letterSpacing: '-0.01em',
                           }}
                         >
                           Unlock Full Vulnerability Analysis
@@ -3526,10 +3528,10 @@ export function CbomScannerModal() {
                           style={{
                             margin: '0 0 8px 0',
                             fontSize: '19px',
-                            fontWeight: 600,
+                            fontWeight: 650,
                             color: '#ffffff',
-                            fontFamily: 'serif',
-                            letterSpacing: '0.01em',
+                            fontFamily: 'var(--font-sans)',
+                            letterSpacing: '-0.01em',
                           }}
                         >
                           Unlock Post-Quantum Migration Architecture
@@ -3605,7 +3607,7 @@ export function CbomScannerModal() {
                           <td style={{ padding: '12px 18px', color: 'var(--gold-soft)', fontWeight: 500, width: '38%' }}>
                             {k}
                           </td>
-                          <td style={{ padding: '12px 16px', color: '#ffffff', fontFamily: 'ui-monospace, monospace' }}>
+                          <td style={{ padding: '12px 16px', color: '#ffffff', fontFamily: 'var(--font-sans)', fontSize: '13px' }}>
                             {v}
                           </td>
                         </tr>
@@ -3676,11 +3678,11 @@ export function CbomScannerModal() {
             <span
               style={{
                 display: 'inline-block',
-                fontFamily: 'ui-monospace, monospace',
+                fontFamily: 'var(--font-sans)',
                 fontSize: '11px',
                 fontWeight: 700,
                 color: 'var(--gold-soft)',
-                letterSpacing: '0.08em',
+                letterSpacing: '0.06em',
                 textTransform: 'uppercase',
                 marginBottom: '6px',
               }}
