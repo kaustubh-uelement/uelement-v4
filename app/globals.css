@@ -2612,13 +2612,18 @@ svg.gold { width: 18px; height: 18px; flex: none; }
 }
 
 .cookie-modal__tag {
-  font-size: 10px;
-  padding: 1px 7px;
-  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 560;
+  padding: 3px 10px;
+  border-radius: 999px;
   background: rgba(221, 187, 110, 0.15);
   color: var(--gold-soft);
-  border: 1px solid rgba(221, 187, 110, 0.3);
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  border: 1px solid rgba(221, 187, 110, 0.32);
+  font-family: var(--font-sans);
+  letter-spacing: 0.01em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cookie-modal__detail-desc {
@@ -2630,7 +2635,7 @@ svg.gold { width: 18px; height: 18px; flex: none; }
 
 .cookie-modal__actions {
   display: grid;
-  grid-template-columns: 1.25fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
   margin-bottom: 16px;
 }
@@ -2645,7 +2650,9 @@ svg.gold { width: 18px; height: 18px; flex: none; }
   --h: 42px;
   font-size: 13.5px;
   padding: 0 16px;
-  justify-content: space-between;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
   width: 100%;
 }
 
@@ -2653,7 +2660,9 @@ svg.gold { width: 18px; height: 18px; flex: none; }
   --h: 42px;
   font-size: 13.5px;
   padding: 0 16px;
-  justify-content: space-between;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
   width: 100%;
 }
 
@@ -2783,17 +2792,21 @@ svg.gold { width: 18px; height: 18px; flex: none; }
   place-items: center;
   width: 44px;
   height: 44px;
-  border-radius: 13px;
-  background: rgba(241, 216, 148, 0.12);
-  border: 1px solid rgba(221, 187, 110, 0.38);
-  color: var(--gold-soft);
+  border-radius: 14px;
+  background: var(--metal);
+  color: #241804;
   flex-shrink: 0;
-  box-shadow: inset 0 1px 0 rgba(255, 250, 235, 0.3), 0 4px 14px -2px rgba(180, 140, 50, 0.25);
+  border: 1px solid rgba(255, 245, 215, 0.7);
+  box-shadow: 
+    0 4px 18px rgba(221, 187, 110, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 0 16px rgba(241, 216, 148, 0.3);
 }
 
 .restricted-modal__badge svg {
   width: 22px;
   height: 22px;
+  stroke-width: 2.2;
 }
 
 .restricted-modal__title-group {
@@ -2803,10 +2816,10 @@ svg.gold { width: 18px; height: 18px; flex: none; }
 
 .restricted-modal__kicker {
   display: inline-block;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--gold-soft);
   margin-bottom: 4px;
@@ -2865,15 +2878,30 @@ svg.gold { width: 18px; height: 18px; flex: none; }
 .restricted-modal__actions {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 12px;
+  justify-content: center;
 }
 
 .restricted-modal__btn {
-  min-width: 130px;
+  width: 100%;
+  --h: 44px;
   justify-content: center;
+  font-size: 14px;
   font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--gold-pale);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.03) 100%);
+  border: 1px solid rgba(221, 187, 110, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255, 250, 235, 0.2), 0 4px 16px rgba(0, 0, 0, 0.35);
   cursor: pointer;
+  transition: all 0.25s var(--ease-out);
+}
+
+.restricted-modal__btn:hover {
+  background: rgba(221, 187, 110, 0.15);
+  border-color: rgba(241, 216, 148, 0.7);
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(221, 187, 110, 0.25), inset 0 1px 0 rgba(255, 250, 235, 0.3);
+  transform: translateY(-1px);
 }
 
 /* Button resets for restricted items to look and feel like native links/cards */

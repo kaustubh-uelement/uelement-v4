@@ -124,7 +124,7 @@ export function RestrictedModal() {
           <div className="restricted-modal__actions">
             <button
               type="button"
-              className="btn btn--metal btn--sm restricted-modal__btn"
+              className="btn btn--glass restricted-modal__btn"
               onClick={handleClose}
             >
               Acknowledge
