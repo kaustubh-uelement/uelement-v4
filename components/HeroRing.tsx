@@ -154,8 +154,8 @@ export function HeroRing() {
                 <stop offset="1" stopColor="#fff" stopOpacity="0" />
               </radialGradient>
               <radialGradient id="hr-core" gradientUnits="userSpaceOnUse" cx="800" cy="320" r="720">
-                <stop offset="0" stopColor="#C49A45" stopOpacity=".16" />
-                <stop offset=".5" stopColor="#0D1A34" stopOpacity=".2" />
+                <stop offset="0" stopColor="#C49A45" stopOpacity=".10" />
+                <stop offset=".5" stopColor="#0D1A34" stopOpacity=".15" />
                 <stop offset="1" stopColor="#050A16" stopOpacity="0" />
               </radialGradient>
               <mask id="hr-mask" maskUnits="userSpaceOnUse" x="-400" y="-200" width="2400" height="1400">
@@ -183,7 +183,7 @@ export function HeroRing() {
               <circle cx={CX} cy={CY} r={R - 40} fill="url(#hr-core)" />
 
               {/* halo */}
-              <circle className="ring-breathe" cx={CX} cy={CY} r={R} stroke="#DDBB6E" strokeOpacity=".28" strokeWidth="190" filter="url(#hr-blur-xl)" />
+              <circle className="ring-breathe" cx={CX} cy={CY} r={R} stroke="#DDBB6E" strokeOpacity=".16" strokeWidth="160" filter="url(#hr-blur-xl)" />
 
               {/* fine rotating inner rings */}
               <g className="ring-spin">
@@ -197,7 +197,7 @@ export function HeroRing() {
 
             {/* segmented chakra ring rotating anticlockwise with constant solid color */}
             <g className="ring-spin ring-spin--outer">
-              <circle cx={CX} cy={CY} r={R} stroke="#DDBB6E" strokeOpacity=".35" strokeWidth="58" strokeDasharray={TICKS} filter="url(#hr-blur-sm)" />
+              <circle cx={CX} cy={CY} r={R} stroke="#DDBB6E" strokeOpacity=".20" strokeWidth="58" strokeDasharray={TICKS} filter="url(#hr-blur-sm)" />
               <circle cx={CX} cy={CY} r={R} stroke="#DDBB6E" strokeOpacity=".8" strokeWidth="58" strokeDasharray={TICKS} />
               {/* Outer decorative dotted arc: refined star dots with warm gold bloom */}
               <circle
@@ -205,7 +205,7 @@ export function HeroRing() {
                 cy={CY}
                 r={R + 54}
                 stroke="#F1D894"
-                strokeOpacity="0.5"
+                strokeOpacity="0.28"
                 strokeWidth="5.5"
                 strokeDasharray="0.1 18"
                 strokeLinecap="round"
@@ -224,7 +224,7 @@ export function HeroRing() {
             </g>
 
             {/* edges */}
-            <circle cx={CX} cy={CY} r={R - 31} stroke="#F6E3A6" strokeWidth="6" strokeOpacity=".55" filter="url(#hr-blur-sm)" />
+            <circle cx={CX} cy={CY} r={R - 31} stroke="#F6E3A6" strokeWidth="6" strokeOpacity=".35" filter="url(#hr-blur-sm)" />
             <circle cx={CX} cy={CY} r={R - 31} stroke="#FFF4D0" strokeWidth="1.6" />
             <circle cx={CX} cy={CY} r={R + 33} stroke="#DDBB6E" strokeOpacity=".45" strokeWidth="1" />
 
@@ -249,7 +249,7 @@ export function HeroRing() {
                 cy={CY}
                 r={R}
                 stroke="#F6E3A6"
-                strokeOpacity=".3"
+                strokeOpacity=".18"
                 strokeWidth="76"
                 strokeDasharray="300 6000"
                 strokeDashoffset="150"

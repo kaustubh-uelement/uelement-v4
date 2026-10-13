@@ -33,15 +33,13 @@ export const nav: NavMenu[] = [
     href: '/platforms/',
     groups: [
       {
-        title: 'U92 Quantum',
-        href: '/platforms/u92-quantum/',
+        title: 'U92 Deeptech',
+        href: '/platforms/u92-deeptech/',
         links: [
-          { label: 'U92-Vyu', href: '/platforms/u92-quantum/vyu/', note: 'Cryptographic discovery' },
-          { label: 'U92-PQc', href: '/platforms/u92-quantum/pqc/', note: 'Post-quantum migration' },
-          { label: 'U92-CryptoAG', href: '/platforms/u92-quantum/cryptoag/', note: 'Crypto-agility' },
-          { label: 'U92-QKD', href: '/platforms/u92-quantum/qkd/', note: 'Quantum key distribution' },
-          { label: 'U92-QNet', href: '/platforms/u92-quantum/qnet/', note: 'Quantum-safe networking' },
-          { label: 'U92-QML', href: '/platforms/u92-quantum/qml/', note: 'Quantum machine learning' },
+          { label: 'KalaMOS', href: '/platforms/u92-deeptech/kalamos/', note: 'Sovereign edge-AI OS' },
+          { label: 'BoSC3', href: '/platforms/u92-deeptech/bosc3/', note: 'Agentic command and control' },
+          { label: 'NobisGRID', href: '/platforms/u92-deeptech/nobisgrid/', note: 'Self-healing mesh' },
+          { label: 'MagCHAIN', href: '/platforms/u92-deeptech/magchain/', note: 'Tamper-evident custody' },
         ],
       },
       {
@@ -54,13 +52,15 @@ export const nav: NavMenu[] = [
         ],
       },
       {
-        title: 'U92 Deeptech',
-        href: '/platforms/u92-deeptech/',
+        title: 'U92 Quantum',
+        href: '/platforms/u92-quantum/',
         links: [
-          { label: 'KalaMOS', href: '/platforms/u92-deeptech/kalamos/', note: 'Sovereign edge-AI OS' },
-          { label: 'BoSC3', href: '/platforms/u92-deeptech/bosc3/', note: 'Agentic command and control' },
-          { label: 'NobisGRID', href: '/platforms/u92-deeptech/nobisgrid/', note: 'Self-healing mesh' },
-          { label: 'MagCHAIN', href: '/platforms/u92-deeptech/magchain/', note: 'Tamper-evident custody' },
+          { label: 'U92-Vyu', href: '/platforms/u92-quantum/vyu/', note: 'Cryptographic discovery' },
+          { label: 'U92-PQc', href: '/platforms/u92-quantum/pqc/', note: 'Post-quantum migration' },
+          { label: 'U92-CryptoAG', href: '/platforms/u92-quantum/cryptoag/', note: 'Crypto-agility' },
+          { label: 'U92-QKD', href: '/platforms/u92-quantum/qkd/', note: 'Quantum key distribution' },
+          { label: 'U92-QNet', href: '/platforms/u92-quantum/qnet/', note: 'Quantum-safe networking' },
+          { label: 'U92-QML', href: '/platforms/u92-quantum/qml/', note: 'Quantum machine learning' },
         ],
       },
     ],

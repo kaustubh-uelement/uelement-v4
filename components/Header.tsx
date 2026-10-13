@@ -18,6 +18,82 @@ const megaWidth: Record<string, number> = {
 
 const platformsData = [
   {
+    id: 'u92-deeptech',
+    tabLabel: 'U92 Deeptech',
+    title: 'UElement Deeptech',
+    summary: 'Sovereign, offline-capable AI and networks in places where connectivity fails.',
+    ctaText: 'Explore Deeptech →',
+    ctaHref: '/platforms/u92-deeptech/',
+    products: [
+      {
+        code: 'D · 01',
+        badge: 'DESIGNED',
+        badgeType: 'slate' as const,
+        title: 'KalaMOS',
+        summary: 'Sovereign edge-AI operating system running locally with no cloud reliance.',
+        href: '/platforms/u92-deeptech/kalamos/',
+      },
+      {
+        code: 'D · 02',
+        badge: 'DESIGNED',
+        badgeType: 'slate' as const,
+        title: 'BoSC3',
+        summary: 'Agentic command and control coordinating field teams and autonomous nodes.',
+        href: '/platforms/u92-deeptech/bosc3/',
+      },
+      {
+        code: 'D · 03',
+        badge: 'DESIGNED',
+        badgeType: 'slate' as const,
+        title: 'NobisGRID',
+        summary: 'Self-healing decentralized mesh network that automatically reroutes around failures.',
+        href: '/platforms/u92-deeptech/nobisgrid/',
+      },
+      {
+        code: 'D · 04',
+        badge: 'DESIGNED',
+        badgeType: 'slate' as const,
+        title: 'MagCHAIN',
+        summary: 'Tamper-evident chain of custody and provenance ledger for critical assets.',
+        href: '/platforms/u92-deeptech/magchain/',
+      },
+    ],
+  },
+  {
+    id: 'u92-enterprise',
+    tabLabel: 'U92 Enterprise',
+    title: 'UElement Enterprise',
+    summary: 'Three products on one identity, one data layer and one audit trail.',
+    ctaText: 'Explore Enterprise →',
+    ctaHref: '/platforms/u92-enterprise/',
+    products: [
+      {
+        code: 'E · 01',
+        badge: 'LIVE',
+        badgeType: 'green' as const,
+        title: 'Nexus',
+        summary: 'The enterprise digital fabric: web, apps, portals, workflows and AI.',
+        href: '/platforms/u92-enterprise/nexus/',
+      },
+      {
+        code: 'E · 02',
+        badge: 'PILOT',
+        badgeType: 'gold' as const,
+        title: 'Vizor',
+        summary: 'Observability, security and compliance fabric across IT and OT.',
+        href: '/platforms/u92-enterprise/vizor/',
+      },
+      {
+        code: 'E · 03',
+        badge: 'IN BUILD',
+        badgeType: 'blue' as const,
+        title: 'Kayak',
+        summary: 'Everything as a Service: turn physical assets and space into metered digital services.',
+        href: '/platforms/u92-enterprise/kayak/',
+      },
+    ],
+  },
+  {
     id: 'u92-quantum',
     tabLabel: 'U92 Quantum',
     title: 'UElement Quantum',
@@ -72,82 +148,6 @@ const platformsData = [
         title: 'Quantum Machine Learning',
         summary: 'Empirical benchmarks testing where quantum models surpass classical AI.',
         href: '/platforms/u92-quantum/qml/',
-      },
-    ],
-  },
-  {
-    id: 'u92-enterprise',
-    tabLabel: 'U92 Enterprise',
-    title: 'UElement Enterprise',
-    summary: 'Three products on one identity, one data layer and one audit trail.',
-    ctaText: 'Explore Enterprise →',
-    ctaHref: '/platforms/u92-enterprise/',
-    products: [
-      {
-        code: 'E · 01',
-        badge: 'LIVE',
-        badgeType: 'green' as const,
-        title: 'Nexus',
-        summary: 'The enterprise digital fabric: web, apps, portals, workflows and AI.',
-        href: '/platforms/u92-enterprise/nexus/',
-      },
-      {
-        code: 'E · 02',
-        badge: 'PILOT',
-        badgeType: 'gold' as const,
-        title: 'Vizor',
-        summary: 'Observability, security and compliance fabric across IT and OT.',
-        href: '/platforms/u92-enterprise/vizor/',
-      },
-      {
-        code: 'E · 03',
-        badge: 'IN BUILD',
-        badgeType: 'blue' as const,
-        title: 'Kayak',
-        summary: 'Everything as a Service: turn physical assets and space into metered digital services.',
-        href: '/platforms/u92-enterprise/kayak/',
-      },
-    ],
-  },
-  {
-    id: 'u92-deeptech',
-    tabLabel: 'U92 Deeptech',
-    title: 'UElement Deeptech',
-    summary: 'Sovereign, offline-capable AI and networks in places where connectivity fails.',
-    ctaText: 'Explore Deeptech →',
-    ctaHref: '/platforms/u92-deeptech/',
-    products: [
-      {
-        code: 'D · 01',
-        badge: 'DESIGNED',
-        badgeType: 'slate' as const,
-        title: 'KalaMOS',
-        summary: 'Sovereign edge-AI operating system running locally with no cloud reliance.',
-        href: '/platforms/u92-deeptech/kalamos/',
-      },
-      {
-        code: 'D · 02',
-        badge: 'DESIGNED',
-        badgeType: 'slate' as const,
-        title: 'BoSC3',
-        summary: 'Agentic command and control coordinating field teams and autonomous nodes.',
-        href: '/platforms/u92-deeptech/bosc3/',
-      },
-      {
-        code: 'D · 03',
-        badge: 'DESIGNED',
-        badgeType: 'slate' as const,
-        title: 'NobisGRID',
-        summary: 'Self-healing decentralized mesh network that automatically reroutes around failures.',
-        href: '/platforms/u92-deeptech/nobisgrid/',
-      },
-      {
-        code: 'D · 04',
-        badge: 'DESIGNED',
-        badgeType: 'slate' as const,
-        title: 'MagCHAIN',
-        summary: 'Tamper-evident chain of custody and provenance ledger for critical assets.',
-        href: '/platforms/u92-deeptech/magchain/',
       },
     ],
   },
@@ -476,7 +476,7 @@ function sectionOf(path: string) {
 export function Header() {
   const pathname = usePathname() || '/';
   const [open, setOpen] = useState<string | null>(null);
-  const [activePlatformTab, setActivePlatformTab] = useState('u92-quantum');
+  const [activePlatformTab, setActivePlatformTab] = useState('u92-deeptech');
   const [activeSolutionTab, setActiveSolutionTab] = useState('industries');
   const [drawer, setDrawer] = useState(false);
   const [acc, setAcc] = useState<string | null>(null);

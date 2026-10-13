@@ -14,9 +14,9 @@ const cols: { title: string; links: FooterLinkItem[] }[] = [
   {
     title: 'Platforms',
     links: [
-      { label: 'U92 Quantum', href: '/platforms/u92-quantum/', desc: 'Quantum-safe security & PQC' },
-      { label: 'U92 Enterprise', href: '/platforms/u92-enterprise/', desc: 'Observability & digital fabric' },
       { label: 'U92 Deeptech', href: '/platforms/u92-deeptech/', desc: 'Sovereign edge AI & mesh' },
+      { label: 'U92 Enterprise', href: '/platforms/u92-enterprise/', desc: 'Observability & digital fabric' },
+      { label: 'U92 Quantum', href: '/platforms/u92-quantum/', desc: 'Quantum-safe security & PQC' },
     ],
   },
   {

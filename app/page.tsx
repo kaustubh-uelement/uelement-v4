@@ -14,11 +14,11 @@ const whatWeDo: {
   link: string;
 }[] = [
   {
-    icon: "key",
-    title: "Quantum security",
-    text: "Helping banks and critical infrastructure stay secure as quantum computing changes cryptography.",
-    href: "/platforms/u92-quantum/",
-    link: "U92 Quantum",
+    icon: "mesh",
+    title: "Sovereign edge",
+    text: "Researching resilient, offline-capable AI and networks for places where connectivity fails.",
+    href: "/platforms/u92-deeptech/",
+    link: "U92 Deeptech",
   },
   {
     icon: "layers",
@@ -28,20 +28,20 @@ const whatWeDo: {
     link: "U92 Enterprise",
   },
   {
-    icon: "mesh",
-    title: "Sovereign edge",
-    text: "Researching resilient, offline-capable AI and networks for places where connectivity fails.",
-    href: "/platforms/u92-deeptech/",
-    link: "U92 Deeptech",
+    icon: "key",
+    title: "Quantum security",
+    text: "Helping banks and critical infrastructure stay secure as quantum computing changes cryptography.",
+    href: "/platforms/u92-quantum/",
+    link: "U92 Quantum",
   },
 ];
 
 const commitIcons: IconName[] = ["shield", "eye", "leaf", "people", "star"];
 
 const heroPillBadges = [
-  { label: "Quantum", href: "/platforms/u92-quantum/" },
-  { label: "Enterprise", href: "/platforms/u92-enterprise/" },
   { label: "Deeptech", href: "/platforms/u92-deeptech/" },
+  { label: "Enterprise", href: "/platforms/u92-enterprise/" },
+  { label: "Quantum", href: "/platforms/u92-quantum/" },
 ];
 
 export default function Home() {
@@ -58,7 +58,7 @@ export default function Home() {
             <span className="proof">
               <span
                 className="proof__faces"
-                aria-label="Platforms: Quantum, Enterprise, Deeptech"
+                aria-label="Platforms: Deeptech, Enterprise, Quantum"
               >
                 {heroPillBadges.map((b) => {
                   const isRestricted =
