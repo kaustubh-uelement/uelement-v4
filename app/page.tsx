@@ -259,11 +259,16 @@ export default function Home() {
           <div className="vm-grid">
             <article className="paper-card vm">
               <span className="vm__label" style={{ color: "var(--gold-ink)" }}>
-                Our vision
+                Our Vision
               </span>
               <p
                 className="statement"
-                style={{ fontSize: "clamp(30px, 3.4vw, 46px)" }}
+                style={{
+                  fontFamily: '"Noto Sans", "Noto Sans Devanagari", var(--font-sans)',
+                  fontStyle: "italic",
+                  fontSize: "clamp(24px, 2.7vw, 38px)",
+                  lineHeight: 1.35,
+                }}
               >
                 A future where humanity and technology progress together, and
                 the planet grows healthier because of both.
@@ -278,12 +283,15 @@ export default function Home() {
               style={{ borderRadius: "var(--r-card)" }}
             >
               <span className="vm__label" style={{ color: "#4a3410" }}>
-                Our mission
+                Our Mission
               </span>
               <p
                 className="statement"
                 style={{
-                  fontSize: "clamp(30px, 3.4vw, 46px)",
+                  fontFamily: '"Noto Sans", "Noto Sans Devanagari", var(--font-sans)',
+                  fontStyle: "italic",
+                  fontSize: "clamp(24px, 2.7vw, 38px)",
+                  lineHeight: 1.35,
                   color: "#2a1d05",
                 }}
               >

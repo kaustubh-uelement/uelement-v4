@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Noto+Sans+Devanagari:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Noto+Sans+Devanagari:wght@500;600&family=Noto+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap");
 
 /* UElement design system
    Materials: enamel (deep navy panels), paper (premium off-white), glass (frosted), metal (polished gold).
@@ -2375,6 +2375,13 @@ a.mega__title:hover {
   height: 1px;
   flex: 1;
   background: linear-gradient(90deg, rgba(221, 187, 110, 0.5), transparent);
+}
+.vm .statement {
+  font-family: "Noto Sans", "Noto Sans Devanagari", var(--font-sans);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
 }
 
 .belief-list {
