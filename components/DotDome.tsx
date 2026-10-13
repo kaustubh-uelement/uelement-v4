@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 
 // A slowly turning sphere of gold dots, drawn on canvas. Used behind inner page headings.
-export function DotDome({ density = 1400 }: { density?: number }) {
+export function DotDome({ density = 3400 }: { density?: number }) {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
