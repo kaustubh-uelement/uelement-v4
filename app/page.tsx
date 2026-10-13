@@ -140,7 +140,7 @@ export default function Home() {
             >
               <Chip icon="people">Who we are</Chip>
               <h2 id="who" className="h2">
-                Building DeepTech, Quantum-safe security and Enterprise
+                Building DeepTech, Quantum-safe security solutions &amp; Enterprise
                 platforms for critical Infrastructure.
               </h2>
             </div>
@@ -153,11 +153,23 @@ export default function Home() {
                 restored. While the loudest voices today look to abandon Earth
                 for the future, we believe differently.
               </p>
-              <p>
-                Humanity already possesses the Talent, Capital and Intelligence
-                required to repair our world — We simply need to Direct it with
-                Purpose.
+              <p style={{ fontStyle: "italic" }}>
+                <em>
+                  Humanity already possesses the Talent, Capital and Intelligence
+                  required to repair our world — We simply need to Direct it with
+                  Purpose.
+                </em>
               </p>
+            </div>
+            <div
+              className="prose muted"
+              style={{
+                gridColumn: "1 / -1",
+                fontSize: 18,
+                maxWidth: "none",
+                lineHeight: 1.6,
+              }}
+            >
               <p>
                 That purpose drives our Technology. Our{" "}
                 <em>U92 Quantum Security</em> platform equips BFSI and critical
