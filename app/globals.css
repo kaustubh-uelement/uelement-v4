@@ -1062,7 +1062,7 @@ ol {
   background:
     radial-gradient(
       ellipse 65% 50% at 18% 0%,
-      rgba(241, 216, 148, 0.1),
+      rgba(196, 154, 69, 0.08),
       transparent 70%
     ),
     radial-gradient(
@@ -1072,7 +1072,7 @@ ol {
     ),
     linear-gradient(
       155deg,
-      rgba(215, 180, 120, 0.14) 0%,
+      rgba(165, 122, 48, 0.2) 0%,
       rgba(26, 20, 14, 0.72) 35%,
       rgba(12, 10, 8, 0.86) 100%
     );
@@ -1210,7 +1210,8 @@ a.mega__title:hover {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  color: rgba(241, 216, 148, 0.92);
+  color: rgba(241, 216, 148, 0.95);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
 }
 
 .mega-platform__body {
