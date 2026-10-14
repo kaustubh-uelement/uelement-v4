@@ -1314,23 +1314,22 @@ export async function runRepoScan(repoInfo, options = {}) {
     // Migration Plan Tailored for Code Repositories
     const plan = [
       {
-        phase: 'Phase 1: Remediation & Immediate Purge (0–3 Months)',
+        phase: 'Phase 1 · 0–3 Months',
         title: 'Eliminate Committed Keys & Deprecate Broken Hashes',
         desc: `Purge all hardcoded certificates and secret keys from ${repoFullName}. Replace deprecated MD5 and SHA-1 instances with SHA-384/SHA-512 to achieve immediate cryptographic baseline integrity.`,
       },
       {
-        phase: 'Phase 2: Symmetric Hardening & Cipher Agility (3–6 Months)',
+        phase: 'Phase 2 · 3–6 Months',
         title: 'Enforce AES-256-GCM & Abstract Cryptographic Calls',
         desc: 'Refactor symmetric encryption invocations from 128-bit blocks to AES-256-GCM. Introduce crypto-agile wrapper modules so underlying signature and KEM implementations can be swapped without rewriting business logic.',
       },
       {
-        phase:
-          'Phase 3: Post-Quantum Authentication & Signatures (6–18 Months)',
+        phase: 'Phase 3 · 6–18 Months',
         title: 'Adopt NIST FIPS 204 (ML-DSA) for Token & Identity Signing',
         desc: 'Update JWT signing profiles, API tokens, and microservice authentication to NIST FIPS 204 (ML-DSA-65). Deploy hybrid ML-KEM-768 for internal RPC communication.',
       },
       {
-        phase: 'Phase 4: Continuous CBOM Pipeline Integration (18+ Months)',
+        phase: 'Phase 4 · 18+ Months',
         title: 'Automated CI/CD CycloneDX 1.6 Verification',
         desc: 'Embed Vyu CBOM generation as an automated gate in GitHub Actions / GitLab CI. Block pull requests that introduce legacy classical primitives or Shor-vulnerable dependencies.',
       },

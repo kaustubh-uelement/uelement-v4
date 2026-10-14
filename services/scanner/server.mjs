@@ -194,22 +194,22 @@ function formatFrontendResults(raw) {
   // Tailored migration plan
   const plan = [
     {
-      phase: 'Phase 1: Immediate Ingress Protection (0–3 Months)',
+      phase: 'Phase 1 · 0–3 Months',
       title: 'Deploy Hybrid KEM at Edge Ingress (HNDL Mitigation)',
       desc: 'Enable X25519MLKEM768 hybrid key exchange (NIST FIPS 203) across public load balancers, Cloudflare, or Nginx reverse proxies to immediately safeguard against retroactive decryption.',
     },
     {
-      phase: 'Phase 2: Cryptographic Inventory & CBOM (3–9 Months)',
+      phase: 'Phase 2 · 3–9 Months',
       title: 'Continuous CBOM Generation & Dependency Audits',
       desc: 'Integrate CycloneDX 1.6 Cryptographic BOM generation into internal CI/CD pipelines to track deprecation of RSA-2048, 128-bit ciphers, and legacy digest algorithms.',
     },
     {
-      phase: 'Phase 3: Public Key Infrastructure Migration (9–24 Months)',
+      phase: 'Phase 3 · 9–24 Months',
       title: 'Transition PKI & Certificates to NIST FIPS 204 (ML-DSA)',
       desc: 'Establish dual-certificate support on internal Certificate Authorities and upgrade leaf and intermediate X.509 certificates to ML-DSA-65 / ML-DSA-87.',
     },
     {
-      phase: 'Phase 4: Full Sovereign & CNSA 2.0 Compliance (24+ Months)',
+      phase: 'Phase 4 · 24+ Months',
       title: 'Retire Classical Cryptographic Fallbacks',
       desc: 'Enforce exclusive Post-Quantum Cryptography across internal mTLS, databases, and microservice meshes in compliance with CNSA 2.0 and national guidelines.',
     },

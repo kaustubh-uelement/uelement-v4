@@ -943,22 +943,22 @@ export function CbomScannerModal() {
 
     const plan: ScanPlan[] = [
       {
-        phase: 'Phase 1: Immediate Ingress Protection (0–3 Months)',
+        phase: 'Phase 1 · 0–3 Months',
         title: 'Deploy Hybrid KEM at Edge Ingress (HNDL Mitigation)',
         desc: 'Enable X25519MLKEM768 hybrid key exchange (NIST FIPS 203) across public load balancers and reverse proxies to safeguard against retroactive decryption.',
       },
       {
-        phase: 'Phase 2: Cryptographic Inventory & CBOM (3–9 Months)',
+        phase: 'Phase 2 · 3–9 Months',
         title: 'Continuous CBOM Generation & Dependency Audits',
         desc: 'Integrate CycloneDX 1.6 Cryptographic BOM generation into internal CI/CD pipelines to track deprecation of RSA-2048, 128-bit ciphers, and legacy digests.',
       },
       {
-        phase: 'Phase 3: Public Key Infrastructure Migration (9–24 Months)',
+        phase: 'Phase 3 · 9–24 Months',
         title: 'Transition PKI & Certificates to NIST FIPS 204 (ML-DSA)',
         desc: 'Establish dual-certificate support on internal Certificate Authorities and upgrade leaf and intermediate X.509 certificates to ML-DSA-65 / ML-DSA-87.',
       },
       {
-        phase: 'Phase 4: Full Sovereign & CNSA 2.0 Compliance (24+ Months)',
+        phase: 'Phase 4 · 24+ Months',
         title: 'Retire Classical Cryptographic Fallbacks',
         desc: 'Enforce exclusive Post-Quantum Cryptography across internal mTLS, databases, and microservice meshes in compliance with CNSA 2.0 and national guidelines.',
       },
@@ -1601,6 +1601,23 @@ export function CbomScannerModal() {
       y += 10;
     }
 
+    // Helper to format concise phase badges (e.g. "Phase 1: ... (0–3 Months)" -> "PHASE 1 · 0–3 MONTHS")
+    const formatPhaseBadge = (rawPhase: string | undefined, idx: number) => {
+      const fallback = `PHASE ${idx + 1}`;
+      if (!rawPhase || typeof rawPhase !== 'string') return fallback;
+      const numMatch = rawPhase.match(/Phase\s*(\d+)/i);
+      const phaseNum = numMatch ? `PHASE ${numMatch[1]}` : fallback;
+      const durationMatch = rawPhase.match(/\(([^)]+)\)/) || rawPhase.match(/·\s*([^·\n]+)$/);
+      if (durationMatch && durationMatch[1]) {
+        const duration = durationMatch[1].trim().toUpperCase();
+        return `${phaseNum} · ${duration}`;
+      }
+      if (rawPhase.length <= 22) {
+        return rawPhase.toUpperCase();
+      }
+      return phaseNum;
+    };
+
     // ==========================================
     // FOUR-PHASE PQC MIGRATION ROADMAP
     // ==========================================
@@ -1615,27 +1632,43 @@ export function CbomScannerModal() {
 
       drawSectionTitle('Four-Phase PQC Migration Roadmap');
 
-      planPhases.forEach((phase) => {
-        const titleLines = doc.splitTextToSize(phase.title || '', W - M * 2 - 130);
-        const descLines = doc.splitTextToSize(phase.desc || '', W - M * 2 - 130);
-        const phaseHeight = Math.max(34, 14 + (titleLines.length + descLines.length) * 11);
+      planPhases.forEach((phase, idx) => {
+        const badgeText = formatPhaseBadge(phase.phase, idx);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(7.5);
+        const textW = doc.getTextWidth(badgeText);
+        const badgeW = Math.max(95, Math.ceil(textW + 16));
+        const badgeH = 18;
+        const titleX = M + badgeW + 12;
+        const titleW = W - M - titleX;
+
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9.5);
+        const titleLines = doc.splitTextToSize(phase.title || '', titleW);
+
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        const descLines = doc.splitTextToSize(phase.desc || '', titleW);
+
+        const contentHeight = titleLines.length * 11 + descLines.length * 10.5 + 6;
+        const phaseHeight = Math.max(badgeH + 8, contentHeight + 8);
 
         checkPageRoom(phaseHeight + 8);
 
         // Phase pill badge
         doc.setFillColor(245, 240, 230);
-        doc.roundedRect(M, y, 110, 18, 3, 3, 'F');
+        doc.roundedRect(M, y, badgeW, badgeH, 3, 3, 'F');
         doc.setFont('helvetica', 'bold');
-        doc.setFontSize(8);
+        doc.setFontSize(7.5);
         doc.setTextColor(GOLD[0], GOLD[1], GOLD[2]);
-        doc.text(String(phase.phase || 'PHASE').toUpperCase(), M + 8, y + 12);
+        doc.text(badgeText, M + 8, y + 12);
 
         // Phase title
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(9.5);
         doc.setTextColor(NAVY[0], NAVY[1], NAVY[2]);
-        titleLines.forEach((l: string, idx: number) => {
-          doc.text(l, M + 124, y + 12 + idx * 11);
+        titleLines.forEach((l: string, i: number) => {
+          doc.text(l, titleX, y + 12 + i * 11);
         });
 
         // Phase description
@@ -1643,11 +1676,11 @@ export function CbomScannerModal() {
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(8);
         doc.setTextColor(BODY_TEXT[0], BODY_TEXT[1], BODY_TEXT[2]);
-        descLines.forEach((l: string, idx: number) => {
-          doc.text(l, M + 124, descStartY + idx * 10.5);
+        descLines.forEach((l: string, i: number) => {
+          doc.text(l, titleX, descStartY + i * 10.5);
         });
 
-        y += phaseHeight + 8;
+        y += phaseHeight + 10;
       });
 
       y += 10;

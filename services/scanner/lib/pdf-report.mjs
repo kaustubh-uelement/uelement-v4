@@ -491,6 +491,23 @@ export function generateAssessmentPdf({ results, profile = {} }) {
     y += 10;
   }
 
+  // Helper to format concise phase badges (e.g. "Phase 1: ... (0–3 Months)" -> "PHASE 1 · 0–3 MONTHS")
+  const formatPhaseBadge = (rawPhase, idx) => {
+    const fallback = `PHASE ${idx + 1}`;
+    if (!rawPhase || typeof rawPhase !== 'string') return fallback;
+    const numMatch = rawPhase.match(/Phase\s*(\d+)/i);
+    const phaseNum = numMatch ? `PHASE ${numMatch[1]}` : fallback;
+    const durationMatch = rawPhase.match(/\(([^)]+)\)/) || rawPhase.match(/·\s*([^·\n]+)$/);
+    if (durationMatch && durationMatch[1]) {
+      const duration = durationMatch[1].trim().toUpperCase();
+      return `${phaseNum} · ${duration}`;
+    }
+    if (rawPhase.length <= 22) {
+      return rawPhase.toUpperCase();
+    }
+    return phaseNum;
+  };
+
   // ==========================================
   // FOUR-PHASE PQC MIGRATION ROADMAP
   // ==========================================
@@ -505,27 +522,43 @@ export function generateAssessmentPdf({ results, profile = {} }) {
 
     drawSectionTitle('Four-Phase PQC Migration Roadmap');
 
-    planPhases.forEach((phase) => {
-      const titleLines = doc.splitTextToSize(phase.title || '', W - M * 2 - 130);
-      const descLines = doc.splitTextToSize(phase.desc || '', W - M * 2 - 130);
-      const phaseHeight = Math.max(34, 14 + (titleLines.length + descLines.length) * 11);
+    planPhases.forEach((phase, idx) => {
+      const badgeText = formatPhaseBadge(phase.phase, idx);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7.5);
+      const textW = doc.getTextWidth(badgeText);
+      const badgeW = Math.max(95, Math.ceil(textW + 16));
+      const badgeH = 18;
+      const titleX = M + badgeW + 12;
+      const titleW = W - M - titleX;
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9.5);
+      const titleLines = doc.splitTextToSize(phase.title || '', titleW);
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      const descLines = doc.splitTextToSize(phase.desc || '', titleW);
+
+      const contentHeight = titleLines.length * 11 + descLines.length * 10.5 + 6;
+      const phaseHeight = Math.max(badgeH + 8, contentHeight + 8);
 
       checkPageRoom(phaseHeight + 8);
 
       // Phase pill badge
       doc.setFillColor(245, 240, 230);
-      doc.roundedRect(M, y, 110, 18, 3, 3, 'F');
+      doc.roundedRect(M, y, badgeW, badgeH, 3, 3, 'F');
       doc.setFont('helvetica', 'bold');
-      doc.setFontSize(8);
+      doc.setFontSize(7.5);
       doc.setTextColor(GOLD[0], GOLD[1], GOLD[2]);
-      doc.text(String(phase.phase || 'PHASE').toUpperCase(), M + 8, y + 12);
+      doc.text(badgeText, M + 8, y + 12);
 
       // Phase title
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(9.5);
       doc.setTextColor(NAVY[0], NAVY[1], NAVY[2]);
-      titleLines.forEach((l, idx) => {
-        doc.text(l, M + 124, y + 12 + idx * 11);
+      titleLines.forEach((l, i) => {
+        doc.text(l, titleX, y + 12 + i * 11);
       });
 
       // Phase description
@@ -533,11 +566,11 @@ export function generateAssessmentPdf({ results, profile = {} }) {
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(8);
       doc.setTextColor(BODY_TEXT[0], BODY_TEXT[1], BODY_TEXT[2]);
-      descLines.forEach((l, idx) => {
-        doc.text(l, M + 124, descStartY + idx * 10.5);
+      descLines.forEach((l, i) => {
+        doc.text(l, titleX, descStartY + i * 10.5);
       });
 
-      y += phaseHeight + 8;
+      y += phaseHeight + 10;
     });
 
     y += 10;
