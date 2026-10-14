@@ -128,6 +128,76 @@ export const PURPOSE_OF_ACCESS_OPTIONS = [
   'Technology Partnership & Platform Evaluation',
 ];
 
+export function extractRootDomain(rawHost: string): string {
+  if (!rawHost) return '';
+  let host = String(rawHost).trim().toLowerCase();
+  host = host.replace(/^https?:\/\//i, '').replace(/^git@[^:]+:/i, '');
+  host = host.split('/')[0].split(':')[0];
+  const parts = host.split('.').filter(Boolean);
+  if (parts.length <= 2) return parts.join('.');
+  const secondLast = parts[parts.length - 2];
+  const multiPartTlds = ['co', 'com', 'org', 'net', 'gov', 'ac', 'edu'];
+  if (parts.length >= 3 && multiPartTlds.includes(secondLast) && parts[parts.length - 1].length === 2) {
+    return parts.slice(-3).join('.');
+  }
+  return parts.slice(-2).join('.');
+}
+
+export function isDomainAuthorized(
+  email: string,
+  target: string
+): {
+  authorized: boolean;
+  reason: string;
+  targetDomain?: string;
+  emailDomain?: string;
+  expected?: string;
+} {
+  if (!email || !target) return { authorized: false, reason: 'missing_input' };
+  const emailNorm = String(email).trim().toLowerCase();
+  const emailDomain = emailNorm.split('@')[1] || '';
+  if (!emailDomain) return { authorized: false, reason: 'invalid_email' };
+
+  // Exemption: U-Element personnel can evaluate any target perimeter
+  if (
+    emailDomain === 'uelement.co' ||
+    emailDomain.endsWith('.uelement.co') ||
+    emailDomain === 'uelement.in' ||
+    emailDomain.endsWith('.uelement.in')
+  ) {
+    return { authorized: true, reason: 'uelement_internal_exemption' };
+  }
+
+  const t = String(target).trim().toLowerCase();
+  const ghMatch = t.match(/(?:github\.com\/|^)([a-zA-Z0-9_.-]+)\/([a-zA-Z0-9_.-]+)/);
+  const emailRoot = extractRootDomain(emailDomain);
+  const emailPrefix = emailRoot.split('.')[0];
+
+  if (ghMatch) {
+    const org = ghMatch[1].toLowerCase();
+    if (org === emailPrefix || org.includes(emailPrefix) || emailPrefix.includes(org)) {
+      return { authorized: true, reason: 'repo_org_match' };
+    }
+    return { authorized: false, reason: 'repo_org_mismatch', expected: org, emailDomain };
+  }
+
+  const targetRoot = extractRootDomain(t);
+  if (!targetRoot) return { authorized: false, reason: 'invalid_target' };
+
+  if (emailRoot === targetRoot) {
+    return { authorized: true, reason: 'domain_exact_match' };
+  }
+
+  const targetPrefix = targetRoot.split('.')[0];
+  if (emailPrefix.length >= 4 && targetPrefix.length >= 4) {
+    if (emailPrefix.includes(targetPrefix) || targetPrefix.includes(emailPrefix)) {
+      return { authorized: true, reason: 'brand_token_match' };
+    }
+  }
+
+  return { authorized: false, reason: 'domain_mismatch', targetDomain: targetRoot, emailDomain };
+}
+
 const SCAN_STAGES: Record<ScanType, string[]> = {
   url: [
     'Resolving target and discovering hosts',
@@ -1676,6 +1746,16 @@ export function CbomScannerModal() {
   /* ── Dispatch Comprehensive Assessment Report Directly to Email ── */
   const dispatchFullReportEmail = async (targetEmail: string, customProfile?: Partial<typeof profile>) => {
     if (!results || !targetEmail) return;
+
+    // Strict client-side perimeter authorization check
+    const auth = isDomainAuthorized(targetEmail, results.target);
+    if (!auth.authorized) {
+      alert(
+        `Perimeter Confidentiality Violation: Assessment report for "${results.target}" can only be dispatched to authorized corporate emails matching "${auth.targetDomain || auth.expected || results.target}".\n\nAddresses under "${auth.emailDomain}" are not authorized to receive reports for this external perimeter.`
+      );
+      return;
+    }
+
     setIsSendingReportEmail(true);
 
     try {
@@ -1702,7 +1782,7 @@ export function CbomScannerModal() {
       const activeProfile = { ...profile, ...(customProfile || {}) };
       const apiUrl = getScannerApiUrl();
 
-      await fetch(`${apiUrl}/api/report/send-email`, {
+      const res = await fetch(`${apiUrl}/api/report/send-email`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -1723,6 +1803,13 @@ export function CbomScannerModal() {
           when: results.when,
         }),
       });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        alert(data.error || 'Failed to dispatch report email. Please check your corporate domain authorization.');
+        return;
+      }
 
       setReportEmailedSuccess(targetEmail.trim().toLowerCase());
     } catch (err) {
@@ -1750,9 +1837,9 @@ export function CbomScannerModal() {
     setShowPdfLeadModal(true);
   };
 
-  const handlePdfButtonClick = () => {
+  const handleEmailReportClick = () => {
     if (isLoggedIn || (profile.email && profile.name)) {
-      downloadPDFReport();
+      dispatchFullReportEmail(profile.email || pdfLeadForm.email);
     } else {
       setAuthModalPurpose('download_pdf');
       setPdfLeadForm((prev) => ({
@@ -1770,6 +1857,7 @@ export function CbomScannerModal() {
       setShowPdfLeadModal(true);
     }
   };
+  const handlePdfButtonClick = handleEmailReportClick;
 
   const completeAuthSuccess = () => {
     const updatedProfile = {
@@ -1831,6 +1919,14 @@ export function CbomScannerModal() {
       const d = emailTrim.split('@')[1];
       if (FREE_EMAIL_DOMAINS.includes(d)) {
         errs.email = 'Personal emails (Gmail, Yahoo, Outlook, etc.) are not allowed. Please enter your corporate email.';
+      } else {
+        const currentTarget = results?.target || targetConfig.target;
+        if (currentTarget) {
+          const auth = isDomainAuthorized(emailTrim, currentTarget);
+          if (!auth.authorized) {
+            errs.email = `Perimeter Isolation Policy: Assessment reports for "${currentTarget}" can only be delivered to authorized corporate emails matching "${auth.targetDomain || auth.expected || currentTarget}". Addresses under "${auth.emailDomain}" cannot receive reports for external perimeters.`;
+          }
+        }
       }
     }
 
@@ -1854,6 +1950,7 @@ export function CbomScannerModal() {
 
     try {
       const apiUrl = getScannerApiUrl();
+      const currentTarget = results?.target || targetConfig.target;
 
       // 1. Live instant organisation legitimacy check (100% free entity lookup + MX validation)
       const verifyRes = await fetch(`${apiUrl}/api/verify-company`, {
@@ -1891,7 +1988,7 @@ export function CbomScannerModal() {
         message: verifyData.message || `Verified Enterprise: ${verifyData.company || pdfLeadForm.company.trim()}`,
       });
 
-      // 2. Dispatch 6-digit corporate email OTP verification code
+      // 2. Dispatch 6-digit corporate email OTP verification code with perimeter target binding
       const otpRes = await fetch(`${apiUrl}/api/otp/send-email`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1899,15 +1996,20 @@ export function CbomScannerModal() {
           email: emailTrim,
           name: pdfLeadForm.name.trim(),
           company: pdfLeadForm.company.trim(),
+          target: currentTarget,
         }),
       });
 
       const otpData = await otpRes.json().catch(() => ({}));
 
-      if (!otpRes.ok && otpRes.status === 429) {
-        setAuthOtpError(
-          otpData.error || 'Too many verification attempts from this IP. Please wait a few moments.'
-        );
+      if (!otpRes.ok) {
+        const errorMsg =
+          otpData.error ||
+          'Failed to dispatch verification code. Please check your domain authorization.';
+        setAuthOtpError(errorMsg);
+        setPdfLeadErrors({ email: errorMsg });
+        setIsSubmittingPdfLead(false);
+        return;
       } else {
         setAuthOtpError(null);
       }
@@ -3130,12 +3232,12 @@ export function CbomScannerModal() {
                   </button>
                   <button
                     type="button"
-                    onClick={handlePdfButtonClick}
+                    onClick={handleEmailReportClick}
                     className="btn btn--metal btn--sm"
                     style={{ fontSize: '13px', padding: '7px 16px', fontWeight: 600 }}
                   >
-                    <Download size={14} style={{ marginRight: 6 }} />
-                    Download Executive PDF
+                    <Mail size={14} style={{ marginRight: 6 }} />
+                    Email Assessment Report
                   </button>
                 </div>
               </div>
@@ -3527,22 +3629,6 @@ export function CbomScannerModal() {
                             {isSendingReportEmail ? 'Dispatching...' : 'Resend Report to Email'}
                           </button>
 
-                          <button
-                            type="button"
-                            onClick={() => downloadPDFReport()}
-                            className="btn btn--glass"
-                            style={{
-                              padding: '10px 20px',
-                              fontSize: '13px',
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: '8px',
-                              cursor: 'pointer',
-                            }}
-                          >
-                            <Download size={15} />
-                            Download Stamped PDF Copy
-                          </button>
                         </div>
                       </>
                     )}
@@ -4233,21 +4319,21 @@ export function CbomScannerModal() {
                   }}
                 >
                   {authModalPurpose === 'download_pdf'
-                    ? 'BOARD-READY EXECUTIVE REPORT'
+                    ? 'CONFIDENTIAL ASSESSMENT REPORT'
                     : authModalPurpose === 'export_json'
                       ? 'ENTERPRISE CYCLONEDX 1.6 EXPORT'
                       : 'ENTERPRISE ACCESS GATE'}
                 </span>
                 <h3 style={{ margin: '0 0 8px 0', color: '#ffffff', fontSize: '20px', fontWeight: 600 }}>
                   {authModalPurpose === 'download_pdf'
-                    ? 'Download Executive Assessment PDF'
+                    ? 'Email Executive Assessment Report'
                     : authModalPurpose === 'export_json'
                       ? 'Export Full CycloneDX 1.6 JSON'
                       : 'Unlock Full Cryptographic Inventory'}
                 </h3>
                 <p style={{ margin: '0 0 16px 0', fontSize: '13px', color: 'rgba(245, 240, 232, 0.75)', lineHeight: 1.5 }}>
                   {authModalPurpose === 'download_pdf'
-                    ? 'Verify your corporate email to generate and download your stamped cryptographic audit report, Shor & Grover exposure matrices, and NIST remediation roadmap.'
+                    ? 'Verify your corporate email to receive your confidential cryptographic assessment report, Shor & Grover exposure matrices, and NIST remediation roadmap directly via email.'
                     : authModalPurpose === 'export_json'
                       ? 'Verify your corporate credentials to export the unredacted CycloneDX 1.6 Cryptographic BOM and unlock all cryptographic assets.'
                       : `Sign in with your verified corporate email to unlock the full cryptographic inventory (${results?.cbom?.length || 19}+ assets) and migration timeline.`}
@@ -4313,11 +4399,35 @@ export function CbomScannerModal() {
                       />
                       <Mail size={15} style={{ position: 'absolute', left: '11px', top: '50%', transform: 'translateY(-50%)', color: 'rgba(221, 187, 110, 0.6)' }} />
                     </div>
-                    {pdfLeadErrors.email && (
-                      <span style={{ fontSize: '11px', color: '#fca5a5', marginTop: '2px', display: 'block' }}>
+                    {pdfLeadErrors.email ? (
+                      <span style={{ fontSize: '11px', color: '#fca5a5', marginTop: '3px', display: 'block', lineHeight: 1.4 }}>
                         {pdfLeadErrors.email}
                       </span>
-                    )}
+                    ) : (() => {
+                      const currentTarget = results?.target || targetConfig.target;
+                      if (!pdfLeadForm.email || !pdfLeadForm.email.includes('@') || !currentTarget) return null;
+                      const parts = pdfLeadForm.email.trim().toLowerCase().split('@');
+                      if (parts.length < 2 || !parts[1].includes('.')) return null;
+                      if (FREE_EMAIL_DOMAINS.includes(parts[1])) return null;
+                      const auth = isDomainAuthorized(pdfLeadForm.email, currentTarget);
+                      if (auth.authorized) {
+                        return (
+                          <span style={{ fontSize: '11px', color: '#86efac', marginTop: '3px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <Check size={12} />
+                            {auth.reason === 'uelement_internal_exemption'
+                              ? 'U-Element Security Clearance (Universal Access)'
+                              : `Authorized corporate perimeter: ${currentTarget}`}
+                          </span>
+                        );
+                      } else {
+                        return (
+                          <span style={{ fontSize: '11px', color: '#fca5a5', marginTop: '3px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <AlertTriangle size={12} />
+                            Perimeter Isolation: &quot;{auth.emailDomain}&quot; cannot access reports for &quot;{currentTarget}&quot;
+                          </span>
+                        );
+                      }
+                    })()}
                   </div>
 
                   {/* Field 3: Organisation / Company */}
@@ -4576,8 +4686,8 @@ export function CbomScannerModal() {
                       </>
                     ) : authModalPurpose === 'download_pdf' ? (
                       <>
-                        <Download size={15} />
-                        Verify & Download Assessment PDF
+                        <Mail size={15} />
+                        Verify & Email Assessment Report
                       </>
                     ) : authModalPurpose === 'export_json' ? (
                       <>

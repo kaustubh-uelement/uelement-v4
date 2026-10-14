@@ -6,6 +6,7 @@ import { createEmailOtp, verifyEmailOtp } from './lib/otp-store.mjs';
 import { sendOtpEmail, sendAssessmentReportEmail } from './lib/email-service.mjs';
 import { checkRateLimit, getClientIp } from './lib/rate-limiter.mjs';
 import { isPersonalOrDisposableEmail, verifyCompanyLegitimacy } from './lib/company-verify.mjs';
+import { isDomainAuthorized } from './lib/domain-auth.mjs';
 
 const PORT = Number(process.env.PORT || 8080);
 const HOST = process.env.HOST || '0.0.0.0';
@@ -378,6 +379,22 @@ const server = http.createServer(async (req, res) => {
           }
         }
 
+        // Perimeter Isolation: ensure email domain matches assessed target (uelement.co exempt)
+        const target = String(body.target || '').trim();
+        if (target) {
+          const auth = isDomainAuthorized(email, target);
+          if (!auth.authorized) {
+            res.writeHead(403, { 'Content-Type': 'application/json' });
+            res.end(
+              JSON.stringify({
+                error: `Perimeter Confidentiality Policy: Assessment data for '${target}' can only be requested by verified corporate personnel associated with '${auth.targetDomain || auth.expected || target}'. Personnel from '${auth.emailDomain}' cannot access external perimeters.`,
+                code: 'DOMAIN_MISMATCH',
+              })
+            );
+            return;
+          }
+        }
+
         const otpResult = createEmailOtp(email);
         if (!otpResult.ok) {
           res.writeHead(429, { 'Content-Type': 'application/json' });
@@ -503,6 +520,22 @@ const server = http.createServer(async (req, res) => {
           res.writeHead(400, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({ error: 'Valid recipient email is required.' }));
           return;
+        }
+
+        // Perimeter Isolation: ensure email domain matches assessed target (uelement.co exempt)
+        const target = String(body.target || '').trim();
+        if (target) {
+          const auth = isDomainAuthorized(email, target);
+          if (!auth.authorized) {
+            res.writeHead(403, { 'Content-Type': 'application/json' });
+            res.end(
+              JSON.stringify({
+                error: `Perimeter Confidentiality Policy: Assessment report for '${target}' can only be dispatched to verified corporate emails under '${auth.targetDomain || auth.expected || target}'. Personnel from '${auth.emailDomain}' are not authorized to receive reports for this external perimeter.`,
+                code: 'DOMAIN_MISMATCH',
+              })
+            );
+            return;
+          }
         }
 
         const result = await sendAssessmentReportEmail({
