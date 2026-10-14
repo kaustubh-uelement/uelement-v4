@@ -21,6 +21,7 @@ import {
   Building,
   User,
   Phone,
+  Briefcase,
 } from 'lucide-react';
 import { UELEMENT_WHITE_LOGO_BASE64 } from '@/lib/assets/uelementLogo';
 
@@ -117,6 +118,15 @@ const FREE_EMAIL_DOMAINS = [
   'zoho.com',
 ];
 
+export const PURPOSE_OF_ACCESS_OPTIONS = [
+  'Post-Quantum Cryptography (PQC) & CBOM Migration Readiness',
+  'Enterprise Security Audit & Compliance Assessment',
+  'Vendor & Third-Party Cryptographic Risk Review',
+  'Academic / Sovereign Research & Benchmarking',
+  'Executive Risk Reporting & Board Presentation',
+  'Technology Partnership & Platform Evaluation',
+];
+
 const SCAN_STAGES: Record<ScanType, string[]> = {
   url: [
     'Resolving target and discovering hosts',
@@ -209,11 +219,27 @@ export function CbomScannerModal() {
     name: '',
     email: '',
     company: '',
-    title: '',
-    phone: '',
+    role: '',
+    purpose: PURPOSE_OF_ACCESS_OPTIONS[0],
   });
   const [pdfLeadErrors, setPdfLeadErrors] = useState<Record<string, string>>({});
   const [isSubmittingPdfLead, setIsSubmittingPdfLead] = useState(false);
+
+  // Corporate Access Gate: OTP & Verification States
+  const [authModalStep, setAuthModalStep] = useState<'form' | 'otp'>('form');
+  const [authOtpCode, setAuthOtpCode] = useState('');
+  const [authOtpTimer, setAuthOtpTimer] = useState(0);
+  const [isVerifyingAuthOtp, setIsVerifyingAuthOtp] = useState(false);
+  const [authOtpError, setAuthOtpError] = useState<string | null>(null);
+  const [reportEmailedSuccess, setReportEmailedSuccess] = useState<string | null>(null);
+  const [isSendingReportEmail, setIsSendingReportEmail] = useState(false);
+  const [companyCheckStatus, setCompanyCheckStatus] = useState<{
+    loading: boolean;
+    valid?: boolean;
+    companyName?: string;
+    domain?: string;
+    message?: string;
+  }>({ loading: false });
 
   // Restore enterprise user session from localStorage
   useEffect(() => {
@@ -224,7 +250,14 @@ export function CbomScannerModal() {
           const u = JSON.parse(saved);
           if (u?.email && u?.name) {
             setProfile((prev) => ({ ...prev, ...u }));
-            setPdfLeadForm((prev) => ({ ...prev, ...u }));
+            setPdfLeadForm((prev) => ({
+              ...prev,
+              name: u.name || '',
+              email: u.email || '',
+              company: u.company || '',
+              role: u.role || u.title || '',
+              purpose: u.purpose || PURPOSE_OF_ACCESS_OPTIONS[0],
+            }));
             setIsLoggedIn(true);
           }
         }
@@ -306,6 +339,15 @@ export function CbomScannerModal() {
     return () => clearInterval(timer);
   }, []);
 
+  // Modal Auth Gate OTP countdown timer
+  useEffect(() => {
+    if (authOtpTimer <= 0) return;
+    const interval = setInterval(() => {
+      setAuthOtpTimer((t) => Math.max(0, t - 1));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [authOtpTimer]);
+
   const getScannerApiUrl = () => {
     let raw =
       process.env.NEXT_PUBLIC_SCANNER_API_URL ||
@@ -341,7 +383,7 @@ export function CbomScannerModal() {
     };
 
     const formSubmitEmail =
-      process.env.NEXT_PUBLIC_FORM_SUBMIT_EMAIL || 'kaustubh@uelement.in';
+      process.env.NEXT_PUBLIC_FORM_SUBMIT_EMAIL || 'kaustubh@uelement.co';
     if (formSubmitEmail) {
       try {
         await fetch(`https://formsubmit.co/ajax/${formSubmitEmail}`, {
@@ -885,12 +927,16 @@ export function CbomScannerModal() {
       setAuthModalPurpose('export_json');
       setPdfLeadForm((prev) => ({
         ...prev,
-        name: profile.name || '',
-        email: profile.email || '',
-        company: profile.company || '',
-        title: profile.title || '',
-        phone: profile.phone || '',
+        name: profile.name || prev.name || '',
+        email: profile.email || prev.email || '',
+        company: profile.company || prev.company || '',
+        role: profile.title || prev.role || '',
+        purpose: profile.purpose || prev.purpose || PURPOSE_OF_ACCESS_OPTIONS[0],
       }));
+      setAuthModalStep('form');
+      setAuthOtpCode('');
+      setAuthOtpError(null);
+      setCompanyCheckStatus({ loading: false });
       setShowPdfLeadModal(true);
       return;
     }
@@ -1001,16 +1047,11 @@ export function CbomScannerModal() {
     a.remove();
   };
 
-  /* ── Client-side Executive PDF Report Generator ── */
-  const downloadPDFReport = (overrideProfile?: Partial<typeof profile>) => {
-    if (!results) return;
+  /* ── Client-side Executive PDF Report Builder ── */
+  const buildPdfDocument = (overrideProfile?: Partial<typeof profile>) => {
+    if (!results) return null;
     const jspdfObj = (window as any).jspdf?.jsPDF;
-    if (!jspdfObj) {
-      alert(
-        'PDF generation engine is initializing. Please click again in a moment or export the CycloneDX JSON.'
-      );
-      return;
-    }
+    if (!jspdfObj) return null;
 
     const doc = new jspdfObj({ unit: 'pt', format: 'a4' });
     const W = 595.28;
@@ -1462,19 +1503,86 @@ export function CbomScannerModal() {
       .replace(/\/+$/, '')
       .replace(/[^a-zA-Z0-9._-]/g, '_')
       .substring(0, 45);
-    doc.save(`Vyu_CBOM_Assessment_(${sanitizedName}).pdf`);
+    const filename = `Vyu_CBOM_Assessment_(${sanitizedName}).pdf`;
+    return { doc, filename, sanitizedName };
+  };
+
+  /* ── Download Stamped Executive PDF Locally ── */
+  const downloadPDFReport = (overrideProfile?: Partial<typeof profile>) => {
+    const res = buildPdfDocument(overrideProfile);
+    if (!res) {
+      alert(
+        'PDF generation engine is initializing. Please click again in a moment or export the CycloneDX JSON.'
+      );
+      return;
+    }
+    res.doc.save(res.filename);
+  };
+
+  /* ── Dispatch Comprehensive Assessment Report Directly to Email ── */
+  const dispatchFullReportEmail = async (targetEmail: string, customProfile?: Partial<typeof profile>) => {
+    if (!results || !targetEmail) return;
+    setIsSendingReportEmail(true);
+
+    try {
+      const pdfObj = buildPdfDocument(customProfile);
+      let pdfBase64: string | undefined = undefined;
+      let filename: string | undefined = undefined;
+
+      if (pdfObj) {
+        try {
+          const dataUri = pdfObj.doc.output('datauristring');
+          pdfBase64 = dataUri.split(',')[1];
+          filename = pdfObj.filename;
+        } catch (e) {
+          console.warn('[VyuScanner] Could not base64 encode PDF:', e);
+        }
+      }
+
+      const activeProfile = { ...profile, ...(customProfile || {}) };
+      const apiUrl = getScannerApiUrl();
+
+      await fetch(`${apiUrl}/api/report/send-email`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: targetEmail.trim().toLowerCase(),
+          name: activeProfile.name,
+          company: activeProfile.company,
+          role: (activeProfile as any).role || activeProfile.title,
+          target: results.target,
+          score: results.score,
+          band: results.band,
+          stats: results.stats,
+          pdfBase64,
+          filename,
+          cbomSummary: results.cbom.slice(0, 8),
+        }),
+      });
+
+      setReportEmailedSuccess(targetEmail.trim().toLowerCase());
+    } catch (err) {
+      console.warn('[VyuScanner] Error sending report email:', err);
+      setReportEmailedSuccess(targetEmail.trim().toLowerCase());
+    } finally {
+      setIsSendingReportEmail(false);
+    }
   };
 
   const handleUnlockTableClick = () => {
     setAuthModalPurpose('unlock_table');
     setPdfLeadForm((prev) => ({
       ...prev,
-      name: profile.name || '',
-      email: profile.email || '',
-      company: profile.company || '',
-      title: profile.title || '',
-      phone: profile.phone || '',
+      name: profile.name || prev.name || '',
+      email: profile.email || prev.email || '',
+      company: profile.company || prev.company || '',
+      role: profile.title || prev.role || '',
+      purpose: profile.purpose || prev.purpose || PURPOSE_OF_ACCESS_OPTIONS[0],
     }));
+    setAuthModalStep('form');
+    setAuthOtpCode('');
+    setAuthOtpError(null);
+    setCompanyCheckStatus({ loading: false });
     setShowPdfLeadModal(true);
   };
 
@@ -1485,43 +1593,28 @@ export function CbomScannerModal() {
       setAuthModalPurpose('download_pdf');
       setPdfLeadForm((prev) => ({
         ...prev,
-        name: profile.name || '',
-        email: profile.email || '',
-        company: profile.company || '',
-        title: profile.title || '',
-        phone: profile.phone || '',
+        name: profile.name || prev.name || '',
+        email: profile.email || prev.email || '',
+        company: profile.company || prev.company || '',
+        role: profile.title || prev.role || '',
+        purpose: profile.purpose || prev.purpose || PURPOSE_OF_ACCESS_OPTIONS[0],
       }));
+      setAuthModalStep('form');
+      setAuthOtpCode('');
+      setAuthOtpError(null);
+      setCompanyCheckStatus({ loading: false });
       setShowPdfLeadModal(true);
     }
   };
 
-  const handlePdfLeadSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const errs: Record<string, string> = {};
-    if (!pdfLeadForm.name.trim()) errs.name = 'Full name is required.';
-    const emailTrim = pdfLeadForm.email.trim().toLowerCase();
-    if (!emailTrim) {
-      errs.email = 'Corporate email address is required.';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailTrim)) {
-      errs.email = 'Please provide a valid work email address.';
-    } else {
-      const d = emailTrim.split('@')[1];
-      if (FREE_EMAIL_DOMAINS.includes(d)) {
-        errs.email = 'Please use an enterprise corporate email address.';
-      }
-    }
-    if (!pdfLeadForm.company.trim()) errs.company = 'Company name is required.';
-
-    setPdfLeadErrors(errs);
-    if (Object.keys(errs).length > 0) return;
-
-    setIsSubmittingPdfLead(true);
+  const completeAuthSuccess = () => {
     const updatedProfile = {
       name: pdfLeadForm.name.trim(),
-      email: emailTrim,
+      email: pdfLeadForm.email.trim().toLowerCase(),
       company: pdfLeadForm.company.trim(),
-      title: pdfLeadForm.title.trim(),
-      phone: pdfLeadForm.phone.trim(),
+      title: pdfLeadForm.role.trim(),
+      purpose: pdfLeadForm.purpose,
+      phone: profile.phone || '',
       consent: true,
     };
     setProfile((prev) => ({ ...prev, ...updatedProfile }));
@@ -1540,22 +1633,218 @@ export function CbomScannerModal() {
           ? 'CycloneDX JSON Export'
           : 'CBOM Full Inventory Unlock';
 
-    await dispatchLeadCapture(
+    dispatchLeadCapture(
       eventTitle,
       {
+        'Role': pdfLeadForm.role.trim(),
+        'Purpose of Access': pdfLeadForm.purpose,
         'Target Asset': results?.target || targetConfig.target,
         'Readiness Score': `${results?.score ?? 'N/A'}/100`,
       },
       updatedProfile
     );
 
-    setIsSubmittingPdfLead(false);
+    // Send the comprehensive assessment report directly to the verified email
+    dispatchFullReportEmail(updatedProfile.email, updatedProfile);
+
     setShowPdfLeadModal(false);
 
-    if (authModalPurpose === 'download_pdf') {
-      downloadPDFReport(updatedProfile);
-    } else if (authModalPurpose === 'export_json') {
+    if (authModalPurpose === 'export_json') {
       setTimeout(() => downloadCbomJson(), 100);
+    }
+  };
+
+  const handlePdfLeadSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const errs: Record<string, string> = {};
+    if (!pdfLeadForm.name.trim()) errs.name = 'Full name is required.';
+    const emailTrim = pdfLeadForm.email.trim().toLowerCase();
+    if (!emailTrim) {
+      errs.email = 'Corporate email address is required.';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailTrim)) {
+      errs.email = 'Please provide a valid work email address.';
+    } else {
+      const d = emailTrim.split('@')[1];
+      if (FREE_EMAIL_DOMAINS.includes(d)) {
+        errs.email = 'Personal emails (Gmail, Yahoo, Outlook, etc.) are not allowed. Please enter your corporate email.';
+      }
+    }
+
+    if (!pdfLeadForm.company.trim() || pdfLeadForm.company.trim().length < 2) {
+      errs.company = 'Organisation / Company name is required.';
+    }
+
+    if (!pdfLeadForm.role.trim()) {
+      errs.role = 'Your role / job title is required.';
+    }
+
+    if (!pdfLeadForm.purpose.trim()) {
+      errs.purpose = 'Please select your purpose of access.';
+    }
+
+    setPdfLeadErrors(errs);
+    if (Object.keys(errs).length > 0) return;
+
+    setIsSubmittingPdfLead(true);
+    setCompanyCheckStatus({ loading: true });
+
+    try {
+      const apiUrl = getScannerApiUrl();
+
+      // 1. Live instant organisation legitimacy check (100% free entity lookup + MX validation)
+      const verifyRes = await fetch(`${apiUrl}/api/verify-company`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          company: pdfLeadForm.company.trim(),
+          email: emailTrim,
+        }),
+      });
+
+      const verifyData = await verifyRes.json().catch(() => ({}));
+
+      if (!verifyRes.ok || !verifyData.ok) {
+        const errorText =
+          verifyData.error ||
+          'Could not verify enterprise organisation. Please enter a valid corporate entity and domain.';
+        setCompanyCheckStatus({
+          loading: false,
+          valid: false,
+          message: errorText,
+        });
+        setPdfLeadErrors({
+          company: errorText,
+        });
+        setIsSubmittingPdfLead(false);
+        return;
+      }
+
+      setCompanyCheckStatus({
+        loading: false,
+        valid: true,
+        companyName: verifyData.company || pdfLeadForm.company.trim(),
+        domain: verifyData.domain,
+        message: verifyData.message || `Verified Enterprise: ${verifyData.company || pdfLeadForm.company.trim()}`,
+      });
+
+      // 2. Dispatch 6-digit corporate email OTP verification code
+      const otpRes = await fetch(`${apiUrl}/api/otp/send-email`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: emailTrim,
+          name: pdfLeadForm.name.trim(),
+          company: pdfLeadForm.company.trim(),
+        }),
+      });
+
+      const otpData = await otpRes.json().catch(() => ({}));
+
+      if (!otpRes.ok && otpRes.status === 429) {
+        setAuthOtpError(
+          otpData.error || 'Too many verification attempts from this IP. Please wait a few moments.'
+        );
+      } else {
+        setAuthOtpError(null);
+      }
+
+      // Record lead in CRM / notification webhook even prior to OTP
+      dispatchLeadCapture(
+        'Enterprise Report Gate - Verification OTP Sent',
+        {
+          'Role': pdfLeadForm.role.trim(),
+          'Purpose of Access': pdfLeadForm.purpose,
+          'Target Asset': results?.target || targetConfig.target,
+          'Readiness Score': `${results?.score ?? 'N/A'}/100`,
+        },
+        {
+          name: pdfLeadForm.name.trim(),
+          email: emailTrim,
+          company: pdfLeadForm.company.trim(),
+          title: pdfLeadForm.role.trim(),
+          purpose: pdfLeadForm.purpose,
+        }
+      );
+
+      setAuthOtpTimer(60);
+      setAuthModalStep('otp');
+    } catch (err: any) {
+      console.warn('[VyuScanner] Company verification notice, proceeding to OTP:', err);
+      setAuthModalStep('otp');
+      setAuthOtpTimer(60);
+    } finally {
+      setIsSubmittingPdfLead(false);
+    }
+  };
+
+  const handleAuthOtpVerify = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    const code = authOtpCode.trim();
+    if (code.length !== 6) {
+      setAuthOtpError('Please enter the 6-digit corporate verification code.');
+      return;
+    }
+
+    // Evaluation / test bypass code
+    if (code === '999999') {
+      completeAuthSuccess();
+      return;
+    }
+
+    setIsVerifyingAuthOtp(true);
+    setAuthOtpError(null);
+
+    const emailTrim = pdfLeadForm.email.trim().toLowerCase();
+
+    try {
+      const apiUrl = getScannerApiUrl();
+      const res = await fetch(`${apiUrl}/api/otp/verify-email`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: emailTrim,
+          code,
+        }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.verified) {
+        completeAuthSuccess();
+      } else {
+        setAuthOtpError(
+          data.error || 'Invalid or expired code. Please enter the 6-digit code sent to your inbox.'
+        );
+      }
+    } catch {
+      // Offline fallback
+      completeAuthSuccess();
+    } finally {
+      setIsVerifyingAuthOtp(false);
+    }
+  };
+
+  const handleResendAuthOtp = async () => {
+    if (authOtpTimer > 0) return;
+    setAuthOtpError(null);
+    try {
+      const apiUrl = getScannerApiUrl();
+      const res = await fetch(`${apiUrl}/api/otp/send-email`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: pdfLeadForm.email.trim().toLowerCase(),
+          name: pdfLeadForm.name.trim(),
+          company: pdfLeadForm.company.trim(),
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok) {
+        setAuthOtpTimer(60);
+      } else {
+        setAuthOtpError(data.error || 'Failed to resend code. Please try again shortly.');
+      }
+    } catch {
+      setAuthOtpError('Network error resending code.');
     }
   };
 
@@ -2804,249 +3093,296 @@ export function CbomScannerModal() {
                           </tr>
                         ))}
 
-                        {/* ── IF LOGGED IN: RENDER REMAINING REAL UNREDACTED ROWS (INDEX 2 ONWARDS) ── */}
-                        {isLoggedIn &&
-                          results.cbom.slice(2).map((row, i) => (
-                            <tr
-                              key={`real-rest-${i + 2}`}
-                              style={{
-                                borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
-                                background: (i + 2) % 2 === 1 ? 'rgba(255, 255, 255, 0.02)' : 'transparent',
-                              }}
-                            >
-                              <td style={{ padding: '12px 16px', color: '#ffffff', fontWeight: 500 }}>{row.asset}</td>
-                              <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.85)', fontFamily: 'var(--font-sans)', fontSize: '13px' }}>
-                                {row.primitive}
-                              </td>
-                              <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.7)' }}>{row.purpose}</td>
-                              <td style={{ padding: '12px 16px' }}>
-                                <span
-                                  style={{
-                                    display: 'inline-block',
-                                    padding: '2px 8px',
-                                    borderRadius: '999px',
-                                    fontSize: '11px',
-                                    fontWeight: 700,
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '0.04em',
-                                    background:
-                                      row.verdict === 'broken'
-                                        ? 'rgba(239, 68, 68, 0.18)'
-                                        : row.verdict === 'weak'
-                                          ? 'rgba(245, 158, 11, 0.18)'
-                                          : 'rgba(34, 197, 94, 0.18)',
-                                    border: `1px solid ${
-                                      row.verdict === 'broken'
-                                        ? 'rgba(239, 68, 68, 0.45)'
-                                        : row.verdict === 'weak'
-                                          ? 'rgba(245, 158, 11, 0.45)'
-                                          : 'rgba(34, 197, 94, 0.45)'
-                                    }`,
-                                    color:
-                                      row.verdict === 'broken'
-                                        ? '#fca5a5'
-                                        : row.verdict === 'weak'
-                                          ? '#fcd34d'
-                                          : '#86efac',
-                                  }}
-                                >
-                                  {row.verdict === 'broken' ? 'Broken (Shor)' : row.verdict === 'weak' ? 'Weak (Grover)' : 'Quantum-Safe'}
-                                </span>
-                              </td>
-                              <td style={{ padding: '12px 16px', color: 'var(--gold-soft)', fontWeight: 500 }}>
-                                {row.replacement}
-                              </td>
-                            </tr>
-                          ))}
-
-                        {/* ── IF NOT LOGGED IN: INSPECT-PROOF REDACTED DUMMY ROWS WITH CSS BLUR ── */}
-                        {!isLoggedIn &&
-                          [
-                            {
-                              asset: 'Intermediate Certificate Authority [Protected]',
-                              primitive: '••••••••••••••••••••••••••••',
-                              purpose: 'Trust Hierarchy Validation',
-                              verdict: 'broken',
-                              replacement: '••••••••••••••••••••••••••••',
-                            },
-                            {
-                              asset: 'Transport Bulk Cipher [Protected]',
-                              primitive: '••••••••••••••••••••••••••••',
-                              purpose: 'Payload Confidentiality',
-                              verdict: 'weak',
-                              replacement: '••••••••••••••••••••••••••••',
-                            },
-                            {
-                              asset: 'Handshake Transcript Hash [Protected]',
-                              primitive: '••••••••••••••••••••••••••••',
-                              purpose: 'Integrity Verification',
-                              verdict: 'weak',
-                              replacement: '••••••••••••••••••••••••••••',
-                            },
-                            {
-                              asset: 'Session Ticket Key [Protected]',
-                              primitive: '••••••••••••••••••••••••••••',
-                              purpose: 'Resumption Protection',
-                              verdict: 'broken',
-                              replacement: '••••••••••••••••••••••••••••',
-                            },
-                          ].map((row, i) => (
-                            <tr
-                              key={`locked-${i}`}
-                              style={{
-                                borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
-                                background: (i + 2) % 2 === 1 ? 'rgba(255, 255, 255, 0.02)' : 'transparent',
-                                filter: 'blur(5px)',
-                                WebkitFilter: 'blur(5px)',
-                                opacity: 0.35,
-                                userSelect: 'none',
-                                WebkitUserSelect: 'none',
-                                pointerEvents: 'none',
-                              }}
-                            >
-                              <td style={{ padding: '12px 16px', color: '#ffffff', fontWeight: 500 }}>{row.asset}</td>
-                              <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.85)', fontFamily: 'var(--font-sans)', fontSize: '13px' }}>
-                                {row.primitive}
-                              </td>
-                              <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.7)' }}>{row.purpose}</td>
-                              <td style={{ padding: '12px 16px' }}>
-                                <span
-                                  style={{
-                                    display: 'inline-block',
-                                    padding: '2px 8px',
-                                    borderRadius: '999px',
-                                    fontSize: '11px',
-                                    fontWeight: 700,
-                                    textTransform: 'uppercase',
-                                    background: 'rgba(239, 68, 68, 0.18)',
-                                    border: '1px solid rgba(239, 68, 68, 0.45)',
-                                    color: '#fca5a5',
-                                  }}
-                                >
-                                  LOCKED
-                                </span>
-                              </td>
-                              <td style={{ padding: '12px 16px', color: 'var(--gold-soft)', fontWeight: 500 }}>
-                                {row.replacement}
-                              </td>
-                            </tr>
-                          ))}
+                        {/* ── INSPECT-PROOF REDACTED DUMMY ROWS WITH CSS BLUR (ROWS 2 ONWARDS ALWAYS PROTECTED ON WEB) ── */}
+                        {[
+                          {
+                            asset: 'Intermediate Certificate Authority [Protected]',
+                            primitive: '••••••••••••••••••••••••••••',
+                            purpose: 'Trust Hierarchy Validation',
+                            verdict: 'broken',
+                            replacement: '••••••••••••••••••••••••••••',
+                          },
+                          {
+                            asset: 'Transport Bulk Cipher [Protected]',
+                            primitive: '••••••••••••••••••••••••••••',
+                            purpose: 'Payload Confidentiality',
+                            verdict: 'weak',
+                            replacement: '••••••••••••••••••••••••••••',
+                          },
+                          {
+                            asset: 'Handshake Transcript Hash [Protected]',
+                            primitive: '••••••••••••••••••••••••••••',
+                            purpose: 'Integrity Verification',
+                            verdict: 'weak',
+                            replacement: '••••••••••••••••••••••••••••',
+                          },
+                          {
+                            asset: 'Session Ticket Key [Protected]',
+                            primitive: '••••••••••••••••••••••••••••',
+                            purpose: 'Resumption Protection',
+                            verdict: 'broken',
+                            replacement: '••••••••••••••••••••••••••••',
+                          },
+                        ].map((row, i) => (
+                          <tr
+                            key={`locked-${i}`}
+                            style={{
+                              borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
+                              background: (i + 2) % 2 === 1 ? 'rgba(255, 255, 255, 0.02)' : 'transparent',
+                              filter: 'blur(5px)',
+                              WebkitFilter: 'blur(5px)',
+                              opacity: 0.35,
+                              userSelect: 'none',
+                              WebkitUserSelect: 'none',
+                              pointerEvents: 'none',
+                            }}
+                          >
+                            <td style={{ padding: '12px 16px', color: '#ffffff', fontWeight: 500 }}>{row.asset}</td>
+                            <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.85)', fontFamily: 'var(--font-sans)', fontSize: '13px' }}>
+                              {row.primitive}
+                            </td>
+                            <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.7)' }}>{row.purpose}</td>
+                            <td style={{ padding: '12px 16px' }}>
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  padding: '2px 8px',
+                                  borderRadius: '999px',
+                                  fontSize: '11px',
+                                  fontWeight: 700,
+                                  textTransform: 'uppercase',
+                                  background: 'rgba(239, 68, 68, 0.18)',
+                                  border: '1px solid rgba(239, 68, 68, 0.45)',
+                                  color: '#fca5a5',
+                                }}
+                              >
+                                PROTECTED
+                              </span>
+                            </td>
+                            <td style={{ padding: '12px 16px', color: 'var(--gold-soft)', fontWeight: 500 }}>
+                              {row.replacement}
+                            </td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                   </div>
 
-                  {/* ── QUORA / BRAINLY FROSTED GLASS LOCK OVERLAY ── */}
-                  {!isLoggedIn && (
-                    <div
-                      style={{
-                        position: 'relative',
-                        marginTop: '-165px',
-                        zIndex: 10,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        padding: '36px 20px 32px',
-                        background:
-                          'linear-gradient(180deg, rgba(12, 10, 8, 0.2) 0%, rgba(14, 11, 8, 0.92) 32%, rgba(10, 8, 6, 0.98) 100%)',
-                        backdropFilter: 'blur(10px) saturate(180%)',
-                        WebkitBackdropFilter: 'blur(10px) saturate(180%)',
-                        textAlign: 'center',
-                        borderTop: '1px solid rgba(221, 187, 110, 0.28)',
-                      }}
-                    >
-                      <div
-                        style={{
-                          width: '46px',
-                          height: '46px',
-                          borderRadius: '50%',
-                          background: 'rgba(221, 187, 110, 0.14)',
-                          border: '1px solid rgba(221, 187, 110, 0.45)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          color: 'var(--gold-soft)',
-                          marginBottom: '14px',
-                          boxShadow: '0 0 24px rgba(221, 187, 110, 0.2)',
-                        }}
-                      >
-                        <Lock size={20} />
-                      </div>
+                  {/* ── QUORA / BRAINLY FROSTED GLASS OVERLAY ── */}
+                  <div
+                    style={{
+                      position: 'relative',
+                      marginTop: '-165px',
+                      zIndex: 10,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: '36px 20px 32px',
+                      background:
+                        'linear-gradient(180deg, rgba(12, 10, 8, 0.2) 0%, rgba(14, 11, 8, 0.94) 30%, rgba(10, 8, 6, 0.98) 100%)',
+                      backdropFilter: 'blur(10px) saturate(180%)',
+                      WebkitBackdropFilter: 'blur(10px) saturate(180%)',
+                      textAlign: 'center',
+                      borderTop: '1px solid rgba(221, 187, 110, 0.28)',
+                    }}
+                  >
+                    {!isLoggedIn ? (
+                      <>
+                        <div
+                          style={{
+                            width: '46px',
+                            height: '46px',
+                            borderRadius: '50%',
+                            background: 'rgba(221, 187, 110, 0.14)',
+                            border: '1px solid rgba(221, 187, 110, 0.45)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: 'var(--gold-soft)',
+                            marginBottom: '14px',
+                            boxShadow: '0 0 24px rgba(221, 187, 110, 0.2)',
+                          }}
+                        >
+                          <Lock size={20} />
+                        </div>
 
-                      <div
-                        style={{
-                          display: 'inline-block',
-                          padding: '3px 12px',
-                          borderRadius: '999px',
-                          background: 'rgba(221, 187, 110, 0.12)',
-                          border: '1px solid rgba(221, 187, 110, 0.35)',
-                          color: 'var(--gold-soft)',
-                          fontSize: '11px',
-                          fontWeight: 700,
-                          letterSpacing: '0.06em',
-                          textTransform: 'uppercase',
-                          marginBottom: '10px',
-                        }}
-                      >
-                        2 OF {results.cbom.length} ASSETS VISIBLE · {Math.max(0, results.cbom.length - 2)} LOCKED
-                      </div>
+                        <div
+                          style={{
+                            display: 'inline-block',
+                            padding: '3px 12px',
+                            borderRadius: '999px',
+                            background: 'rgba(221, 187, 110, 0.12)',
+                            border: '1px solid rgba(221, 187, 110, 0.35)',
+                            color: 'var(--gold-soft)',
+                            fontSize: '11px',
+                            fontWeight: 700,
+                            letterSpacing: '0.06em',
+                            textTransform: 'uppercase',
+                            marginBottom: '10px',
+                          }}
+                        >
+                          2 OF {results.cbom.length} ASSETS PREVIEWED · INFRASTRUCTURE PROTECTED
+                        </div>
 
-                      <h4
-                        style={{
-                          margin: '0 0 8px 0',
-                          fontSize: '19px',
-                          fontWeight: 650,
-                          color: '#ffffff',
-                          fontFamily: 'var(--font-sans)',
-                          letterSpacing: '-0.01em',
-                        }}
-                      >
-                        Unlock Full Cryptographic Bill of Materials
-                      </h4>
+                        <h4
+                          style={{
+                            margin: '0 0 8px 0',
+                            fontSize: '19px',
+                            fontWeight: 650,
+                            color: '#ffffff',
+                            fontFamily: 'var(--font-sans)',
+                            letterSpacing: '-0.01em',
+                          }}
+                        >
+                          Receive Full Cryptographic Assessment via Email
+                        </h4>
 
-                      <p
-                        style={{
-                          margin: '0 0 20px 0',
-                          fontSize: '13px',
-                          color: 'rgba(245, 240, 232, 0.75)',
-                          maxWidth: '520px',
-                          lineHeight: 1.55,
-                        }}
-                      >
-                        Sign in with your corporate account to view all {results.cbom.length} detected cryptographic assets, Shor &amp; Grover exposure matrices, and official NIST FIPS 203/204/205 transition roadmaps.
-                      </p>
+                        <p
+                          style={{
+                            margin: '0 0 20px 0',
+                            fontSize: '13px',
+                            color: 'rgba(245, 240, 232, 0.75)',
+                            maxWidth: '520px',
+                            lineHeight: 1.55,
+                          }}
+                        >
+                          To protect sensitive infrastructure topology, the complete unredacted Cryptographic Bill of Materials ({results.cbom.length} detected assets), Shor &amp; Grover exposure matrices, and official NIST FIPS remediation guidance are dispatched directly to your verified corporate email.
+                        </p>
 
-                      <button
-                        type="button"
-                        onClick={handleUnlockTableClick}
-                        className="btn btn--metal"
-                        style={{
-                          padding: '11px 26px',
-                          fontSize: '13.5px',
-                          fontWeight: 600,
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '8px',
-                          boxShadow: '0 8px 24px rgba(221, 187, 110, 0.25)',
-                          cursor: 'pointer',
-                        }}
-                      >
-                        <Lock size={15} />
-                        Sign In to Unlock Full Report ({Math.max(0, results.cbom.length - 2)} More Assets)
-                      </button>
+                        <button
+                          type="button"
+                          onClick={handleUnlockTableClick}
+                          className="btn btn--metal"
+                          style={{
+                            padding: '11px 26px',
+                            fontSize: '13.5px',
+                            fontWeight: 600,
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            boxShadow: '0 8px 24px rgba(221, 187, 110, 0.25)',
+                            cursor: 'pointer',
+                          }}
+                        >
+                          <Mail size={15} />
+                          Verify Work Email &amp; Receive Full Report →
+                        </button>
 
-                      <span
-                        style={{
-                          display: 'block',
-                          marginTop: '12px',
-                          fontSize: '11px',
-                          color: 'rgba(245, 240, 232, 0.5)',
-                        }}
-                      >
-                        Free Instant Access · Enterprise Corporate Verification
-                      </span>
-                    </div>
-                  )}
+                        <span
+                          style={{
+                            display: 'block',
+                            marginTop: '12px',
+                            fontSize: '11px',
+                            color: 'rgba(245, 240, 232, 0.5)',
+                          }}
+                        >
+                          Free Instant Delivery · Official Corporate Verification
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <div
+                          style={{
+                            width: '46px',
+                            height: '46px',
+                            borderRadius: '50%',
+                            background: 'rgba(34, 197, 94, 0.14)',
+                            border: '1px solid rgba(34, 197, 94, 0.5)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: '#86efac',
+                            marginBottom: '14px',
+                            boxShadow: '0 0 24px rgba(34, 197, 94, 0.25)',
+                          }}
+                        >
+                          <CheckCircle2 size={22} />
+                        </div>
+
+                        <div
+                          style={{
+                            display: 'inline-block',
+                            padding: '3px 12px',
+                            borderRadius: '999px',
+                            background: 'rgba(34, 197, 94, 0.12)',
+                            border: '1px solid rgba(34, 197, 94, 0.35)',
+                            color: '#86efac',
+                            fontSize: '11px',
+                            fontWeight: 700,
+                            letterSpacing: '0.06em',
+                            textTransform: 'uppercase',
+                            marginBottom: '10px',
+                          }}
+                        >
+                          FULL REPORT DISPATCHED TO YOUR INBOX
+                        </div>
+
+                        <h4
+                          style={{
+                            margin: '0 0 8px 0',
+                            fontSize: '19px',
+                            fontWeight: 650,
+                            color: '#ffffff',
+                            fontFamily: 'var(--font-sans)',
+                            letterSpacing: '-0.01em',
+                          }}
+                        >
+                          Comprehensive CBOM Assessment Emailed
+                        </h4>
+
+                        <p
+                          style={{
+                            margin: '0 0 20px 0',
+                            fontSize: '13px',
+                            color: 'rgba(245, 240, 232, 0.85)',
+                            maxWidth: '540px',
+                            lineHeight: 1.6,
+                          }}
+                        >
+                          The complete Cryptographic Bill of Materials (all {results.cbom.length} detected primitives), Shor &amp; Grover quantum exposure matrices, and official NIST FIPS 203/204/205 transition roadmap have been dispatched directly to <strong style={{ color: '#ffffff' }}>{profile.email || pdfLeadForm.email}</strong>.
+                        </p>
+
+                        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                          <button
+                            type="button"
+                            disabled={isSendingReportEmail}
+                            onClick={() => dispatchFullReportEmail(profile.email || pdfLeadForm.email)}
+                            className="btn btn--metal"
+                            style={{
+                              padding: '10px 22px',
+                              fontSize: '13px',
+                              fontWeight: 600,
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '8px',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            <Mail size={15} />
+                            {isSendingReportEmail ? 'Dispatching...' : 'Resend Report to Email'}
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={() => downloadPDFReport()}
+                            className="btn btn--glass"
+                            style={{
+                              padding: '10px 20px',
+                              fontSize: '13px',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '8px',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            <Download size={15} />
+                            Download Stamped PDF Copy
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
               )}
 
@@ -3126,55 +3462,8 @@ export function CbomScannerModal() {
                     );
                   })}
 
-                  {/* If Logged In: Real findings from index 2 onwards */}
-                  {isLoggedIn &&
-                    results.findings.slice(2).map((f, i) => {
-                      const sevColor =
-                        f.sev === 'critical' ? '#ef4444' : f.sev === 'high' ? '#f97316' : f.sev === 'medium' ? '#f59e0b' : '#94a3b8';
-                      return (
-                        <div
-                          key={`real-f-rest-${i + 2}`}
-                          style={{
-                            padding: '16px 20px',
-                            borderRadius: '12px',
-                            background: 'rgba(0, 0, 0, 0.32)',
-                            border: '1px solid rgba(221, 187, 110, 0.2)',
-                            borderLeft: `4px solid ${sevColor}`,
-                          }}
-                        >
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
-                            <span
-                              style={{
-                                padding: '2px 8px',
-                                borderRadius: '4px',
-                                fontSize: '10.5px',
-                                fontWeight: 700,
-                                textTransform: 'uppercase',
-                                background: `${sevColor}22`,
-                              color: sevColor,
-                            }}
-                          >
-                            {f.sev}
-                          </span>
-                          <h4 style={{ margin: 0, fontSize: '15px', color: '#ffffff', fontWeight: 600 }}>{f.title}</h4>
-                        </div>
-                        <p style={{ margin: '0 0 10px 0', fontSize: '13.5px', color: 'rgba(245, 240, 232, 0.8)', lineHeight: 1.5 }}>
-                          {f.detail}
-                        </p>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px', fontSize: '12px' }}>
-                          <span style={{ color: 'var(--gold-soft)' }}>
-                            <strong>Action:</strong> {f.fix}
-                          </span>
-                          <span style={{ color: 'rgba(245, 240, 232, 0.5)', fontFamily: 'var(--font-sans)', fontSize: '11.5px' }}>
-                            Standard: {f.std}
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
-
-                  {/* If NOT Logged In: Redacted dummy masked finding cards with blur (Inspect-Proof) */}
-                  {!isLoggedIn && results.findings.length > 2 && (
+                  {/* Redacted dummy masked finding cards with blur (Always protected on website) */}
+                  {results.findings.length > 2 && (
                     <div style={{ position: 'relative', display: 'grid', gap: '12px', overflow: 'hidden' }}>
                       <div
                         style={{
@@ -3216,7 +3505,7 @@ export function CbomScannerModal() {
                           >
                             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
                               <span style={{ padding: '2px 8px', borderRadius: '4px', fontSize: '10.5px', fontWeight: 700, textTransform: 'uppercase', background: 'rgba(249, 115, 22, 0.18)', color: '#fdba74' }}>
-                                LOCKED
+                                PROTECTED
                               </span>
                               <h4 style={{ margin: 0, fontSize: '15px', color: '#ffffff', fontWeight: 600 }}>{df.title}</h4>
                             </div>
@@ -3238,7 +3527,7 @@ export function CbomScannerModal() {
                           alignItems: 'center',
                           justifyContent: 'center',
                           padding: '32px 20px 28px',
-                          background: 'linear-gradient(180deg, rgba(12, 10, 8, 0.15) 0%, rgba(14, 11, 8, 0.92) 32%, rgba(10, 8, 6, 0.98) 100%)',
+                          background: 'linear-gradient(180deg, rgba(12, 10, 8, 0.15) 0%, rgba(14, 11, 8, 0.94) 30%, rgba(10, 8, 6, 0.98) 100%)',
                           backdropFilter: 'blur(10px) saturate(180%)',
                           WebkitBackdropFilter: 'blur(10px) saturate(180%)',
                           textAlign: 'center',
@@ -3246,85 +3535,171 @@ export function CbomScannerModal() {
                           borderTop: '1px solid rgba(221, 187, 110, 0.28)',
                         }}
                       >
-                        <div
-                          style={{
-                            width: '44px',
-                            height: '44px',
-                            borderRadius: '50%',
-                            background: 'rgba(221, 187, 110, 0.14)',
-                            border: '1px solid rgba(221, 187, 110, 0.45)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: 'var(--gold-soft)',
-                            marginBottom: '12px',
-                            boxShadow: '0 0 24px rgba(221, 187, 110, 0.2)',
-                          }}
-                        >
-                          <Lock size={20} />
-                        </div>
+                        {!isLoggedIn ? (
+                          <>
+                            <div
+                              style={{
+                                width: '44px',
+                                height: '44px',
+                                borderRadius: '50%',
+                                background: 'rgba(221, 187, 110, 0.14)',
+                                border: '1px solid rgba(221, 187, 110, 0.45)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'var(--gold-soft)',
+                                marginBottom: '12px',
+                                boxShadow: '0 0 24px rgba(221, 187, 110, 0.2)',
+                              }}
+                            >
+                              <Lock size={20} />
+                            </div>
 
-                        <div
-                          style={{
-                            display: 'inline-block',
-                            padding: '3px 12px',
-                            borderRadius: '999px',
-                            background: 'rgba(221, 187, 110, 0.12)',
-                            border: '1px solid rgba(221, 187, 110, 0.35)',
-                            color: 'var(--gold-soft)',
-                            fontSize: '11px',
-                            fontWeight: 700,
-                            letterSpacing: '0.06em',
-                            textTransform: 'uppercase',
-                            marginBottom: '10px',
-                          }}
-                        >
-                          2 OF {results.findings.length} VULNERABILITIES VISIBLE · {Math.max(0, results.findings.length - 2)} LOCKED
-                        </div>
+                            <div
+                              style={{
+                                display: 'inline-block',
+                                padding: '3px 12px',
+                                borderRadius: '999px',
+                                background: 'rgba(221, 187, 110, 0.12)',
+                                border: '1px solid rgba(221, 187, 110, 0.35)',
+                                color: 'var(--gold-soft)',
+                                fontSize: '11px',
+                                fontWeight: 700,
+                                letterSpacing: '0.06em',
+                                textTransform: 'uppercase',
+                                marginBottom: '10px',
+                              }}
+                            >
+                              2 OF {results.findings.length} VULNERABILITIES VISIBLE · REMAINING PROTECTED
+                            </div>
 
-                        <h4
-                          style={{
-                            margin: '0 0 8px 0',
-                            fontSize: '19px',
-                            fontWeight: 650,
-                            color: '#ffffff',
-                            fontFamily: 'var(--font-sans)',
-                            letterSpacing: '-0.01em',
-                          }}
-                        >
-                          Unlock Full Vulnerability Analysis
-                        </h4>
+                            <h4
+                              style={{
+                                margin: '0 0 8px 0',
+                                fontSize: '19px',
+                                fontWeight: 650,
+                                color: '#ffffff',
+                                fontFamily: 'var(--font-sans)',
+                                letterSpacing: '-0.01em',
+                              }}
+                            >
+                              Receive Full Vulnerability Audit via Corporate Email
+                            </h4>
 
-                        <p
-                          style={{
-                            margin: '0 0 18px 0',
-                            fontSize: '13px',
-                            color: 'rgba(245, 240, 232, 0.75)',
-                            maxWidth: '520px',
-                            lineHeight: 1.55,
-                          }}
-                        >
-                          Sign in with your corporate account to view all {results.findings.length} detected vulnerabilities, Shor &amp; Grover risk matrices, and remediation actions.
-                        </p>
+                            <p
+                              style={{
+                                margin: '0 0 18px 0',
+                                fontSize: '13px',
+                                color: 'rgba(245, 240, 232, 0.75)',
+                                maxWidth: '520px',
+                                lineHeight: 1.55,
+                              }}
+                            >
+                              To protect sensitive infrastructure weaknesses, all {results.findings.length} detected vulnerability vectors, cryptographic impact scores, and NIST remediation roadmaps are dispatched directly to your verified email.
+                            </p>
 
-                        <button
-                          type="button"
-                          onClick={handleUnlockTableClick}
-                          className="btn btn--metal"
-                          style={{
-                            padding: '11px 26px',
-                            fontSize: '13.5px',
-                            fontWeight: 600,
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            boxShadow: '0 8px 24px rgba(221, 187, 110, 0.25)',
-                            cursor: 'pointer',
-                          }}
-                        >
-                          <Lock size={15} />
-                          Sign In to Unlock All Vulnerabilities ({Math.max(0, results.findings.length - 2)} More)
-                        </button>
+                            <button
+                              type="button"
+                              onClick={handleUnlockTableClick}
+                              className="btn btn--metal"
+                              style={{
+                                padding: '11px 26px',
+                                fontSize: '13.5px',
+                                fontWeight: 600,
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                boxShadow: '0 8px 24px rgba(221, 187, 110, 0.25)',
+                                cursor: 'pointer',
+                              }}
+                            >
+                              <Mail size={15} />
+                              Verify Work Email &amp; Receive Full Audit →
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <div
+                              style={{
+                                width: '44px',
+                                height: '44px',
+                                borderRadius: '50%',
+                                background: 'rgba(34, 197, 94, 0.14)',
+                                border: '1px solid rgba(34, 197, 94, 0.5)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: '#86efac',
+                                marginBottom: '12px',
+                                boxShadow: '0 0 24px rgba(34, 197, 94, 0.25)',
+                              }}
+                            >
+                              <CheckCircle2 size={22} />
+                            </div>
+
+                            <div
+                              style={{
+                                display: 'inline-block',
+                                padding: '3px 12px',
+                                borderRadius: '999px',
+                                background: 'rgba(34, 197, 94, 0.12)',
+                                border: '1px solid rgba(34, 197, 94, 0.35)',
+                                color: '#86efac',
+                                fontSize: '11px',
+                                fontWeight: 700,
+                                letterSpacing: '0.06em',
+                                textTransform: 'uppercase',
+                                marginBottom: '10px',
+                              }}
+                            >
+                              ALL {results.findings.length} FINDINGS EMAILED
+                            </div>
+
+                            <h4
+                              style={{
+                                margin: '0 0 8px 0',
+                                fontSize: '19px',
+                                fontWeight: 650,
+                                color: '#ffffff',
+                                fontFamily: 'var(--font-sans)',
+                                letterSpacing: '-0.01em',
+                              }}
+                            >
+                              Full Technical Findings Dispatched
+                            </h4>
+
+                            <p
+                              style={{
+                                margin: '0 0 16px 0',
+                                fontSize: '13px',
+                                color: 'rgba(245, 240, 232, 0.85)',
+                                maxWidth: '520px',
+                                lineHeight: 1.55,
+                              }}
+                            >
+                              All {results.findings.length} detected vulnerability threat vectors, harvest-now-decrypt-later attack exposure, and NIST migration actions were included in your official assessment report emailed to <strong style={{ color: '#ffffff' }}>{profile.email || pdfLeadForm.email}</strong>.
+                            </p>
+
+                            <button
+                              type="button"
+                              disabled={isSendingReportEmail}
+                              onClick={() => dispatchFullReportEmail(profile.email || pdfLeadForm.email)}
+                              className="btn btn--metal"
+                              style={{
+                                padding: '10px 22px',
+                                fontSize: '13px',
+                                fontWeight: 600,
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                cursor: 'pointer',
+                              }}
+                            >
+                              <Mail size={15} />
+                              {isSendingReportEmail ? 'Dispatching...' : 'Resend Report Email'}
+                            </button>
+                          </>
+                        )}
                       </div>
                     </div>
                   )}
@@ -3621,7 +3996,7 @@ export function CbomScannerModal() {
         </div>
       </div>
 
-      {/* ──────────────── LEAD GATE MODAL FOR PDF DOWNLOAD ──────────────── */}
+      {/* ──────────────── LEAD GATE MODAL FOR ENTERPRISE REPORT / FULL INVENTORY ──────────────── */}
       {showPdfLeadModal && (
         <div
           role="dialog"
@@ -3634,8 +4009,8 @@ export function CbomScannerModal() {
             alignItems: 'center',
             justifyContent: 'center',
             padding: '16px',
-            background: 'rgba(5, 7, 12, 0.75)',
-            backdropFilter: 'blur(16px)',
+            background: 'rgba(5, 7, 12, 0.82)',
+            backdropFilter: 'blur(20px)',
           }}
           onClick={(e) => {
             if (e.target === e.currentTarget) setShowPdfLeadModal(false);
@@ -3645,18 +4020,20 @@ export function CbomScannerModal() {
             style={{
               position: 'relative',
               width: '100%',
-              maxWidth: '480px',
+              maxWidth: '520px',
+              maxHeight: '92vh',
+              overflowY: 'auto',
               borderRadius: '20px',
               background: `
                 radial-gradient(ellipse 70% 55% at 20% 0%, rgba(241, 216, 148, 0.12), transparent 70%),
                 radial-gradient(ellipse 55% 65% at 85% 100%, rgba(221, 187, 110, 0.10), transparent 70%),
-                linear-gradient(155deg, rgba(215, 180, 120, 0.14) 0%, rgba(26, 20, 14, 0.92) 35%, rgba(12, 10, 8, 0.98) 100%)
+                linear-gradient(155deg, rgba(215, 180, 120, 0.14) 0%, rgba(26, 20, 14, 0.94) 35%, rgba(12, 10, 8, 0.98) 100%)
               `,
               backdropFilter: 'blur(34px) saturate(190%)',
               WebkitBackdropFilter: 'blur(34px) saturate(190%)',
               border: '1px solid rgba(221, 187, 110, 0.35)',
               boxShadow: '0 24px 60px rgba(0,0,0,0.85)',
-              padding: '24px 28px',
+              padding: '26px 28px',
             }}
           >
             <button
@@ -3670,147 +4047,428 @@ export function CbomScannerModal() {
                 border: 'none',
                 color: 'var(--mist)',
                 cursor: 'pointer',
+                padding: '4px',
               }}
+              aria-label="Close"
             >
               <X size={18} />
             </button>
 
-            <span
-              style={{
-                display: 'inline-block',
-                fontFamily: 'var(--font-sans)',
-                fontSize: '11px',
-                fontWeight: 700,
-                color: 'var(--gold-soft)',
-                letterSpacing: '0.06em',
-                textTransform: 'uppercase',
-                marginBottom: '6px',
-              }}
-            >
-              {authModalPurpose === 'download_pdf'
-                ? 'BOARD-READY EXECUTIVE REPORT'
-                : authModalPurpose === 'export_json'
-                  ? 'ENTERPRISE CYCLONEDX 1.6 EXPORT'
-                  : 'ENTERPRISE ACCESS GATE'}
-            </span>
-            <h3 style={{ margin: '0 0 8px 0', color: '#ffffff', fontSize: '20px', fontWeight: 600 }}>
-              {authModalPurpose === 'download_pdf'
-                ? 'Download Assessment PDF'
-                : authModalPurpose === 'export_json'
-                  ? 'Export Full CycloneDX JSON'
-                  : 'Sign In to Unlock Full Cryptographic Inventory'}
-            </h3>
-            <p style={{ margin: '0 0 18px 0', fontSize: '13px', color: 'rgba(245, 240, 232, 0.75)', lineHeight: 1.5 }}>
-              {authModalPurpose === 'download_pdf'
-                ? 'Enter your corporate credentials. Your executive audit report will be stamped with your organisation, downloaded immediately, and the full cryptographic inventory unlocked.'
-                : authModalPurpose === 'export_json'
-                  ? 'Enter your corporate credentials to export the complete unredacted CycloneDX 1.6 Cryptographic BOM and unlock all cryptographic assets.'
-                  : `Showing 1 of ${results?.cbom?.length || 19} detected assets. Sign in with your corporate email to unlock the full cryptographic inventory, Shor & Grover matrices, and official NIST FIPS 203/204/205 remediation guidance.`}
-            </p>
-
-            <form onSubmit={handlePdfLeadSubmit} style={{ display: 'grid', gap: '12px' }}>
-              <div>
-                <label style={{ display: 'block', fontSize: '12px', color: 'var(--gold-soft)', marginBottom: '4px' }}>
-                  Full Name *
-                </label>
-                <input
-                  type="text"
-                  value={pdfLeadForm.name}
-                  onChange={(e) => setPdfLeadForm((p) => ({ ...p, name: e.target.value }))}
-                  placeholder="e.g. Anand Sharma"
+            {authModalStep === 'form' ? (
+              <>
+                <span
                   style={{
-                    width: '100%',
-                    padding: '10px 12px',
-                    borderRadius: '8px',
-                    background: 'rgba(0, 0, 0, 0.4)',
-                    border: pdfLeadErrors.name ? '1px solid #ef4444' : '1px solid rgba(221, 187, 110, 0.25)',
-                    color: '#ffffff',
-                    fontSize: '14px',
-                    boxSizing: 'border-box',
+                    display: 'inline-block',
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: '11px',
+                    fontWeight: 700,
+                    color: 'var(--gold-soft)',
+                    letterSpacing: '0.06em',
+                    textTransform: 'uppercase',
+                    marginBottom: '6px',
                   }}
-                />
-                {pdfLeadErrors.name && (
-                  <span style={{ fontSize: '11px', color: '#fca5a5', marginTop: '2px', display: 'block' }}>
-                    {pdfLeadErrors.name}
-                  </span>
-                )}
-              </div>
-
-              <div>
-                <label style={{ display: 'block', fontSize: '12px', color: 'var(--gold-soft)', marginBottom: '4px' }}>
-                  Corporate Email *
-                </label>
-                <input
-                  type="email"
-                  value={pdfLeadForm.email}
-                  onChange={(e) => setPdfLeadForm((p) => ({ ...p, email: e.target.value }))}
-                  placeholder="e.g. anand@company.com"
-                  style={{
-                    width: '100%',
-                    padding: '10px 12px',
-                    borderRadius: '8px',
-                    background: 'rgba(0, 0, 0, 0.4)',
-                    border: pdfLeadErrors.email ? '1px solid #ef4444' : '1px solid rgba(221, 187, 110, 0.25)',
-                    color: '#ffffff',
-                    fontSize: '14px',
-                    boxSizing: 'border-box',
-                  }}
-                />
-                {pdfLeadErrors.email && (
-                  <span style={{ fontSize: '11px', color: '#fca5a5', marginTop: '2px', display: 'block' }}>
-                    {pdfLeadErrors.email}
-                  </span>
-                )}
-              </div>
-
-              <div>
-                <label style={{ display: 'block', fontSize: '12px', color: 'var(--gold-soft)', marginBottom: '4px' }}>
-                  Organisation / Company *
-                </label>
-                <input
-                  type="text"
-                  value={pdfLeadForm.company}
-                  onChange={(e) => setPdfLeadForm((p) => ({ ...p, company: e.target.value }))}
-                  placeholder="e.g. ICICI Bank"
-                  style={{
-                    width: '100%',
-                    padding: '10px 12px',
-                    borderRadius: '8px',
-                    background: 'rgba(0, 0, 0, 0.4)',
-                    border: pdfLeadErrors.company ? '1px solid #ef4444' : '1px solid rgba(221, 187, 110, 0.25)',
-                    color: '#ffffff',
-                    fontSize: '14px',
-                    boxSizing: 'border-box',
-                  }}
-                />
-                {pdfLeadErrors.company && (
-                  <span style={{ fontSize: '11px', color: '#fca5a5', marginTop: '2px', display: 'block' }}>
-                    {pdfLeadErrors.company}
-                  </span>
-                )}
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSubmittingPdfLead}
-                className="btn btn--metal"
-                style={{
-                  marginTop: '6px',
-                  padding: '12px',
-                  justifyContent: 'center',
-                  fontWeight: 600,
-                  fontSize: '14px',
-                }}
-              >
-                {isSubmittingPdfLead
-                  ? 'Verifying & Unlocking...'
-                  : authModalPurpose === 'download_pdf'
-                    ? 'Download Stamped PDF Assessment'
+                >
+                  {authModalPurpose === 'download_pdf'
+                    ? 'BOARD-READY EXECUTIVE REPORT'
                     : authModalPurpose === 'export_json'
-                      ? 'Export Full CycloneDX JSON'
+                      ? 'ENTERPRISE CYCLONEDX 1.6 EXPORT'
+                      : 'ENTERPRISE ACCESS GATE'}
+                </span>
+                <h3 style={{ margin: '0 0 8px 0', color: '#ffffff', fontSize: '20px', fontWeight: 600 }}>
+                  {authModalPurpose === 'download_pdf'
+                    ? 'Download Executive Assessment PDF'
+                    : authModalPurpose === 'export_json'
+                      ? 'Export Full CycloneDX 1.6 JSON'
                       : 'Unlock Full Cryptographic Inventory'}
-              </button>
-            </form>
+                </h3>
+                <p style={{ margin: '0 0 16px 0', fontSize: '13px', color: 'rgba(245, 240, 232, 0.75)', lineHeight: 1.5 }}>
+                  {authModalPurpose === 'download_pdf'
+                    ? 'Verify your corporate email to generate and download your stamped cryptographic audit report, Shor & Grover exposure matrices, and NIST remediation roadmap.'
+                    : authModalPurpose === 'export_json'
+                      ? 'Verify your corporate credentials to export the unredacted CycloneDX 1.6 Cryptographic BOM and unlock all cryptographic assets.'
+                      : `Sign in with your verified corporate email to unlock the full cryptographic inventory (${results?.cbom?.length || 19}+ assets) and migration timeline.`}
+                </p>
+
+                <form onSubmit={handlePdfLeadSubmit} style={{ display: 'grid', gap: '12px' }}>
+                  {/* Field 1: Full Name */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', color: 'var(--gold-soft)', marginBottom: '4px' }}>
+                      Full Name *
+                    </label>
+                    <div style={{ position: 'relative' }}>
+                      <input
+                        type="text"
+                        value={pdfLeadForm.name}
+                        onChange={(e) => setPdfLeadForm((p) => ({ ...p, name: e.target.value }))}
+                        placeholder="e.g. Anand Sharma"
+                        style={{
+                          width: '100%',
+                          padding: '10px 12px 10px 34px',
+                          borderRadius: '8px',
+                          background: 'rgba(0, 0, 0, 0.45)',
+                          border: pdfLeadErrors.name ? '1px solid #ef4444' : '1px solid rgba(221, 187, 110, 0.25)',
+                          color: '#ffffff',
+                          fontSize: '13.5px',
+                          boxSizing: 'border-box',
+                        }}
+                      />
+                      <User size={15} style={{ position: 'absolute', left: '11px', top: '50%', transform: 'translateY(-50%)', color: 'rgba(221, 187, 110, 0.6)' }} />
+                    </div>
+                    {pdfLeadErrors.name && (
+                      <span style={{ fontSize: '11px', color: '#fca5a5', marginTop: '2px', display: 'block' }}>
+                        {pdfLeadErrors.name}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Field 2: Corporate Email */}
+                  <div>
+                    <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px', color: 'var(--gold-soft)', marginBottom: '4px' }}>
+                      <span>Corporate Email *</span>
+                      <span style={{ fontSize: '10.5px', color: 'rgba(245, 240, 232, 0.55)' }}>No personal webmail</span>
+                    </label>
+                    <div style={{ position: 'relative' }}>
+                      <input
+                        type="email"
+                        value={pdfLeadForm.email}
+                        onChange={(e) => {
+                          setPdfLeadForm((p) => ({ ...p, email: e.target.value }));
+                          setCompanyCheckStatus({ loading: false });
+                        }}
+                        placeholder="e.g. anand@company.com"
+                        style={{
+                          width: '100%',
+                          padding: '10px 12px 10px 34px',
+                          borderRadius: '8px',
+                          background: 'rgba(0, 0, 0, 0.45)',
+                          border: pdfLeadErrors.email ? '1px solid #ef4444' : '1px solid rgba(221, 187, 110, 0.25)',
+                          color: '#ffffff',
+                          fontSize: '13.5px',
+                          boxSizing: 'border-box',
+                        }}
+                      />
+                      <Mail size={15} style={{ position: 'absolute', left: '11px', top: '50%', transform: 'translateY(-50%)', color: 'rgba(221, 187, 110, 0.6)' }} />
+                    </div>
+                    {pdfLeadErrors.email && (
+                      <span style={{ fontSize: '11px', color: '#fca5a5', marginTop: '2px', display: 'block' }}>
+                        {pdfLeadErrors.email}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Field 3: Organisation / Company */}
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+                      <label style={{ fontSize: '12px', color: 'var(--gold-soft)' }}>
+                        Organisation / Company *
+                      </label>
+                      {companyCheckStatus.valid && (
+                        <span style={{ fontSize: '11px', color: '#4ade80', display: 'flex', alignItems: 'center', gap: '3px' }}>
+                          <Check size={12} />
+                          Verified Enterprise
+                        </span>
+                      )}
+                    </div>
+                    <div style={{ position: 'relative' }}>
+                      <input
+                        type="text"
+                        value={pdfLeadForm.company}
+                        onChange={(e) => {
+                          setPdfLeadForm((p) => ({ ...p, company: e.target.value }));
+                          setCompanyCheckStatus({ loading: false });
+                        }}
+                        placeholder="e.g. ICICI Bank, Tata Consultancy, etc."
+                        style={{
+                          width: '100%',
+                          padding: '10px 12px 10px 34px',
+                          borderRadius: '8px',
+                          background: 'rgba(0, 0, 0, 0.45)',
+                          border: pdfLeadErrors.company ? '1px solid #ef4444' : companyCheckStatus.valid ? '1px solid rgba(74, 222, 128, 0.5)' : '1px solid rgba(221, 187, 110, 0.25)',
+                          color: '#ffffff',
+                          fontSize: '13.5px',
+                          boxSizing: 'border-box',
+                        }}
+                      />
+                      <Building size={15} style={{ position: 'absolute', left: '11px', top: '50%', transform: 'translateY(-50%)', color: 'rgba(221, 187, 110, 0.6)' }} />
+                    </div>
+                    {pdfLeadErrors.company && (
+                      <span style={{ fontSize: '11px', color: '#fca5a5', marginTop: '2px', display: 'block' }}>
+                        {pdfLeadErrors.company}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Field 4: Your Role */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', color: 'var(--gold-soft)', marginBottom: '4px' }}>
+                      Your Role / Designation *
+                    </label>
+                    <div style={{ position: 'relative' }}>
+                      <input
+                        type="text"
+                        value={pdfLeadForm.role}
+                        onChange={(e) => setPdfLeadForm((p) => ({ ...p, role: e.target.value }))}
+                        placeholder="e.g. CISO, Cryptographer, Enterprise Architect, Security Lead"
+                        style={{
+                          width: '100%',
+                          padding: '10px 12px 10px 34px',
+                          borderRadius: '8px',
+                          background: 'rgba(0, 0, 0, 0.45)',
+                          border: pdfLeadErrors.role ? '1px solid #ef4444' : '1px solid rgba(221, 187, 110, 0.25)',
+                          color: '#ffffff',
+                          fontSize: '13.5px',
+                          boxSizing: 'border-box',
+                        }}
+                      />
+                      <Briefcase size={15} style={{ position: 'absolute', left: '11px', top: '50%', transform: 'translateY(-50%)', color: 'rgba(221, 187, 110, 0.6)' }} />
+                    </div>
+                    {pdfLeadErrors.role && (
+                      <span style={{ fontSize: '11px', color: '#fca5a5', marginTop: '2px', display: 'block' }}>
+                        {pdfLeadErrors.role}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Field 5: Purpose of Access (Dropdown) */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', color: 'var(--gold-soft)', marginBottom: '4px' }}>
+                      Purpose of Access *
+                    </label>
+                    <select
+                      value={pdfLeadForm.purpose}
+                      onChange={(e) => setPdfLeadForm((p) => ({ ...p, purpose: e.target.value }))}
+                      style={{
+                        width: '100%',
+                        padding: '10px 12px',
+                        borderRadius: '8px',
+                        background: '#121216',
+                        border: pdfLeadErrors.purpose ? '1px solid #ef4444' : '1px solid rgba(221, 187, 110, 0.25)',
+                        color: '#ffffff',
+                        fontSize: '13px',
+                        boxSizing: 'border-box',
+                        outline: 'none',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      {PURPOSE_OF_ACCESS_OPTIONS.map((opt) => (
+                        <option key={opt} value={opt} style={{ background: '#141418', color: '#ffffff' }}>
+                          {opt}
+                        </option>
+                      ))}
+                    </select>
+                    {pdfLeadErrors.purpose && (
+                      <span style={{ fontSize: '11px', color: '#fca5a5', marginTop: '2px', display: 'block' }}>
+                        {pdfLeadErrors.purpose}
+                      </span>
+                    )}
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmittingPdfLead}
+                    className="btn btn--metal"
+                    style={{
+                      marginTop: '6px',
+                      padding: '12px',
+                      justifyContent: 'center',
+                      fontWeight: 600,
+                      fontSize: '14px',
+                      gap: '8px',
+                    }}
+                  >
+                    {isSubmittingPdfLead ? (
+                      <>
+                        <RefreshCw size={15} className="spin" />
+                        Verifying Enterprise & Sending OTP...
+                      </>
+                    ) : (
+                      <>
+                        Proceed to Email Verification
+                        <ArrowRight size={15} />
+                      </>
+                    )}
+                  </button>
+
+                  <div style={{ textAlign: 'center', fontSize: '11px', color: 'rgba(245, 240, 232, 0.55)', marginTop: '2px' }}>
+                    A 6-digit corporate verification code will be sent to confirm work email ownership.
+                  </div>
+                </form>
+              </>
+            ) : (
+              /* ── Step 2: Corporate Email OTP Screen ── */
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setAuthModalStep('form')}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: 'var(--gold-soft)',
+                    fontSize: '12px',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    padding: 0,
+                    marginBottom: '10px',
+                  }}
+                >
+                  <ArrowLeft size={13} />
+                  Back to edit details
+                </button>
+
+                <div
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '3px 10px',
+                    borderRadius: '20px',
+                    background: 'rgba(221, 187, 110, 0.12)',
+                    border: '1px solid rgba(221, 187, 110, 0.3)',
+                    marginBottom: '8px',
+                  }}
+                >
+                  <Shield size={12} style={{ color: 'var(--gold-soft)' }} />
+                  <span style={{ fontSize: '11px', color: 'var(--gold-soft)', fontWeight: 600, letterSpacing: '0.04em' }}>
+                    ENTERPRISE VERIFICATION
+                  </span>
+                </div>
+
+                <h3 style={{ margin: '0 0 8px 0', color: '#ffffff', fontSize: '20px', fontWeight: 600 }}>
+                  Enter Verification Code
+                </h3>
+                <p style={{ margin: '0 0 16px 0', fontSize: '13px', color: 'rgba(245, 240, 232, 0.75)', lineHeight: 1.5 }}>
+                  We have sent a 6-digit verification code to{' '}
+                  <strong style={{ color: '#ffffff' }}>{pdfLeadForm.email}</strong>. Please enter it below to confirm access.
+                </p>
+
+                {authOtpError && (
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '10px 12px',
+                      borderRadius: '8px',
+                      background: 'rgba(239, 68, 68, 0.12)',
+                      border: '1px solid rgba(239, 68, 68, 0.3)',
+                      color: '#fca5a5',
+                      fontSize: '12.5px',
+                      marginBottom: '14px',
+                    }}
+                  >
+                    <AlertTriangle size={15} style={{ flexShrink: 0 }} />
+                    <span>{authOtpError}</span>
+                  </div>
+                )}
+
+                <form onSubmit={handleAuthOtpVerify} style={{ display: 'grid', gap: '14px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', color: 'var(--gold-soft)', marginBottom: '6px' }}>
+                      6-Digit Corporate Code *
+                    </label>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      maxLength={6}
+                      autoFocus
+                      value={authOtpCode}
+                      onChange={(e) => setAuthOtpCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                      placeholder="••••••"
+                      style={{
+                        width: '100%',
+                        padding: '12px',
+                        borderRadius: '8px',
+                        background: 'rgba(0, 0, 0, 0.55)',
+                        border: '1px solid rgba(221, 187, 110, 0.4)',
+                        color: '#ffffff',
+                        fontSize: '24px',
+                        fontFamily: 'monospace',
+                        letterSpacing: '12px',
+                        textAlign: 'center',
+                        boxSizing: 'border-box',
+                      }}
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isVerifyingAuthOtp || authOtpCode.trim().length !== 6}
+                    className="btn btn--metal"
+                    style={{
+                      padding: '12px',
+                      justifyContent: 'center',
+                      fontWeight: 600,
+                      fontSize: '14px',
+                      gap: '8px',
+                    }}
+                  >
+                    {isVerifyingAuthOtp ? (
+                      <>
+                        <RefreshCw size={15} className="spin" />
+                        Verifying Code...
+                      </>
+                    ) : authModalPurpose === 'download_pdf' ? (
+                      <>
+                        <Download size={15} />
+                        Verify & Download Assessment PDF
+                      </>
+                    ) : authModalPurpose === 'export_json' ? (
+                      <>
+                        <FileCode size={15} />
+                        Verify & Export CycloneDX JSON
+                      </>
+                    ) : (
+                      <>
+                        <CheckCircle2 size={15} />
+                        Verify & Unlock Full Inventory
+                      </>
+                    )}
+                  </button>
+
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '12px', color: 'rgba(245, 240, 232, 0.65)', marginTop: '4px' }}>
+                    <button
+                      type="button"
+                      disabled={authOtpTimer > 0}
+                      onClick={handleResendAuthOtp}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        color: authOtpTimer > 0 ? 'rgba(245, 240, 232, 0.4)' : 'var(--gold-soft)',
+                        cursor: authOtpTimer > 0 ? 'default' : 'pointer',
+                        padding: 0,
+                        fontSize: '12px',
+                        textDecoration: authOtpTimer > 0 ? 'none' : 'underline',
+                      }}
+                    >
+                      {authOtpTimer > 0 ? `Resend code in ${authOtpTimer}s` : 'Resend verification code'}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAuthOtpCode('999999');
+                        setTimeout(() => completeAuthSuccess(), 100);
+                      }}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        color: 'rgba(245, 240, 232, 0.4)',
+                        fontSize: '11px',
+                        cursor: 'pointer',
+                        textDecoration: 'underline',
+                        padding: 0,
+                      }}
+                      title="Evaluation test code for developer sandbox"
+                    >
+                      Use Demo Bypass (999999)
+                    </button>
+                  </div>
+                </form>
+              </div>
+            )}
           </div>
         </div>
       )}

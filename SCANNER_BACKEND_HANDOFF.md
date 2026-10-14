@@ -39,7 +39,7 @@ RESEND_FROM_EMAIL="Vyuh Security <contact@uelement.in>"
 Configured in Cloudflare Pages environment variables / `.env`:
 ```env
 NEXT_PUBLIC_SCANNER_API_URL="https://pqc-scanner-445288556278.asia-south1.run.app"
-NEXT_PUBLIC_FORM_SUBMIT_EMAIL="kaustubh@uelement.in"
+NEXT_PUBLIC_FORM_SUBMIT_EMAIL="kaustubh@uelement.co"
 NEXT_PUBLIC_WEB3FORMS_KEY="5f0b55f8-1ed0-46cd-a518-c13ca9686c6f"
 NEXT_PUBLIC_GOOGLE_SHEETS_WEBHOOK_URL="https://script.google.com/macros/s/.../exec"
 ```

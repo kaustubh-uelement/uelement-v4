@@ -15,6 +15,12 @@ echo "    Region:  ${REGION}"
 echo "    Source:  ${SCRIPT_DIR}"
 
 # Deploy directly from source to Cloud Run (Cloud Build uses the Dockerfile)
+# Update environment variables if provided (Cloud Run automatically retains existing environment variables across revisions)
+ENV_UPDATE="RESEND_FROM_EMAIL=${RESEND_FROM_EMAIL:-Vyuh Security <contact@uelement.in>}"
+if [ -n "${RESEND_API_KEY:-}" ]; then
+  ENV_UPDATE="${ENV_UPDATE},RESEND_API_KEY=${RESEND_API_KEY}"
+fi
+
 gcloud run deploy "${SERVICE_NAME}" \
   --source . \
   --region "${REGION}" \
@@ -24,8 +30,7 @@ gcloud run deploy "${SERVICE_NAME}" \
   --cpu 1 \
   --min-instances 0 \
   --max-instances 10 \
-  --timeout 60s \
-  --set-env-vars RESEND_FROM_EMAIL="Vyuh Security <contact@uelement.in>"
+  --update-env-vars "${ENV_UPDATE}"
 
 echo "==> Deployment completed successfully!"
 echo "    Live service URL:"

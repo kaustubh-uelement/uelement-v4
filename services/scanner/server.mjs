@@ -3,39 +3,12 @@ import http from 'node:http';
 import { normalizeDomain, parseScanOptions, runPqcScan } from './lib/pqc-scan.mjs';
 import { normalizeRepoUrl, runRepoScan } from './lib/repo-scan.mjs';
 import { createEmailOtp, verifyEmailOtp } from './lib/otp-store.mjs';
-import { sendOtpEmail } from './lib/email-service.mjs';
+import { sendOtpEmail, sendAssessmentReportEmail } from './lib/email-service.mjs';
+import { checkRateLimit, getClientIp } from './lib/rate-limiter.mjs';
+import { isPersonalOrDisposableEmail, verifyCompanyLegitimacy } from './lib/company-verify.mjs';
 
 const PORT = Number(process.env.PORT || 8080);
 const HOST = process.env.HOST || '0.0.0.0';
-
-// In-memory rate limiting: max 15 scans per 5 minutes per IP
-const RATE_LIMIT_WINDOW_MS = 5 * 60 * 1000;
-const MAX_REQUESTS_PER_WINDOW = 15;
-const ipRequestMap = new Map();
-
-function isRateLimited(ip) {
-  const now = Date.now();
-  const entry = ipRequestMap.get(ip);
-  if (!entry || now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
-    ipRequestMap.set(ip, { windowStart: now, count: 1 });
-    return false;
-  }
-  if (entry.count >= MAX_REQUESTS_PER_WINDOW) {
-    return true;
-  }
-  entry.count++;
-  return false;
-}
-
-// Clean up stale rate-limit entries every 10 minutes
-setInterval(() => {
-  const now = Date.now();
-  for (const [ip, entry] of ipRequestMap.entries()) {
-    if (now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
-      ipRequestMap.delete(ip);
-    }
-  }
-}, 10 * 60 * 1000);
 
 function setCorsHeaders(res, req) {
   const origin = req.headers['origin'] || '*';
@@ -281,8 +254,90 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // Company / Organisation Legitimacy Verification Endpoint (100% Free)
+  if (path === '/api/verify-company' && req.method === 'POST') {
+    const clientIp = getClientIp(req);
+    const rl = checkRateLimit(clientIp, 'company_verify');
+    if (!rl.allowed) {
+      res.writeHead(429, {
+        'Content-Type': 'application/json',
+        'Retry-After': String(rl.resetAfterSec),
+      });
+      res.end(
+        JSON.stringify({
+          ok: false,
+          error: `Too many company verification requests. Please wait ${rl.resetAfterSec} seconds.`,
+          retryAfterSeconds: rl.resetAfterSec,
+        })
+      );
+      return;
+    }
+
+    let bodyRaw = '';
+    req.on('data', chunk => {
+      bodyRaw += chunk;
+      if (bodyRaw.length > 16 * 1024) req.destroy();
+    });
+
+    req.on('end', async () => {
+      try {
+        const body = JSON.parse(bodyRaw || '{}');
+        const company = String(body.company || '').trim();
+        const email = String(body.email || '').trim().toLowerCase();
+
+        if (!company || company.length < 2) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: false, error: 'Organisation / Company name is required.' }));
+          return;
+        }
+
+        if (email && isPersonalOrDisposableEmail(email)) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(
+            JSON.stringify({
+              ok: false,
+              error: 'Personal email providers (Gmail, Yahoo, Outlook, etc.) are not allowed. Please enter your corporate email.',
+            })
+          );
+          return;
+        }
+
+        const result = await verifyCompanyLegitimacy(company, email);
+        if (!result.valid) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: false, ...result }));
+          return;
+        }
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, ...result }));
+      } catch (err) {
+        console.error('Company verification error:', err);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, error: 'Failed to verify organization legitimacy.' }));
+      }
+    });
+    return;
+  }
+
   // OTP Endpoint 1: Send Corporate Email Verification Code
   if (path === '/api/otp/send-email' && req.method === 'POST') {
+    const clientIp = getClientIp(req);
+    const rl = checkRateLimit(clientIp, 'otp_send');
+    if (!rl.allowed) {
+      res.writeHead(429, {
+        'Content-Type': 'application/json',
+        'Retry-After': String(rl.resetAfterSec),
+      });
+      res.end(
+        JSON.stringify({
+          error: `Too many verification requests from this IP. Please wait ${rl.resetAfterSec} seconds.`,
+          retryAfterSeconds: rl.resetAfterSec,
+        })
+      );
+      return;
+    }
+
     let bodyRaw = '';
     req.on('data', chunk => {
       bodyRaw += chunk;
@@ -294,11 +349,33 @@ const server = http.createServer(async (req, res) => {
         const body = JSON.parse(bodyRaw || '{}');
         const email = String(body.email || '').trim().toLowerCase();
         const name = String(body.name || '').trim();
+        const company = String(body.company || '').trim();
 
         if (!email || !email.includes('@')) {
           res.writeHead(400, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({ error: 'Please provide a valid corporate email address.' }));
           return;
+        }
+
+        // Strict rejection of consumer & disposable emails
+        if (isPersonalOrDisposableEmail(email)) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(
+            JSON.stringify({
+              error: 'Personal email providers (Gmail, Yahoo, Outlook, etc.) or temporary inboxes are not permitted. Please use your official enterprise corporate email.',
+            })
+          );
+          return;
+        }
+
+        // Optional company legitimacy check if company name was provided
+        if (company) {
+          const compCheck = await verifyCompanyLegitimacy(company, email);
+          if (!compCheck.valid) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: compCheck.error || 'Invalid corporate organisation.' }));
+            return;
+          }
         }
 
         const otpResult = createEmailOtp(email);
@@ -322,6 +399,7 @@ const server = http.createServer(async (req, res) => {
           expiresAt: otpResult.expiresAt,
         }));
       } catch (err) {
+        console.error('OTP dispatch error:', err);
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: 'Internal server error processing OTP request.' }));
       }
@@ -331,6 +409,22 @@ const server = http.createServer(async (req, res) => {
 
   // OTP Endpoint 2: Verify Corporate Email Verification Code
   if (path === '/api/otp/verify-email' && req.method === 'POST') {
+    const clientIp = getClientIp(req);
+    const rl = checkRateLimit(clientIp, 'otp_verify');
+    if (!rl.allowed) {
+      res.writeHead(429, {
+        'Content-Type': 'application/json',
+        'Retry-After': String(rl.resetAfterSec),
+      });
+      res.end(
+        JSON.stringify({
+          error: `Too many verification attempts from this IP. Please wait ${rl.resetAfterSec} seconds.`,
+          retryAfterSeconds: rl.resetAfterSec,
+        })
+      );
+      return;
+    }
+
     let bodyRaw = '';
     req.on('data', chunk => {
       bodyRaw += chunk;
@@ -367,6 +461,7 @@ const server = http.createServer(async (req, res) => {
           message: 'Corporate email address successfully verified.',
         }));
       } catch (err) {
+        console.error('OTP verification error:', err);
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: 'Internal server error verifying code.' }));
       }
@@ -374,12 +469,88 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // Assessment Report Email Dispatch Endpoint (Sends full CBOM & attaches stamped PDF)
+  if (path === '/api/report/send-email' && req.method === 'POST') {
+    const clientIp = getClientIp(req);
+    const rl = checkRateLimit(clientIp, 'otp_send');
+    if (!rl.allowed) {
+      res.writeHead(429, {
+        'Content-Type': 'application/json',
+        'Retry-After': String(rl.resetAfterSec),
+      });
+      res.end(
+        JSON.stringify({
+          error: `Too many report dispatch requests. Please wait ${rl.resetAfterSec} seconds.`,
+          retryAfterSeconds: rl.resetAfterSec,
+        })
+      );
+      return;
+    }
+
+    let bodyRaw = '';
+    req.on('data', chunk => {
+      bodyRaw += chunk;
+      // Allow up to 10MB for base64 PDF attachment payload
+      if (bodyRaw.length > 10 * 1024 * 1024) req.destroy();
+    });
+
+    req.on('end', async () => {
+      try {
+        const body = JSON.parse(bodyRaw || '{}');
+        const email = String(body.email || '').trim().toLowerCase();
+
+        if (!email || !email.includes('@')) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Valid recipient email is required.' }));
+          return;
+        }
+
+        const result = await sendAssessmentReportEmail({
+          recipientEmail: email,
+          name: body.name,
+          company: body.company,
+          role: body.role,
+          target: body.target,
+          score: body.score,
+          band: body.band,
+          stats: body.stats,
+          pdfBase64: body.pdfBase64,
+          filename: body.filename,
+          cbomSummary: body.cbomSummary,
+        });
+
+        if (!result.ok) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: result.error || 'Failed to dispatch report.' }));
+          return;
+        }
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, message: `Report emailed to ${email}`, id: result.id }));
+      } catch (err) {
+        console.error('Report email endpoint error:', err);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Internal server error dispatching report.' }));
+      }
+    });
+    return;
+  }
+
   // Scan endpoint
   if (path === '/api/scan' && req.method === 'POST') {
-    const clientIp = req.socket.remoteAddress || '127.0.0.1';
-    if (isRateLimited(clientIp)) {
-      res.writeHead(429, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ error: 'Rate limit exceeded. Please wait a few minutes before scanning again.' }));
+    const clientIp = getClientIp(req);
+    const rl = checkRateLimit(clientIp, 'scan');
+    if (!rl.allowed) {
+      res.writeHead(429, {
+        'Content-Type': 'application/json',
+        'Retry-After': String(rl.resetAfterSec),
+      });
+      res.end(
+        JSON.stringify({
+          error: `Scan rate limit exceeded for this IP. Please wait ${rl.resetAfterSec} seconds before scanning again.`,
+          retryAfterSeconds: rl.resetAfterSec,
+        })
+      );
       return;
     }
 
