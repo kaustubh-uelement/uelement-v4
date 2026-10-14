@@ -2194,15 +2194,18 @@ export function CbomScannerModal() {
 
         {/* Modal Header */}
         <div style={{ marginBottom: '16px', paddingRight: '48px', flexShrink: 0 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', marginBottom: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '8px' }}>
             <span
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '6px',
-                padding: '4px 12px',
+                height: '32px',
+                minHeight: '32px',
+                boxSizing: 'border-box',
+                padding: '0 14px',
                 borderRadius: '999px',
-                fontFamily: 'var(--font-sans)',
+                fontFamily: 'var(--font-reddit, "Reddit Sans", sans-serif)',
                 fontSize: '11px',
                 fontWeight: 700,
                 letterSpacing: '0.08em',
@@ -2210,6 +2213,7 @@ export function CbomScannerModal() {
                 background: 'rgba(241, 216, 148, 0.12)',
                 border: '1px solid rgba(221, 187, 110, 0.35)',
                 color: 'var(--gold-soft)',
+                lineHeight: 1,
               }}
             >
               <Shield size={12} />
@@ -2234,10 +2238,21 @@ export function CbomScannerModal() {
                     setStep(3);
                   }
                 }}
-                className="btn btn--glass btn--sm"
-                style={{ padding: '3px 12px', fontSize: '12px' }}
+                className="btn btn--glass"
+                style={{
+                  height: '32px',
+                  minHeight: '32px',
+                  boxSizing: 'border-box',
+                  padding: '0 14px',
+                  fontSize: '12px',
+                  borderRadius: '999px',
+                  lineHeight: 1,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                }}
               >
-                <ArrowLeft size={13} style={{ marginRight: 4 }} />
+                <ArrowLeft size={13} />
                 Back
               </button>
             )}
@@ -3355,8 +3370,8 @@ export function CbomScannerModal() {
                     </div>
                   )}
 
-                  <div style={{ overflowX: 'auto' }}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
+                  <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+                    <table style={{ width: '100%', minWidth: '760px', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
                       <thead>
                         <tr
                           style={{
@@ -3364,11 +3379,11 @@ export function CbomScannerModal() {
                             borderBottom: '2px solid rgba(196, 154, 69, 0.45)',
                           }}
                         >
-                          <th style={{ padding: '13px 18px', color: '#6b4d13', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', fontSize: '12px' }}>Asset Name</th>
-                          <th style={{ padding: '13px 18px', color: '#6b4d13', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', fontSize: '12px' }}>Active Primitive</th>
-                          <th style={{ padding: '13px 18px', color: '#6b4d13', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', fontSize: '12px' }}>Security Function</th>
-                          <th style={{ padding: '13px 18px', color: '#6b4d13', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', fontSize: '12px' }}>Verdict</th>
-                          <th style={{ padding: '13px 18px', color: '#6b4d13', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', fontSize: '12px' }}>NIST Replacement</th>
+                          <th style={{ padding: '11px 14px', color: '#6b4d13', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', fontSize: '11.5px', whiteSpace: 'nowrap' }}>Asset Name</th>
+                          <th style={{ padding: '11px 14px', color: '#6b4d13', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', fontSize: '11.5px', whiteSpace: 'nowrap' }}>Active Primitive</th>
+                          <th style={{ padding: '11px 14px', color: '#6b4d13', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', fontSize: '11.5px' }}>Security Function</th>
+                          <th style={{ padding: '11px 14px', color: '#6b4d13', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', fontSize: '11.5px', whiteSpace: 'nowrap', width: '1%', minWidth: '135px' }}>Verdict</th>
+                          <th style={{ padding: '11px 14px', color: '#6b4d13', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', fontSize: '11.5px' }}>NIST Replacement</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -3381,20 +3396,23 @@ export function CbomScannerModal() {
                               background: i % 2 === 1 ? 'rgba(253, 250, 243, 0.95)' : '#ffffff',
                             }}
                           >
-                            <td style={{ padding: '13px 18px', color: '#0e1b36', fontWeight: 650 }}>
+                            <td style={{ padding: '12px 14px', color: '#0e1b36', fontWeight: 650 }}>
                               {row.asset}
                             </td>
-                            <td style={{ padding: '13px 18px', color: '#2b3452', fontFamily: 'monospace', fontSize: '12.5px' }}>
+                            <td style={{ padding: '12px 14px', color: '#2b3452', fontFamily: 'monospace', fontSize: '12px', whiteSpace: 'nowrap' }}>
                               {row.primitive}
                             </td>
-                            <td style={{ padding: '13px 18px', color: '#4e5774' }}>
+                            <td style={{ padding: '12px 14px', color: '#4e5774' }}>
                               {row.purpose}
                             </td>
-                            <td style={{ padding: '13px 18px' }}>
+                            <td style={{ padding: '12px 14px', whiteSpace: 'nowrap', width: '1%', minWidth: '135px' }}>
                               <span
                                 style={{
-                                  display: 'inline-block',
-                                  padding: '2px 9px',
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  whiteSpace: 'nowrap',
+                                  padding: '3px 11px',
                                   borderRadius: '999px',
                                   fontSize: '11px',
                                   fontWeight: 700,
@@ -3428,7 +3446,7 @@ export function CbomScannerModal() {
                                     : 'Quantum-Safe'}
                               </span>
                             </td>
-                            <td style={{ padding: '13px 18px', color: '#854d0e', fontWeight: 650 }}>
+                            <td style={{ padding: '12px 14px', color: '#854d0e', fontWeight: 650 }}>
                               {row.replacement}
                             </td>
                           </tr>
@@ -3478,16 +3496,19 @@ export function CbomScannerModal() {
                               pointerEvents: 'none',
                             }}
                           >
-                            <td style={{ padding: '13px 18px', color: '#0e1b36', fontWeight: 500 }}>{row.asset}</td>
-                            <td style={{ padding: '13px 18px', color: '#2b3452', fontFamily: 'monospace', fontSize: '12.5px' }}>
+                            <td style={{ padding: '12px 14px', color: '#0e1b36', fontWeight: 500 }}>{row.asset}</td>
+                            <td style={{ padding: '12px 14px', color: '#2b3452', fontFamily: 'monospace', fontSize: '12px', whiteSpace: 'nowrap' }}>
                               {row.primitive}
                             </td>
-                            <td style={{ padding: '13px 18px', color: '#4e5774' }}>{row.purpose}</td>
-                            <td style={{ padding: '13px 18px' }}>
+                            <td style={{ padding: '12px 14px', color: '#4e5774' }}>{row.purpose}</td>
+                            <td style={{ padding: '12px 14px', whiteSpace: 'nowrap', width: '1%', minWidth: '135px' }}>
                               <span
                                 style={{
-                                  display: 'inline-block',
-                                  padding: '2px 9px',
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  whiteSpace: 'nowrap',
+                                  padding: '3px 11px',
                                   borderRadius: '999px',
                                   fontSize: '11px',
                                   fontWeight: 700,
@@ -3500,7 +3521,7 @@ export function CbomScannerModal() {
                                 PROTECTED
                               </span>
                             </td>
-                            <td style={{ padding: '13px 18px', color: '#854d0e', fontWeight: 500 }}>
+                            <td style={{ padding: '12px 14px', color: '#854d0e', fontWeight: 500 }}>
                               {row.replacement}
                             </td>
                           </tr>
