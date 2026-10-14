@@ -24,6 +24,7 @@ import {
   Briefcase,
 } from 'lucide-react';
 import { UELEMENT_WHITE_LOGO_BASE64 } from '@/lib/assets/uelementLogo';
+import { jsPDF } from 'jspdf';
 
 /* ── Custom Event Helpers ── */
 export function openCbomScanner() {
@@ -1050,460 +1051,615 @@ export function CbomScannerModal() {
   /* ── Client-side Executive PDF Report Builder ── */
   const buildPdfDocument = (overrideProfile?: Partial<typeof profile>) => {
     if (!results) return null;
-    const jspdfObj = (window as any).jspdf?.jsPDF;
+    const jspdfObj = (window as any).jspdf?.jsPDF || jsPDF;
     if (!jspdfObj) return null;
 
-    const doc = new jspdfObj({ unit: 'pt', format: 'a4' });
+    const doc = new jspdfObj({ unit: 'pt', format: 'a4', compress: true });
     const W = 595.28;
     const H = 841.89;
-    const M = 42;
+    const M = 36;
+    const contentW = W - M * 2;
+
     let y = 0;
-    let page = 1;
+    let pageNumber = 1;
 
     const NAVY = [7, 23, 57];
     const GOLD = [200, 138, 62];
-    const DARK_TEXT = [25, 30, 42];
-    const BODY_TEXT = [65, 72, 84];
-    const MUTED_TEXT = [115, 125, 138];
-    const LIGHT_BG = [248, 250, 253];
-    const BORDER_COLOR = [224, 230, 238];
+    const DARK_TEXT = [15, 23, 42];
+    const BODY_TEXT = [51, 65, 85];
+    const MUTED_TEXT = [100, 116, 139];
+    const LIGHT_BG = [248, 250, 252];
+    const ROW_ALT_BG = [243, 246, 251];
+    const BORDER_COLOR = [226, 232, 240];
 
-    const printHeader = () => {
-      doc.setFillColor(NAVY[0], NAVY[1], NAVY[2]);
-      doc.rect(0, 0, W, 74, 'F');
+    const targetLabel = (results.target || 'Enterprise Target')
+      .replace(/^https?:\/\//i, '')
+      .replace(/\/+$/, '');
+    const clientName = overrideProfile?.name || profile.name || 'Enterprise Executive';
+    const clientCompany = overrideProfile?.company || profile.company || 'Enterprise';
+    const scanDate = results.when ? new Date(results.when) : new Date();
+    const dateStr = scanDate.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZoneName: 'short',
+    });
 
-      doc.setFillColor(GOLD[0], GOLD[1], GOLD[2]);
-      doc.rect(0, 0, W, 2.5, 'F');
-
-      try {
-        doc.addImage(UELEMENT_WHITE_LOGO_BASE64, 'PNG', M, 20, 115, 35);
-      } catch {
-        doc.setFillColor(255, 255, 255);
-        doc.roundedRect(M, 20, 35, 35, 4, 4, 'F');
-        doc.setTextColor(NAVY[0], NAVY[1], NAVY[2]);
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(14);
-        doc.text('92', M + 9, 42);
-
-        doc.setTextColor(255, 255, 255);
-        doc.setFontSize(12);
-        doc.text('UELEMENT', M + 44, 42);
-      }
-
-      doc.setDrawColor(40, 60, 100);
-      doc.setLineWidth(0.7);
-      doc.line(M + 125, 16, M + 125, 60);
-
-      doc.setTextColor(GOLD[0], GOLD[1], GOLD[2]);
-      doc.setFontSize(7.5);
-      doc.setFont('helvetica', 'bold');
-      doc.text('U92 QUANTUM SECURITY PRACTICE', M + 135, 27);
-
-      doc.setTextColor(255, 255, 255);
-      doc.setFontSize(13);
-      doc.setFont('helvetica', 'bold');
-      doc.text('Vyu · Cryptographic Assessment Report', M + 135, 43);
-
-      doc.setTextColor(190, 205, 225);
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(7.5);
-      doc.text('NIST FIPS 203/204/205 & HNDL Risk Evaluation', M + 135, 56);
-
-      doc.setFillColor(20, 40, 80);
-      doc.roundedRect(W - M - 96, 25, 96, 24, 3, 3, 'F');
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(7);
-      doc.setTextColor(220, 232, 248);
-      doc.text('CONFIDENTIAL AUDIT', W - M - 88, 40);
-
-      y = 96;
+    const stats = results.stats || {
+      total: results.cbom?.length || 0,
+      broken: results.cbom?.filter((c) => c.verdict === 'broken').length || 0,
+      weak: results.cbom?.filter((c) => c.verdict === 'weak').length || 0,
+      safe: results.cbom?.filter((c) => c.verdict === 'safe').length || 0,
     };
 
-    const printFooter = (currPage: number) => {
+    const drawFooter = (p: number) => {
+      const footerY = H - 32;
       doc.setDrawColor(BORDER_COLOR[0], BORDER_COLOR[1], BORDER_COLOR[2]);
       doc.setLineWidth(0.6);
-      doc.line(M, H - 42, W - M, H - 42);
+      doc.line(M, footerY - 8, W - M, footerY - 8);
 
       doc.setFont('helvetica', 'normal');
-      doc.setFontSize(7);
+      doc.setFontSize(7.5);
       doc.setTextColor(MUTED_TEXT[0], MUTED_TEXT[1], MUTED_TEXT[2]);
       doc.text(
-        'UElement Technologies Private Limited · Pune, Maharashtra 411057, India · www.uelement.in · contact@uelement.in',
+        'UElement Technologies · U92 Quantum Security Practice · contact@uelement.co · www.uelement.in',
         M,
-        H - 30
+        footerY + 4
       );
       doc.text(
-        'Vyu is an enterprise cryptographic evaluation platform from UElement U92 Quantum. Non-invasive technical diagnostic.',
+        'Confidential Executive Diagnostic — Non-Invasive Cryptographic Intelligence & NIST FIPS Roadmap',
         M,
-        H - 20
+        footerY + 14
       );
 
       doc.setFont('helvetica', 'bold');
-      doc.setFontSize(7.5);
       doc.setTextColor(BODY_TEXT[0], BODY_TEXT[1], BODY_TEXT[2]);
-      doc.text(`Page ${currPage}`, W - M - 30, H - 20);
+      doc.text(`Page ${p}`, W - M - 36, footerY + 8);
     };
 
-    const checkPageRoom = (needed: number) => {
-      if (y + needed > H - 56) {
-        printFooter(page);
+    const drawRunningHeader = () => {
+      doc.setFillColor(NAVY[0], NAVY[1], NAVY[2]);
+      doc.rect(0, 0, W, 36, 'F');
+      doc.setFillColor(GOLD[0], GOLD[1], GOLD[2]);
+      doc.rect(0, 0, W, 2, 'F');
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8);
+      doc.setTextColor(255, 255, 255);
+      doc.text('VYUH · CRYPTOGRAPHIC AUDIT REPORT', M, 22);
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7.5);
+      doc.setTextColor(GOLD[0], GOLD[1], GOLD[2]);
+      doc.text(`Target: ${targetLabel}`, M + 190, 22);
+
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(190, 205, 225);
+      doc.text('CONFIDENTIAL', W - M - 60, 22);
+
+      y = 52;
+    };
+
+    const ensureRoom = (needed: number) => {
+      if (y + needed > H - 46) {
+        drawFooter(pageNumber);
         doc.addPage();
-        page++;
-        printHeader();
+        pageNumber++;
+        drawRunningHeader();
       }
     };
 
     const drawSectionTitle = (title: string) => {
-      checkPageRoom(38);
+      ensureRoom(42);
       doc.setFont('helvetica', 'bold');
-      doc.setFontSize(12);
+      doc.setFontSize(11.5);
       doc.setTextColor(NAVY[0], NAVY[1], NAVY[2]);
       doc.text(title, M, y + 4);
-      y += 8;
+      y += 11;
+
       doc.setDrawColor(GOLD[0], GOLD[1], GOLD[2]);
       doc.setLineWidth(1.6);
-      doc.line(M, y, M + 36, y);
+      doc.line(M, y, M + 42, y);
+
+      doc.setDrawColor(BORDER_COLOR[0], BORDER_COLOR[1], BORDER_COLOR[2]);
+      doc.setLineWidth(0.5);
+      doc.line(M + 44, y, W - M, y);
+
       y += 14;
     };
 
-    const drawParagraph = (text: string, size = 9) => {
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(size);
-      doc.setTextColor(BODY_TEXT[0], BODY_TEXT[1], BODY_TEXT[2]);
-      const lines = doc.splitTextToSize(text, W - M * 2);
-      const needed = lines.length * 12 + 6;
-      checkPageRoom(needed);
-      lines.forEach((l: string, idx: number) => {
-        doc.text(l, M, y + idx * 11.5);
-      });
-      y += lines.length * 11.5 + 8;
-    };
+    // PAGE 1: COVER & EXECUTIVE DASHBOARD
+    doc.setFillColor(NAVY[0], NAVY[1], NAVY[2]);
+    doc.rect(0, 0, W, 72, 'F');
 
-    printHeader();
+    doc.setFillColor(GOLD[0], GOLD[1], GOLD[2]);
+    doc.rect(0, 0, W, 3, 'F');
 
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(17);
-    doc.setTextColor(DARK_TEXT[0], DARK_TEXT[1], DARK_TEXT[2]);
-    doc.text('Cryptographic Bill of Materials (CBOM)', M, y + 4);
-    y += 18;
+    doc.setFontSize(16);
+    doc.setTextColor(GOLD[0], GOLD[1], GOLD[2]);
+    doc.text('VYUH', M, 30);
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(255, 255, 255);
+    doc.text('· CRYPTOGRAPHIC BOM ASSESSMENT', M + 50, 30);
 
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9.5);
-    doc.setTextColor(MUTED_TEXT[0], MUTED_TEXT[1], MUTED_TEXT[2]);
-    doc.text('Automated NIST FIPS 203/204/205 Quantum Risk & Migration Roadmap', M, y);
+    doc.setFontSize(7.5);
+    doc.setTextColor(180, 198, 224);
+    doc.text('U92 Quantum Security Practice · NIST FIPS 203/204/205 & CNSA 2.0 Evaluation', M, 46);
+    doc.text('Automated Cryptographic Discovery & Post-Quantum Migration Diagnostic', M, 58);
+
+    doc.setFillColor(14, 38, 84);
+    doc.roundedRect(W - M - 110, 22, 110, 26, 4, 4, 'F');
+    doc.setDrawColor(GOLD[0], GOLD[1], GOLD[2]);
+    doc.setLineWidth(0.8);
+    doc.roundedRect(W - M - 110, 22, 110, 26, 4, 4, 'S');
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7.5);
+    doc.setTextColor(255, 255, 255);
+    doc.text('CONFIDENTIAL AUDIT', W - M - 100, 38);
+
+    y = 86;
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(15);
+    doc.setTextColor(NAVY[0], NAVY[1], NAVY[2]);
+    doc.text('Executive Cryptographic Health & Migration Report', M, y);
     y += 14;
 
-    const clientName = overrideProfile?.name || profile.name || 'Enterprise Executive';
-    const clientCompany = overrideProfile?.company || profile.company || 'Enterprise';
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8.5);
+    doc.setTextColor(MUTED_TEXT[0], MUTED_TEXT[1], MUTED_TEXT[2]);
+    doc.text(
+      `Comprehensive cryptographic inventory, quantum readiness scoring, and mitigation sequencing for ${targetLabel}`,
+      M,
+      y
+    );
+    y += 14;
 
-    const targetLines = doc.splitTextToSize(results.target, 235);
-    const row1Height = Math.max(22, targetLines.length * 10.5 + 4);
-    const row2Y = y + 16 + row1Height + 8;
-    const cardHeight = row2Y - y + 24;
+    const metaBoxY = y;
+    const metaBoxH = 58;
+    doc.setFillColor(LIGHT_BG[0], LIGHT_BG[1], LIGHT_BG[2]);
+    doc.setDrawColor(BORDER_COLOR[0], BORDER_COLOR[1], BORDER_COLOR[2]);
+    doc.setLineWidth(0.8);
+    doc.roundedRect(M, metaBoxY, contentW, metaBoxH, 4, 4, 'FD');
+
+    const halfW = contentW / 2;
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(6.5);
+    doc.setTextColor(MUTED_TEXT[0], MUTED_TEXT[1], MUTED_TEXT[2]);
+    doc.text('ASSESSED TARGET', M + 12, metaBoxY + 14);
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor(NAVY[0], NAVY[1], NAVY[2]);
+    const targetLines = doc.splitTextToSize(targetLabel, halfW - 24);
+    doc.text(targetLines[0] || targetLabel, M + 12, metaBoxY + 26);
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(6.5);
+    doc.setTextColor(MUTED_TEXT[0], MUTED_TEXT[1], MUTED_TEXT[2]);
+    doc.text('ANALYSIS CLASSIFICATION', M + 12, metaBoxY + 39);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(BODY_TEXT[0], BODY_TEXT[1], BODY_TEXT[2]);
+    doc.text(
+      results.type === 'repo'
+        ? 'Source Code & Cryptographic Dependencies Inspection'
+        : 'Network Edge Handshake & Protocol Probing',
+      M + 12,
+      metaBoxY + 49
+    );
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(6.5);
+    doc.setTextColor(MUTED_TEXT[0], MUTED_TEXT[1], MUTED_TEXT[2]);
+    doc.text('PREPARED FOR', M + halfW + 12, metaBoxY + 14);
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.setTextColor(NAVY[0], NAVY[1], NAVY[2]);
+    doc.text(`${clientName} · ${clientCompany}`, M + halfW + 12, metaBoxY + 26);
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(6.5);
+    doc.setTextColor(MUTED_TEXT[0], MUTED_TEXT[1], MUTED_TEXT[2]);
+    doc.text('ASSESSMENT TIMESTAMP', M + halfW + 12, metaBoxY + 39);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(BODY_TEXT[0], BODY_TEXT[1], BODY_TEXT[2]);
+    doc.text(dateStr, M + halfW + 12, metaBoxY + 49);
+
+    y = metaBoxY + metaBoxH + 14;
+
+    drawSectionTitle('Quantum Readiness Score & Risk Exposure');
+
+    const scoreBannerY = y;
+    const scoreBannerH = 68;
+    const scoreColor =
+      results.score < 40 ? [220, 38, 38] : results.score < 70 ? [202, 138, 4] : [22, 163, 74];
+
+    doc.setFillColor(scoreColor[0], scoreColor[1], scoreColor[2]);
+    doc.roundedRect(M, scoreBannerY, 84, scoreBannerH, 4, 4, 'F');
+
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(26);
+    doc.text(String(results.score), M + 12, scoreBannerY + 36);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.text('/ 100', M + 48, scoreBannerY + 36);
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7.5);
+    doc.text('PQC READINESS', M + 10, scoreBannerY + 54);
+
+    const detailBoxX = M + 92;
+    const detailBoxW = contentW - 92;
 
     doc.setFillColor(LIGHT_BG[0], LIGHT_BG[1], LIGHT_BG[2]);
     doc.setDrawColor(BORDER_COLOR[0], BORDER_COLOR[1], BORDER_COLOR[2]);
     doc.setLineWidth(0.6);
-    doc.roundedRect(M, y, W - M * 2, cardHeight, 4, 4, 'FD');
+    doc.roundedRect(detailBoxX, scoreBannerY, detailBoxW, scoreBannerH, 4, 4, 'FD');
 
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(7);
-    doc.setTextColor(MUTED_TEXT[0], MUTED_TEXT[1], MUTED_TEXT[2]);
-    doc.text('TARGET ASSET', M + 14, y + 15);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8.5);
-    doc.setTextColor(DARK_TEXT[0], DARK_TEXT[1], DARK_TEXT[2]);
-    targetLines.forEach((tl: string, idx: number) => {
-      doc.text(tl, M + 14, y + 26 + idx * 10.5);
-    });
-
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(7);
-    doc.setTextColor(MUTED_TEXT[0], MUTED_TEXT[1], MUTED_TEXT[2]);
-    doc.text('SCAN CLASSIFICATION', M + 265, y + 15);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8.5);
-    doc.setTextColor(DARK_TEXT[0], DARK_TEXT[1], DARK_TEXT[2]);
-    doc.text(
-      results.type === 'repo'
-        ? 'Source Code & Manifest Inspection'
-        : 'Endpoint & Protocol Handshake',
-      M + 265,
-      y + 26
-    );
-
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(7);
-    doc.setTextColor(MUTED_TEXT[0], MUTED_TEXT[1], MUTED_TEXT[2]);
-    doc.text('ASSESSED FOR', M + 14, row2Y);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8.5);
-    doc.setTextColor(DARK_TEXT[0], DARK_TEXT[1], DARK_TEXT[2]);
-    doc.text(`${clientName} · ${clientCompany}`, M + 14, row2Y + 11);
-
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(7);
-    doc.setTextColor(MUTED_TEXT[0], MUTED_TEXT[1], MUTED_TEXT[2]);
-    doc.text('EVALUATION DATE', M + 265, row2Y);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8.5);
-    doc.setTextColor(DARK_TEXT[0], DARK_TEXT[1], DARK_TEXT[2]);
-    doc.text(results.when.toLocaleString(), M + 265, row2Y + 11);
-
-    y += cardHeight + 14;
-
-    drawSectionTitle('Quantum Readiness Score & HNDL Risk');
-    const scoreColor =
-      results.score < 40 ? [220, 38, 38] : results.score < 70 ? [202, 138, 4] : [22, 163, 74];
-
-    const scoreSummary = `${results.stats.broken} of ${results.stats.total} identified cryptographic primitives are breakable by Shor's algorithm, ${results.stats.weak} are weakened under Grover search, and ${results.stats.safe} hold today. Evaluated across a ${results.retention}-year data retention horizon.`;
-    const sumLines = doc.splitTextToSize(scoreSummary, W - M * 2 - 96);
-    const scoreBannerHeight = Math.max(54, 26 + sumLines.length * 11);
-
-    doc.setFillColor(scoreColor[0], scoreColor[1], scoreColor[2]);
-    doc.roundedRect(M, y, 82, 52, 4, 4, 'F');
-
-    doc.setTextColor(255, 255, 255);
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(22);
-    doc.text(String(results.score), M + 14, y + 34);
-    doc.setFontSize(9.5);
-    doc.text('/100', M + 48, y + 34);
-
-    doc.setTextColor(NAVY[0], NAVY[1], NAVY[2]);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(11);
-    doc.text(results.band, M + 94, y + 14);
+    doc.setTextColor(scoreColor[0], scoreColor[1], scoreColor[2]);
+    doc.text(results.band || 'Evaluation Complete', detailBoxX + 12, scoreBannerY + 16);
+
+    const statBoxY = scoreBannerY + 24;
+    const statW = (detailBoxW - 24 - 18) / 4;
+    const statItems = [
+      { label: 'TOTAL ASSETS', val: String(stats.total), color: NAVY },
+      { label: 'SHOR BROKEN', val: String(stats.broken), color: [220, 38, 38] },
+      { label: 'GROVER WEAK', val: String(stats.weak), color: [202, 138, 4] },
+      { label: 'PQC SAFE', val: String(stats.safe), color: [22, 163, 74] },
+    ];
+
+    statItems.forEach((st, idx) => {
+      const sx = detailBoxX + 12 + idx * (statW + 6);
+      doc.setFillColor(255, 255, 255);
+      doc.setDrawColor(BORDER_COLOR[0], BORDER_COLOR[1], BORDER_COLOR[2]);
+      doc.setLineWidth(0.5);
+      doc.roundedRect(sx, statBoxY, statW, 36, 3, 3, 'FD');
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(6);
+      doc.setTextColor(MUTED_TEXT[0], MUTED_TEXT[1], MUTED_TEXT[2]);
+      doc.text(st.label, sx + 4, statBoxY + 10);
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(14);
+      doc.setTextColor(st.color[0], st.color[1], st.color[2]);
+      doc.text(st.val, sx + 6, statBoxY + 28);
+    });
+
+    y = scoreBannerY + scoreBannerH + 16;
+
+    drawSectionTitle('Executive Summary & HNDL Risk Exposure');
 
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8.5);
     doc.setTextColor(BODY_TEXT[0], BODY_TEXT[1], BODY_TEXT[2]);
-    sumLines.forEach((l: string, idx: number) => {
-      doc.text(l, M + 94, y + 26 + idx * 11);
+
+    const p1 = `This diagnostic compiles an authoritative inventory of cryptographic assets supporting ${targetLabel} and benchmarks each primitive against NIST Post-Quantum Cryptography standards (FIPS 203 ML-KEM, FIPS 204 ML-DSA, and FIPS 205 SLH-DSA). Asymmetric cryptographic primitives (including RSA, ECDSA, ECDH, and classical Diffie-Hellman) will be entirely compromised once Cryptographically Relevant Quantum Computers (CRQCs) reach operational capacity. Symmetric ciphers and hashing algorithms experience security degradation under Grover's algorithm.`;
+    const p1Lines = doc.splitTextToSize(p1, contentW);
+    p1Lines.forEach((l: string) => {
+      doc.text(l, M, y);
+      y += 11.5;
+    });
+    y += 4;
+
+    const p2 = `Immediate Threat Modeling: The primary threat facing this perimeter is Harvest-Now-Decrypt-Later (HNDL). Adversaries are actively exfiltrating and archiving encrypted enterprise payloads today to retroactively decrypt them once quantum decryption is viable. Any data asset with an operational, compliance, or regulatory longevity extending past 2029 is already compromised at rest or in transit unless protected by hybrid post-quantum encapsulation (X25519MLKEM768).`;
+    const p2Lines = doc.splitTextToSize(p2, contentW);
+    p2Lines.forEach((l: string) => {
+      doc.text(l, M, y);
+      y += 11.5;
     });
 
-    y += scoreBannerHeight + 14;
+    y += 12;
 
-    drawSectionTitle('Executive Summary');
-    drawParagraph(
-      'This assessment compiles a complete cryptographic inventory of the target system and classifies every active primitive against post-quantum standards standardized by NIST (FIPS 203, 204, 205). Asymmetric cryptography (including RSA, ECDSA, ECDH, and classical Diffie-Hellman) will be completely broken once Cryptographically Relevant Quantum Computers (CRQCs) reach scale. Symmetric ciphers and hash functions experience effective security halving and require parameter expansion.'
-    );
-    drawParagraph(
-      'The imminent threat is Harvest-Now-Decrypt-Later (HNDL): adversaries actively capture encrypted enterprise traffic today to retroactively decrypt it once Shor’s algorithm is operational. Data with an operational life beyond 2029 is already in jeopardy. Migration sequencing must therefore be governed by data longevity rather than legacy system criticality.'
-    );
-
+    // PAGE 2+: CBOM TABLE
+    ensureRoom(140);
     drawSectionTitle('Cryptographic Bill of Materials (CBOM)');
-    const colWidths = [112, 88, 96, 85, 130];
-    const colX = [M, M + 112, M + 200, M + 296, M + 381];
 
-    const renderTableHeader = () => {
-      doc.setFillColor(240, 244, 250);
-      doc.rect(M, y, W - M * 2, 18, 'F');
-      doc.setDrawColor(215, 225, 240);
-      doc.setLineWidth(0.6);
-      doc.line(M, y + 18, W - M, y + 18);
+    const colWidths = [115, 85, 95, 90, 138];
+    const colX = [
+      M,
+      M + colWidths[0],
+      M + colWidths[0] + colWidths[1],
+      M + colWidths[0] + colWidths[1] + colWidths[2],
+      M + colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3],
+    ];
+
+    const drawTableHeader = () => {
+      doc.setFillColor(NAVY[0], NAVY[1], NAVY[2]);
+      doc.rect(M, y, contentW, 18, 'F');
 
       doc.setFont('helvetica', 'bold');
-      doc.setFontSize(7.5);
-      doc.setTextColor(NAVY[0], NAVY[1], NAVY[2]);
+      doc.setFontSize(7);
+      doc.setTextColor(GOLD[0], GOLD[1], GOLD[2]);
 
       const headers = [
-        'Asset Name',
-        'Active Primitive',
-        'Security Purpose',
-        'Verdict',
-        'Recommended Move',
+        'ASSET IDENTIFIER',
+        'ACTIVE PRIMITIVE',
+        'SECURITY PURPOSE',
+        'QUANTUM VERDICT',
+        'NIST REPLACEMENT ROADMAP',
       ];
+
       headers.forEach((h, i) => {
         doc.text(h, colX[i] + 4, y + 12);
       });
-      y += 22;
+
+      y += 18;
     };
 
-    renderTableHeader();
+    drawTableHeader();
 
-    results.cbom.forEach((row, rowIndex) => {
-      const verdictLabel =
+    const cbomRows = results.cbom || [];
+    cbomRows.forEach((row, rowIndex) => {
+      const verdict =
         row.verdict === 'broken'
           ? 'Broken (Shor)'
           : row.verdict === 'weak'
             ? 'Weakened (Grover)'
             : 'Quantum-Safe';
-
-      const c0 = doc.splitTextToSize(String(row.asset), colWidths[0] - 8);
-      const c1 = doc.splitTextToSize(String(row.primitive), colWidths[1] - 8);
-      const c2 = doc.splitTextToSize(String(row.purpose), colWidths[2] - 8);
-      const c3 = doc.splitTextToSize(String(verdictLabel), colWidths[3] - 8);
-      const c4 = doc.splitTextToSize(String(row.replacement), colWidths[4] - 8);
+      const c0 = doc.splitTextToSize(String(row.asset || 'Unnamed Asset'), colWidths[0] - 8);
+      const c1 = doc.splitTextToSize(String(row.primitive || 'Unknown'), colWidths[1] - 8);
+      const c2 = doc.splitTextToSize(String(row.purpose || 'General'), colWidths[2] - 8);
+      const c3 = doc.splitTextToSize(verdict, colWidths[3] - 8);
+      const c4 = doc.splitTextToSize(String(row.replacement || 'None required'), colWidths[4] - 8);
 
       const maxLines = Math.max(c0.length, c1.length, c2.length, c3.length, c4.length);
-      const rowHeight = maxLines * 10.5 + 8;
+      const rowHeight = Math.max(18, maxLines * 10 + 6);
 
-      if (y + rowHeight > H - 56) {
-        printFooter(page);
+      if (y + rowHeight > H - 46) {
+        drawFooter(pageNumber);
         doc.addPage();
-        page++;
-        printHeader();
-        renderTableHeader();
+        pageNumber++;
+        drawRunningHeader();
+        drawTableHeader();
       }
 
       if (rowIndex % 2 === 1) {
-        doc.setFillColor(252, 253, 255);
-        doc.rect(M, y - 2, W - M * 2, rowHeight, 'F');
+        doc.setFillColor(ROW_ALT_BG[0], ROW_ALT_BG[1], ROW_ALT_BG[2]);
+        doc.rect(M, y, contentW, rowHeight, 'F');
       }
 
       doc.setFont('helvetica', 'normal');
-      doc.setFontSize(7.8);
+      doc.setFontSize(7.5);
       doc.setTextColor(DARK_TEXT[0], DARK_TEXT[1], DARK_TEXT[2]);
 
-      c0.forEach((l: string, idx: number) => doc.text(l, colX[0] + 4, y + 7 + idx * 10.5));
-      c1.forEach((l: string, idx: number) => doc.text(l, colX[1] + 4, y + 7 + idx * 10.5));
-      c2.forEach((l: string, idx: number) => doc.text(l, colX[2] + 4, y + 7 + idx * 10.5));
+      c0.forEach((l: string, i: number) => doc.text(l, colX[0] + 4, y + 10 + i * 9.5));
+      c1.forEach((l: string, i: number) => doc.text(l, colX[1] + 4, y + 10 + i * 9.5));
+      c2.forEach((l: string, i: number) => doc.text(l, colX[2] + 4, y + 10 + i * 9.5));
 
-      const verdictColor =
+      const vColor =
         row.verdict === 'broken'
           ? [220, 38, 38]
           : row.verdict === 'weak'
             ? [202, 138, 4]
             : [22, 163, 74];
-      doc.setTextColor(verdictColor[0], verdictColor[1], verdictColor[2]);
       doc.setFont('helvetica', 'bold');
-      c3.forEach((l: string, idx: number) => doc.text(l, colX[3] + 4, y + 7 + idx * 10.5));
+      doc.setTextColor(vColor[0], vColor[1], vColor[2]);
+      c3.forEach((l: string, i: number) => doc.text(l, colX[3] + 4, y + 10 + i * 9.5));
 
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(DARK_TEXT[0], DARK_TEXT[1], DARK_TEXT[2]);
-      c4.forEach((l: string, idx: number) => doc.text(l, colX[4] + 4, y + 7 + idx * 10.5));
+      c4.forEach((l: string, i: number) => doc.text(l, colX[4] + 4, y + 10 + i * 9.5));
 
-      doc.setDrawColor(235, 240, 248);
+      doc.setDrawColor(BORDER_COLOR[0], BORDER_COLOR[1], BORDER_COLOR[2]);
       doc.setLineWidth(0.4);
-      doc.line(M, y + rowHeight - 2, W - M, y + rowHeight - 2);
+      doc.line(M, y + rowHeight, W - M, y + rowHeight);
 
       y += rowHeight;
     });
 
-    y += 10;
-    drawSectionTitle('Key Vulnerabilities & Remediation Actions');
+    y += 16;
 
-    results.findings.forEach((finding) => {
-      const sevColor =
-        finding.sev === 'critical'
-          ? [220, 38, 38]
-          : finding.sev === 'high'
-            ? [234, 88, 12]
-            : finding.sev === 'medium'
-              ? [202, 138, 4]
-              : [100, 116, 139];
+    // FINDINGS
+    const findings = results.findings || [];
+    if (findings.length > 0) {
+      ensureRoom(100);
+      drawSectionTitle('Key Vulnerabilities & Remediation Actions');
 
-      const sevBg =
-        finding.sev === 'critical'
-          ? [254, 242, 242]
-          : finding.sev === 'high'
-            ? [255, 247, 237]
-            : finding.sev === 'medium'
-              ? [254, 252, 232]
-              : [241, 245, 249];
+      findings.forEach((finding) => {
+        const sev = (finding.sev || 'medium').toLowerCase();
+        const sevColor =
+          sev === 'critical'
+            ? [220, 38, 38]
+            : sev === 'high'
+              ? [234, 88, 12]
+              : sev === 'medium'
+                ? [202, 138, 4]
+                : MUTED_TEXT;
 
-      const titleLines = doc.splitTextToSize(finding.title, W - M * 2 - 76);
-      const detailLines = doc.splitTextToSize(finding.detail, W - M * 2 - 20);
-      const fixLines = doc.splitTextToSize(
-        `Action: ${finding.fix}  [Standard: ${finding.std}]`,
-        W - M * 2 - 20
-      );
+        const sevBg =
+          sev === 'critical'
+            ? [254, 242, 242]
+            : sev === 'high'
+              ? [255, 247, 237]
+              : sev === 'medium'
+                ? [254, 252, 232]
+                : LIGHT_BG;
 
-      const cardHeaderHeight = Math.max(16, titleLines.length * 11 + 2);
-      const cardBodyHeight = detailLines.length * 10.5 + fixLines.length * 10.5 + 14;
-      const totalCardHeight = cardHeaderHeight + cardBodyHeight + 14;
+        const titleLines = doc.splitTextToSize(finding.title || 'Untitled Finding', contentW - 20);
+        const detailLines = doc.splitTextToSize(finding.detail || '', contentW - 24);
+        const fixLines = doc.splitTextToSize(
+          `Action: ${finding.fix || 'Review and upgrade primitive'} · [Standard: ${finding.std || 'NIST FIPS'}]`,
+          contentW - 28
+        );
 
-      checkPageRoom(totalCardHeight + 8);
+        const headerH = 18;
+        const titleH = titleLines.length * 11;
+        const detailH = detailLines.length * 10;
+        const fixH = fixLines.length * 10 + 12;
+        const cardHeight = headerH + titleH + detailH + fixH + 16;
 
-      doc.setFillColor(LIGHT_BG[0], LIGHT_BG[1], LIGHT_BG[2]);
-      doc.setDrawColor(BORDER_COLOR[0], BORDER_COLOR[1], BORDER_COLOR[2]);
-      doc.setLineWidth(0.6);
-      doc.roundedRect(M, y, W - M * 2, totalCardHeight, 3, 3, 'FD');
+        ensureRoom(cardHeight + 8);
 
-      doc.setFillColor(sevColor[0], sevColor[1], sevColor[2]);
-      doc.roundedRect(M, y, 3.5, totalCardHeight, 1.5, 1.5, 'F');
+        doc.setFillColor(LIGHT_BG[0], LIGHT_BG[1], LIGHT_BG[2]);
+        doc.setDrawColor(BORDER_COLOR[0], BORDER_COLOR[1], BORDER_COLOR[2]);
+        doc.setLineWidth(0.6);
+        doc.roundedRect(M, y, contentW, cardHeight, 3, 3, 'FD');
 
-      doc.setFillColor(sevBg[0], sevBg[1], sevBg[2]);
-      doc.roundedRect(M + 10, y + 6, 52, 14, 2, 2, 'F');
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(7);
-      doc.setTextColor(sevColor[0], sevColor[1], sevColor[2]);
-      doc.text(finding.sev.toUpperCase(), M + 14, y + 16);
+        doc.setFillColor(sevColor[0], sevColor[1], sevColor[2]);
+        doc.roundedRect(M, y, 4, cardHeight, 1.5, 1.5, 'F');
 
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(9);
-      doc.setTextColor(NAVY[0], NAVY[1], NAVY[2]);
-      titleLines.forEach((l: string, idx: number) => {
-        doc.text(l, M + 68, y + 16 + idx * 11);
+        const badgeW = 54;
+        doc.setFillColor(sevBg[0], sevBg[1], sevBg[2]);
+        doc.roundedRect(M + 12, y + 6, badgeW, 13, 2, 2, 'F');
+
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(6.5);
+        doc.setTextColor(sevColor[0], sevColor[1], sevColor[2]);
+        doc.text(sev.toUpperCase(), M + 16, y + 15);
+
+        if (finding.std) {
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(6.5);
+          doc.setTextColor(MUTED_TEXT[0], MUTED_TEXT[1], MUTED_TEXT[2]);
+          doc.text(`Reference: ${finding.std}`, M + badgeW + 20, y + 15);
+        }
+
+        let curY = y + headerH + 6;
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9.5);
+        doc.setTextColor(NAVY[0], NAVY[1], NAVY[2]);
+        titleLines.forEach((l: string) => {
+          doc.text(l, M + 12, curY);
+          curY += 11;
+        });
+
+        curY += 2;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        doc.setTextColor(BODY_TEXT[0], BODY_TEXT[1], BODY_TEXT[2]);
+        detailLines.forEach((l: string) => {
+          doc.text(l, M + 12, curY);
+          curY += 10;
+        });
+
+        curY += 4;
+        doc.setFillColor(255, 255, 255);
+        doc.setDrawColor(BORDER_COLOR[0], BORDER_COLOR[1], BORDER_COLOR[2]);
+        doc.setLineWidth(0.5);
+        doc.roundedRect(M + 10, curY, contentW - 20, fixH, 2, 2, 'FD');
+
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(7.5);
+        doc.setTextColor(GOLD[0], GOLD[1], GOLD[2]);
+        fixLines.forEach((l: string, idx: number) => {
+          doc.text(l, M + 16, curY + 9 + idx * 9.5);
+        });
+
+        y += cardHeight + 8;
       });
 
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(8);
-      doc.setTextColor(BODY_TEXT[0], BODY_TEXT[1], BODY_TEXT[2]);
-      const detailStartY = y + 8 + cardHeaderHeight;
-      detailLines.forEach((l: string, idx: number) => {
-        doc.text(l, M + 10, detailStartY + idx * 10.5);
+      y += 8;
+    }
+
+    // FOUR-PHASE ROADMAP
+    const planPhases = results.plan || [];
+    if (planPhases.length > 0) {
+      ensureRoom(100);
+      drawSectionTitle('Four-Phase Post-Quantum Migration Roadmap');
+
+      planPhases.forEach((phase) => {
+        const phaseTitleLines = doc.splitTextToSize(phase.title || '', contentW - 32);
+        const descLines = doc.splitTextToSize(phase.desc || '', contentW - 32);
+
+        const headerHeight = 18;
+        const titleHeight = phaseTitleLines.length * 11;
+        const descHeight = descLines.length * 10;
+        const cardHeight = headerHeight + titleHeight + descHeight + 16;
+
+        ensureRoom(cardHeight + 8);
+
+        doc.setFillColor(LIGHT_BG[0], LIGHT_BG[1], LIGHT_BG[2]);
+        doc.setDrawColor(BORDER_COLOR[0], BORDER_COLOR[1], BORDER_COLOR[2]);
+        doc.setLineWidth(0.6);
+        doc.roundedRect(M, y, contentW, cardHeight, 3, 3, 'FD');
+
+        doc.setFillColor(GOLD[0], GOLD[1], GOLD[2]);
+        doc.roundedRect(M, y, 4, cardHeight, 1.5, 1.5, 'F');
+
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(7.5);
+        doc.setTextColor(GOLD[0], GOLD[1], GOLD[2]);
+        doc.text(phase.phase.toUpperCase(), M + 14, y + 14);
+
+        let curY = y + headerHeight + 4;
+
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9.5);
+        doc.setTextColor(NAVY[0], NAVY[1], NAVY[2]);
+        phaseTitleLines.forEach((l: string) => {
+          doc.text(l, M + 14, curY);
+          curY += 11;
+        });
+
+        curY += 2;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        doc.setTextColor(BODY_TEXT[0], BODY_TEXT[1], BODY_TEXT[2]);
+        descLines.forEach((l: string) => {
+          doc.text(l, M + 14, curY);
+          curY += 10;
+        });
+
+        y += cardHeight + 8;
       });
 
-      const fixStartY = detailStartY + detailLines.length * 10.5 + 6;
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(7.5);
-      doc.setTextColor(GOLD[0], GOLD[1], GOLD[2]);
-      fixLines.forEach((l: string, idx: number) => {
-        doc.text(l, M + 10, fixStartY + idx * 10.5);
-      });
+      y += 8;
+    }
 
-      y += totalCardHeight + 8;
+    // ENGAGEMENT
+    ensureRoom(90);
+    drawSectionTitle('Engagement with UElement U92 Quantum Practice');
+
+    doc.setFillColor(NAVY[0], NAVY[1], NAVY[2]);
+    const engBoxH = 58;
+    doc.roundedRect(M, y, contentW, engBoxH, 4, 4, 'F');
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9.5);
+    doc.setTextColor(GOLD[0], GOLD[1], GOLD[2]);
+    doc.text('ESTATE-WIDE CRYPTOGRAPHIC DISCOVERY & AUTOMATED PQC MIGRATION', M + 16, y + 18);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(230, 238, 248);
+    const engText =
+      'Vyuh delivers single-target cryptographic diagnostics. For continuous automated CBOM generation across CI/CD, Hardware Security Module (HSM) quantum transitions, and crypto-agility proxy deployment, contact the UElement U92 Quantum Engineering team:';
+    const engLines = doc.splitTextToSize(engText, contentW - 32);
+    engLines.forEach((l: string, i: number) => {
+      doc.text(l, M + 16, y + 30 + i * 10);
     });
 
-    drawSectionTitle('Four-Phase PQC Migration Roadmap');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8);
+    doc.setTextColor(255, 255, 255);
+    doc.text('Direct Advisory: contact@uelement.co  |  Web: www.uelement.in', M + 16, y + 50);
 
-    results.plan.forEach((phase) => {
-      const titleLines = doc.splitTextToSize(phase.title, W - M * 2 - 130);
-      const descLines = doc.splitTextToSize(phase.desc, W - M * 2 - 130);
-      const phaseHeight = Math.max(34, 14 + (titleLines.length + descLines.length) * 11);
+    y += engBoxH + 12;
 
-      checkPageRoom(phaseHeight + 8);
+    drawFooter(pageNumber);
 
-      doc.setFillColor(245, 240, 230);
-      doc.roundedRect(M, y, 110, 18, 3, 3, 'F');
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(8);
-      doc.setTextColor(GOLD[0], GOLD[1], GOLD[2]);
-      doc.text(phase.phase.toUpperCase(), M + 8, y + 12);
-
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(9.5);
-      doc.setTextColor(NAVY[0], NAVY[1], NAVY[2]);
-      titleLines.forEach((l: string, idx: number) => {
-        doc.text(l, M + 124, y + 12 + idx * 11);
-      });
-
-      const descStartY = y + 14 + titleLines.length * 11;
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(8);
-      doc.setTextColor(BODY_TEXT[0], BODY_TEXT[1], BODY_TEXT[2]);
-      descLines.forEach((l: string, idx: number) => {
-        doc.text(l, M + 124, descStartY + idx * 10.5);
-      });
-
-      y += phaseHeight + 8;
-    });
-
-    drawSectionTitle('Engagement with UElement U92 Quantum');
-    drawParagraph(
-      'Vyu provides single-target scanning. Estate-wide discovery, continuous automated CBOM monitoring, HSM migration, and crypto-agility implementation are delivered by UElement U92 Quantum. Contact our cryptographic engineering team at contact@uelement.in to review your assessment.',
-      8.5
-    );
-
-    printFooter(page);
-    const sanitizedName = results.target
-      .replace(/^https?:\/\//i, '')
-      .replace(/\/+$/, '')
+    const sanitizedName = targetLabel
       .replace(/[^a-zA-Z0-9._-]/g, '_')
       .substring(0, 45);
-    const filename = `Vyu_CBOM_Assessment_(${sanitizedName}).pdf`;
+    const filename = `Vyuh_CBOM_Assessment_${sanitizedName}.pdf`;
     return { doc, filename, sanitizedName };
   };
 
@@ -1511,9 +1667,7 @@ export function CbomScannerModal() {
   const downloadPDFReport = (overrideProfile?: Partial<typeof profile>) => {
     const res = buildPdfDocument(overrideProfile);
     if (!res) {
-      alert(
-        'PDF generation engine is initializing. Please click again in a moment or export the CycloneDX JSON.'
-      );
+      alert('PDF generation engine is initializing. Please click again in a moment or export the CycloneDX JSON.');
       return;
     }
     res.doc.save(res.filename);
@@ -1531,8 +1685,14 @@ export function CbomScannerModal() {
 
       if (pdfObj) {
         try {
-          const dataUri = pdfObj.doc.output('datauristring');
-          pdfBase64 = dataUri.split(',')[1];
+          const arrayBuf = pdfObj.doc.output('arraybuffer');
+          const bytes = new Uint8Array(arrayBuf);
+          let binary = '';
+          const len = bytes.byteLength;
+          for (let i = 0; i < len; i++) {
+            binary += String.fromCharCode(bytes[i]);
+          }
+          pdfBase64 = btoa(binary);
           filename = pdfObj.filename;
         } catch (e) {
           console.warn('[VyuScanner] Could not base64 encode PDF:', e);
@@ -1557,6 +1717,10 @@ export function CbomScannerModal() {
           pdfBase64,
           filename,
           cbomSummary: results.cbom.slice(0, 8),
+          cbom: results.cbom,
+          findings: results.findings,
+          plan: results.plan,
+          when: results.when,
         }),
       });
 

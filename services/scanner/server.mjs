@@ -517,6 +517,10 @@ const server = http.createServer(async (req, res) => {
           pdfBase64: body.pdfBase64,
           filename: body.filename,
           cbomSummary: body.cbomSummary,
+          cbom: body.cbom,
+          findings: body.findings,
+          plan: body.plan,
+          when: body.when,
         });
 
         if (!result.ok) {

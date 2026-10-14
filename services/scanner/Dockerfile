@@ -5,7 +5,9 @@ RUN apk update && apk add --no-cache openssl ca-certificates git
 
 WORKDIR /app
 
-COPY package.json ./
+COPY package*.json ./
+RUN npm install --omit=dev
+
 COPY lib/ ./lib/
 COPY shared/ ./shared/
 COPY server.mjs ./

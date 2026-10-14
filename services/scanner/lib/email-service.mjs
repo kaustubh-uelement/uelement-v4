@@ -1,4 +1,5 @@
 // @ts-check
+import { generateAssessmentPdf } from './pdf-report.mjs';
 
 /**
  * Builds the enterprise HTML template for the Vyuh OTP email.
@@ -140,6 +141,10 @@ export async function sendOtpEmail(recipientEmail, code, name) {
  * @param {string} [params.pdfBase64]
  * @param {string} [params.filename]
  * @param {Array} [params.cbomSummary]
+ * @param {Array} [params.cbom]
+ * @param {Array} [params.findings]
+ * @param {Array} [params.plan]
+ * @param {Date|string|number} [params.when]
  * @returns {Promise<{ ok: true, provider: string, id?: string } | { ok: false, error: string }>}
  */
 export async function sendAssessmentReportEmail({
@@ -154,6 +159,10 @@ export async function sendAssessmentReportEmail({
   pdfBase64,
   filename,
   cbomSummary = [],
+  cbom = [],
+  findings = [],
+  plan = [],
+  when,
 }) {
   const apiKey = (process.env.RESEND_API_KEY || '').trim();
   const fromEmail = (process.env.RESEND_FROM_EMAIL || 'Vyuh Security <contact@uelement.in>').trim();
@@ -306,11 +315,52 @@ export async function sendAssessmentReportEmail({
     html,
   };
 
-  if (pdfBase64) {
+  // Verify PDF attachment integrity or generate an authentic board-level PDF
+  let finalPdfBase64 = pdfBase64;
+  let isPdfValid = false;
+
+  if (finalPdfBase64 && typeof finalPdfBase64 === 'string') {
+    try {
+      const rawHeader = Buffer.from(finalPdfBase64.slice(0, 40), 'base64').toString('utf8');
+      const rawTrailer = Buffer.from(finalPdfBase64.slice(-80), 'base64').toString('utf8');
+      if (rawHeader.startsWith('%PDF-') && rawTrailer.includes('%%EOF') && finalPdfBase64.length > 800) {
+        isPdfValid = true;
+      }
+    } catch {
+      isPdfValid = false;
+    }
+  }
+
+  // If client-provided PDF is missing, fake, or corrupted, generate authentic server-side PDF
+  if (!isPdfValid) {
+    try {
+      const generatedBuf = generateAssessmentPdf({
+        results: {
+          target: target || 'Enterprise Target',
+          score: typeof score === 'number' ? score : 40,
+          band: band || 'Risk Assessment Complete',
+          stats: stats || {},
+          cbom: cbom && cbom.length ? cbom : cbomSummary || [],
+          findings: findings || [],
+          plan: plan || [],
+          when: when || new Date(),
+        },
+        profile: { name, company, role, email: recipientEmail },
+      });
+      finalPdfBase64 = generatedBuf.toString('base64');
+      isPdfValid = true;
+    } catch (pdfErr) {
+      console.error('[email-service] Error generating server-side PDF:', pdfErr);
+    }
+  }
+
+  if (isPdfValid && finalPdfBase64) {
+    const cleanFilename = (filename || `Vyuh_CBOM_Assessment_${(target || 'report').replace(/[^a-zA-Z0-9._-]/g, '_')}.pdf`)
+      .replace(/\s+/g, '_');
     payload.attachments = [
       {
-        filename: filename || `Vyu_CBOM_Assessment_${(target || 'report').replace(/[^a-zA-Z0-9._-]/g, '_')}.pdf`,
-        content: pdfBase64,
+        filename: cleanFilename,
+        content: finalPdfBase64,
       },
     ];
   }
