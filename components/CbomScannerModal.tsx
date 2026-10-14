@@ -158,7 +158,7 @@ export function isDomainAuthorized(
   const emailDomain = emailNorm.split('@')[1] || '';
   if (!emailDomain) return { authorized: false, reason: 'invalid_email' };
 
-  // Exemption: U-Element personnel can evaluate any target perimeter
+  // Exemption: UElement personnel can evaluate any target perimeter
   if (
     emailDomain === 'uelement.co' ||
     emailDomain.endsWith('.uelement.co') ||
@@ -4463,7 +4463,7 @@ export function CbomScannerModal() {
                           <span style={{ fontSize: '11px', color: '#86efac', marginTop: '3px', display: 'flex', alignItems: 'center', gap: '4px' }}>
                             <Check size={12} />
                             {auth.reason === 'uelement_internal_exemption'
-                              ? 'U-Element Security Clearance (Universal Access)'
+                              ? 'UElement Security Clearance (Universal Access)'
                               : `Authorized corporate perimeter: ${currentTarget}`}
                           </span>
                         );

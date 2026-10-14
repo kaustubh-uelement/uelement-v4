@@ -56,7 +56,7 @@ export function isDomainAuthorized(email, target) {
     return { authorized: false, reason: 'invalid_email' };
   }
 
-  // EXEMPTION: U-Element personnel can evaluate any target perimeter
+  // EXEMPTION: UElement personnel can evaluate any target perimeter
   if (
     emailDomain === 'uelement.co' ||
     emailDomain.endsWith('.uelement.co') ||
