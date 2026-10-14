@@ -967,7 +967,7 @@ function buildRepoCbomDocument(repoFullName, assets) {
       tools: [
         {
           vendor: 'UElement Technologies',
-          name: 'Vyuh Repository Cryptographic BOM Engine',
+          name: 'Vyu Repository Cryptographic BOM Engine',
           version: '2.4.0',
         },
       ],
@@ -992,7 +992,7 @@ function buildRepoCbomDocument(repoFullName, assets) {
  */
 export async function runRepoScan(repoInfo, options = {}) {
   const { owner, repo, cloneUrl, webUrl, repoFullName } = repoInfo;
-  const tempDir = mkdtempSync(join(tmpdir(), `vyuh-repo-${owner}-${repo}-`));
+  const tempDir = mkdtempSync(join(tmpdir(), `vyu-repo-${owner}-${repo}-`));
 
   let commitSha = 'HEAD';
   let defaultBranch = 'main';
@@ -1332,7 +1332,7 @@ export async function runRepoScan(repoInfo, options = {}) {
       {
         phase: 'Phase 4: Continuous CBOM Pipeline Integration (18+ Months)',
         title: 'Automated CI/CD CycloneDX 1.6 Verification',
-        desc: 'Embed Vyuh CBOM generation as an automated gate in GitHub Actions / GitLab CI. Block pull requests that introduce legacy classical primitives or Shor-vulnerable dependencies.',
+        desc: 'Embed Vyu CBOM generation as an automated gate in GitHub Actions / GitLab CI. Block pull requests that introduce legacy classical primitives or Shor-vulnerable dependencies.',
       },
     ];
 

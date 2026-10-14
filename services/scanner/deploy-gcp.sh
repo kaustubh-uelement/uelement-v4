@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# deploy-gcp.sh - Deploy Vyuh / Vyu PQC Scanner backend to GCP Cloud Run
+# deploy-gcp.sh - Deploy Vyu PQC Scanner backend to GCP Cloud Run
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -16,7 +16,7 @@ echo "    Source:  ${SCRIPT_DIR}"
 
 # Deploy directly from source to Cloud Run (Cloud Build uses the Dockerfile)
 # Update environment variables if provided (Cloud Run automatically retains existing environment variables across revisions)
-ENV_UPDATE="RESEND_FROM_EMAIL=${RESEND_FROM_EMAIL:-Vyuh Security <contact@uelement.in>}"
+ENV_UPDATE="RESEND_FROM_EMAIL=${RESEND_FROM_EMAIL:-Vyu Security <contact@uelement.in>}"
 if [ -n "${RESEND_API_KEY:-}" ]; then
   ENV_UPDATE="${ENV_UPDATE},RESEND_API_KEY=${RESEND_API_KEY}"
 fi

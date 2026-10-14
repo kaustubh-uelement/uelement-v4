@@ -245,7 +245,7 @@ export function generateCycloneDxCbom(domain, endpoints, deps = {}) {
     metadata: {
       timestamp: new Date(now()).toISOString(),
       tools: [
-        { vendor: 'Vyuh', name: 'vyuh-pqc-scan', version: toolVersion() },
+        { vendor: 'Vyu', name: 'vyu-pqc-scan', version: toolVersion() },
       ],
       component: { name: domain, type: 'application' },
     },

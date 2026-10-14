@@ -2,7 +2,7 @@
 import { jsPDF } from 'jspdf';
 
 /**
- * Palette matching UElement / Vyuh enterprise theme
+ * Palette matching UElement / Vyu enterprise theme
  */
 const PALETTE = {
   navy: [7, 23, 57],          // #071739
@@ -158,7 +158,7 @@ export function generateAssessmentPdf({ results, profile = {} }) {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(8);
     doc.setTextColor(255, 255, 255);
-    doc.text('VYUH · CRYPTOGRAPHIC AUDIT REPORT', M, 22);
+    doc.text('VYU · CRYPTOGRAPHIC AUDIT REPORT', M, 22);
 
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7.5);
@@ -224,7 +224,7 @@ export function generateAssessmentPdf({ results, profile = {} }) {
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(16);
   doc.setTextColor(PALETTE.gold[0], PALETTE.gold[1], PALETTE.gold[2]);
-  doc.text('VYUH', M, 30);
+  doc.text('VYU', M, 30);
 
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(11);
@@ -718,7 +718,7 @@ export function generateAssessmentPdf({ results, profile = {} }) {
   doc.setFontSize(8);
   doc.setTextColor(230, 238, 248);
   const engText =
-    'Vyuh delivers single-target cryptographic diagnostics. For continuous automated CBOM generation across CI/CD, Hardware Security Module (HSM) quantum transitions, and crypto-agility proxy deployment, contact the UElement U92 Quantum Engineering team:';
+    'Vyu delivers single-target cryptographic diagnostics. For continuous automated CBOM generation across CI/CD, Hardware Security Module (HSM) quantum transitions, and crypto-agility proxy deployment, contact the UElement U92 Quantum Engineering team:';
   const engLines = doc.splitTextToSize(engText, contentW - 32);
   engLines.forEach((l, i) => {
     doc.text(l, M + 16, y + 30 + i * 10);

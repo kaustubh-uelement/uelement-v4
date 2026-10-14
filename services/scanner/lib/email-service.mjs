@@ -2,7 +2,7 @@
 import { generateAssessmentPdf } from './pdf-report.mjs';
 
 /**
- * Builds the enterprise HTML template for the Vyuh OTP email.
+ * Builds the enterprise HTML template for the Vyu OTP email.
  * @param {string} code
  * @param {string} [name]
  */
@@ -13,7 +13,7 @@ function buildOtpEmailHtml(code, name) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vyuh Verification Code</title>
+  <title>Vyu Verification Code</title>
 </head>
 <body style="margin: 0; padding: 0; background-color: #071739; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #f8fafc;">
   <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #071739; padding: 40px 20px;">
@@ -23,7 +23,7 @@ function buildOtpEmailHtml(code, name) {
           <tr>
             <td style="padding: 32px 36px 20px; border-bottom: 1px solid rgba(200, 138, 62, 0.2);">
               <div style="font-size: 20px; font-weight: 700; letter-spacing: 0.5px; color: #ffffff;">
-                <span style="color: #c88a3e;">VYUH</span> · Cryptographic Intelligence
+                <span style="color: #c88a3e;">VYU</span> · Cryptographic Intelligence
               </div>
               <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px;">
                 Quantum Readiness & CBOM Discovery
@@ -36,7 +36,7 @@ function buildOtpEmailHtml(code, name) {
                 ${greeting}
               </p>
               <p style="margin: 0 0 24px; font-size: 14px; line-height: 1.6; color: #94a3b8;">
-                You have initiated a diagnostic cryptographic assessment on <strong style="color: #ffffff;">Vyuh</strong>. Please use the one-time verification code below to authorize your session:
+                You have initiated a diagnostic cryptographic assessment on <strong style="color: #ffffff;">Vyu</strong>. Please use the one-time verification code below to authorize your session:
               </p>
               <div style="margin: 28px 0; text-align: center;">
                 <div style="display: inline-block; padding: 16px 36px; background-color: #06132f; border: 2px solid #c88a3e; border-radius: 12px; font-family: 'Courier New', Courier, monospace; font-size: 32px; font-weight: 800; letter-spacing: 10px; color: #c88a3e; box-shadow: 0 0 20px rgba(200, 138, 62, 0.2);">
@@ -48,7 +48,7 @@ function buildOtpEmailHtml(code, name) {
               </div>
               <div style="background-color: rgba(200, 138, 62, 0.08); border-left: 3px solid #c88a3e; padding: 12px 16px; border-radius: 4px; margin: 24px 0 0;">
                 <p style="margin: 0; font-size: 12px; line-height: 1.5; color: #cbd5e1;">
-                  <strong>Security Note:</strong> Vyuh will never ask you for your verification code outside the direct diagnostic interface. If you did not request this assessment, please ignore this email.
+                  <strong>Security Note:</strong> Vyu will never ask you for your verification code outside the direct diagnostic interface. If you did not request this assessment, please ignore this email.
                 </p>
               </div>
             </td>
@@ -80,11 +80,11 @@ function buildOtpEmailHtml(code, name) {
  */
 export async function sendOtpEmail(recipientEmail, code, name) {
   const apiKey = (process.env.RESEND_API_KEY || '').trim();
-  const fromEmail = (process.env.RESEND_FROM_EMAIL || 'Vyuh Security <contact@uelement.co>').trim();
+  const fromEmail = (process.env.RESEND_FROM_EMAIL || 'Vyu Security <contact@uelement.co>').trim();
 
   // If no API key configured, operate in resilient Dev Mode
   if (!apiKey) {
-    console.log(`[VYUH-EMAIL-DEV] Verification code for ${recipientEmail}: ${code}`);
+    console.log(`[VYU-EMAIL-DEV] Verification code for ${recipientEmail}: ${code}`);
     return { ok: true, provider: 'dev-console' };
   }
 
@@ -99,7 +99,7 @@ export async function sendOtpEmail(recipientEmail, code, name) {
       body: JSON.stringify({
         from: fromEmail,
         to: [recipientEmail],
-        subject: `Your Vyuh Verification Code: ${code}`,
+        subject: `Your Vyu Verification Code: ${code}`,
         html,
       }),
     });
@@ -114,7 +114,7 @@ export async function sendOtpEmail(recipientEmail, code, name) {
     }
 
     const data = await res.json();
-    console.log(`[Vyuh] OTP email sent successfully to ${recipientEmail} (ID: ${data.id})`);
+    console.log(`[Vyu] OTP email sent successfully to ${recipientEmail} (ID: ${data.id})`);
     return { ok: true, provider: 'resend' };
   } catch (err) {
     console.error('[sendOtpEmail Network Error]:', err);
@@ -165,10 +165,10 @@ export async function sendAssessmentReportEmail({
   when,
 }) {
   const apiKey = (process.env.RESEND_API_KEY || '').trim();
-  const fromEmail = (process.env.RESEND_FROM_EMAIL || 'Vyuh Security <contact@uelement.in>').trim();
+  const fromEmail = (process.env.RESEND_FROM_EMAIL || 'Vyu Security <contact@uelement.in>').trim();
 
   if (!apiKey) {
-    console.log(`[VYUH-EMAIL-DEV] Assessment report generated for ${recipientEmail} (${target})`);
+    console.log(`[VYU-EMAIL-DEV] Assessment report generated for ${recipientEmail} (${target})`);
     return { ok: true, provider: 'dev-console' };
   }
 
@@ -197,7 +197,7 @@ export async function sendAssessmentReportEmail({
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Vyuh CBOM Assessment Report</title>
+  <title>Vyu CBOM Assessment Report</title>
 </head>
 <body style="margin: 0; padding: 0; background-color: #071739; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #f8fafc;">
   <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #071739; padding: 40px 20px;">
@@ -208,7 +208,7 @@ export async function sendAssessmentReportEmail({
           <tr>
             <td style="padding: 32px 36px 20px; border-bottom: 1px solid rgba(200, 138, 62, 0.25);">
               <div style="font-size: 22px; font-weight: 800; letter-spacing: 0.5px; color: #ffffff;">
-                <span style="color: #c88a3e;">VYUH</span> · Cryptographic Intelligence
+                <span style="color: #c88a3e;">VYU</span> · Cryptographic Intelligence
               </div>
               <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; text-transform: uppercase; letter-spacing: 1.2px;">
                 Official Cryptographic Bill of Materials (CBOM) & Post-Quantum Audit
@@ -311,7 +311,7 @@ export async function sendAssessmentReportEmail({
   const payload = {
     from: fromEmail,
     to: [recipientEmail],
-    subject: `Your Vyuh Cryptographic CBOM & Quantum Readiness Report — ${targetLabel}`,
+    subject: `Your Vyu Cryptographic CBOM & Quantum Readiness Report — ${targetLabel}`,
     html,
   };
 
@@ -355,7 +355,7 @@ export async function sendAssessmentReportEmail({
   }
 
   if (isPdfValid && finalPdfBase64) {
-    const cleanFilename = (filename || `Vyuh_CBOM_Assessment_${(target || 'report').replace(/[^a-zA-Z0-9._-]/g, '_')}.pdf`)
+    const cleanFilename = (filename || `Vyu_CBOM_Assessment_${(target || 'report').replace(/[^a-zA-Z0-9._-]/g, '_')}.pdf`)
       .replace(/\s+/g, '_');
     payload.attachments = [
       {
@@ -385,7 +385,7 @@ export async function sendAssessmentReportEmail({
     }
 
     const data = await res.json();
-    console.log(`[Vyuh] Full assessment report successfully emailed to ${recipientEmail} (ID: ${data.id})`);
+    console.log(`[Vyu] Full assessment report successfully emailed to ${recipientEmail} (ID: ${data.id})`);
     return { ok: true, provider: 'resend', id: data.id };
   } catch (err) {
     console.error('[sendAssessmentReportEmail Error]:', err);

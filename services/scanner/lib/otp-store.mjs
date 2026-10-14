@@ -21,7 +21,7 @@ function normalizeEmail(email) {
 }
 
 function hashOtp(email, code) {
-  return createHash("sha256").update(`${email}:${code}:vyuh-salt-v1`).digest("hex");
+  return createHash("sha256").update(`${email}:${code}:vyu-salt-v1`).digest("hex");
 }
 
 /**

@@ -20,7 +20,7 @@ function setCorsHeaders(res, req) {
 }
 
 /**
- * Format raw scan result into the structure expected by VyuhScanner frontend.
+ * Format raw scan result into the structure expected by VyuScanner frontend.
  */
 function formatFrontendResults(raw) {
   const { summary, endpoints, targetDomain, ctLogsCount, dnssecActive } = raw;
@@ -251,7 +251,7 @@ const server = http.createServer(async (req, res) => {
   // Health check
   if (path === '/' || path === '/health') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ status: 'ok', service: 'vyuh-pqc-scanner', version: '0.1.0' }));
+    res.end(JSON.stringify({ status: 'ok', service: 'vyu-pqc-scanner', version: '0.1.0' }));
     return;
   }
 
@@ -694,5 +694,5 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, HOST, () => {
-  console.log(`[vyuh-scanner] Production PQC scanner server listening on http://${HOST}:${PORT}`);
+  console.log(`[vyu-scanner] Production PQC scanner server listening on http://${HOST}:${PORT}`);
 });

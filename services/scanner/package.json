@@ -1,5 +1,5 @@
 {
-  "name": "vyuh-pqc-scanner-service",
+  "name": "vyu-pqc-scanner-service",
   "version": "0.1.0",
   "description": "Production PQC Readiness and CBOM Discovery Scanner Microservice",
   "type": "module",

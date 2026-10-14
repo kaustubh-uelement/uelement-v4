@@ -65,7 +65,7 @@ export async function queryCertificateTransparency(baseDomain, { fetchImpl, time
   const ac = new AbortController();
   const timer = setTimeout(() => ac.abort(), timeoutMs);
   try {
-    const res = await fetchImpl(url, { signal: ac.signal, headers: { 'User-Agent': 'vyuh-pqc-scan/0.1' } });
+    const res = await fetchImpl(url, { signal: ac.signal, headers: { 'User-Agent': 'vyu-pqc-scan/0.1' } });
     if (!res.ok) return { ok: false, error: `crt.sh HTTP ${res.status}` };
     const rows = await res.json();
     if (!Array.isArray(rows)) return { ok: false, error: 'crt.sh returned a non-array body' };
@@ -162,7 +162,7 @@ export async function lookupIpRegistry(ip, { fetchImpl }) {
     const res = await fetchImpl(`https://rdap.org/ip/${encodeURIComponent(ip)}`, {
       signal: ac.signal,
       redirect: 'follow',
-      headers: { accept: 'application/rdap+json', 'user-agent': 'Mozilla/5.0 (compatible; VyuhPQC/0.1)' },
+      headers: { accept: 'application/rdap+json', 'user-agent': 'Mozilla/5.0 (compatible; VyuPQC/0.1)' },
     });
     if (!res.ok) return {};
     const data = await res.json();
@@ -476,7 +476,7 @@ export function probeHsts(hostname, ip, port, { httpsRequestFn }) {
         method: 'HEAD',
         path: '/',
         servername: hostname,
-        headers: { Host: hostname, 'User-Agent': 'vyuh-pqc-scan/0.1' },
+        headers: { Host: hostname, 'User-Agent': 'vyu-pqc-scan/0.1' },
         rejectUnauthorized: false,
         agent: false,
         timeout: 2500,

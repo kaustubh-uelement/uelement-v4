@@ -1198,7 +1198,7 @@ export function CbomScannerModal() {
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(8);
       doc.setTextColor(255, 255, 255);
-      doc.text('VYUH · CRYPTOGRAPHIC AUDIT REPORT', M, 22);
+      doc.text('VYU · CRYPTOGRAPHIC AUDIT REPORT', M, 22);
 
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(7.5);
@@ -1250,7 +1250,7 @@ export function CbomScannerModal() {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(16);
     doc.setTextColor(GOLD[0], GOLD[1], GOLD[2]);
-    doc.text('VYUH', M, 30);
+    doc.text('VYU', M, 30);
 
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(11);
@@ -1711,7 +1711,7 @@ export function CbomScannerModal() {
     doc.setFontSize(8);
     doc.setTextColor(230, 238, 248);
     const engText =
-      'Vyuh delivers single-target cryptographic diagnostics. For continuous automated CBOM generation across CI/CD, Hardware Security Module (HSM) quantum transitions, and crypto-agility proxy deployment, contact the UElement U92 Quantum Engineering team:';
+      'Vyu delivers single-target cryptographic diagnostics. For continuous automated CBOM generation across CI/CD, Hardware Security Module (HSM) quantum transitions, and crypto-agility proxy deployment, contact the UElement U92 Quantum Engineering team:';
     const engLines = doc.splitTextToSize(engText, contentW - 32);
     engLines.forEach((l: string, i: number) => {
       doc.text(l, M + 16, y + 30 + i * 10);
@@ -1729,7 +1729,7 @@ export function CbomScannerModal() {
     const sanitizedName = targetLabel
       .replace(/[^a-zA-Z0-9._-]/g, '_')
       .substring(0, 45);
-    const filename = `Vyuh_CBOM_Assessment_${sanitizedName}.pdf`;
+    const filename = `Vyu_CBOM_Assessment_${sanitizedName}.pdf`;
     return { doc, filename, sanitizedName };
   };
 
@@ -2290,7 +2290,7 @@ export function CbomScannerModal() {
             {step === 1 &&
               'Repository scanning inspects internal dependencies. Please confirm your corporate identity to continue.'}
             {step === 2 &&
-              `Enter the 6-digit verification code dispatched to ${profile.email || 'your corporate email'} from Vyuh Security.`}
+              `Enter the 6-digit verification code dispatched to ${profile.email || 'your corporate email'} from Vyu Security.`}
             {step === 3 &&
               (scanType === 'url'
                 ? 'Point Vyu at any public website or API endpoint. Performs live TLS 1.3 handshake negotiation, ciphersuite audit, and certificate chain inspection.'
@@ -2567,7 +2567,7 @@ export function CbomScannerModal() {
                     Enter Verification Code
                   </h3>
                   <p style={{ margin: 0, fontSize: '13px', color: 'rgba(245, 240, 232, 0.7)' }}>
-                    Dispatched to <strong style={{ color: '#fff' }}>{profile.email}</strong> from Vyuh Security.
+                    Dispatched to <strong style={{ color: '#fff' }}>{profile.email}</strong> from Vyu Security.
                   </p>
                 </div>
 
@@ -2705,13 +2705,14 @@ export function CbomScannerModal() {
                 </div>
               </div>
 
-              {/* Target Input Card */}
+              {/* Target Input Card (Brand Guidelines Creme Surface) */}
               <div
                 style={{
-                  padding: '22px',
+                  padding: '24px',
                   borderRadius: '16px',
-                  background: 'rgba(0, 0, 0, 0.32)',
-                  border: '1px solid rgba(221, 187, 110, 0.22)',
+                  background: 'linear-gradient(180deg, #fbf7ee 0%, #ede3cf 100%)',
+                  border: '1px solid rgba(196, 154, 69, 0.45)',
+                  boxShadow: '0 18px 40px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.85)',
                   display: 'grid',
                   gap: '16px',
                 }}
@@ -2720,11 +2721,11 @@ export function CbomScannerModal() {
                   <label
                     style={{
                       display: 'block',
-                      fontSize: '13px',
-                      fontWeight: 600,
-                      color: 'var(--gold-soft)',
+                      fontSize: '12.5px',
+                      fontWeight: 700,
+                      color: '#785419',
                       marginBottom: '8px',
-                      letterSpacing: '0.04em',
+                      letterSpacing: '0.05em',
                       textTransform: 'uppercase',
                     }}
                   >
@@ -2745,14 +2746,16 @@ export function CbomScannerModal() {
                       }
                       style={{
                         width: '100%',
-                        padding: '12px 16px',
-                        background: 'rgba(0, 0, 0, 0.45)',
-                        border: targetError ? '1px solid #ef4444' : '1px solid rgba(221, 187, 110, 0.3)',
+                        padding: '13px 16px',
+                        background: '#ffffff',
+                        border: targetError ? '1px solid #ef4444' : '1px solid rgba(196, 154, 69, 0.5)',
                         borderRadius: '10px',
-                        color: '#ffffff',
+                        color: '#0e1b36',
                         fontSize: '15px',
+                        fontWeight: 500,
                         outline: 'none',
                         boxSizing: 'border-box',
+                        boxShadow: 'inset 0 1px 3px rgba(14, 27, 54, 0.05)',
                       }}
                       onKeyDown={(e) => {
                         if (e.key === 'Enter') handleStartScan();
@@ -2762,30 +2765,57 @@ export function CbomScannerModal() {
 
                   {/* Quick example presets */}
                   <div style={{ display: 'flex', gap: '8px', marginTop: '10px', flexWrap: 'wrap', alignItems: 'center' }}>
-                    <span style={{ fontSize: '12px', color: 'rgba(245, 240, 232, 0.5)' }}>Try example:</span>
+                    <span style={{ fontSize: '12px', color: '#5c637a', fontWeight: 500 }}>Try example:</span>
                     {scanType === 'url' ? (
                       <>
                         <button
                           type="button"
                           onClick={() => setTargetConfig((p) => ({ ...p, target: 'uelement.in' }))}
-                          className="chip chip--plain"
-                          style={{ fontSize: '12px', cursor: 'pointer', padding: '3px 10px' }}
+                          style={{
+                            fontSize: '12px',
+                            cursor: 'pointer',
+                            padding: '3px 11px',
+                            borderRadius: '999px',
+                            background: '#ffffff',
+                            border: '1px solid rgba(196, 154, 69, 0.45)',
+                            color: '#785419',
+                            fontWeight: 600,
+                            boxShadow: '0 1px 3px rgba(14, 27, 54, 0.06)',
+                          }}
                         >
                           uelement.in
                         </button>
                         <button
                           type="button"
                           onClick={() => setTargetConfig((p) => ({ ...p, target: 'cloudflare.com' }))}
-                          className="chip chip--plain"
-                          style={{ fontSize: '12px', cursor: 'pointer', padding: '3px 10px' }}
+                          style={{
+                            fontSize: '12px',
+                            cursor: 'pointer',
+                            padding: '3px 11px',
+                            borderRadius: '999px',
+                            background: '#ffffff',
+                            border: '1px solid rgba(196, 154, 69, 0.45)',
+                            color: '#785419',
+                            fontWeight: 600,
+                            boxShadow: '0 1px 3px rgba(14, 27, 54, 0.06)',
+                          }}
                         >
                           cloudflare.com
                         </button>
                         <button
                           type="button"
                           onClick={() => setTargetConfig((p) => ({ ...p, target: 'github.com' }))}
-                          className="chip chip--plain"
-                          style={{ fontSize: '12px', cursor: 'pointer', padding: '3px 10px' }}
+                          style={{
+                            fontSize: '12px',
+                            cursor: 'pointer',
+                            padding: '3px 11px',
+                            borderRadius: '999px',
+                            background: '#ffffff',
+                            border: '1px solid rgba(196, 154, 69, 0.45)',
+                            color: '#785419',
+                            fontWeight: 600,
+                            boxShadow: '0 1px 3px rgba(14, 27, 54, 0.06)',
+                          }}
                         >
                           github.com
                         </button>
@@ -2795,16 +2825,34 @@ export function CbomScannerModal() {
                         <button
                           type="button"
                           onClick={() => setTargetConfig((p) => ({ ...p, target: 'UElement/uelement' }))}
-                          className="chip chip--plain"
-                          style={{ fontSize: '12px', cursor: 'pointer', padding: '3px 10px' }}
+                          style={{
+                            fontSize: '12px',
+                            cursor: 'pointer',
+                            padding: '3px 11px',
+                            borderRadius: '999px',
+                            background: '#ffffff',
+                            border: '1px solid rgba(196, 154, 69, 0.45)',
+                            color: '#785419',
+                            fontWeight: 600,
+                            boxShadow: '0 1px 3px rgba(14, 27, 54, 0.06)',
+                          }}
                         >
                           UElement/uelement
                         </button>
                         <button
                           type="button"
                           onClick={() => setTargetConfig((p) => ({ ...p, target: 'facebook/react' }))}
-                          className="chip chip--plain"
-                          style={{ fontSize: '12px', cursor: 'pointer', padding: '3px 10px' }}
+                          style={{
+                            fontSize: '12px',
+                            cursor: 'pointer',
+                            padding: '3px 11px',
+                            borderRadius: '999px',
+                            background: '#ffffff',
+                            border: '1px solid rgba(196, 154, 69, 0.45)',
+                            color: '#785419',
+                            fontWeight: 600,
+                            boxShadow: '0 1px 3px rgba(14, 27, 54, 0.06)',
+                          }}
                         >
                           facebook/react
                         </button>
@@ -2821,7 +2869,7 @@ export function CbomScannerModal() {
                         display: 'block',
                         fontSize: '12px',
                         fontWeight: 600,
-                        color: 'rgba(245, 240, 232, 0.7)',
+                        color: '#3f4762',
                         marginBottom: '6px',
                       }}
                     >
@@ -2834,11 +2882,11 @@ export function CbomScannerModal() {
                       placeholder="ghp_xxxxxxxxxxxx"
                       style={{
                         width: '100%',
-                        padding: '10px 14px',
-                        background: 'rgba(0, 0, 0, 0.35)',
-                        border: '1px solid rgba(221, 187, 110, 0.2)',
+                        padding: '11px 14px',
+                        background: '#ffffff',
+                        border: '1px solid rgba(196, 154, 69, 0.45)',
                         borderRadius: '10px',
-                        color: '#ffffff',
+                        color: '#0e1b36',
                         fontSize: '14px',
                         outline: 'none',
                         boxSizing: 'border-box',
@@ -2850,7 +2898,7 @@ export function CbomScannerModal() {
                 {/* Depth & Retention */}
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12px', color: 'rgba(245, 240, 232, 0.7)', marginBottom: '6px' }}>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#3f4762', marginBottom: '6px' }}>
                       Diagnostic Depth
                     </label>
                     <select
@@ -2859,11 +2907,12 @@ export function CbomScannerModal() {
                       style={{
                         width: '100%',
                         padding: '10px 12px',
-                        background: 'rgba(0, 0, 0, 0.45)',
-                        border: '1px solid rgba(221, 187, 110, 0.25)',
+                        background: '#ffffff',
+                        border: '1px solid rgba(196, 154, 69, 0.45)',
                         borderRadius: '8px',
-                        color: '#ffffff',
+                        color: '#0e1b36',
                         fontSize: '13px',
+                        cursor: 'pointer',
                       }}
                     >
                       <option value="standard">Standard (Primary Ingress & Certificate)</option>
@@ -2872,7 +2921,7 @@ export function CbomScannerModal() {
                     </select>
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12px', color: 'rgba(245, 240, 232, 0.7)', marginBottom: '6px' }}>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#3f4762', marginBottom: '6px' }}>
                       Data Retention Horizon
                     </label>
                     <select
@@ -2881,11 +2930,12 @@ export function CbomScannerModal() {
                       style={{
                         width: '100%',
                         padding: '10px 12px',
-                        background: 'rgba(0, 0, 0, 0.45)',
-                        border: '1px solid rgba(221, 187, 110, 0.25)',
+                        background: '#ffffff',
+                        border: '1px solid rgba(196, 154, 69, 0.45)',
                         borderRadius: '8px',
-                        color: '#ffffff',
+                        color: '#0e1b36',
                         fontSize: '13px',
+                        cursor: 'pointer',
                       }}
                     >
                       <option value="7">7 Years (Commercial Records)</option>
@@ -2903,7 +2953,8 @@ export function CbomScannerModal() {
                     gap: '10px',
                     cursor: 'pointer',
                     fontSize: '13px',
-                    color: 'rgba(245, 240, 232, 0.85)',
+                    color: '#2b3452',
+                    fontWeight: 500,
                     marginTop: '4px',
                   }}
                 >
@@ -2914,7 +2965,7 @@ export function CbomScannerModal() {
                       setTargetConfig((p) => ({ ...p, authorized: e.target.checked }));
                       setTargetError(null);
                     }}
-                    style={{ marginTop: '2px', accentColor: '#dfb15b' }}
+                    style={{ marginTop: '2px', accentColor: '#c49a45' }}
                   />
                   <span>
                     I confirm that I am authorized to request technical cryptographic evaluation of this asset.
@@ -3061,34 +3112,33 @@ export function CbomScannerModal() {
           {/* ──────────────── STEP 5: RESULTS DASHBOARD ──────────────── */}
           {step === 5 && results && (
             <div style={{ display: 'grid', gap: '20px' }}>
-              {/* Summary Card with Score */}
+              {/* Summary Card with Score (Brand Guidelines Creme Surface) */}
               <div
                 style={{
                   display: 'grid',
                   gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                  gap: '16px',
-                  padding: '20px',
+                  gap: '18px',
+                  padding: '22px',
                   borderRadius: '18px',
-                  background: 'rgba(0, 0, 0, 0.35)',
-                  border: '1px solid rgba(221, 187, 110, 0.25)',
+                  background: 'linear-gradient(180deg, #fbf7ee 0%, #ede3cf 100%)',
+                  border: '1px solid rgba(196, 154, 69, 0.45)',
+                  boxShadow: '0 18px 40px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.85)',
                   alignItems: 'center',
                 }}
               >
-                {/* Left: Score Box */}
+                {/* Left: Score Box & Critical Exposure */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                   <div
                     style={{
-                      width: '84px',
-                      height: '84px',
+                      width: '86px',
+                      height: '86px',
                       borderRadius: '18px',
-                      background:
-                        results.score < 40
-                          ? 'rgba(239, 68, 68, 0.2)'
-                          : results.score < 75
-                            ? 'rgba(245, 158, 11, 0.2)'
-                            : 'rgba(34, 197, 94, 0.2)',
-                      border: `2px solid ${
-                        results.score < 40 ? '#ef4444' : results.score < 75 ? '#f59e0b' : '#22c55e'
+                      background: '#ffffff',
+                      border: `2.5px solid ${
+                        results.score < 40 ? '#ef4444' : results.score < 75 ? '#f59e0b' : '#16a34a'
+                      }`,
+                      boxShadow: `0 6px 18px ${
+                        results.score < 40 ? 'rgba(239, 68, 68, 0.18)' : 'rgba(22, 163, 74, 0.18)'
                       }`,
                       display: 'flex',
                       flexDirection: 'column',
@@ -3097,10 +3147,17 @@ export function CbomScannerModal() {
                       flexShrink: 0,
                     }}
                   >
-                    <span style={{ fontSize: '28px', fontWeight: 700, color: '#ffffff', lineHeight: 1 }}>
+                    <span
+                      style={{
+                        fontSize: '30px',
+                        fontWeight: 800,
+                        color: results.score < 40 ? '#b91c1c' : results.score < 75 ? '#b45309' : '#15803d',
+                        lineHeight: 1,
+                      }}
+                    >
                       {results.score}
                     </span>
-                    <span style={{ fontSize: '11px', color: 'rgba(245, 240, 232, 0.7)', textTransform: 'uppercase' }}>
+                    <span style={{ fontSize: '10.5px', color: '#64748b', fontWeight: 600, textTransform: 'uppercase', marginTop: '3px' }}>
                       out of 100
                     </span>
                   </div>
@@ -3109,7 +3166,7 @@ export function CbomScannerModal() {
                     <span
                       style={{
                         display: 'inline-block',
-                        padding: '3px 10px',
+                        padding: '3px 12px',
                         borderRadius: '999px',
                         fontSize: '11px',
                         fontWeight: 700,
@@ -3117,20 +3174,23 @@ export function CbomScannerModal() {
                         marginBottom: '6px',
                         background:
                           results.score < 40
-                            ? 'rgba(239, 68, 68, 0.25)'
+                            ? 'rgba(239, 68, 68, 0.12)'
                             : results.score < 75
-                              ? 'rgba(245, 158, 11, 0.25)'
-                              : 'rgba(34, 197, 94, 0.25)',
+                              ? 'rgba(245, 158, 11, 0.12)'
+                              : 'rgba(34, 197, 94, 0.12)',
+                        border: `1px solid ${
+                          results.score < 40 ? 'rgba(239, 68, 68, 0.4)' : results.score < 75 ? 'rgba(245, 158, 11, 0.4)' : 'rgba(34, 197, 94, 0.4)'
+                        }`,
                         color:
-                          results.score < 40 ? '#fca5a5' : results.score < 75 ? '#fcd34d' : '#86efac',
+                          results.score < 40 ? '#991b1b' : results.score < 75 ? '#92400e' : '#166534',
                       }}
                     >
                       {results.band}
                     </span>
-                    <h3 style={{ margin: '0 0 4px 0', fontSize: '18px', color: '#ffffff', fontWeight: 600 }}>
+                    <h3 style={{ margin: '0 0 4px 0', fontSize: '19px', color: '#0e1b36', fontWeight: 700 }}>
                       {results.target}
                     </h3>
-                    <p style={{ margin: 0, fontSize: '12px', color: 'rgba(245, 240, 232, 0.6)' }}>
+                    <p style={{ margin: 0, fontSize: '12px', color: '#4e5774', fontWeight: 500 }}>
                       Evaluated on {results.when.toLocaleDateString()} · NIST FIPS 203/204/205 & NSA CNSA 2.0
                     </p>
                   </div>
@@ -3145,29 +3205,61 @@ export function CbomScannerModal() {
                     textAlign: 'center',
                   }}
                 >
-                  <div style={{ padding: '10px 6px', borderRadius: '10px', background: 'rgba(255, 255, 255, 0.04)' }}>
-                    <div style={{ fontSize: '20px', fontWeight: 700, color: '#ffffff' }}>
+                  <div
+                    style={{
+                      padding: '12px 6px',
+                      borderRadius: '12px',
+                      background: '#ffffff',
+                      border: '1px solid rgba(196, 154, 69, 0.35)',
+                      boxShadow: '0 2px 6px rgba(14, 27, 54, 0.05)',
+                    }}
+                  >
+                    <div style={{ fontSize: '22px', fontWeight: 800, color: '#0e1b36' }}>
                       {results.stats.total}
                     </div>
-                    <div style={{ fontSize: '11px', color: 'rgba(245, 240, 232, 0.6)' }}>Total Assets</div>
+                    <div style={{ fontSize: '11px', color: '#4e5774', fontWeight: 600 }}>Total Assets</div>
                   </div>
-                  <div style={{ padding: '10px 6px', borderRadius: '10px', background: 'rgba(239, 68, 68, 0.1)' }}>
-                    <div style={{ fontSize: '20px', fontWeight: 700, color: '#fca5a5' }}>
+                  <div
+                    style={{
+                      padding: '12px 6px',
+                      borderRadius: '12px',
+                      background: 'rgba(254, 242, 242, 0.95)',
+                      border: '1px solid rgba(239, 68, 68, 0.35)',
+                      boxShadow: '0 2px 6px rgba(239, 68, 68, 0.08)',
+                    }}
+                  >
+                    <div style={{ fontSize: '22px', fontWeight: 800, color: '#b91c1c' }}>
                       {results.stats.broken}
                     </div>
-                    <div style={{ fontSize: '11px', color: '#fca5a5' }}>Shor Broken</div>
+                    <div style={{ fontSize: '11px', color: '#991b1b', fontWeight: 600 }}>Shor Broken</div>
                   </div>
-                  <div style={{ padding: '10px 6px', borderRadius: '10px', background: 'rgba(245, 158, 11, 0.1)' }}>
-                    <div style={{ fontSize: '20px', fontWeight: 700, color: '#fcd34d' }}>
+                  <div
+                    style={{
+                      padding: '12px 6px',
+                      borderRadius: '12px',
+                      background: 'rgba(254, 243, 199, 0.95)',
+                      border: '1px solid rgba(245, 158, 11, 0.35)',
+                      boxShadow: '0 2px 6px rgba(245, 158, 11, 0.08)',
+                    }}
+                  >
+                    <div style={{ fontSize: '22px', fontWeight: 800, color: '#b45309' }}>
                       {results.stats.weak}
                     </div>
-                    <div style={{ fontSize: '11px', color: '#fcd34d' }}>Grover Weak</div>
+                    <div style={{ fontSize: '11px', color: '#92400e', fontWeight: 600 }}>Grover Weak</div>
                   </div>
-                  <div style={{ padding: '10px 6px', borderRadius: '10px', background: 'rgba(34, 197, 94, 0.1)' }}>
-                    <div style={{ fontSize: '20px', fontWeight: 700, color: '#86efac' }}>
+                  <div
+                    style={{
+                      padding: '12px 6px',
+                      borderRadius: '12px',
+                      background: 'rgba(240, 253, 244, 0.95)',
+                      border: '1px solid rgba(34, 197, 94, 0.35)',
+                      boxShadow: '0 2px 6px rgba(34, 197, 94, 0.08)',
+                    }}
+                  >
+                    <div style={{ fontSize: '22px', fontWeight: 800, color: '#15803d' }}>
                       {results.stats.safe}
                     </div>
-                    <div style={{ fontSize: '11px', color: '#86efac' }}>PQC Safe</div>
+                    <div style={{ fontSize: '11px', color: '#166534', fontWeight: 600 }}>PQC Safe</div>
                   </div>
                 </div>
               </div>
@@ -3201,14 +3293,17 @@ export function CbomScannerModal() {
                           display: 'inline-flex',
                           alignItems: 'center',
                           gap: '6px',
-                          padding: '7px 14px',
+                          padding: '8px 15px',
                           borderRadius: '8px',
                           fontSize: '13px',
-                          fontWeight: 500,
+                          fontWeight: isActive ? 650 : 500,
                           cursor: 'pointer',
-                          background: isActive ? 'rgba(241, 216, 148, 0.16)' : 'rgba(255, 255, 255, 0.04)',
-                          border: `1px solid ${isActive ? 'rgba(221, 187, 110, 0.45)' : 'rgba(255, 255, 255, 0.08)'}`,
-                          color: isActive ? 'var(--gold-soft)' : 'rgba(245, 240, 232, 0.75)',
+                          background: isActive
+                            ? 'linear-gradient(180deg, #ede3cf 0%, #e2d4b8 100%)'
+                            : 'rgba(255, 255, 255, 0.05)',
+                          border: `1px solid ${isActive ? '#c49a45' : 'rgba(255, 255, 255, 0.12)'}`,
+                          color: isActive ? '#0e1b36' : 'rgba(245, 240, 232, 0.8)',
+                          boxShadow: isActive ? '0 2px 8px rgba(0, 0, 0, 0.15)' : 'none',
                           transition: 'all 0.2s',
                         }}
                       >
@@ -3242,15 +3337,16 @@ export function CbomScannerModal() {
                 </div>
               </div>
 
-              {/* ── TAB 1: CBOM TABLE (INSPECT-PROOF BRAINLY/QUORA LOCK) ── */}
+              {/* ── TAB 1: CBOM TABLE (BRAND GUIDELINES CREME SURFACE) ── */}
               {activeTab === 'cbom' && (
                 <div
                   style={{
                     position: 'relative',
-                    borderRadius: '14px',
-                    border: '1px solid rgba(221, 187, 110, 0.2)',
+                    borderRadius: '16px',
+                    border: '1px solid rgba(196, 154, 69, 0.45)',
                     overflow: 'hidden',
-                    background: 'rgba(0, 0, 0, 0.3)',
+                    background: 'linear-gradient(180deg, #fbf7ee 0%, #ede3cf 100%)',
+                    boxShadow: '0 18px 40px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.85)',
                   }}
                 >
                   {/* Authenticated Full Access Banner */}
@@ -3260,21 +3356,21 @@ export function CbomScannerModal() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        padding: '10px 18px',
-                        background: 'rgba(34, 197, 94, 0.08)',
-                        borderBottom: '1px solid rgba(34, 197, 94, 0.25)',
+                        padding: '11px 20px',
+                        background: 'rgba(22, 163, 74, 0.12)',
+                        borderBottom: '1px solid rgba(22, 163, 74, 0.25)',
                         fontSize: '12.5px',
-                        color: '#86efac',
+                        color: '#15803d',
                         flexWrap: 'wrap',
                         gap: '8px',
                       }}
                     >
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontWeight: 600 }}>
-                        <CheckCircle2 size={15} />
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontWeight: 700 }}>
+                        <CheckCircle2 size={16} />
                         Full Enterprise Inventory Unlocked ({results.cbom.length} Cryptographic Assets)
                       </span>
-                      <span style={{ fontSize: '11.5px', color: 'rgba(245, 240, 232, 0.7)' }}>
-                        Authenticated as <strong style={{ color: '#ffffff' }}>{profile.email}</strong>
+                      <span style={{ fontSize: '11.5px', color: '#4e5774', fontWeight: 500 }}>
+                        Authenticated as <strong style={{ color: '#0e1b36' }}>{profile.email}</strong>
                         {profile.company ? ` (${profile.company})` : ''}
                       </span>
                     </div>
@@ -3285,15 +3381,15 @@ export function CbomScannerModal() {
                       <thead>
                         <tr
                           style={{
-                            background: 'rgba(0, 0, 0, 0.45)',
-                            borderBottom: '1px solid rgba(221, 187, 110, 0.25)',
+                            background: 'linear-gradient(180deg, #ede3cf 0%, #e2d4b8 100%)',
+                            borderBottom: '2px solid rgba(196, 154, 69, 0.45)',
                           }}
                         >
-                          <th style={{ padding: '12px 16px', color: 'var(--gold-soft)', fontWeight: 600 }}>Asset Name</th>
-                          <th style={{ padding: '12px 16px', color: 'var(--gold-soft)', fontWeight: 600 }}>Active Primitive</th>
-                          <th style={{ padding: '12px 16px', color: 'var(--gold-soft)', fontWeight: 600 }}>Security Function</th>
-                          <th style={{ padding: '12px 16px', color: 'var(--gold-soft)', fontWeight: 600 }}>Verdict</th>
-                          <th style={{ padding: '12px 16px', color: 'var(--gold-soft)', fontWeight: 600 }}>NIST Replacement</th>
+                          <th style={{ padding: '13px 18px', color: '#6b4d13', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', fontSize: '12px' }}>Asset Name</th>
+                          <th style={{ padding: '13px 18px', color: '#6b4d13', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', fontSize: '12px' }}>Active Primitive</th>
+                          <th style={{ padding: '13px 18px', color: '#6b4d13', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', fontSize: '12px' }}>Security Function</th>
+                          <th style={{ padding: '13px 18px', color: '#6b4d13', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', fontSize: '12px' }}>Verdict</th>
+                          <th style={{ padding: '13px 18px', color: '#6b4d13', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', fontSize: '12px' }}>NIST Replacement</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -3302,24 +3398,24 @@ export function CbomScannerModal() {
                           <tr
                             key={`real-head-${i}`}
                             style={{
-                              borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
-                              background: i % 2 === 1 ? 'rgba(255, 255, 255, 0.02)' : 'transparent',
+                              borderBottom: '1px solid rgba(227, 214, 187, 0.85)',
+                              background: i % 2 === 1 ? 'rgba(253, 250, 243, 0.95)' : '#ffffff',
                             }}
                           >
-                            <td style={{ padding: '12px 16px', color: '#ffffff', fontWeight: 500 }}>
+                            <td style={{ padding: '13px 18px', color: '#0e1b36', fontWeight: 650 }}>
                               {row.asset}
                             </td>
-                            <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.85)', fontFamily: 'var(--font-sans)', fontSize: '13px' }}>
+                            <td style={{ padding: '13px 18px', color: '#2b3452', fontFamily: 'monospace', fontSize: '12.5px' }}>
                               {row.primitive}
                             </td>
-                            <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.7)' }}>
+                            <td style={{ padding: '13px 18px', color: '#4e5774' }}>
                               {row.purpose}
                             </td>
-                            <td style={{ padding: '12px 16px' }}>
+                            <td style={{ padding: '13px 18px' }}>
                               <span
                                 style={{
                                   display: 'inline-block',
-                                  padding: '2px 8px',
+                                  padding: '2px 9px',
                                   borderRadius: '999px',
                                   fontSize: '11px',
                                   fontWeight: 700,
@@ -3327,23 +3423,23 @@ export function CbomScannerModal() {
                                   letterSpacing: '0.04em',
                                   background:
                                     row.verdict === 'broken'
-                                      ? 'rgba(239, 68, 68, 0.18)'
+                                      ? '#fee2e2'
                                       : row.verdict === 'weak'
-                                        ? 'rgba(245, 158, 11, 0.18)'
-                                        : 'rgba(34, 197, 94, 0.18)',
+                                        ? '#fef3c7'
+                                        : '#dcfce7',
                                   border: `1px solid ${
                                     row.verdict === 'broken'
-                                      ? 'rgba(239, 68, 68, 0.45)'
+                                      ? '#f87171'
                                       : row.verdict === 'weak'
-                                        ? 'rgba(245, 158, 11, 0.45)'
-                                        : 'rgba(34, 197, 94, 0.45)'
+                                        ? '#f59e0b'
+                                        : '#4ade80'
                                   }`,
                                   color:
                                     row.verdict === 'broken'
-                                      ? '#fca5a5'
+                                      ? '#991b1b'
                                       : row.verdict === 'weak'
-                                        ? '#fcd34d'
-                                        : '#86efac',
+                                        ? '#92400e'
+                                        : '#166534',
                                 }}
                               >
                                 {row.verdict === 'broken'
@@ -3353,7 +3449,7 @@ export function CbomScannerModal() {
                                     : 'Quantum-Safe'}
                               </span>
                             </td>
-                            <td style={{ padding: '12px 16px', color: 'var(--gold-soft)', fontWeight: 500 }}>
+                            <td style={{ padding: '13px 18px', color: '#854d0e', fontWeight: 650 }}>
                               {row.replacement}
                             </td>
                           </tr>
@@ -3393,39 +3489,39 @@ export function CbomScannerModal() {
                           <tr
                             key={`locked-${i}`}
                             style={{
-                              borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
-                              background: (i + 2) % 2 === 1 ? 'rgba(255, 255, 255, 0.02)' : 'transparent',
+                              borderBottom: '1px solid rgba(227, 214, 187, 0.45)',
+                              background: (i + 2) % 2 === 1 ? 'rgba(253, 250, 243, 0.65)' : 'rgba(255, 255, 255, 0.5)',
                               filter: 'blur(5px)',
                               WebkitFilter: 'blur(5px)',
-                              opacity: 0.35,
+                              opacity: 0.45,
                               userSelect: 'none',
                               WebkitUserSelect: 'none',
                               pointerEvents: 'none',
                             }}
                           >
-                            <td style={{ padding: '12px 16px', color: '#ffffff', fontWeight: 500 }}>{row.asset}</td>
-                            <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.85)', fontFamily: 'var(--font-sans)', fontSize: '13px' }}>
+                            <td style={{ padding: '13px 18px', color: '#0e1b36', fontWeight: 500 }}>{row.asset}</td>
+                            <td style={{ padding: '13px 18px', color: '#2b3452', fontFamily: 'monospace', fontSize: '12.5px' }}>
                               {row.primitive}
                             </td>
-                            <td style={{ padding: '12px 16px', color: 'rgba(245, 240, 232, 0.7)' }}>{row.purpose}</td>
-                            <td style={{ padding: '12px 16px' }}>
+                            <td style={{ padding: '13px 18px', color: '#4e5774' }}>{row.purpose}</td>
+                            <td style={{ padding: '13px 18px' }}>
                               <span
                                 style={{
                                   display: 'inline-block',
-                                  padding: '2px 8px',
+                                  padding: '2px 9px',
                                   borderRadius: '999px',
                                   fontSize: '11px',
                                   fontWeight: 700,
                                   textTransform: 'uppercase',
-                                  background: 'rgba(239, 68, 68, 0.18)',
-                                  border: '1px solid rgba(239, 68, 68, 0.45)',
-                                  color: '#fca5a5',
+                                  background: '#fee2e2',
+                                  border: '1px solid #f87171',
+                                  color: '#991b1b',
                                 }}
                               >
                                 PROTECTED
                               </span>
                             </td>
-                            <td style={{ padding: '12px 16px', color: 'var(--gold-soft)', fontWeight: 500 }}>
+                            <td style={{ padding: '13px 18px', color: '#854d0e', fontWeight: 500 }}>
                               {row.replacement}
                             </td>
                           </tr>
@@ -3434,7 +3530,7 @@ export function CbomScannerModal() {
                     </table>
                   </div>
 
-                  {/* ── QUORA / BRAINLY FROSTED GLASS OVERLAY ── */}
+                  {/* ── QUORA / BRAINLY FROSTED CREME GLASS OVERLAY ── */}
                   <div
                     style={{
                       position: 'relative',
@@ -3444,30 +3540,30 @@ export function CbomScannerModal() {
                       flexDirection: 'column',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      padding: '36px 20px 32px',
+                      padding: '38px 20px 34px',
                       background:
-                        'linear-gradient(180deg, rgba(12, 10, 8, 0.2) 0%, rgba(14, 11, 8, 0.94) 30%, rgba(10, 8, 6, 0.98) 100%)',
-                      backdropFilter: 'blur(10px) saturate(180%)',
-                      WebkitBackdropFilter: 'blur(10px) saturate(180%)',
+                        'linear-gradient(180deg, rgba(250, 246, 238, 0.72) 0%, rgba(237, 227, 207, 0.96) 28%, #ede3cf 100%)',
+                      backdropFilter: 'blur(12px) saturate(180%)',
+                      WebkitBackdropFilter: 'blur(12px) saturate(180%)',
                       textAlign: 'center',
-                      borderTop: '1px solid rgba(221, 187, 110, 0.28)',
+                      borderTop: '1px solid rgba(196, 154, 69, 0.45)',
                     }}
                   >
                     {!isLoggedIn ? (
                       <>
                         <div
                           style={{
-                            width: '46px',
-                            height: '46px',
+                            width: '48px',
+                            height: '48px',
                             borderRadius: '50%',
-                            background: 'rgba(221, 187, 110, 0.14)',
-                            border: '1px solid rgba(221, 187, 110, 0.45)',
+                            background: '#ffffff',
+                            border: '1px solid rgba(196, 154, 69, 0.45)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            color: 'var(--gold-soft)',
+                            color: '#785419',
                             marginBottom: '14px',
-                            boxShadow: '0 0 24px rgba(221, 187, 110, 0.2)',
+                            boxShadow: '0 4px 18px rgba(120, 84, 25, 0.18)',
                           }}
                         >
                           <Lock size={20} />
@@ -3478,9 +3574,9 @@ export function CbomScannerModal() {
                             display: 'inline-block',
                             padding: '3px 12px',
                             borderRadius: '999px',
-                            background: 'rgba(221, 187, 110, 0.12)',
-                            border: '1px solid rgba(221, 187, 110, 0.35)',
-                            color: 'var(--gold-soft)',
+                            background: 'rgba(120, 84, 25, 0.1)',
+                            border: '1px solid rgba(120, 84, 25, 0.3)',
+                            color: '#785419',
                             fontSize: '11px',
                             fontWeight: 700,
                             letterSpacing: '0.06em',
@@ -3494,9 +3590,9 @@ export function CbomScannerModal() {
                         <h4
                           style={{
                             margin: '0 0 8px 0',
-                            fontSize: '19px',
-                            fontWeight: 650,
-                            color: '#ffffff',
+                            fontSize: '20px',
+                            fontWeight: 700,
+                            color: '#0e1b36',
                             fontFamily: 'var(--font-sans)',
                             letterSpacing: '-0.01em',
                           }}
@@ -3507,8 +3603,8 @@ export function CbomScannerModal() {
                         <p
                           style={{
                             margin: '0 0 20px 0',
-                            fontSize: '13px',
-                            color: 'rgba(245, 240, 232, 0.75)',
+                            fontSize: '13.5px',
+                            color: '#3b4358',
                             maxWidth: '520px',
                             lineHeight: 1.55,
                           }}
@@ -3527,7 +3623,7 @@ export function CbomScannerModal() {
                             display: 'inline-flex',
                             alignItems: 'center',
                             gap: '8px',
-                            boxShadow: '0 8px 24px rgba(221, 187, 110, 0.25)',
+                            boxShadow: '0 8px 24px rgba(120, 84, 25, 0.25)',
                             cursor: 'pointer',
                           }}
                         >
@@ -3540,7 +3636,8 @@ export function CbomScannerModal() {
                             display: 'block',
                             marginTop: '12px',
                             fontSize: '11px',
-                            color: 'rgba(245, 240, 232, 0.5)',
+                            color: '#64748b',
+                            fontWeight: 500,
                           }}
                         >
                           Free Instant Delivery · Official Corporate Verification
@@ -3550,17 +3647,17 @@ export function CbomScannerModal() {
                       <>
                         <div
                           style={{
-                            width: '46px',
-                            height: '46px',
+                            width: '48px',
+                            height: '48px',
                             borderRadius: '50%',
-                            background: 'rgba(34, 197, 94, 0.14)',
+                            background: '#ffffff',
                             border: '1px solid rgba(34, 197, 94, 0.5)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            color: '#86efac',
+                            color: '#15803d',
                             marginBottom: '14px',
-                            boxShadow: '0 0 24px rgba(34, 197, 94, 0.25)',
+                            boxShadow: '0 4px 18px rgba(34, 197, 94, 0.2)',
                           }}
                         >
                           <CheckCircle2 size={22} />
@@ -3571,9 +3668,9 @@ export function CbomScannerModal() {
                             display: 'inline-block',
                             padding: '3px 12px',
                             borderRadius: '999px',
-                            background: 'rgba(34, 197, 94, 0.12)',
-                            border: '1px solid rgba(34, 197, 94, 0.35)',
-                            color: '#86efac',
+                            background: 'rgba(22, 163, 74, 0.12)',
+                            border: '1px solid rgba(22, 163, 74, 0.35)',
+                            color: '#15803d',
                             fontSize: '11px',
                             fontWeight: 700,
                             letterSpacing: '0.06em',
@@ -3587,9 +3684,9 @@ export function CbomScannerModal() {
                         <h4
                           style={{
                             margin: '0 0 8px 0',
-                            fontSize: '19px',
-                            fontWeight: 650,
-                            color: '#ffffff',
+                            fontSize: '20px',
+                            fontWeight: 700,
+                            color: '#0e1b36',
                             fontFamily: 'var(--font-sans)',
                             letterSpacing: '-0.01em',
                           }}
@@ -3600,13 +3697,13 @@ export function CbomScannerModal() {
                         <p
                           style={{
                             margin: '0 0 20px 0',
-                            fontSize: '13px',
-                            color: 'rgba(245, 240, 232, 0.85)',
+                            fontSize: '13.5px',
+                            color: '#3b4358',
                             maxWidth: '540px',
                             lineHeight: 1.6,
                           }}
                         >
-                          The complete Cryptographic Bill of Materials (all {results.cbom.length} detected primitives), Shor &amp; Grover quantum exposure matrices, and official NIST FIPS 203/204/205 transition roadmap have been dispatched directly to <strong style={{ color: '#ffffff' }}>{profile.email || pdfLeadForm.email}</strong>.
+                          The complete Cryptographic Bill of Materials (all {results.cbom.length} detected primitives), Shor &amp; Grover quantum exposure matrices, and official NIST FIPS 203/204/205 transition roadmap have been dispatched directly to <strong style={{ color: '#0e1b36' }}>{profile.email || pdfLeadForm.email}</strong>.
                         </p>
 
                         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -3628,7 +3725,6 @@ export function CbomScannerModal() {
                             <Mail size={15} />
                             {isSendingReportEmail ? 'Dispatching...' : 'Resend Report to Email'}
                           </button>
-
                         </div>
                       </>
                     )}
@@ -3647,11 +3743,11 @@ export function CbomScannerModal() {
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         padding: '10px 18px',
-                        background: 'rgba(34, 197, 94, 0.08)',
-                        border: '1px solid rgba(34, 197, 94, 0.25)',
+                        background: 'rgba(240, 253, 244, 0.95)',
+                        border: '1px solid rgba(34, 197, 94, 0.45)',
                         borderRadius: '12px',
                         fontSize: '12.5px',
-                        color: '#86efac',
+                        color: '#15803d',
                         flexWrap: 'wrap',
                         gap: '8px',
                       }}
@@ -3660,8 +3756,8 @@ export function CbomScannerModal() {
                         <CheckCircle2 size={15} />
                         Full Vulnerability Audit Unlocked ({results.findings.length} Threat Vectors)
                       </span>
-                      <span style={{ fontSize: '11.5px', color: 'rgba(245, 240, 232, 0.7)' }}>
-                        Authenticated as <strong style={{ color: '#ffffff' }}>{profile.email}</strong>
+                      <span style={{ fontSize: '11.5px', color: '#2b3452' }}>
+                        Authenticated as <strong style={{ color: '#0e1b36' }}>{profile.email}</strong>
                       </span>
                     </div>
                   )}
@@ -3669,16 +3765,17 @@ export function CbomScannerModal() {
                   {/* Real First 2 Findings (Always Visible) */}
                   {results.findings.slice(0, 2).map((f, i) => {
                     const sevColor =
-                      f.sev === 'critical' ? '#ef4444' : f.sev === 'high' ? '#f97316' : f.sev === 'medium' ? '#f59e0b' : '#94a3b8';
+                      f.sev === 'critical' ? '#ef4444' : f.sev === 'high' ? '#f97316' : f.sev === 'medium' ? '#d97706' : '#64748b';
                     return (
                       <div
                         key={`real-f-${i}`}
                         style={{
                           padding: '16px 20px',
                           borderRadius: '12px',
-                          background: 'rgba(0, 0, 0, 0.32)',
-                          border: '1px solid rgba(221, 187, 110, 0.2)',
+                          background: 'linear-gradient(180deg, #fbf7ee 0%, #ede3cf 100%)',
+                          border: '1px solid rgba(196, 154, 69, 0.45)',
                           borderLeft: `4px solid ${sevColor}`,
+                          boxShadow: '0 4px 14px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.85)',
                         }}
                       >
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
@@ -3689,22 +3786,22 @@ export function CbomScannerModal() {
                               fontSize: '10.5px',
                               fontWeight: 700,
                               textTransform: 'uppercase',
-                              background: `${sevColor}22`,
+                              background: f.sev === 'critical' ? '#fee2e2' : f.sev === 'high' ? '#ffedd5' : f.sev === 'medium' ? '#fef3c7' : '#f1f5f9',
                               color: sevColor,
                             }}
                           >
                             {f.sev}
                           </span>
-                          <h4 style={{ margin: 0, fontSize: '15px', color: '#ffffff', fontWeight: 600 }}>{f.title}</h4>
+                          <h4 style={{ margin: 0, fontSize: '15px', color: '#0e1b36', fontWeight: 650 }}>{f.title}</h4>
                         </div>
-                        <p style={{ margin: '0 0 10px 0', fontSize: '13.5px', color: 'rgba(245, 240, 232, 0.8)', lineHeight: 1.5 }}>
+                        <p style={{ margin: '0 0 10px 0', fontSize: '13.5px', color: '#2b3452', lineHeight: 1.5 }}>
                           {f.detail}
                         </p>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px', fontSize: '12px' }}>
-                          <span style={{ color: 'var(--gold-soft)' }}>
+                          <span style={{ color: '#785419' }}>
                             <strong>Action:</strong> {f.fix}
                           </span>
-                          <span style={{ color: 'rgba(245, 240, 232, 0.5)', fontFamily: 'var(--font-sans)', fontSize: '11.5px' }}>
+                          <span style={{ color: '#64748b', fontFamily: 'var(--font-sans)', fontSize: '11.5px' }}>
                             Standard: {f.std}
                           </span>
                         </div>
@@ -3748,18 +3845,18 @@ export function CbomScannerModal() {
                             style={{
                               padding: '16px 20px',
                               borderRadius: '12px',
-                              background: 'rgba(0, 0, 0, 0.32)',
-                              border: '1px solid rgba(221, 187, 110, 0.15)',
+                              background: 'linear-gradient(180deg, #fbf7ee 0%, #ede3cf 100%)',
+                              border: '1px solid rgba(196, 154, 69, 0.35)',
                               borderLeft: '4px solid #f97316',
                             }}
                           >
                             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
-                              <span style={{ padding: '2px 8px', borderRadius: '4px', fontSize: '10.5px', fontWeight: 700, textTransform: 'uppercase', background: 'rgba(249, 115, 22, 0.18)', color: '#fdba74' }}>
+                              <span style={{ padding: '2px 8px', borderRadius: '4px', fontSize: '10.5px', fontWeight: 700, textTransform: 'uppercase', background: '#ffedd5', color: '#ea580c' }}>
                                 PROTECTED
                               </span>
-                              <h4 style={{ margin: 0, fontSize: '15px', color: '#ffffff', fontWeight: 600 }}>{df.title}</h4>
+                              <h4 style={{ margin: 0, fontSize: '15px', color: '#0e1b36', fontWeight: 600 }}>{df.title}</h4>
                             </div>
-                            <p style={{ margin: '0 0 10px 0', fontSize: '13.5px', color: 'rgba(245, 240, 232, 0.8)', lineHeight: 1.5 }}>
+                            <p style={{ margin: '0 0 10px 0', fontSize: '13.5px', color: '#2b3452', lineHeight: 1.5 }}>
                               {df.detail}
                             </p>
                           </div>
@@ -3777,12 +3874,13 @@ export function CbomScannerModal() {
                           alignItems: 'center',
                           justifyContent: 'center',
                           padding: '32px 20px 28px',
-                          background: 'linear-gradient(180deg, rgba(12, 10, 8, 0.15) 0%, rgba(14, 11, 8, 0.94) 30%, rgba(10, 8, 6, 0.98) 100%)',
+                          background: 'linear-gradient(180deg, rgba(250, 246, 238, 0.72) 0%, rgba(237, 227, 207, 0.96) 28%, #ede3cf 100%)',
                           backdropFilter: 'blur(10px) saturate(180%)',
                           WebkitBackdropFilter: 'blur(10px) saturate(180%)',
                           textAlign: 'center',
                           borderRadius: '12px',
-                          borderTop: '1px solid rgba(221, 187, 110, 0.28)',
+                          borderTop: '1px solid rgba(196, 154, 69, 0.45)',
+                          boxShadow: '0 12px 30px rgba(0, 0, 0, 0.15)',
                         }}
                       >
                         {!isLoggedIn ? (
@@ -3792,14 +3890,14 @@ export function CbomScannerModal() {
                                 width: '44px',
                                 height: '44px',
                                 borderRadius: '50%',
-                                background: 'rgba(221, 187, 110, 0.14)',
-                                border: '1px solid rgba(221, 187, 110, 0.45)',
+                                background: '#ffffff',
+                                border: '1px solid rgba(196, 154, 69, 0.45)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                color: 'var(--gold-soft)',
+                                color: '#785419',
                                 marginBottom: '12px',
-                                boxShadow: '0 0 24px rgba(221, 187, 110, 0.2)',
+                                boxShadow: '0 4px 14px rgba(196, 154, 69, 0.22)',
                               }}
                             >
                               <Lock size={20} />
@@ -3810,9 +3908,9 @@ export function CbomScannerModal() {
                                 display: 'inline-block',
                                 padding: '3px 12px',
                                 borderRadius: '999px',
-                                background: 'rgba(221, 187, 110, 0.12)',
-                                border: '1px solid rgba(221, 187, 110, 0.35)',
-                                color: 'var(--gold-soft)',
+                                background: 'rgba(196, 154, 69, 0.16)',
+                                border: '1px solid rgba(196, 154, 69, 0.45)',
+                                color: '#6b4d13',
                                 fontSize: '11px',
                                 fontWeight: 700,
                                 letterSpacing: '0.06em',
@@ -3828,7 +3926,7 @@ export function CbomScannerModal() {
                                 margin: '0 0 8px 0',
                                 fontSize: '19px',
                                 fontWeight: 650,
-                                color: '#ffffff',
+                                color: '#0e1b36',
                                 fontFamily: 'var(--font-sans)',
                                 letterSpacing: '-0.01em',
                               }}
@@ -3840,7 +3938,7 @@ export function CbomScannerModal() {
                               style={{
                                 margin: '0 0 18px 0',
                                 fontSize: '13px',
-                                color: 'rgba(245, 240, 232, 0.75)',
+                                color: '#3b4358',
                                 maxWidth: '520px',
                                 lineHeight: 1.55,
                               }}
@@ -3859,7 +3957,7 @@ export function CbomScannerModal() {
                                 display: 'inline-flex',
                                 alignItems: 'center',
                                 gap: '8px',
-                                boxShadow: '0 8px 24px rgba(221, 187, 110, 0.25)',
+                                boxShadow: '0 8px 24px rgba(196, 154, 69, 0.25)',
                                 cursor: 'pointer',
                               }}
                             >
@@ -3874,14 +3972,14 @@ export function CbomScannerModal() {
                                 width: '44px',
                                 height: '44px',
                                 borderRadius: '50%',
-                                background: 'rgba(34, 197, 94, 0.14)',
+                                background: '#ffffff',
                                 border: '1px solid rgba(34, 197, 94, 0.5)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                color: '#86efac',
+                                color: '#15803d',
                                 marginBottom: '12px',
-                                boxShadow: '0 0 24px rgba(34, 197, 94, 0.25)',
+                                boxShadow: '0 4px 14px rgba(34, 197, 94, 0.25)',
                               }}
                             >
                               <CheckCircle2 size={22} />
@@ -3892,9 +3990,9 @@ export function CbomScannerModal() {
                                 display: 'inline-block',
                                 padding: '3px 12px',
                                 borderRadius: '999px',
-                                background: 'rgba(34, 197, 94, 0.12)',
-                                border: '1px solid rgba(34, 197, 94, 0.35)',
-                                color: '#86efac',
+                                background: 'rgba(34, 197, 94, 0.14)',
+                                border: '1px solid rgba(34, 197, 94, 0.4)',
+                                color: '#15803d',
                                 fontSize: '11px',
                                 fontWeight: 700,
                                 letterSpacing: '0.06em',
@@ -3910,7 +4008,7 @@ export function CbomScannerModal() {
                                 margin: '0 0 8px 0',
                                 fontSize: '19px',
                                 fontWeight: 650,
-                                color: '#ffffff',
+                                color: '#0e1b36',
                                 fontFamily: 'var(--font-sans)',
                                 letterSpacing: '-0.01em',
                               }}
@@ -3922,12 +4020,12 @@ export function CbomScannerModal() {
                               style={{
                                 margin: '0 0 16px 0',
                                 fontSize: '13px',
-                                color: 'rgba(245, 240, 232, 0.85)',
+                                color: '#3b4358',
                                 maxWidth: '520px',
                                 lineHeight: 1.55,
                               }}
                             >
-                              All {results.findings.length} detected vulnerability threat vectors, harvest-now-decrypt-later attack exposure, and NIST migration actions were included in your official assessment report emailed to <strong style={{ color: '#ffffff' }}>{profile.email || pdfLeadForm.email}</strong>.
+                              All {results.findings.length} detected vulnerability threat vectors, harvest-now-decrypt-later attack exposure, and NIST migration actions were included in your official assessment report emailed to <strong style={{ color: '#0e1b36' }}>{profile.email || pdfLeadForm.email}</strong>.
                             </p>
 
                             <button
@@ -3968,11 +4066,11 @@ export function CbomScannerModal() {
                           alignItems: 'center',
                           justifyContent: 'space-between',
                           padding: '10px 18px',
-                          background: 'rgba(34, 197, 94, 0.08)',
-                          border: '1px solid rgba(34, 197, 94, 0.25)',
+                          background: 'rgba(240, 253, 244, 0.95)',
+                          border: '1px solid rgba(34, 197, 94, 0.45)',
                           borderRadius: '12px',
                           fontSize: '12.5px',
-                          color: '#86efac',
+                          color: '#15803d',
                           flexWrap: 'wrap',
                           gap: '8px',
                         }}
@@ -3981,8 +4079,8 @@ export function CbomScannerModal() {
                           <CheckCircle2 size={15} />
                           NIST Migration Roadmap Unlocked ({results.plan.length} Phased Milestones)
                         </span>
-                        <span style={{ fontSize: '11.5px', color: 'rgba(245, 240, 232, 0.7)' }}>
-                          Authenticated as <strong style={{ color: '#ffffff' }}>{profile.email}</strong>
+                        <span style={{ fontSize: '11.5px', color: '#2b3452' }}>
+                          Authenticated as <strong style={{ color: '#0e1b36' }}>{profile.email}</strong>
                         </span>
                       </div>
                       {results.plan.map((p, i) => (
@@ -3991,8 +4089,9 @@ export function CbomScannerModal() {
                           style={{
                             padding: '18px 20px',
                             borderRadius: '14px',
-                            background: 'rgba(0, 0, 0, 0.3)',
-                            border: '1px solid rgba(221, 187, 110, 0.2)',
+                            background: 'linear-gradient(180deg, #fbf7ee 0%, #ede3cf 100%)',
+                            border: '1px solid rgba(196, 154, 69, 0.45)',
+                            boxShadow: '0 4px 14px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.85)',
                           }}
                         >
                           <div
@@ -4003,15 +4102,16 @@ export function CbomScannerModal() {
                               fontSize: '11px',
                               fontWeight: 700,
                               textTransform: 'uppercase',
-                              background: 'rgba(241, 216, 148, 0.12)',
-                              color: 'var(--gold-soft)',
+                              background: 'rgba(196, 154, 69, 0.16)',
+                              border: '1px solid rgba(196, 154, 69, 0.35)',
+                              color: '#6b4d13',
                               marginBottom: '8px',
                             }}
                           >
                             {p.phase}
                           </div>
-                          <h4 style={{ margin: '0 0 6px 0', fontSize: '16px', color: '#ffffff', fontWeight: 600 }}>{p.title}</h4>
-                          <p style={{ margin: 0, fontSize: '13.5px', color: 'rgba(245, 240, 232, 0.8)', lineHeight: 1.5 }}>
+                          <h4 style={{ margin: '0 0 6px 0', fontSize: '16px', color: '#0e1b36', fontWeight: 650 }}>{p.title}</h4>
+                          <p style={{ margin: 0, fontSize: '13.5px', color: '#2b3452', lineHeight: 1.5 }}>
                             {p.desc}
                           </p>
                         </div>
@@ -4024,9 +4124,10 @@ export function CbomScannerModal() {
                         position: 'relative',
                         borderRadius: '16px',
                         overflow: 'hidden',
-                        border: '1px solid rgba(221, 187, 110, 0.25)',
-                        background: 'rgba(0, 0, 0, 0.35)',
+                        border: '1px solid rgba(196, 154, 69, 0.45)',
+                        background: 'linear-gradient(180deg, #fbf7ee 0%, #ede3cf 100%)',
                         minHeight: '380px',
+                        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
                       }}
                     >
                       {/* Blurred Dummy Cards (Inspect-Proof: real plan is NOT in DOM) */}
@@ -4070,8 +4171,8 @@ export function CbomScannerModal() {
                             style={{
                               padding: '18px 20px',
                               borderRadius: '14px',
-                              background: 'rgba(0, 0, 0, 0.3)',
-                              border: '1px solid rgba(221, 187, 110, 0.15)',
+                              background: '#ffffff',
+                              border: '1px solid rgba(196, 154, 69, 0.25)',
                             }}
                           >
                             <div
@@ -4082,15 +4183,15 @@ export function CbomScannerModal() {
                                 fontSize: '11px',
                                 fontWeight: 700,
                                 textTransform: 'uppercase',
-                                background: 'rgba(241, 216, 148, 0.12)',
-                                color: 'var(--gold-soft)',
+                                background: 'rgba(196, 154, 69, 0.12)',
+                                color: '#6b4d13',
                                 marginBottom: '8px',
                               }}
                             >
                               {p.phase}
                             </div>
-                            <h4 style={{ margin: '0 0 6px 0', fontSize: '16px', color: '#ffffff', fontWeight: 600 }}>{p.title}</h4>
-                            <p style={{ margin: 0, fontSize: '13.5px', color: 'rgba(245, 240, 232, 0.8)', lineHeight: 1.5 }}>
+                            <h4 style={{ margin: '0 0 6px 0', fontSize: '16px', color: '#0e1b36', fontWeight: 600 }}>{p.title}</h4>
+                            <p style={{ margin: 0, fontSize: '13.5px', color: '#2b3452', lineHeight: 1.5 }}>
                               {p.desc}
                             </p>
                           </div>
@@ -4107,7 +4208,7 @@ export function CbomScannerModal() {
                           alignItems: 'center',
                           justifyContent: 'center',
                           padding: '36px 24px',
-                          background: 'radial-gradient(ellipse 70% 65% at 50% 50%, rgba(14, 11, 8, 0.88), rgba(8, 7, 5, 0.96))',
+                          background: 'radial-gradient(ellipse 70% 65% at 50% 50%, rgba(251, 247, 238, 0.92), rgba(237, 227, 207, 0.98))',
                           backdropFilter: 'blur(10px) saturate(180%)',
                           WebkitBackdropFilter: 'blur(10px) saturate(180%)',
                           textAlign: 'center',
@@ -4118,14 +4219,14 @@ export function CbomScannerModal() {
                             width: '48px',
                             height: '48px',
                             borderRadius: '50%',
-                            background: 'rgba(221, 187, 110, 0.14)',
-                            border: '1px solid rgba(221, 187, 110, 0.45)',
+                            background: '#ffffff',
+                            border: '1px solid rgba(196, 154, 69, 0.45)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            color: 'var(--gold-soft)',
+                            color: '#785419',
                             marginBottom: '14px',
-                            boxShadow: '0 0 24px rgba(221, 187, 110, 0.25)',
+                            boxShadow: '0 4px 16px rgba(196, 154, 69, 0.25)',
                           }}
                         >
                           <Lock size={22} />
@@ -4136,9 +4237,9 @@ export function CbomScannerModal() {
                             display: 'inline-block',
                             padding: '3px 12px',
                             borderRadius: '999px',
-                            background: 'rgba(221, 187, 110, 0.12)',
-                            border: '1px solid rgba(221, 187, 110, 0.35)',
-                            color: 'var(--gold-soft)',
+                            background: 'rgba(196, 154, 69, 0.16)',
+                            border: '1px solid rgba(196, 154, 69, 0.45)',
+                            color: '#6b4d13',
                             fontSize: '11px',
                             fontWeight: 700,
                             letterSpacing: '0.06em',
@@ -4154,7 +4255,7 @@ export function CbomScannerModal() {
                             margin: '0 0 8px 0',
                             fontSize: '19px',
                             fontWeight: 650,
-                            color: '#ffffff',
+                            color: '#0e1b36',
                             fontFamily: 'var(--font-sans)',
                             letterSpacing: '-0.01em',
                           }}
@@ -4166,7 +4267,7 @@ export function CbomScannerModal() {
                           style={{
                             margin: '0 0 22px 0',
                             fontSize: '13.5px',
-                            color: 'rgba(245, 240, 232, 0.75)',
+                            color: '#3b4358',
                             maxWidth: '520px',
                             lineHeight: 1.55,
                           }}
@@ -4185,7 +4286,7 @@ export function CbomScannerModal() {
                             display: 'inline-flex',
                             alignItems: 'center',
                             gap: '8px',
-                            boxShadow: '0 8px 24px rgba(221, 187, 110, 0.25)',
+                            boxShadow: '0 8px 24px rgba(196, 154, 69, 0.25)',
                             cursor: 'pointer',
                           }}
                         >
@@ -4198,7 +4299,7 @@ export function CbomScannerModal() {
                             display: 'block',
                             marginTop: '12px',
                             fontSize: '11px',
-                            color: 'rgba(245, 240, 232, 0.5)',
+                            color: '#64748b',
                           }}
                         >
                           Free Instant Access · Enterprise Corporate Verification
@@ -4214,9 +4315,10 @@ export function CbomScannerModal() {
                 <div
                   style={{
                     borderRadius: '14px',
-                    border: '1px solid rgba(221, 187, 110, 0.2)',
+                    border: '1px solid rgba(196, 154, 69, 0.45)',
                     overflow: 'hidden',
-                    background: 'rgba(0, 0, 0, 0.3)',
+                    background: 'linear-gradient(180deg, #fbf7ee 0%, #ede3cf 100%)',
+                    boxShadow: '0 6px 20px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.85)',
                   }}
                 >
                   <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
@@ -4225,14 +4327,14 @@ export function CbomScannerModal() {
                         <tr
                           key={i}
                           style={{
-                            borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
-                            background: i % 2 === 1 ? 'rgba(255, 255, 255, 0.02)' : 'transparent',
+                            borderBottom: '1px solid rgba(196, 154, 69, 0.18)',
+                            background: i % 2 === 1 ? 'rgba(253, 250, 243, 0.65)' : '#ffffff',
                           }}
                         >
-                          <td style={{ padding: '12px 18px', color: 'var(--gold-soft)', fontWeight: 500, width: '38%' }}>
+                          <td style={{ padding: '12px 18px', color: '#6b4d13', fontWeight: 650, width: '38%' }}>
                             {k}
                           </td>
-                          <td style={{ padding: '12px 16px', color: '#ffffff', fontFamily: 'var(--font-sans)', fontSize: '13px' }}>
+                          <td style={{ padding: '12px 16px', color: '#0e1b36', fontFamily: 'var(--font-sans)', fontSize: '13px' }}>
                             {v}
                           </td>
                         </tr>

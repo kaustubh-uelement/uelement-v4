@@ -1,9 +1,9 @@
-# Vyuh / Vyu PQC & CBOM Scanner — Agent Handoff Specification
+# Vyu / Vyu PQC & CBOM Scanner — Agent Handoff Specification
 
 ## 1. Executive Summary
-This document provides complete architectural, operational, and deployment specifications for the **Vyuh / Vyu Quantum Readiness & Cryptographic Bill of Materials (CBOM) Scanner**. 
+This document provides complete architectural, operational, and deployment specifications for the **Vyu / Vyu Quantum Readiness & Cryptographic Bill of Materials (CBOM) Scanner**. 
 
-* **Frontend**: Next.js App Router (Static Export `output: 'export'`) deployed on Cloudflare Pages (`/vyu` and `/vyuh`).
+* **Frontend**: Next.js App Router (Static Export `output: 'export'`) deployed on Cloudflare Pages (`/vyu` and `/vyu`).
 * **Backend**: Node.js 22 containerized microservice deployed on **Google Cloud Run**.
 * **Current Deployment Mode**: **Manual CLI Deploy** (Frontend auto-deploys via Cloudflare Git integration; backend does NOT auto-deploy on git push unless Cloud Build triggers are configured).
 
@@ -17,7 +17,7 @@ This document provides complete architectural, operational, and deployment speci
 | **GCP Region** | `asia-south1` (Mumbai) | Microservice location |
 | **Cloud Run Service** | `pqc-scanner` | Name of the active Cloud Run service |
 | **Live Backend URL** | `https://pqc-scanner-445288556278.asia-south1.run.app` | Target for frontend API calls |
-| **Health Endpoint** | `https://pqc-scanner-445288556278.asia-south1.run.app/health` | Returns `{"status":"ok","service":"vyuh-pqc-scanner"}` |
+| **Health Endpoint** | `https://pqc-scanner-445288556278.asia-south1.run.app/health` | Returns `{"status":"ok","service":"vyu-pqc-scanner"}` |
 | **Production Frontend** | `https://uelement.in/vyu` & `https://uelement.co/vyu` | Canonical production route is `/vyu` |
 
 ---
@@ -30,7 +30,7 @@ Set on the Cloud Run service container:
 PORT=8080
 NODE_ENV=production
 RESEND_API_KEY=re_YOUR_ACTUAL_KEY
-RESEND_FROM_EMAIL="Vyuh Security <contact@uelement.in>"
+RESEND_FROM_EMAIL="Vyu Security <contact@uelement.in>"
 ```
 * **`RESEND_API_KEY`**: Production API key from Resend (domain `uelement.in` verified in Cloudflare DNS).
 * **`RESEND_FROM_EMAIL`**: Default outgoing email address for OTP verifications.
@@ -64,7 +64,7 @@ gcloud run deploy pqc-scanner \
   --min-instances 0 \
   --max-instances 10 \
   --timeout 60s \
-  --set-env-vars RESEND_FROM_EMAIL="Vyuh Security <contact@uelement.in>"
+  --set-env-vars RESEND_FROM_EMAIL="Vyu Security <contact@uelement.in>"
 ```
 *(If `RESEND_API_KEY` is already set in Cloud Run revision settings, you do not need to pass it again; Cloud Run preserves existing secrets unless overwritten).*
 
@@ -85,7 +85,7 @@ To configure GCP to auto-deploy whenever you push to GitHub:
 
 ### 1. `GET /health`
 * **Response**: `200 OK`
-* **Body**: `{"status": "ok", "service": "vyuh-pqc-scanner", "version": "0.1.0"}`
+* **Body**: `{"status": "ok", "service": "vyu-pqc-scanner", "version": "0.1.0"}`
 
 ### 2. `POST /api/otp/send-email`
 Dispatches a cryptographically secure 6-digit verification code to the corporate email.
@@ -147,13 +147,13 @@ Executes real cryptographic inspection for website endpoints or GitHub repositor
 
 ---
 
-## 6. Frontend Stepper Flow & Business Logic (`VyuhScanner.tsx`)
+## 6. Frontend Stepper Flow & Business Logic (`VyuScanner.tsx`)
 
 1. **Step 1: Corporate Profile Gate**
    * Inputs: Full Name, Job Title, Company, Work Email (free mailboxes like `@gmail.com` rejected), Mobile Number, LinkedIn URL.
    * On Submit: Dispatches lead telemetry and triggers `/api/otp/send-email`.
 2. **Step 2: Corporate Email Verification**
-   * Prompts for the 6-digit OTP code sent from `Vyuh Security <contact@uelement.in>`.
+   * Prompts for the 6-digit OTP code sent from `Vyu Security <contact@uelement.in>`.
    * Has an option to bypass for Public URL scans, but corporate email verification is **mandatory** for GitHub repository analysis.
 3. **Step 3: Target Configuration**
    * Target input supports websites (`domain.com`, `https://...`) or GitHub repos (`owner/repo`, `https://github.com/owner/repo`).
