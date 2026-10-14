@@ -90,7 +90,7 @@ export default function AboutPage() {
               <dd>{company.cin}</dd>
             </div>
             <div>
-              <dt>Office</dt>
+              <dt>Office </dt>
               <dd>{company.address}</dd>
             </div>
             <div>
