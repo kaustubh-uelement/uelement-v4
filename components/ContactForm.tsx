@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { company } from '@/lib/site';
 import { forms, type FormKind } from '@/lib/forms';
+import { submitContactInquiry } from '@/lib/mainstay';
 
 // Posts to company.formEndpoint when it is set. Until then it opens the visitor's
 // email app with the message written out, addressed to company.email.
@@ -35,29 +36,56 @@ export function ContactForm({ kind, context }: { kind: FormKind; context?: strin
 
     setState('sending');
     try {
-      const object: Record<string, any> = Object.fromEntries(data.entries());
+      const rawEntries: Record<string, any> = Object.fromEntries(data.entries());
+
+      // 1. Dispatch to Mainstay API Gateway (contacts microservice)
+      const mainstayPromise = submitContactInquiry({
+        name: String(data.get('name') || '').trim(),
+        email: String(data.get('email') || '').trim(),
+        company: String(data.get('company') || '').trim() || null,
+        phone: String(data.get('phone') || '').trim() || null,
+        message: String(data.get('message') || '').trim() || null,
+        subject,
+        notes: `${subject} | Form: ${kind}${context ? ` | Context: ${context}` : ''}`,
+        status: 'lead',
+        extra_field: {
+          formKind: kind,
+          context: context || null,
+          page: typeof window !== 'undefined' ? window.location.pathname : null,
+          ...rawEntries,
+        },
+      });
+
+      // 2. Existing Web3Forms Dispatch (kept concurrently)
+      const object: Record<string, any> = { ...rawEntries };
       object.access_key = web3Key;
       object.subject = subject;
       object.from_name = 'UElement Website';
 
-      const res = await fetch('https://api.web3forms.com/submit', {
+      const web3Promise = fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
         },
         body: JSON.stringify(object),
-      });
-      const result = await res.json();
-      if (res.ok && result.success) {
+      }).then(async (res) => {
+        const json = await res.json().catch(() => ({}));
+        return { ok: res.ok && json.success, json };
+      }).catch((err) => ({ ok: false, error: err }));
+
+      // Await both dispatches
+      const [mainstayResult, web3Result] = await Promise.all([mainstayPromise, web3Promise]);
+
+      if (mainstayResult.success || web3Result.ok) {
         setState('sent');
         formRef.current?.reset();
       } else {
-        console.error('Web3Forms error:', result);
+        console.error('Submission failed on both endpoints:', { mainstayResult, web3Result });
         setState('error');
       }
     } catch (err) {
-      console.error('Web3Forms submit error:', err);
+      console.error('Contact submit error:', err);
       setState('error');
     }
   }

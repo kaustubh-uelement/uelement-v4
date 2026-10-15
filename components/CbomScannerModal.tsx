@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import { UELEMENT_WHITE_LOGO_BASE64 } from '@/lib/assets/uelementLogo';
 import { jsPDF } from 'jspdf';
+import { submitContactInquiry } from '@/lib/mainstay';
 
 /* ── Custom Event Helpers ── */
 export function openCbomScanner() {
@@ -486,6 +487,36 @@ export function CbomScannerModal() {
         await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           body: fd,
+        }).catch(() => null);
+      } catch {
+        // Non-fatal
+      }
+    }
+
+    // 3. Mainstay Contact & Lead Capture API Gateway
+    if (activeProfile.email && activeProfile.email !== 'Not provided') {
+      try {
+        await submitContactInquiry({
+          name: activeProfile.name || 'Anonymous Scan User',
+          email: activeProfile.email,
+          company: activeProfile.company || null,
+          title: activeProfile.title || null,
+          phone: activeProfile.phone
+            ? `${activeProfile.countryCode} ${activeProfile.phone}`
+            : null,
+          subject: payload._subject,
+          notes: `[Vyu CBOM Scanner Lead] Stage: ${stage} | Target: ${results?.target || targetConfig.target} | Score: ${results?.score ?? 'N/A'}/100`,
+          status: 'lead',
+          extra_field: {
+            source: 'Vyu CBOM Scanner',
+            stage,
+            scanType,
+            target: results?.target || targetConfig.target,
+            score: results?.score ?? null,
+            retention: results?.retention ?? null,
+            purpose: activeProfile.purpose || null,
+            ...extra,
+          },
         }).catch(() => null);
       } catch {
         // Non-fatal
