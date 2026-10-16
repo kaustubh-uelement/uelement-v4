@@ -2840,6 +2840,9 @@ a.mega__title:hover {
   }
   .founder__role {
     font-size: 12.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .founder .medal {
     width: 36px;

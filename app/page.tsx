@@ -407,24 +407,26 @@ export default function Home() {
                   {company.email}
                 </span>
                 <span className="founder__role">
-                  Write to us about a project, a partnership or a role.
+                  For projects, partnerships or roles.
                 </span>
               </span>
             </a>
             <a
               className="paper-card founder card-link"
-              href={`tel:${company.phoneHref}`}
+              href="https://wa.me/917620690561"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{ flexDirection: "row" }}
             >
               <span className="medal">
-                <Icon name="phone" />
+                <Icon name="whatsapp" />
               </span>
               <span>
                 <span className="founder__name" style={{ display: "block" }}>
                   {company.phone}
                 </span>
                 <span className="founder__role">
-                  Call us to talk it through
+                  WhatsApp us to talk it through
                 </span>
               </span>
             </a>
@@ -454,7 +456,7 @@ export default function Home() {
                   Want to build with us?
                 </span>
                 <span className="founder__role">
-                  We hire people who are brainy and by heart.
+                  We hire brainy and by heart.
                 </span>
               </span>
             </Link>

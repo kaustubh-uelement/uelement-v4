@@ -3,7 +3,7 @@ type Name =
   | 'spark' | 'shield' | 'globe' | 'layers' | 'mesh' | 'atom' | 'eye' | 'cube' | 'key'
   | 'chev' | 'chev-up' | 'plus' | 'menu' | 'close' | 'arrow' | 'arrow-up' | 'mail' | 'phone' | 'pin' | 'compass'
   | 'leaf' | 'people' | 'book' | 'chat' | 'star' | 'handshake' | 'lifebuoy' | 'play' | 'image' | 'calendar' | 'news' | 'bulb' | 'quote'
-  | 'linkedin' | 'github' | 'instagram' | 'twitter' | 'x';
+  | 'linkedin' | 'github' | 'instagram' | 'twitter' | 'x' | 'whatsapp';
 
 const paths: Record<Name, React.ReactNode> = {
   spark: <path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6" />,
@@ -44,6 +44,12 @@ const paths: Record<Name, React.ReactNode> = {
   instagram: <><rect x="2.5" y="2.5" width="19" height="19" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none" /></>,
   twitter: <path d="M4 4l6.5 8.5L4 20h3l5.2-6.5L17.5 20H20l-6.8-8.9L19.5 4h-3l-4.9 6.2L7.2 4H4z" />,
   x: <path d="M4 4l6.5 8.5L4 20h3l5.2-6.5L17.5 20H20l-6.8-8.9L19.5 4h-3l-4.9 6.2L7.2 4H4z" />,
+  whatsapp: (
+    <>
+      <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9l-5.05.9" />
+      <path d="M9 10a.5.5 0 0 0 1 0v-1a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" />
+    </>
+  ),
 };
 
 export function Icon({ name, className, title }: { name: Name; className?: string; title?: string }) {
