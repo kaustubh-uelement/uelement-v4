@@ -2058,11 +2058,11 @@ a.mega__title:hover {
   flex: 1;
   width: 100%;
   min-height: clamp(220px, 32vh, 420px);
-  margin-top: clamp(0px, 1.5vh, 16px);
+  margin-top: clamp(12px, 2vh, 24px);
 }
 .hero__ring {
   position: absolute;
-  top: -36px;
+  top: -20px;
   left: 50%;
   width: clamp(780px, 122%, 2100px);
   transform: translateX(-50%);
@@ -2188,9 +2188,9 @@ a.mega__title:hover {
 
 @media (max-width: 640px) {
   .hero {
-    min-height: max(560px, 80svh);
-    padding-top: calc(var(--header-h) + 44px);
-    padding-bottom: 32px;
+    min-height: 0;
+    padding-top: calc(var(--header-h) + 36px);
+    padding-bottom: 0;
   }
   .hero__inner {
     gap: 16px;
@@ -2236,12 +2236,14 @@ a.mega__title:hover {
     }
   }
   .hero__stage {
-    min-height: 170px;
-    margin-top: 8px;
+    flex: none;
+    height: clamp(140px, 20vh, 170px);
+    min-height: 140px;
+    margin-top: 24px;
     overflow: hidden;
   }
   .hero__ring {
-    top: -20px;
+    top: 0;
     width: 155%;
   }
   .hero__horizon {
