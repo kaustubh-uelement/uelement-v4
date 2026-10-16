@@ -1964,7 +1964,37 @@ a.mega__title:hover {
   );
   pointer-events: none;
 }
+.page-hero .h1 {
+  max-width: 15ch;
+}
+.page-hero .lede {
+  margin-top: 4px;
+}
+.page-hero .actions {
+  margin-top: 10px;
+}
+.page-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
 @media (max-width: 899px) {
+  .page-hero {
+    align-items: center;
+    padding-top: calc(var(--header-h) + 24px);
+    padding-bottom: 32px;
+  }
+  .page-hero__inner {
+    padding-bottom: 0;
+    gap: 20px;
+  }
+  .page-hero .lede {
+    margin-top: 6px;
+  }
+  .page-hero .actions {
+    margin-top: 12px;
+  }
   .page-hero__art {
     right: -30%;
     bottom: -30%;
@@ -1978,15 +2008,6 @@ a.mega__title:hover {
       rgba(10, 21, 46, 0.92) 70%
     );
   }
-}
-.page-hero .h1 {
-  max-width: 15ch;
-}
-.page-hero__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
 }
 
 /* ---------- Home hero ---------- */

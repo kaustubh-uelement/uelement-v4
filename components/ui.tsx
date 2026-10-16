@@ -84,7 +84,7 @@ export function PageHero({
         <h1 className="h1">{title}</h1>
         {meta ? <div className="page-hero__meta">{meta}</div> : null}
         {lede ? <p className="lede muted">{lede}</p> : null}
-        {children ? <div className="actions" style={{ marginTop: 8 }}>{children}</div> : null}
+        {children ? <div className="actions">{children}</div> : null}
       </div>
     </section>
   );
