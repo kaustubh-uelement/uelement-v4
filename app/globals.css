@@ -2167,9 +2167,9 @@ a.mega__title:hover {
 
 @media (max-width: 640px) {
   .hero {
-    min-height: auto;
-    padding-top: calc(var(--header-h) + 16px);
-    padding-bottom: 24px;
+    min-height: max(560px, 80svh);
+    padding-top: calc(var(--header-h) + 44px);
+    padding-bottom: 32px;
   }
   .hero__inner {
     gap: 16px;
@@ -3006,8 +3006,11 @@ a.mega__title:hover {
     display: none;
   }
   .compare tr {
-    padding: 14px 0;
+    padding: 18px 20px;
     border-top: 1px solid rgba(14, 27, 54, 0.1);
+  }
+  .compare tr:first-child {
+    border-top: 0;
   }
   .compare td {
     border: 0;

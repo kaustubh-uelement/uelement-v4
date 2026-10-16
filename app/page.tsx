@@ -164,7 +164,7 @@ export default function Home() {
                 </svg>
                 <p className="quote-callout__text">
                   Humanity already possesses the Talent, Capital and Intelligence
-                  required to repair our world — We simply need to Direct it with
+                  required to repair our world: We simply need to Direct it with
                   Purpose.
                 </p>
               </blockquote>

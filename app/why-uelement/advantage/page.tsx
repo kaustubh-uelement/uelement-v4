@@ -41,7 +41,7 @@ export default function AdvantagePage() {
 
       <section className="panel panel--creme section">
         <div className="wrap">
-          <SectionHead chip="The difference" chipIcon="compass" title="What changes when you work with us" />
+          <SectionHead chip="The Difference" chipIcon="compass" title="What changes when you work with us" />
           <div className="paper-card" style={{ overflow: 'hidden' }}>
             <table className="compare">
               <thead>
