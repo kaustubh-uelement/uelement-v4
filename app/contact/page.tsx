@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { PageHero } from '@/components/ui';
+import dynamic from 'next/dynamic';
+import { PageHero, SectionHead } from '@/components/ui';
 import { FormSection } from '@/components/blocks';
 import { Icon } from '@/components/Icon';
 import { company } from '@/lib/site';
+
+import GlobalOperationsMap from '@/components/company/GlobalOperationsMap';
 
 export const metadata: Metadata = {
   title: 'Contact',
@@ -46,6 +49,64 @@ export default function ContactPage() {
           </div>
         }
       />
+
+      {/* Global Operations */}
+      <section className="panel panel--creme section" id="global-operations">
+        <div className="wrap" style={{ textAlign: 'center' }}>
+          <SectionHead
+            chip="Global Operations"
+            chipIcon="globe"
+            title="Delivering Sovereignty Globally."
+            text="Headquartered in Pune, India, with regional hubs in the UAE and Singapore, and active deployments across critical enterprises worldwide."
+            center
+          />
+
+          <GlobalOperationsMap />
+
+          <div
+            style={{
+              marginTop: 24,
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              maxWidth: 860,
+              textAlign: 'center',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '8px 10px',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              {[
+                'UAE',
+                'Singapore',
+                'Malaysia',
+                'USA',
+                'Netherlands',
+                'Australia',
+                'Hongkong',
+                'South Africa',
+                'Vietnam',
+                'Saudi Arabia',
+                'France',
+                'Germany',
+                'Denmark',
+                'United Kingdom',
+                'Canada',
+                'Mauritius',
+              ].map((country) => (
+                <div key={country} className="country-tag">
+                  {country}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
