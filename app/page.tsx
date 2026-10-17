@@ -14,11 +14,11 @@ const whatWeDo: {
   link: string;
 }[] = [
   {
-    icon: "mesh",
-    title: "Sovereign edge",
-    text: "Researching resilient, offline-capable AI and networks for places where connectivity fails.",
-    href: "/platforms/u92-deeptech/",
-    link: "U92 Deeptech",
+    icon: "key",
+    title: "Quantum security",
+    text: "Helping banks and critical infrastructure stay secure as quantum computing changes cryptography.",
+    href: "/platforms/u92-quantum/",
+    link: "U92 Quantum",
   },
   {
     icon: "layers",
@@ -28,11 +28,11 @@ const whatWeDo: {
     link: "U92 Enterprise",
   },
   {
-    icon: "key",
-    title: "Quantum security",
-    text: "Helping banks and critical infrastructure stay secure as quantum computing changes cryptography.",
-    href: "/platforms/u92-quantum/",
-    link: "U92 Quantum",
+    icon: "mesh",
+    title: "Sovereign edge",
+    text: "Researching resilient, offline-capable AI and networks for places where connectivity fails.",
+    href: "/platforms/u92-deeptech/",
+    link: "U92 Deeptech",
   },
 ];
 
@@ -140,11 +140,14 @@ export default function Home() {
             >
               <Chip icon="people">Who We Are</Chip>
               <h2 id="who" className="h2">
-                Building DeepTech, Quantum-safe security solutions &amp; Enterprise
-                platforms for critical Infrastructure.
+                Building DeepTech, Quantum-safe security solutions &amp;
+                Enterprise platforms for critical Infrastructure.
               </h2>
             </div>
-            <div className="prose muted" style={{ fontSize: 18 }}>
+            <div
+              className="prose muted"
+              style={{ fontSize: 18, maxWidth: "none" }}
+            >
               <p>
                 at UElement,{" "}
                 <em>We are driven by a shared Mindset and a singular Goal;</em>{" "}
@@ -163,9 +166,9 @@ export default function Home() {
                   <path d="M4.583 17.321C3.553 16.227 3 14.62 3 12.5 3 7.8 6.5 4.5 10 3.5l1 2c-2.5.8-4 2.6-4 5h3.5v7h-5.917zM14.583 17.321C13.553 16.227 13 14.62 13 12.5c0-4.7 3.5-8 7-9l1 2c-2.5.8-4 2.6-4 5h3.5v7h-5.917z" />
                 </svg>
                 <p className="quote-callout__text">
-                  Humanity already possesses the Talent, Capital and Intelligence
-                  required to repair our world - We simply need to Direct it with
-                  Purpose.
+                  Humanity already possesses the Talent, Capital and
+                  Intelligence required to repair our world - We simply need to
+                  Direct it with Purpose.
                 </p>
               </blockquote>
             </div>
@@ -269,10 +272,11 @@ export default function Home() {
               <p
                 className="statement"
                 style={{
-                  fontFamily: '"Noto Sans", "Noto Sans Devanagari", var(--font-sans)',
+                  fontFamily:
+                    '"Noto Sans", "Noto Sans Devanagari", var(--font-sans)',
                   fontStyle: "italic",
-                  fontSize: "clamp(24px, 2.7vw, 38px)",
-                  lineHeight: 1.35,
+                  fontSize: "clamp(20px, 2.15vw, 29px)",
+                  lineHeight: 1.38,
                 }}
               >
                 A future where humanity and technology progress together, and
@@ -293,10 +297,11 @@ export default function Home() {
               <p
                 className="statement"
                 style={{
-                  fontFamily: '"Noto Sans", "Noto Sans Devanagari", var(--font-sans)',
+                  fontFamily:
+                    '"Noto Sans", "Noto Sans Devanagari", var(--font-sans)',
                   fontStyle: "italic",
-                  fontSize: "clamp(24px, 2.7vw, 38px)",
-                  lineHeight: 1.35,
+                  fontSize: "clamp(20px, 2.15vw, 29px)",
+                  lineHeight: 1.38,
                   color: "#2a1d05",
                 }}
               >
@@ -308,7 +313,7 @@ export default function Home() {
                 href="/company/mission/"
                 style={{ justifySelf: "start" }}
               >
-                Read the full mission
+                Read the full Mission
               </Link>
             </article>
           </div>
@@ -362,16 +367,7 @@ export default function Home() {
 
       {/* Let's talk */}
       <section className="panel panel--paper section" aria-labelledby="talk">
-        <div
-          className="wrap"
-          style={{
-            display: "grid",
-            gap: 40,
-            gridTemplateColumns:
-              "repeat(auto-fit, minmax(min(100%, 420px), 1fr))",
-            alignItems: "start",
-          }}
-        >
+        <div className="wrap talk-grid">
           <div style={{ display: "grid", gap: 22, justifyItems: "start" }}>
             <Chip icon="chat">Let’s Talk</Chip>
             <h2 id="talk" className="h2">
@@ -383,7 +379,7 @@ export default function Home() {
             </p>
             <div className="actions">
               <Link className="btn btn--ink" href="/contact/">
-                Talk to us
+                Talk to Us
               </Link>
               <Link className="btn btn--line" href="/support/demo/">
                 Book a Demo

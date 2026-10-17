@@ -1,12 +1,20 @@
-import Link from 'next/link';
-import type { ReactNode } from 'react';
-import { Icon, type IconName } from './Icon';
-import { statusTone, type Status } from '@/lib/content';
-import { DotDome } from './DotDome';
+import Link from "next/link";
+import type { ReactNode } from "react";
+import { Icon, type IconName } from "./Icon";
+import { statusTone, type Status } from "@/lib/content";
+import { DotDome } from "./DotDome";
 
-export function Chip({ icon = 'spark', children, plain }: { icon?: IconName; children: ReactNode; plain?: boolean }) {
+export function Chip({
+  icon = "spark",
+  children,
+  plain,
+}: {
+  icon?: IconName;
+  children: ReactNode;
+  plain?: boolean;
+}) {
   return (
-    <span className={plain ? 'chip chip--plain' : 'chip'}>
+    <span className={plain ? "chip chip--plain" : "chip"}>
       {plain ? null : (
         <span className="chip__icon">
           <Icon name={icon} />
@@ -18,12 +26,18 @@ export function Chip({ icon = 'spark', children, plain }: { icon?: IconName; chi
 }
 
 export function StatusBadge({ status }: { status: Status }) {
-  return <span className={`status status--${statusTone[status]}`}>{status}</span>;
+  return (
+    <span className={`status status--${statusTone[status]}`}>{status}</span>
+  );
 }
 
-export function Logo({ className = '' }: { className?: string }) {
+export function Logo({ className = "" }: { className?: string }) {
   return (
-    <Link href="/" className={`logo ${className}`.trim()} aria-label="UElement home">
+    <Link
+      href="/"
+      className={`logo ${className}`.trim()}
+      aria-label="UElement home"
+    >
       <img
         src="/logo.png"
         alt="UElement"
@@ -69,9 +83,13 @@ export function PageHero({
           <nav aria-label="Breadcrumb" className="crumbs">
             <Link href="/">Home</Link>
             {crumbs.map((c, i) => (
-              <span key={i} style={{ display: 'contents' }}>
+              <span key={i} style={{ display: "contents" }}>
                 <span aria-hidden="true">/</span>
-                {c.href ? <Link href={c.href}>{c.label}</Link> : <span aria-current="page">{c.label}</span>}
+                {c.href ? (
+                  <Link href={c.href}>{c.label}</Link>
+                ) : (
+                  <span aria-current="page">{c.label}</span>
+                )}
               </span>
             ))}
           </nav>
@@ -97,7 +115,7 @@ export function SectionHead({
   text,
   center,
   split,
-  as = 'h2',
+  as = "h2",
 }: {
   chip?: string;
   chipIcon?: IconName;
@@ -105,14 +123,18 @@ export function SectionHead({
   text?: ReactNode;
   center?: boolean;
   split?: boolean;
-  as?: 'h2' | 'h3';
+  as?: "h2" | "h3";
 }) {
   const H = as;
-  const cls = ['section-head', center ? 'section-head--center' : '', split ? 'section-head--split' : ''].join(' ');
+  const cls = [
+    "section-head",
+    center ? "section-head--center" : "",
+    split ? "section-head--split" : "",
+  ].join(" ");
   if (split) {
     return (
       <div className={cls}>
-        <div style={{ display: 'grid', gap: 18, justifyItems: 'start' }}>
+        <div style={{ display: "grid", gap: 18, justifyItems: "start" }}>
           {chip ? <Chip icon={chipIcon}>{chip}</Chip> : null}
           <H className="h2">{title}</H>
         </div>
@@ -128,12 +150,25 @@ export function SectionHead({
         </div>
       ) : null}
       <H className="h2">{title}</H>
-      {text ? <p className="lede muted" style={center ? { marginInline: 'auto' } : undefined}>{text}</p> : null}
+      {text ? (
+        <p
+          className="lede muted"
+          style={center ? { marginInline: "auto" } : undefined}
+        >
+          {text}
+        </p>
+      ) : null}
     </div>
   );
 }
 
-export function ArrowLink({ href, children }: { href: string; children: ReactNode }) {
+export function ArrowLink({
+  href,
+  children,
+}: {
+  href: string;
+  children: ReactNode;
+}) {
   return (
     <Link href={href} className="text-link">
       {children}
@@ -144,9 +179,9 @@ export function ArrowLink({ href, children }: { href: string; children: ReactNod
 
 // The closing invitation used at the foot of most pages.
 export function CtaPanel({
-  title = 'Building something that cannot fail?',
-  text = 'Tell us what you are working on. We will suggest a small, fixed-scope first step.',
-  primary = { label: 'Talk to us', href: '/contact/' },
+  title = "Building something that cannot fail?",
+  text = "Tell us what you are working on. We will suggest a small, fixed-scope first step.",
+  primary = { label: "Talk to Us", href: "/contact/" },
   secondary,
 }: {
   title?: string;
@@ -156,12 +191,21 @@ export function CtaPanel({
 }) {
   return (
     <section className="panel panel--creme section--tight">
-      <div className="wrap" style={{ display: 'grid', gap: 28, gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 380px), 1fr))', alignItems: 'end' }}>
-        <div style={{ display: 'grid', gap: 16 }}>
+      <div
+        className="wrap"
+        style={{
+          display: "grid",
+          gap: 28,
+          gridTemplateColumns:
+            "repeat(auto-fit, minmax(min(100%, 380px), 1fr))",
+          alignItems: "end",
+        }}
+      >
+        <div style={{ display: "grid", gap: 16 }}>
           <h2 className="h2">{title}</h2>
           <p className="lede muted">{text}</p>
         </div>
-        <div className="actions" style={{ justifyContent: 'flex-end' }}>
+        <div className="actions" style={{ justifyContent: "flex-end" }}>
           {secondary ? (
             <Link className="btn btn--line" href={secondary.href}>
               {secondary.label}
@@ -185,7 +229,13 @@ export function WithPlaceholders({ text }: { text: string }) {
   const parts = text.split(/(\[[^\]]+\])/g);
   return (
     <>
-      {parts.map((p, i) => (p.startsWith('[') && p.endsWith(']') ? <Placeholder key={i}>{p}</Placeholder> : <span key={i}>{p}</span>))}
+      {parts.map((p, i) =>
+        p.startsWith("[") && p.endsWith("]") ? (
+          <Placeholder key={i}>{p}</Placeholder>
+        ) : (
+          <span key={i}>{p}</span>
+        ),
+      )}
     </>
   );
 }

@@ -311,18 +311,19 @@ ol {
 .quote-callout {
   border-top: 1px solid rgba(138, 101, 34, 0.28);
   border-bottom: 1px solid rgba(138, 101, 34, 0.28);
-  padding: 28px 20px 26px;
-  margin: 28px 0;
-  text-align: center;
+  padding: 16px 0 14px;
+  margin: 18px 0 16px;
+  text-align: left;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 12px;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
 }
 
 .quote-callout__icon {
-  width: 26px;
-  height: 20px;
+  width: 22px;
+  height: 18px;
   color: var(--gold-ink);
   opacity: 0.9;
   display: block;
@@ -332,13 +333,13 @@ ol {
   font-family: var(--font-sans), "Noto Sans", sans-serif;
   font-style: italic;
   font-weight: 500;
-  font-size: clamp(19.5px, 1.8vw, 23.5px);
-  line-height: 1.55;
+  font-size: clamp(18px, 1.6vw, 21.5px);
+  line-height: 1.45;
   color: var(--ink);
   letter-spacing: -0.01em;
   margin: 0;
-  max-width: 600px;
-  text-wrap: balance;
+  max-width: 100%;
+  text-align: left;
 }
 
 .metal-text {
@@ -840,9 +841,26 @@ ol {
   font-weight: 600;
 }
 
+button.card-link--disabled,
 .card-link--disabled {
   opacity: 0.76;
   cursor: pointer;
+  border: none !important;
+  outline: none;
+  background-color: transparent;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 24px 50px -30px rgba(0, 0, 0, 0.7);
+}
+.card-link--disabled::before {
+  padding: 0.75px !important;
+  background: linear-gradient(
+    160deg,
+    rgba(241, 216, 148, 0.16),
+    rgba(255, 255, 255, 0.03) 35%,
+    rgba(255, 255, 255, 0.015) 70%,
+    rgba(241, 216, 148, 0.05)
+  ) !important;
 }
 .card-link--disabled:hover {
   opacity: 0.88;
@@ -2186,27 +2204,69 @@ a.mega__title:hover {
   line-height: 1.4;
 }
 
+@media (max-width: 899px) {
+  .hero {
+    min-height: 100vh;
+    min-height: 100svh;
+    height: 100vh;
+    height: 100svh;
+    min-height: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: calc(var(--header-h) + clamp(36px, 6vh, 60px));
+    padding-bottom: 0;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+  }
+}
+
 @media (max-width: 640px) {
   .hero {
-    min-height: 0;
-    padding-top: calc(var(--header-h) + 36px);
-    padding-bottom: 0;
+    min-height: 100vh;
+    min-height: 100svh;
+    height: 100vh;
+    height: 100svh;
+    min-height: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: calc(var(--header-h) + clamp(40px, 6.5vh, 64px));
+    padding-bottom: clamp(54px, 9vh, 88px);
+    padding-inline: 16px;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
   }
   .hero__inner {
-    gap: 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
     padding-inline: 0;
+    padding-bottom: 0;
+    z-index: 5;
   }
   .hero__title {
-    font-size: clamp(27px, 7.2vw, 36px);
-    line-height: 1.15;
+    font-size: clamp(26px, 7vw, 35px);
+    line-height: 1.18;
     letter-spacing: -0.025em;
     max-width: 100%;
+    margin: 0;
+    text-align: center;
   }
   .hero__lede {
-    font-size: 14px;
-    line-height: 1.55;
+    font-size: 14.5px;
+    line-height: 1.5;
     max-width: 100%;
-    padding-inline: 4px;
+    padding-inline: 8px;
+    margin-top: auto;
+    margin-bottom: clamp(14px, 2.5vh, 20px);
+    text-align: center;
   }
   .hero__actions {
     display: flex;
@@ -2215,16 +2275,16 @@ a.mega__title:hover {
     align-items: center;
     width: 100%;
     max-width: 340px;
-    gap: 10px;
-    margin-top: 4px;
+    gap: 12px;
+    margin-top: 0;
   }
   .hero__actions .btn {
     flex: 1 1 0;
     min-width: 0;
-    min-height: 42px;
-    height: 42px;
+    min-height: 44px;
+    height: 44px;
     padding: 0 16px;
-    font-size: 13.5px;
+    font-size: 14px;
     width: auto;
   }
   @media (max-width: 330px) {
@@ -2236,26 +2296,21 @@ a.mega__title:hover {
     }
   }
   .hero__stage {
-    flex: none;
-    height: clamp(140px, 20vh, 170px);
-    min-height: 140px;
-    margin-top: 24px;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin-top: 0;
     overflow: hidden;
+    z-index: 1;
+    pointer-events: none;
   }
   .hero__ring {
-    top: 0;
-    width: 155%;
+    top: calc(var(--header-h) + clamp(180px, 30vh, 260px));
+    width: clamp(600px, 155%, 1000px);
   }
   .hero__horizon {
-    bottom: 10px;
-    gap: 3px;
-    padding-inline: 12px;
-  }
-  .hero__motto {
-    font-size: 12px;
-  }
-  .hero__statement {
-    font-size: 18.5px;
+    display: none !important;
   }
 
   .hero__proof-wrap,
@@ -2338,16 +2393,28 @@ a.mega__title:hover {
 
 /* ---------- Home specifics ---------- */
 
-.founder-row {
+.talk-grid {
   display: grid;
-  gap: 12px;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+  gap: 36px;
+  grid-template-columns: 1fr;
+  align-items: start;
 }
+@media (min-width: 900px) {
+  .talk-grid {
+    grid-template-columns: 1.25fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+}
+.talk-grid .founder__role {
+  white-space: nowrap;
+}
+
 .founder {
   display: flex;
   gap: 14px;
   align-items: center;
-  padding: 14px 16px;
+  padding: 14px 18px;
 }
 .founder__name {
   font-weight: 600;
@@ -2450,7 +2517,7 @@ a.mega__title:hover {
 .commit .h3 {
   grid-column: 2;
   grid-row: 1;
-  font-size: 18px;
+  font-size: 19px;
   line-height: 1.3;
   margin: 0;
   align-self: center;
@@ -2459,17 +2526,18 @@ a.mega__title:hover {
   grid-column: 1 / -1;
   grid-row: 2;
   margin: 0;
-  font-size: 14.5px;
+  font-size: 16px;
   line-height: 1.55;
+  color: var(--mist);
 }
 
 @media (min-width: 900px) {
   .commit {
     grid-template-columns: 56px minmax(0, 0.95fr) minmax(0, 1.15fr);
     grid-template-rows: auto;
-    gap: 28px;
+    gap: 32px;
     align-items: center;
-    padding: 24px 28px;
+    padding: 24px 30px;
   }
   .commit .medal {
     grid-column: 1;
@@ -2480,13 +2548,17 @@ a.mega__title:hover {
   .commit .h3 {
     grid-column: 2;
     grid-row: 1;
-    font-size: 20px;
+    font-size: 21.5px;
+    font-weight: 560;
+    line-height: 1.3;
     align-self: auto;
   }
   .commit .muted {
     grid-column: 3;
     grid-row: 1;
-    font-size: 15px;
+    font-size: 17.5px;
+    line-height: 1.55;
+    color: var(--mist);
   }
 }
 
@@ -2844,11 +2916,11 @@ a.mega__title:hover {
     height: 16px;
   }
   .commit .h3 {
-    font-size: 16px;
-    line-height: 1.28;
+    font-size: 16.5px;
+    line-height: 1.3;
   }
   .commit .muted {
-    font-size: 13.5px;
+    font-size: 14.5px;
     line-height: 1.5;
   }
 
