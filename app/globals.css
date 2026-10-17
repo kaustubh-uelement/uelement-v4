@@ -5059,3 +5059,291 @@ button.footer-link--btn {
   }
 }
 
+/* ---------- Demo Modal (Navbar Dropdown Frosted Glass) ---------- */
+.demo-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  pointer-events: none;
+}
+.demo-modal-overlay.is-visible {
+  pointer-events: auto;
+}
+
+.demo-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  background: rgba(3, 7, 16, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.32s var(--ease-out);
+}
+.demo-modal-backdrop.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.demo-modal-container {
+  position: fixed;
+  inset: 0;
+  z-index: 1201;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 3.5vw, 28px);
+  pointer-events: none;
+  overflow-y: auto;
+}
+
+.demo-modal {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  max-height: min(92vh, 840px);
+  overflow-y: auto;
+  border-radius: 22px;
+  padding: clamp(24px, 3.6vw, 36px);
+  pointer-events: auto;
+  background-color: #0d0a07;
+  background:
+    radial-gradient(
+      ellipse 65% 50% at 18% 0%,
+      rgba(221, 187, 110, 0.18),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 50% 60% at 85% 100%,
+      rgba(221, 187, 110, 0.12),
+      transparent 70%
+    ),
+    linear-gradient(
+      155deg,
+      rgba(28, 21, 14, 0.95) 0%,
+      rgba(18, 14, 10, 0.96) 40%,
+      rgba(10, 8, 6, 0.98) 100%
+    );
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  border: 1px solid rgba(221, 187, 110, 0.35);
+  box-shadow:
+    0 40px 100px -16px rgba(0, 0, 0, 0.92),
+    0 12px 36px -6px rgba(180, 140, 50, 0.25),
+    inset 0 1px 0 rgba(255, 250, 235, 0.5),
+    inset 0 0 28px rgba(241, 216, 148, 0.08);
+  transform: scale(0.95) translateY(12px);
+  opacity: 0;
+  transition:
+    transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.3s var(--ease-out);
+}
+
+.demo-modal::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 250, 235, 0.85) 30%,
+    rgba(241, 216, 148, 0.95) 50%,
+    rgba(255, 250, 235, 0.85) 70%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+.demo-modal.is-visible {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.demo-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+.demo-modal__title-group {
+  flex: 1;
+  min-width: 0;
+}
+.demo-modal__kicker {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  margin-bottom: 4px;
+}
+.demo-modal__title {
+  font-size: clamp(22px, 2.6vw, 28px);
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  color: #ffffff;
+  margin: 0 0 6px 0;
+  line-height: 1.25;
+}
+.demo-modal__desc {
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: rgba(225, 220, 210, 0.75);
+  margin: 0;
+}
+.demo-modal__close-btn {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(241, 216, 148, 0.22);
+  color: rgba(240, 235, 225, 0.85);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.demo-modal__close-btn:hover {
+  background: rgba(241, 216, 148, 0.16);
+  color: #ffffff;
+  border-color: rgba(241, 216, 148, 0.5);
+  transform: scale(1.05);
+}
+.demo-modal__close-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Modal Form Styles */
+.demo-modal .form {
+  display: grid;
+  gap: 16px;
+}
+.demo-modal .field label {
+  color: rgba(240, 235, 225, 0.95);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.demo-modal .field label .gold {
+  color: var(--gold-pale);
+}
+.demo-modal .field .hint {
+  color: rgba(225, 220, 210, 0.6);
+  font-size: 12px;
+}
+.demo-modal .input {
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(241, 216, 148, 0.18);
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 14.5px;
+  padding: 12px 14px;
+  min-height: 46px;
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.35),
+    0 1px 0 rgba(255, 250, 235, 0.05);
+  transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+}
+.demo-modal .input:hover {
+  border-color: rgba(241, 216, 148, 0.38);
+  background: rgba(255, 255, 255, 0.07);
+}
+.demo-modal .input:focus {
+  outline: none;
+  border-color: var(--gold-pale);
+  background: rgba(255, 255, 255, 0.09);
+  box-shadow:
+    0 0 0 3px rgba(221, 187, 110, 0.25),
+    inset 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+.demo-modal textarea.input {
+  min-height: 96px;
+}
+.demo-modal select.input {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%23ddbb6e' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+.demo-modal select.input option {
+  background-color: #15110d;
+  color: #ffffff;
+}
+.demo-modal .form__note {
+  color: rgba(225, 220, 210, 0.65);
+  font-size: 12px;
+  line-height: 1.4;
+  margin: 0;
+  max-width: 320px;
+}
+
+/* Gold Metallic Submit Button */
+.demo-modal .actions button,
+.demo-modal button[type="submit"] {
+  background: var(--metal) !important;
+  background-size: 140% 100% !important;
+  color: #241804 !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  padding: 13px 32px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(255, 245, 215, 0.75) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 250, 230, 0.9),
+    0 4px 18px rgba(221, 187, 110, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.35) !important;
+  cursor: pointer !important;
+  text-shadow: 0 1px 0 rgba(255, 245, 215, 0.45) !important;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+}
+.demo-modal .actions button:hover,
+.demo-modal button[type="submit"]:hover {
+  transform: translateY(-1.5px) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 250, 230, 1),
+    0 6px 26px rgba(221, 187, 110, 0.7),
+    0 3px 6px rgba(0, 0, 0, 0.4) !important;
+}
+
+.demo-modal .form__done {
+  text-align: center;
+  padding: 32px 16px 20px;
+  display: grid;
+  gap: 12px;
+  place-items: center;
+}
+.demo-modal .form__done .h3 {
+  color: #ffffff;
+  font-size: 24px;
+  margin: 0;
+}
+.demo-modal .form__done .muted {
+  color: rgba(225, 220, 210, 0.82);
+  font-size: 14.5px;
+  max-width: 420px;
+  margin: 0;
+}
+.demo-modal::-webkit-scrollbar {
+  width: 6px;
+}
+.demo-modal::-webkit-scrollbar-track {
+  background: transparent;
+}
+.demo-modal::-webkit-scrollbar-thumb {
+  background: rgba(221, 187, 110, 0.25);
+  border-radius: 999px;
+}
+.demo-modal::-webkit-scrollbar-thumb:hover {
+  background: rgba(221, 187, 110, 0.45);
+}
+
+

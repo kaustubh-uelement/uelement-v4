@@ -7,7 +7,19 @@ import { submitContactInquiry } from '@/lib/mainstay';
 
 // Posts to company.formEndpoint when it is set. Until then it opens the visitor's
 // email app with the message written out, addressed to company.email.
-export function ContactForm({ kind, context }: { kind: FormKind; context?: string }) {
+export function ContactForm({
+  kind,
+  context,
+  submitBtnClass,
+  onSuccess,
+  doneAction,
+}: {
+  kind: FormKind;
+  context?: string;
+  submitBtnClass?: string;
+  onSuccess?: () => void;
+  doneAction?: React.ReactNode;
+}) {
   const cfg = forms[kind];
   const uid = useId();
   const formRef = useRef<HTMLFormElement>(null);
@@ -80,6 +92,7 @@ export function ContactForm({ kind, context }: { kind: FormKind; context?: strin
       if (mainstayResult.success || web3Result.ok) {
         setState('sent');
         formRef.current?.reset();
+        onSuccess?.();
       } else {
         console.error('Submission failed on both endpoints:', { mainstayResult, web3Result });
         setState('error');
@@ -95,6 +108,7 @@ export function ContactForm({ kind, context }: { kind: FormKind; context?: strin
       <div className="form__done" role="status">
         <h3 className="h3">Message sent</h3>
         <p className="muted">Thank you. Someone from UElement will reply to the email address you gave.</p>
+        {doneAction}
       </div>
     );
   }
@@ -144,8 +158,8 @@ export function ContactForm({ kind, context }: { kind: FormKind; context?: strin
               ? `The message did not send. Try again, or write to ${company.email}.`
               : `Fields marked * are required. We use your details only to reply.`}
         </p>
-        <button className="btn btn--ink" type="submit" disabled={state === 'sending'}>
-          {state === 'sending' ? 'Sending' : cfg.submit}
+        <button className={submitBtnClass || 'btn btn--ink'} type="submit" disabled={state === 'sending'}>
+          {state === 'sending' ? 'Sending...' : cfg.submit}
         </button>
       </div>
     </form>

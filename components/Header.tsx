@@ -7,6 +7,7 @@ import { nav, company } from '@/lib/site';
 import { Icon } from './Icon';
 import { Logo } from './ui';
 import { triggerRestrictedNotice } from './RestrictedModal';
+import { DemoModal } from './DemoModal';
 
 const megaWidth: Record<string, number> = {
   Platforms: 1125,
@@ -481,6 +482,7 @@ export function Header() {
   const [drawer, setDrawer] = useState(false);
   const [acc, setAcc] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
+  const [demoModalOpen, setDemoModalOpen] = useState(false);
   const closeTimer = useRef<number | undefined>(undefined);
   const hoverAt = useRef(0);
   const triggers = useRef<Record<string, HTMLButtonElement | null>>({});
@@ -584,9 +586,13 @@ export function Header() {
           </nav>
 
           <div className="header-actions">
-            <Link className="btn btn--metal btn--sm header-cta" href="/support/demo/">
+            <button
+              type="button"
+              className="btn btn--metal btn--sm header-cta"
+              onClick={() => setDemoModalOpen(true)}
+            >
               Book a Demo
-            </Link>
+            </button>
             <button
               className="menu-btn"
               aria-label="Open menu"
@@ -913,9 +919,17 @@ export function Header() {
                     <Link href="/contact/" className="mega-platform__footer-link">
                       HAVE QUESTIONS? CONTACT OUR TEAM <Icon name="arrow" />
                     </Link>
-                    <Link href="/support/demo/" className="mega-platform__footer-link">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setOpen(null);
+                        setDemoModalOpen(true);
+                      }}
+                      className="mega-platform__footer-link"
+                      style={{ background: 'none', border: 'none', cursor: 'pointer', font: 'inherit' }}
+                    >
                       BOOK A DEMO <Icon name="arrow" />
-                    </Link>
+                    </button>
                   </div>
                 </div>
               ) : (
@@ -1058,14 +1072,23 @@ export function Header() {
           </div>
         </div>
         <div className="drawer__foot">
-          <Link className="btn btn--metal" href="/support/demo/">
+          <button
+            type="button"
+            className="btn btn--metal"
+            onClick={() => {
+              setDrawer(false);
+              setDemoModalOpen(true);
+            }}
+          >
             Book a Demo
-          </Link>
+          </button>
           <a className="btn btn--glass" href={`mailto:${company.email}`}>
             {company.email}
           </a>
         </div>
       </div>
+
+      <DemoModal isOpen={demoModalOpen} onClose={() => setDemoModalOpen(false)} />
     </>
   );
 }
