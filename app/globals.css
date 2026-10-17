@@ -311,13 +311,9 @@ ol {
 .quote-callout {
   border-top: 1px solid rgba(138, 101, 34, 0.28);
   border-bottom: 1px solid rgba(138, 101, 34, 0.28);
-  padding: 16px 0 14px;
+  padding: 18px 0 16px;
   margin: 18px 0 16px;
   text-align: left;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
   width: 100%;
 }
 
@@ -340,6 +336,14 @@ ol {
   margin: 0;
   max-width: 100%;
   text-align: left;
+}
+
+.quote-callout__mark {
+  color: var(--gold-ink);
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.2em;
+  font-weight: 500;
+  line-height: 1;
 }
 
 .metal-text {

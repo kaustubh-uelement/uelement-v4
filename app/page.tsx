@@ -157,18 +157,10 @@ export default function Home() {
                 for the future, we believe differently.
               </p>
               <blockquote className="quote-callout">
-                <svg
-                  className="quote-callout__icon"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M4.583 17.321C3.553 16.227 3 14.62 3 12.5 3 7.8 6.5 4.5 10 3.5l1 2c-2.5.8-4 2.6-4 5h3.5v7h-5.917zM14.583 17.321C13.553 16.227 13 14.62 13 12.5c0-4.7 3.5-8 7-9l1 2c-2.5.8-4 2.6-4 5h3.5v7h-5.917z" />
-                </svg>
                 <p className="quote-callout__text">
-                  Humanity already possesses the Talent, Capital and
-                  Intelligence required to repair our world - We simply need to
-                  Direct it with Purpose.
+                  <span className="quote-callout__mark">“</span>Humanity already possesses the Talent, Capital and
+                  Intelligence required to repair our world, We simply need to
+                  Direct it with Purpose.<span className="quote-callout__mark">”</span>
                 </p>
               </blockquote>
             </div>
