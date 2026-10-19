@@ -600,18 +600,36 @@ ol {
 
 .glass-card {
   position: relative;
+  overflow: hidden;
   border-radius: var(--r-card);
   background: linear-gradient(
-    170deg,
-    rgba(255, 255, 255, 0.085) 0%,
-    rgba(255, 255, 255, 0.025) 60%,
-    rgba(255, 255, 255, 0.04) 100%
+    135deg,
+    rgba(255, 255, 255, 0.095) 0%,
+    rgba(255, 255, 255, 0.02) 35%,
+    rgba(241, 216, 148, 0.07) 65%,
+    rgba(255, 255, 255, 0.06) 100%
   );
+  background-size: 200% 200%;
+  background-position: 100% 100%;
   backdrop-filter: blur(22px) saturate(140%);
   -webkit-backdrop-filter: blur(22px) saturate(140%);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.12),
     0 24px 50px -30px rgba(0, 0, 0, 0.7);
+  transition:
+    background-position 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.35s var(--ease-out);
+}
+.glass-card:hover {
+  background-position: 0% 0%;
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 0 28px -4px rgba(241, 216, 148, 0.12),
+    0 28px 60px -25px rgba(0, 0, 0, 0.85);
 }
 .glass-card::before {
   content: "";
@@ -620,19 +638,34 @@ ol {
   border-radius: inherit;
   padding: 1px;
   background: linear-gradient(
-    160deg,
-    rgba(241, 216, 148, 0.45),
-    rgba(255, 255, 255, 0.08) 35%,
-    rgba(255, 255, 255, 0.04) 70%,
-    rgba(241, 216, 148, 0.18)
+    135deg,
+    rgba(241, 216, 148, 0.55) 0%,
+    rgba(255, 255, 255, 0.1) 35%,
+    rgba(241, 216, 148, 0.22) 65%,
+    rgba(255, 255, 255, 0.15) 100%
   );
+  background-size: 200% 200%;
+  background-position: 100% 100%;
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
+  transition:
+    background-position 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.4s ease;
 }
+.glass-card:hover::before {
+  background-position: 0% 0%;
+  filter: brightness(1.18);
+}
+
+.glass-card:hover .medal {
+  filter: brightness(1.06);
+  transform: scale(1.02);
+}
+
 .glass-card--pad {
   padding: clamp(24px, 2.4vw, 34px);
 }
@@ -641,14 +674,27 @@ ol {
 .panel--paper .glass-card,
 .panel--creme .glass-card {
   background: linear-gradient(
-    170deg,
-    rgba(255, 255, 255, 0.75),
-    rgba(255, 255, 255, 0.35)
+    135deg,
+    rgba(255, 255, 255, 0.85) 0%,
+    rgba(255, 255, 255, 0.38) 45%,
+    rgba(241, 216, 148, 0.14) 70%,
+    rgba(255, 255, 255, 0.75) 100%
   );
+  background-size: 200% 200%;
+  background-position: 100% 100%;
   color: var(--ink);
   box-shadow:
     inset 0 1px 0 #fff,
     0 20px 40px -24px rgba(14, 27, 54, 0.3);
+}
+
+.panel--paper .glass-card:hover,
+.panel--creme .glass-card:hover {
+  background-position: 0% 0%;
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 0 24px -4px rgba(241, 216, 148, 0.18),
+    0 24px 50px -20px rgba(14, 27, 54, 0.35);
 }
 
 .metal-rule {
@@ -708,6 +754,9 @@ ol {
     inset 0 -2px 3px rgba(90, 60, 10, 0.35),
     0 6px 14px -6px rgba(0, 0, 0, 0.5);
   flex: none;
+  transition:
+    transform 0.35s var(--ease-out),
+    filter 0.35s var(--ease-out);
 }
 .medal svg {
   width: 18px;
@@ -828,11 +877,13 @@ ol {
   gap: 12px;
   height: 100%;
   transition:
-    transform 0.45s var(--ease-out),
-    box-shadow 0.45s var(--ease-out);
+    background-position 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.35s var(--ease-out);
 }
 .card-link:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
 .card-link .card-foot {
   margin-top: auto;
@@ -842,30 +893,23 @@ ol {
   font-size: 13px;
   font-weight: 600;
 }
+.card-link .card-foot svg {
+  transition: transform 0.35s var(--ease-out);
+}
+.card-link:hover .card-foot svg {
+  transform: translate(2px, -2px);
+}
 
 button.card-link--disabled,
 .card-link--disabled {
-  opacity: 0.76;
+  opacity: 0.85;
   cursor: pointer;
   border: none !important;
   outline: none;
-  background-color: transparent;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.05),
-    0 24px 50px -30px rgba(0, 0, 0, 0.7);
 }
-.card-link--disabled::before {
-  padding: 0.75px !important;
-  background: linear-gradient(
-    160deg,
-    rgba(241, 216, 148, 0.16),
-    rgba(255, 255, 255, 0.03) 35%,
-    rgba(255, 255, 255, 0.015) 70%,
-    rgba(241, 216, 148, 0.05)
-  ) !important;
-}
+button.card-link--disabled:hover,
 .card-link--disabled:hover {
-  opacity: 0.88;
+  opacity: 1;
   transform: translateY(-2px);
 }
 .card-link--disabled .medal {
