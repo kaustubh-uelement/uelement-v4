@@ -217,12 +217,20 @@ export default function Home() {
                   }}
                   key={w.title}
                 >
-                  <span className="medal">
-                    <Icon name={w.icon} />
-                  </span>
-                  <h3 className="h3" style={{ marginTop: 12 }}>
-                    {w.title}
-                  </h3>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 14,
+                    }}
+                  >
+                    <span className="medal">
+                      <Icon name={w.icon} />
+                    </span>
+                    <h3 className="h3" style={{ margin: 0 }}>
+                      {w.title}
+                    </h3>
+                  </div>
                   <p className="muted">{w.text}</p>
                   <span className="card-foot text-link">
                     {w.link}
@@ -235,12 +243,20 @@ export default function Home() {
                   className="glass-card glass-card--pad card-link"
                   key={w.title}
                 >
-                  <span className="medal">
-                    <Icon name={w.icon} />
-                  </span>
-                  <h3 className="h3" style={{ marginTop: 12 }}>
-                    {w.title}
-                  </h3>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 14,
+                    }}
+                  >
+                    <span className="medal">
+                      <Icon name={w.icon} />
+                    </span>
+                    <h3 className="h3" style={{ margin: 0 }}>
+                      {w.title}
+                    </h3>
+                  </div>
                   <p className="muted">{w.text}</p>
                   <span className="card-foot text-link">
                     {w.link}
