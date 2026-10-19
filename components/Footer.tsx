@@ -126,7 +126,11 @@ export function Footer() {
 
         <div className="footer-legal">
           <span>
-            © 2026 {company.name} | All Rights Reserved | CIN {company.cin}
+            © 2026 {company.name}
+            <span className="footer-sep" aria-hidden="true">|</span>
+            All Rights Reserved
+            <span className="footer-sep" aria-hidden="true">|</span>
+            CIN {company.cin}
           </span>
           <nav aria-label="Legal">
             <Link href="/privacy/">Privacy</Link>

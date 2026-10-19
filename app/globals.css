@@ -2757,11 +2757,11 @@ a.mega__title:hover {
 }
 .footer-statement {
   font-family: var(--font-sans);
-  font-size: 20px;
+  font-size: 15.5px;
   font-weight: 350;
-  line-height: 1.35;
+  line-height: 1.4;
   color: var(--gold-soft);
-  letter-spacing: -0.015em;
+  letter-spacing: -0.01em;
 }
 .footer-socials {
   display: flex;
@@ -2904,6 +2904,12 @@ a.mega__title:hover {
 }
 .footer-legal a:hover {
   color: var(--paper);
+}
+.footer-sep {
+  display: inline-block;
+  margin-inline: 14px;
+  color: var(--mist);
+  opacity: 0.45;
 }
 
 /* ---------- Responsive layout refinements (mobile & tablet decluttering) ---------- */
@@ -3069,7 +3075,10 @@ a.mega__title:hover {
     gap: 14px;
   }
   .footer-statement {
-    font-size: 18px;
+    font-size: 14px;
+  }
+  .footer-sep {
+    margin-inline: 8px;
   }
   .footer-cols {
     gap: 24px 16px;
