@@ -2220,7 +2220,7 @@ a.mega__title:hover {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding-top: calc(var(--header-h) + clamp(22px, 3.6vh, 38px));
+    padding-top: calc(var(--header-h) + clamp(28px, 4.5vh, 48px));
     padding-bottom: 0;
     padding-inline: 18px;
     overflow: hidden;
@@ -2233,7 +2233,7 @@ a.mega__title:hover {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    gap: clamp(16px, 2.6vh, 26px);
+    gap: clamp(20px, 3.2vh, 32px);
     width: 100%;
     padding-inline: 0;
     padding-bottom: 0;
@@ -2243,13 +2243,13 @@ a.mega__title:hover {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-bottom: clamp(2px, 0.6vh, 6px);
+    margin-bottom: clamp(6px, 1vh, 12px);
   }
   .proof {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 9px;
     padding: 10px 16px 12px;
     border-radius: 22px;
     max-width: min(100%, 360px);
@@ -2315,7 +2315,7 @@ a.mega__title:hover {
     width: 100%;
     max-width: 340px;
     gap: 14px;
-    margin-top: clamp(4px, 0.8vh, 10px);
+    margin-top: clamp(8px, 1.4vh, 16px);
   }
   .hero__actions .btn {
     flex: 1 1 0;
@@ -2340,7 +2340,7 @@ a.mega__title:hover {
     right: 0;
     bottom: 0;
     width: 100%;
-    height: clamp(260px, 38vh, 420px);
+    height: clamp(280px, 40vh, 440px);
     margin-top: 0;
     overflow: hidden;
     z-index: 1;
@@ -2349,7 +2349,7 @@ a.mega__title:hover {
   .hero__ring {
     position: absolute;
     top: auto;
-    bottom: clamp(-45px, -6vh, -15px);
+    bottom: clamp(-35px, -4.5vh, -10px);
     left: 50%;
     width: clamp(620px, 155vw, 900px);
     transform: translateX(-50%);
