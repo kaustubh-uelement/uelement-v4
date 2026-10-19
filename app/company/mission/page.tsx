@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PageHero, Chip } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "Our mission",
@@ -12,63 +13,48 @@ export default function MissionPage() {
   return (
     <>
       {/* HERO */}
-      <section
-        className="panel panel--deep page-hero bp-hero"
-        aria-labelledby="mission-title"
+      <PageHero
+        crumbs={[{ label: "Company", href: "/company/" }, { label: "Our mission" }]}
+        chip="Our mission"
+        chipIcon="spark"
+        title={
+          <>
+            Technology that leaves people and the planet{" "}
+            <span className="metal-text">better off.</span>
+          </>
+        }
+        lede="A promise is easy to make and easy to forget. So we have made ours in public, alongside eleven organisations that set the standard and hold us to it. This page sets out what we are committed to or associated with, what we have joined, and how we will report on both."
       >
-        <div className="bp-hero__glow" aria-hidden="true" />
-        <div className="wrap page-hero__inner bp-hero__inner">
-          <div className="bp-hero__copy">
-            <nav className="crumbs" aria-label="Breadcrumb">
-              <Link href="/">Home</Link>
-              <span aria-hidden="true">/</span>
-              <Link href="/company/">Company</Link>
-              <span aria-hidden="true">/</span>
-              <span>Our mission</span>
-            </nav>
-            <h1 id="mission-title" className="h1">
-              Technology that leaves people and the planet{" "}
-              <span className="metal-text">better off.</span>
-            </h1>
-            <p className="lede muted">
-              A promise is easy to make and easy to forget. So we have made ours
-              in public, alongside eleven organisations that set the standard
-              and hold us to it. This page sets out what we are committed to or
-              associated with, what we have joined, and how we will report on
-              both.
-            </p>
-            <div className="actions">
-              <a className="btn btn--metal" href="#signed">
-                What Matters to Us
-              </a>
-              <a className="btn btn--glass" href="#commitments">
-                Our Commitments
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+        <a className="btn btn--metal" href="#signed">
+          What Matters to Us
+        </a>
+        <a className="btn btn--glass" href="#commitments">
+          Our Commitments
+        </a>
+      </PageHero>
 
       {/* VISION / MISSION */}
       <section
-        className="panel panel--enamel section"
+        className="panel panel--paper section"
         aria-labelledby="why-title"
       >
         <div className="wrap">
           <div className="section-head">
-            <span className="gold small" style={{ fontWeight: 600 }}>
-              Why we exist
-            </span>
-            <h2 id="why-title" className="h2">
+            <div>
+              <Chip icon="compass">Why we exist</Chip>
+            </div>
+            <h2 id="why-title" className="h2" style={{ marginTop: 12 }}>
               Where we want to go.
             </h2>
           </div>
           <div className="vm-grid">
-            <div className="glass-card vm">
-              <span className="vm__label">Our vision</span>
+            <div className="paper-card vm">
+              <span className="vm__label" style={{ color: "var(--gold-ink)" }}>
+                Our vision
+              </span>
               <p
                 className="statement"
-                style={{ fontSize: "clamp(28px, 3vw, 40px)" }}
+                style={{ fontSize: "clamp(24px, 2.6vw, 36px)" }}
               >
                 A future where humanity and technology progress together, and
                 the planet grows healthier because of both.
@@ -78,16 +64,24 @@ export default function MissionPage() {
                 apocalyptic ending.
               </p>
             </div>
-            <div className="glass-card vm">
-              <span className="vm__label">Our mission</span>
+            <div
+              className="metal-plate vm"
+              style={{ borderRadius: "var(--r-card)" }}
+            >
+              <span className="vm__label" style={{ color: "#4a3410" }}>
+                Our mission
+              </span>
               <p
                 className="statement"
-                style={{ fontSize: "clamp(28px, 3vw, 40px)" }}
+                style={{
+                  fontSize: "clamp(24px, 2.6vw, 36px)",
+                  color: "#2a1d05",
+                }}
               >
                 Build frontier technology that earns its place by leaving people
                 and the planet better off, not just the balance sheet.
               </p>
-              <p className="muted">
+              <p style={{ color: "#4a3410", opacity: 0.88 }}>
                 While the loudest voices look to abandon Earth, we believe
                 humanity already has the talent, capital and intelligence to
                 repair it. We only need to direct them with purpose.
@@ -100,7 +94,7 @@ export default function MissionPage() {
       {/* SIGNED AND JOINED */}
       <section
         id="signed"
-        className="panel panel--paper section"
+        className="panel panel--creme section"
         aria-labelledby="signed-title"
       >
         <div className="wrap">

@@ -2576,6 +2576,9 @@ a.mega__title:hover {
   flex: 1;
   background: linear-gradient(90deg, rgba(221, 187, 110, 0.5), transparent);
 }
+.metal-plate .vm__label::after {
+  background: linear-gradient(90deg, rgba(74, 52, 16, 0.4), transparent);
+}
 .vm .statement {
   font-family: "Noto Sans", "Noto Sans Devanagari", var(--font-sans);
   font-style: italic;
@@ -3448,6 +3451,7 @@ svg.gold {
     grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
   }
 }
+
 .bp-hero__copy {
   display: grid;
   gap: 22px;
