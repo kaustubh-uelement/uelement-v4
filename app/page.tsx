@@ -143,9 +143,9 @@ export default function Home() {
             >
               <Chip icon="people">Who We Are</Chip>
               <h2 id="who" className="h2">
-                Building <span className="gold">DeepTech</span>, Quantum-safe
+                Building <span className="metal-text">DeepTech</span>, Quantum-safe
                 security solutions &amp;{" "}
-                <span className="gold">Enterprise</span> platforms for critical
+                <span className="metal-text">Enterprise</span> platforms for critical
                 Infrastructure.
               </h2>
             </div>
