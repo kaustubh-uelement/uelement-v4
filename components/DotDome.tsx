@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 
 // A slowly turning sphere of gold dots, drawn on canvas. Used behind inner page headings.
-export function DotDome({ density = 3400 }: { density?: number }) {
+export function DotDome({ density = 6400 }: { density?: number }) {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -38,7 +38,8 @@ export function DotDome({ density = 3400 }: { density?: number }) {
 
     const draw = () => {
       ctx.clearRect(0, 0, w, h);
-      const R = Math.min(w, h) * 0.46;
+      // Main sphere radius (reduced slightly from 0.46)
+      const R = Math.min(w, h) * 0.44;
       const cx = w / 2, cy = h / 2;
       const ca = Math.cos(angle), sa = Math.sin(angle);
       const ct = Math.cos(tilt), st = Math.sin(tilt);
@@ -55,7 +56,8 @@ export function DotDome({ density = 3400 }: { density?: number }) {
         const px = cx + x1 * R;
         const py = cy + y2 * R;
         const a = Math.pow(depth, 2.2) * 0.95;
-        const s = 0.5 + depth * 1.35;
+        // Dot radius
+        const s = 0.8 + depth * 1.8;
         // brighter near the upper-left light source
         const light = Math.max(0, (-x1 * 0.5 - y2 * 0.6 + z2 * 0.8));
         const rC = 196 + Math.round(45 * light), gC = 154 + Math.round(62 * light), bC = 69 + Math.round(78 * light);

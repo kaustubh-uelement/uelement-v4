@@ -12,7 +12,10 @@ export default function MissionPage() {
   return (
     <>
       {/* HERO */}
-      <section className="panel panel--deep page-hero bp-hero" aria-labelledby="mission-title">
+      <section
+        className="panel panel--deep page-hero bp-hero"
+        aria-labelledby="mission-title"
+      >
         <div className="bp-hero__glow" aria-hidden="true" />
         <div className="wrap page-hero__inner bp-hero__inner">
           <div className="bp-hero__copy">
@@ -23,43 +26,34 @@ export default function MissionPage() {
               <span aria-hidden="true">/</span>
               <span>Our mission</span>
             </nav>
-            <span className="chip chip--plain">No Plan B. No Planet B.</span>
             <h1 id="mission-title" className="h1">
-              Technology that leaves people and the planet <span className="metal-text">better off.</span>
+              Technology that leaves people and the planet{" "}
+              <span className="metal-text">better off.</span>
             </h1>
             <p className="lede muted">
-              A promise is easy to make and easy to forget. So we have made ours in public, alongside eleven organisations that set the standard and hold us to it. This page sets out what we have signed, what we have joined, and how we will report on both.
+              A promise is easy to make and easy to forget. So we have made ours
+              in public, alongside eleven organisations that set the standard
+              and hold us to it. This page sets out what we are committed to or
+              associated with, what we have joined, and how we will report on
+              both.
             </p>
             <div className="actions">
               <a className="btn btn--metal" href="#signed">
-                See what we have signed
+                What Matters to Us
               </a>
               <a className="btn btn--glass" href="#commitments">
-                Our five commitments
+                Our Commitments
               </a>
-            </div>
-          </div>
-          <div className="glass-card glass-card--pad hero-stats">
-            <div className="hero-stat">
-              <span className="hero-stat__n">11</span>
-              <span className="hero-stat__l">organisations we have signed with, joined or partnered</span>
-            </div>
-            <hr className="metal-rule" />
-            <div className="hero-stat">
-              <span className="hero-stat__n">5</span>
-              <span className="hero-stat__l">commitments, each tied to a public standard</span>
-            </div>
-            <hr className="metal-rule" />
-            <div className="hero-stat">
-              <span className="hero-stat__n">1</span>
-              <span className="hero-stat__l">report a year, with real numbers or none</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* VISION / MISSION */}
-      <section className="panel panel--enamel section" aria-labelledby="why-title">
+      <section
+        className="panel panel--enamel section"
+        aria-labelledby="why-title"
+      >
         <div className="wrap">
           <div className="section-head">
             <span className="gold small" style={{ fontWeight: 600 }}>
@@ -72,18 +66,31 @@ export default function MissionPage() {
           <div className="vm-grid">
             <div className="glass-card vm">
               <span className="vm__label">Our vision</span>
-              <p className="statement" style={{ fontSize: "clamp(28px, 3vw, 40px)" }}>
-                A future where humanity and technology progress together, and the planet grows healthier because of both.
+              <p
+                className="statement"
+                style={{ fontSize: "clamp(28px, 3vw, 40px)" }}
+              >
+                A future where humanity and technology progress together, and
+                the planet grows healthier because of both.
               </p>
-              <p className="muted">A future with no need for the words “global warming”, and no apocalyptic ending.</p>
+              <p className="muted">
+                A future with no need for the words “global warming”, and no
+                apocalyptic ending.
+              </p>
             </div>
             <div className="glass-card vm">
               <span className="vm__label">Our mission</span>
-              <p className="statement" style={{ fontSize: "clamp(28px, 3vw, 40px)" }}>
-                Build frontier technology that earns its place by leaving people and the planet better off, not just the balance sheet.
+              <p
+                className="statement"
+                style={{ fontSize: "clamp(28px, 3vw, 40px)" }}
+              >
+                Build frontier technology that earns its place by leaving people
+                and the planet better off, not just the balance sheet.
               </p>
               <p className="muted">
-                While the loudest voices look to abandon Earth, we believe humanity already has the talent, capital and intelligence to repair it. We only need to direct them with purpose.
+                While the loudest voices look to abandon Earth, we believe
+                humanity already has the talent, capital and intelligence to
+                repair it. We only need to direct them with purpose.
               </p>
             </div>
           </div>
@@ -91,19 +98,28 @@ export default function MissionPage() {
       </section>
 
       {/* SIGNED AND JOINED */}
-      <section id="signed" className="panel panel--paper section" aria-labelledby="signed-title">
+      <section
+        id="signed"
+        className="panel panel--paper section"
+        aria-labelledby="signed-title"
+      >
         <div className="wrap">
           <div className="section-head section-head--split">
-            <div className="stack" style={{ ["--stack" as string]: "16px" } as React.CSSProperties}>
+            <div
+              className="stack"
+              style={{ ["--stack" as string]: "16px" } as React.CSSProperties}
+            >
               <span className="gold small" style={{ fontWeight: 600 }}>
-                What we have signed and joined
+                What we are committed-to or associated with
               </span>
               <h2 id="signed-title" className="h2">
                 We would rather be held to account than admired.
               </h2>
             </div>
             <p className="lede muted">
-              Each organisation below sets a public standard. Joining means meeting it, reporting against it, and accepting scrutiny when we fall short.
+              Each organisation below sets a public standard. Joining means
+              meeting it, reporting against it, and accepting scrutiny when we
+              fall short.
             </p>
           </div>
 
@@ -112,7 +128,8 @@ export default function MissionPage() {
             <div className="lg-group__head">
               <h3 className="h3">For the planet</h3>
               <p className="muted">
-                Cutting our own emissions, building software that wastes less, and supporting the work of restoring nature.
+                Cutting our own emissions, building software that wastes less,
+                and supporting the work of restoring nature.
               </p>
             </div>
             <div className="grid-3">
@@ -129,7 +146,9 @@ export default function MissionPage() {
                     <span className="status status--line">Signatory</span>
                   </div>
                   <p className="small muted">
-                    Net-zero carbon by 2040, through regular reporting, real cuts in emissions, and credible offsets only for what remains.
+                    Net-zero carbon by 2040, through regular reporting, real
+                    cuts in emissions, and credible offsets only for what
+                    remains.
                   </p>
                 </div>
               </article>
@@ -147,7 +166,8 @@ export default function MissionPage() {
                     <span className="status status--line">Partner</span>
                   </div>
                   <p className="small muted">
-                    Supporting WWF’s work to protect and restore nature, the system every other system depends on.
+                    Supporting WWF’s work to protect and restore nature, the
+                    system every other system depends on.
                   </p>
                 </div>
               </article>
@@ -164,7 +184,8 @@ export default function MissionPage() {
                     <span className="status status--line">Member</span>
                   </div>
                   <p className="small muted">
-                    Software that emits less: carbon-aware design, and measuring the footprint of what we ship.
+                    Software that emits less: carbon-aware design, and measuring
+                    the footprint of what we ship.
                   </p>
                 </div>
               </article>
@@ -181,7 +202,8 @@ export default function MissionPage() {
                     <span className="status status--line">Member</span>
                   </div>
                   <p className="small muted">
-                    Making cloud spend and resource use visible and accountable, so waste can be seen and cut.
+                    Making cloud spend and resource use visible and accountable,
+                    so waste can be seen and cut.
                   </p>
                 </div>
               </article>
@@ -198,7 +220,8 @@ export default function MissionPage() {
                     <span className="placeholder">Relationship</span>
                   </div>
                   <p className="small muted">
-                    Free environmental footage and data that help us tell the climate story accurately.
+                    Free environmental footage and data that help us tell the
+                    climate story accurately.
                   </p>
                 </div>
               </article>
@@ -210,7 +233,8 @@ export default function MissionPage() {
             <div className="lg-group__head">
               <h3 className="h3">For people and responsible business</h3>
               <p className="muted">
-                Human rights, fair work and clean dealing in how we run the company, measured against goals the whole world has agreed.
+                Human rights, fair work and clean dealing in how we run the
+                company, measured against goals the whole world has agreed.
               </p>
             </div>
             <div className="grid-3">
@@ -227,7 +251,9 @@ export default function MissionPage() {
                     <span className="status status--line">Participant</span>
                   </div>
                   <p className="small muted">
-                    Strategy and operations aligned with the Ten Principles on human rights, labour, environment and anti-corruption, with progress reported every year.
+                    Strategy and operations aligned with the Ten Principles on
+                    human rights, labour, environment and anti-corruption, with
+                    progress reported every year.
                   </p>
                 </div>
               </article>
@@ -244,7 +270,8 @@ export default function MissionPage() {
                     <span className="status status--line">Aligned</span>
                   </div>
                   <p className="small muted">
-                    The seventeen goals we measure our work against. Our seven focus goals are set out below.
+                    The seventeen goals we measure our work against. Our seven
+                    focus goals are set out below.
                   </p>
                 </div>
               </article>
@@ -261,7 +288,8 @@ export default function MissionPage() {
                     <span className="placeholder">Relationship</span>
                   </div>
                   <p className="small muted">
-                    Where public and private leaders work together on cybersecurity, quantum technology and the energy transition.
+                    Where public and private leaders work together on
+                    cybersecurity, quantum technology and the energy transition.
                   </p>
                 </div>
               </article>
@@ -273,7 +301,8 @@ export default function MissionPage() {
             <div className="lg-group__head">
               <h3 className="h3">For secure, open technology</h3>
               <p className="muted">
-                Open standards and open-source software that anyone can inspect, and a national mission to make India quantum-safe.
+                Open standards and open-source software that anyone can inspect,
+                and a national mission to make India quantum-safe.
               </p>
             </div>
             <div className="grid-3">
@@ -290,7 +319,8 @@ export default function MissionPage() {
                     <span className="status status--line">Member</span>
                   </div>
                   <p className="small muted">
-                    Open, vendor-neutral foundations for the software our platforms are built on, and a place to give back.
+                    Open, vendor-neutral foundations for the software our
+                    platforms are built on, and a place to give back.
                   </p>
                 </div>
               </article>
@@ -307,7 +337,8 @@ export default function MissionPage() {
                     <span className="status status--line">Member</span>
                   </div>
                   <p className="small muted">
-                    Securing the open-source supply chain that every SBOM and CBOM we produce depends on.
+                    Securing the open-source supply chain that every SBOM and
+                    CBOM we produce depends on.
                   </p>
                 </div>
               </article>
@@ -325,7 +356,9 @@ export default function MissionPage() {
                     <span className="placeholder">Relationship</span>
                   </div>
                   <p className="small muted">
-                    Department of Science &amp; Technology, Government of India. The national programme for quantum technologies, including the May 2026 roadmap for a quantum-safe ecosystem.
+                    Department of Science &amp; Technology, Government of India.
+                    The national programme for quantum technologies, including
+                    the May 2026 roadmap for a quantum-safe ecosystem.
                   </p>
                 </div>
               </article>
@@ -333,16 +366,26 @@ export default function MissionPage() {
           </div>
 
           <p className="small muted lg-note">
-            Logos show UElement’s own signature, membership, participation or partnership, and are used under each organisation’s brand guidelines. They do not mean that any of these organisations endorses UElement or its products.
+            Logos show UElement’s own signature, membership, participation or
+            partnership, and are used under each organisation’s brand
+            guidelines. They do not mean that any of these organisations
+            endorses UElement or its products.
           </p>
         </div>
       </section>
 
       {/* COMMITMENTS */}
-      <section id="commitments" className="panel panel--creme section" aria-labelledby="commit-title">
+      <section
+        id="commitments"
+        className="panel panel--creme section"
+        aria-labelledby="commit-title"
+      >
         <div className="wrap">
           <div className="section-head section-head--split">
-            <div className="stack" style={{ ["--stack" as string]: "16px" } as React.CSSProperties}>
+            <div
+              className="stack"
+              style={{ ["--stack" as string]: "16px" } as React.CSSProperties}
+            >
               <span className="gold small" style={{ fontWeight: 600 }}>
                 Our commitments
               </span>
@@ -350,9 +393,6 @@ export default function MissionPage() {
                 Five commitments we will measure ourselves by.
               </h2>
             </div>
-            <p className="lede muted">
-              Each one is tied to a standard we have signed, so someone other than us can check it.
-            </p>
           </div>
           <ol className="commit-list">
             <li className="paper-card commit">
@@ -360,10 +400,14 @@ export default function MissionPage() {
               <h3 className="h3">Protect the systems societies run on</h3>
               <div>
                 <p>
-                  Banks, power, water, telecom and healthcare must keep working through the quantum transition. We build to open, published standards and help secure the open-source code everyone depends on.
+                  Banks, power, water, telecom and healthcare must keep working
+                  through the quantum transition. We build to open, published
+                  standards and help secure the open-source code everyone
+                  depends on.
                 </p>
                 <p className="held">
-                  <b>Held to it by</b> National Quantum Mission · OpenSSF · The Linux Foundation
+                  <b>Held to it by</b> National Quantum Mission · OpenSSF · The
+                  Linux Foundation
                 </p>
               </div>
             </li>
@@ -372,10 +416,13 @@ export default function MissionPage() {
               <h3 className="h3">Help every system see its own footprint</h3>
               <div>
                 <p>
-                  You cannot reduce what you cannot see. We will make energy, cost and resource use visible in what we build, not just uptime.
+                  You cannot reduce what you cannot see. We will make energy,
+                  cost and resource use visible in what we build, not just
+                  uptime.
                 </p>
                 <p className="held">
-                  <b>Held to it by</b> Green Software Foundation · FinOps Foundation
+                  <b>Held to it by</b> Green Software Foundation · FinOps
+                  Foundation
                 </p>
               </div>
             </li>
@@ -384,7 +431,9 @@ export default function MissionPage() {
               <h3 className="h3">Cut waste in the physical economy</h3>
               <div>
                 <p>
-                  Every asset reused is one not manufactured. We help extend the useful life of equipment, and we count our own emissions against a net-zero target.
+                  Every asset reused is one not manufactured. We help extend the
+                  useful life of equipment, and we count our own emissions
+                  against a net-zero target.
                 </p>
                 <p className="held">
                   <b>Held to it by</b> The Climate Pledge · WWF
@@ -396,7 +445,9 @@ export default function MissionPage() {
               <h3 className="h3">Keep AI beside humanity</h3>
               <div>
                 <p>
-                  A human in the loop for every decision that matters, respect for the rights of everyone our systems touch, and people trained into frontier roles.
+                  A human in the loop for every decision that matters, respect
+                  for the rights of everyone our systems touch, and people
+                  trained into frontier roles.
                 </p>
                 <p className="held">
                   <b>Held to it by</b> UN Global Compact · World Economic Forum
@@ -408,10 +459,12 @@ export default function MissionPage() {
               <h3 className="h3">Be the proof, inside UElement</h3>
               <div>
                 <p>
-                  A company that preaches repair must practise it. Once a year we publish one report against every commitment on this page.
+                  A company that preaches repair must practise it. Once a year
+                  we publish one report against every commitment on this page.
                 </p>
                 <p className="held">
-                  <b>Held to it by</b> UN Global Compact · The Climate Pledge · UN Sustainable Development Goals
+                  <b>Held to it by</b> UN Global Compact · The Climate Pledge ·
+                  UN Sustainable Development Goals
                 </p>
               </div>
             </li>
@@ -420,10 +473,16 @@ export default function MissionPage() {
       </section>
 
       {/* SDGs */}
-      <section className="panel panel--enamel section" aria-labelledby="sdg-title">
+      <section
+        className="panel panel--enamel section"
+        aria-labelledby="sdg-title"
+      >
         <div className="wrap">
           <div className="section-head section-head--split">
-            <div className="stack" style={{ ["--stack" as string]: "16px" } as React.CSSProperties}>
+            <div
+              className="stack"
+              style={{ ["--stack" as string]: "16px" } as React.CSSProperties}
+            >
               <span className="gold small" style={{ fontWeight: 600 }}>
                 Sustainable Development Goals
               </span>
@@ -432,7 +491,8 @@ export default function MissionPage() {
               </h2>
             </div>
             <p className="lede muted">
-              We support all seventeen. These are the seven where what we build and how we run the company can make a measurable difference.
+              We support all seventeen. These are the seven where what we build
+              and how we run the company can make a measurable difference.
             </p>
           </div>
           <ul className="sdg-grid" role="list">
@@ -440,63 +500,104 @@ export default function MissionPage() {
               <span className="sdg__num" style={{ background: "#C5192D" }}>
                 4
               </span>
-              <div className="stack" style={{ ["--stack" as string]: "6px" } as React.CSSProperties}>
+              <div
+                className="stack"
+                style={{ ["--stack" as string]: "6px" } as React.CSSProperties}
+              >
                 <h3 className="h4">Quality education</h3>
-                <p className="small muted">Digital literacy and deeptech skilling, in schools and in our own teams.</p>
+                <p className="small muted">
+                  Digital literacy and deeptech skilling, in schools and in our
+                  own teams.
+                </p>
               </div>
             </li>
             <li className="glass-card sdg">
               <span className="sdg__num" style={{ background: "#A21942" }}>
                 8
               </span>
-              <div className="stack" style={{ ["--stack" as string]: "6px" } as React.CSSProperties}>
+              <div
+                className="stack"
+                style={{ ["--stack" as string]: "6px" } as React.CSSProperties}
+              >
                 <h3 className="h4">Decent work and economic growth</h3>
-                <p className="small muted">Hiring people who are brainy and by heart, and training them into frontier roles.</p>
+                <p className="small muted">
+                  Hiring people who are brainy and by heart, and training them
+                  into frontier roles.
+                </p>
               </div>
             </li>
             <li className="glass-card sdg">
               <span className="sdg__num" style={{ background: "#FD6925" }}>
                 9
               </span>
-              <div className="stack" style={{ ["--stack" as string]: "6px" } as React.CSSProperties}>
+              <div
+                className="stack"
+                style={{ ["--stack" as string]: "6px" } as React.CSSProperties}
+              >
                 <h3 className="h4">Industry, innovation and infrastructure</h3>
-                <p className="small muted">Quantum-safe, observable infrastructure for the systems that cannot fail.</p>
+                <p className="small muted">
+                  Quantum-safe, observable infrastructure for the systems that
+                  cannot fail.
+                </p>
               </div>
             </li>
             <li className="glass-card sdg">
               <span className="sdg__num" style={{ background: "#BF8B2E" }}>
                 12
               </span>
-              <div className="stack" style={{ ["--stack" as string]: "6px" } as React.CSSProperties}>
+              <div
+                className="stack"
+                style={{ ["--stack" as string]: "6px" } as React.CSSProperties}
+              >
                 <h3 className="h4">Responsible consumption and production</h3>
-                <p className="small muted">Reuse before replace: extending the working life of physical assets.</p>
+                <p className="small muted">
+                  Reuse before replace: extending the working life of physical
+                  assets.
+                </p>
               </div>
             </li>
             <li className="glass-card sdg">
               <span className="sdg__num" style={{ background: "#3F7E44" }}>
                 13
               </span>
-              <div className="stack" style={{ ["--stack" as string]: "6px" } as React.CSSProperties}>
+              <div
+                className="stack"
+                style={{ ["--stack" as string]: "6px" } as React.CSSProperties}
+              >
                 <h3 className="h4">Climate action</h3>
-                <p className="small muted">Net zero by 2040 under The Climate Pledge, and footprint data our customers can act on.</p>
+                <p className="small muted">
+                  Net zero by 2040 under The Climate Pledge, and footprint data
+                  our customers can act on.
+                </p>
               </div>
             </li>
             <li className="glass-card sdg">
               <span className="sdg__num" style={{ background: "#00689D" }}>
                 16
               </span>
-              <div className="stack" style={{ ["--stack" as string]: "6px" } as React.CSSProperties}>
+              <div
+                className="stack"
+                style={{ ["--stack" as string]: "6px" } as React.CSSProperties}
+              >
                 <h3 className="h4">Peace, justice and strong institutions</h3>
-                <p className="small muted">Secure, trustworthy systems for banks, markets and government.</p>
+                <p className="small muted">
+                  Secure, trustworthy systems for banks, markets and government.
+                </p>
               </div>
             </li>
             <li className="glass-card sdg">
               <span className="sdg__num" style={{ background: "#19486A" }}>
                 17
               </span>
-              <div className="stack" style={{ ["--stack" as string]: "6px" } as React.CSSProperties}>
+              <div
+                className="stack"
+                style={{ ["--stack" as string]: "6px" } as React.CSSProperties}
+              >
                 <h3 className="h4">Partnerships for the goals</h3>
-                <p className="small muted">The organisations on this page, and every customer who builds with us.</p>
+                <p className="small muted">
+                  The organisations on this page, and every customer who builds
+                  with us.
+                </p>
               </div>
             </li>
           </ul>
@@ -504,7 +605,10 @@ export default function MissionPage() {
       </section>
 
       {/* BELIEFS */}
-      <section className="panel panel--paper section" aria-labelledby="believe-title">
+      <section
+        className="panel panel--paper section"
+        aria-labelledby="believe-title"
+      >
         <div className="wrap">
           <div className="section-head">
             <span className="gold small" style={{ fontWeight: 600 }}>
@@ -517,37 +621,61 @@ export default function MissionPage() {
           <div className="belief-list">
             <div className="belief">
               <h3 className="h4">Mindset comes first</h3>
-              <p className="muted">Every rebuild in history began with people who refused to accept ruin as final.</p>
+              <p className="muted">
+                Every rebuild in history began with people who refused to accept
+                ruin as final.
+              </p>
             </div>
             <div className="belief">
               <h3 className="h4">Brainy and by heart</h3>
-              <p className="muted">Intelligence without conscience is how the world got here. We hire, build and sell with both.</p>
+              <p className="muted">
+                Intelligence without conscience is how the world got here. We
+                hire, build and sell with both.
+              </p>
             </div>
             <div className="belief">
               <h3 className="h4">AI beside humanity</h3>
-              <p className="muted">The most capable intelligence ever built should work with people, under human judgement.</p>
+              <p className="muted">
+                The most capable intelligence ever built should work with
+                people, under human judgement.
+              </p>
             </div>
             <div className="belief">
               <h3 className="h4">Profit funds purpose</h3>
-              <p className="muted">We must be profitable to last, but profit is the fuel, not the destination.</p>
+              <p className="muted">
+                We must be profitable to last, but profit is the fuel, not the
+                destination.
+              </p>
             </div>
             <div className="belief">
               <h3 className="h4">Proof over promises</h3>
-              <p className="muted">We claim only what we can show. Every product carries an honest maturity label.</p>
+              <p className="muted">
+                We claim only what we can show. Every product carries an honest
+                maturity label.
+              </p>
             </div>
             <div className="belief">
               <h3 className="h4">Sovereign by design</h3>
-              <p className="muted">Built in India, deployable anywhere, owned and controlled by the people who use it.</p>
+              <p className="muted">
+                Built in India, deployable anywhere, owned and controlled by the
+                people who use it.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* HOW WE DECIDE */}
-      <section className="panel panel--creme section" aria-labelledby="decide-title">
+      <section
+        className="panel panel--creme section"
+        aria-labelledby="decide-title"
+      >
         <div className="wrap">
           <div className="section-head section-head--split">
-            <div className="stack" style={{ ["--stack" as string]: "16px" } as React.CSSProperties}>
+            <div
+              className="stack"
+              style={{ ["--stack" as string]: "16px" } as React.CSSProperties}
+            >
               <span className="gold small" style={{ fontWeight: 600 }}>
                 How we decide
               </span>
@@ -555,7 +683,9 @@ export default function MissionPage() {
                 Five questions before we build anything.
               </h2>
             </div>
-            <p className="lede muted">If the answer to any of them is no, we do not take the work on.</p>
+            <p className="lede muted">
+              If the answer to any of them is no, we do not take the work on.
+            </p>
           </div>
           <ol className="q-list">
             <li>
@@ -572,7 +702,10 @@ export default function MissionPage() {
             </li>
             <li>
               <span className="q-list__n">4</span>
-              <p>Does it repair, protect or extend useful life, rather than extract?</p>
+              <p>
+                Does it repair, protect or extend useful life, rather than
+                extract?
+              </p>
             </li>
             <li>
               <span className="q-list__n">5</span>
@@ -583,8 +716,14 @@ export default function MissionPage() {
       </section>
 
       {/* REPORTING + CTA */}
-      <section className="panel panel--deep section" aria-labelledby="report-title">
-        <div className="wrap wrap--narrow" style={{ display: "grid", gap: 26, justifyItems: "start" }}>
+      <section
+        className="panel panel--deep section"
+        aria-labelledby="report-title"
+      >
+        <div
+          className="wrap wrap--narrow"
+          style={{ display: "grid", gap: 26, justifyItems: "start" }}
+        >
           <span className="gold small" style={{ fontWeight: 600 }}>
             How we will report
           </span>
@@ -592,7 +731,10 @@ export default function MissionPage() {
             Real numbers, <span className="metal-text">or none.</span>
           </h2>
           <p className="lede muted">
-            Once a year we will publish one report: our UN Global Compact Communication on Progress, our progress under The Climate Pledge, and what we did against each commitment and goal on this page. Where we fall short, the report will say so.
+            Once a year we will publish one report: our UN Global Compact
+            Communication on Progress, our progress under The Climate Pledge,
+            and what we did against each commitment and goal on this page. Where
+            we fall short, the report will say so.
           </p>
           <div className="actions">
             <Link className="btn btn--metal" href="/contact/">
