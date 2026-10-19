@@ -129,7 +129,10 @@ export default function Home() {
       {/* Who we are */}
       <section className="panel panel--paper section" aria-labelledby="who">
         <div className="wrap">
-          <div className="section-head section-head--split">
+          <div
+            className="section-head section-head--split"
+            style={{ rowGap: 28 }}
+          >
             <div
               style={{
                 display: "grid",
@@ -140,8 +143,10 @@ export default function Home() {
             >
               <Chip icon="people">Who We Are</Chip>
               <h2 id="who" className="h2">
-                Building DeepTech, Quantum-safe security solutions &amp;
-                Enterprise platforms for critical Infrastructure.
+                Building <span className="gold">DeepTech</span>, Quantum-safe
+                security solutions &amp;{" "}
+                <span className="gold">Enterprise</span> platforms for critical
+                Infrastructure.
               </h2>
             </div>
             <div
