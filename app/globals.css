@@ -2340,7 +2340,7 @@ a.mega__title:hover {
     right: 0;
     bottom: 0;
     width: 100%;
-    height: clamp(280px, 40vh, 440px);
+    height: clamp(220px, 32vh, 340px);
     margin-top: 0;
     overflow: hidden;
     z-index: 1;
@@ -2349,7 +2349,7 @@ a.mega__title:hover {
   .hero__ring {
     position: absolute;
     top: auto;
-    bottom: clamp(-35px, -4.5vh, -10px);
+    bottom: clamp(-115px, -18vh, -100px);
     left: 50%;
     width: clamp(620px, 155vw, 900px);
     transform: translateX(-50%);
