@@ -491,94 +491,73 @@ export default function MissionPage() {
           </div>
           <ul className="sdg-grid" role="list">
             <li className="glass-card sdg">
-              <span className="sdg__num">1</span>
-              <div
-                className="stack"
-                style={{ ["--stack" as string]: "6px" } as React.CSSProperties}
-              >
+              <div className="sdg__head">
+                <span className="sdg__num">01</span>
                 <h3 className="h4">Quality education</h3>
-                <p className="small muted">
-                  Digital literacy and deeptech skilling, in schools and in our
-                  own teams.
-                </p>
               </div>
+              <p className="small muted sdg__desc">
+                Digital literacy and deeptech skilling, in schools and in our
+                own teams.
+              </p>
             </li>
             <li className="glass-card sdg">
-              <span className="sdg__num">2</span>
-              <div
-                className="stack"
-                style={{ ["--stack" as string]: "6px" } as React.CSSProperties}
-              >
+              <div className="sdg__head">
+                <span className="sdg__num">02</span>
                 <h3 className="h4">Decent work and economic growth</h3>
-                <p className="small muted">
-                  Hiring people who are brainy and by heart, and training them
-                  into frontier roles.
-                </p>
               </div>
+              <p className="small muted sdg__desc">
+                Hiring people who are brainy and by heart, and training them
+                into frontier roles.
+              </p>
             </li>
             <li className="glass-card sdg">
-              <span className="sdg__num">3</span>
-              <div
-                className="stack"
-                style={{ ["--stack" as string]: "6px" } as React.CSSProperties}
-              >
+              <div className="sdg__head">
+                <span className="sdg__num">03</span>
                 <h3 className="h4">Industry, innovation and infrastructure</h3>
-                <p className="small muted">
-                  Quantum-safe, observable infrastructure for the systems that
-                  cannot fail.
-                </p>
               </div>
+              <p className="small muted sdg__desc">
+                Quantum-safe, observable infrastructure for the systems that
+                cannot fail.
+              </p>
             </li>
             <li className="glass-card sdg">
-              <span className="sdg__num">4</span>
-              <div
-                className="stack"
-                style={{ ["--stack" as string]: "6px" } as React.CSSProperties}
-              >
+              <div className="sdg__head">
+                <span className="sdg__num">04</span>
                 <h3 className="h4">Responsible consumption and production</h3>
-                <p className="small muted">
-                  Reuse before replace: extending the working life of physical
-                  assets.
-                </p>
               </div>
+              <p className="small muted sdg__desc">
+                Reuse before replace: extending the working life of physical
+                assets.
+              </p>
             </li>
             <li className="glass-card sdg">
-              <span className="sdg__num">5</span>
-              <div
-                className="stack"
-                style={{ ["--stack" as string]: "6px" } as React.CSSProperties}
-              >
+              <div className="sdg__head">
+                <span className="sdg__num">05</span>
                 <h3 className="h4">Climate action</h3>
-                <p className="small muted">
-                  Net zero by 2040 under The Climate Pledge, and footprint data
-                  our customers can act on.
-                </p>
               </div>
+              <p className="small muted sdg__desc">
+                Net zero by 2040 under The Climate Pledge, and footprint data
+                our customers can act on.
+              </p>
             </li>
             <li className="glass-card sdg">
-              <span className="sdg__num">6</span>
-              <div
-                className="stack"
-                style={{ ["--stack" as string]: "6px" } as React.CSSProperties}
-              >
+              <div className="sdg__head">
+                <span className="sdg__num">06</span>
                 <h3 className="h4">Peace, justice and strong institutions</h3>
-                <p className="small muted">
-                  Secure, trustworthy systems for banks, markets and government.
-                </p>
               </div>
+              <p className="small muted sdg__desc">
+                Secure, trustworthy systems for banks, markets and government.
+              </p>
             </li>
             <li className="glass-card sdg">
-              <span className="sdg__num">7</span>
-              <div
-                className="stack"
-                style={{ ["--stack" as string]: "6px" } as React.CSSProperties}
-              >
+              <div className="sdg__head">
+                <span className="sdg__num">07</span>
                 <h3 className="h4">Partnerships for the goals</h3>
-                <p className="small muted">
-                  The organisations on this page, and every customer who builds
-                  with us.
-                </p>
               </div>
+              <p className="small muted sdg__desc">
+                The organisations on this page, and every customer who builds
+                with us.
+              </p>
             </li>
           </ul>
         </div>
