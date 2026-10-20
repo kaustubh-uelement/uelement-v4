@@ -491,9 +491,7 @@ export default function MissionPage() {
           </div>
           <ul className="sdg-grid" role="list">
             <li className="glass-card sdg">
-              <span className="sdg__num" style={{ background: "#C5192D" }}>
-                4
-              </span>
+              <span className="sdg__num">1</span>
               <div
                 className="stack"
                 style={{ ["--stack" as string]: "6px" } as React.CSSProperties}
@@ -506,9 +504,7 @@ export default function MissionPage() {
               </div>
             </li>
             <li className="glass-card sdg">
-              <span className="sdg__num" style={{ background: "#A21942" }}>
-                8
-              </span>
+              <span className="sdg__num">2</span>
               <div
                 className="stack"
                 style={{ ["--stack" as string]: "6px" } as React.CSSProperties}
@@ -521,9 +517,7 @@ export default function MissionPage() {
               </div>
             </li>
             <li className="glass-card sdg">
-              <span className="sdg__num" style={{ background: "#FD6925" }}>
-                9
-              </span>
+              <span className="sdg__num">3</span>
               <div
                 className="stack"
                 style={{ ["--stack" as string]: "6px" } as React.CSSProperties}
@@ -536,9 +530,7 @@ export default function MissionPage() {
               </div>
             </li>
             <li className="glass-card sdg">
-              <span className="sdg__num" style={{ background: "#BF8B2E" }}>
-                12
-              </span>
+              <span className="sdg__num">4</span>
               <div
                 className="stack"
                 style={{ ["--stack" as string]: "6px" } as React.CSSProperties}
@@ -551,9 +543,7 @@ export default function MissionPage() {
               </div>
             </li>
             <li className="glass-card sdg">
-              <span className="sdg__num" style={{ background: "#3F7E44" }}>
-                13
-              </span>
+              <span className="sdg__num">5</span>
               <div
                 className="stack"
                 style={{ ["--stack" as string]: "6px" } as React.CSSProperties}
@@ -566,9 +556,7 @@ export default function MissionPage() {
               </div>
             </li>
             <li className="glass-card sdg">
-              <span className="sdg__num" style={{ background: "#00689D" }}>
-                16
-              </span>
+              <span className="sdg__num">6</span>
               <div
                 className="stack"
                 style={{ ["--stack" as string]: "6px" } as React.CSSProperties}
@@ -580,9 +568,7 @@ export default function MissionPage() {
               </div>
             </li>
             <li className="glass-card sdg">
-              <span className="sdg__num" style={{ background: "#19486A" }}>
-                17
-              </span>
+              <span className="sdg__num">7</span>
               <div
                 className="stack"
                 style={{ ["--stack" as string]: "6px" } as React.CSSProperties}
