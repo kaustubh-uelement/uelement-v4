@@ -516,12 +516,14 @@
   padding: 28px 28px 8px 0;
   position: relative;
 }
-.vyu-story li + li {
-  padding-left: 28px;
-  border-left: 1px solid rgba(255, 255, 255, 0.12);
-}
-.vyu-band.paper .vyu-story li + li {
-  border-left: 1px solid #DCCFB5;
+@media (min-width: 861px) {
+  .vyu-story li + li {
+    padding-left: 28px;
+    border-left: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .vyu-band.paper .vyu-story li + li {
+    border-left: 1px solid #DCCFB5;
+  }
 }
 .vyu-story svg {
   width: 44px;
@@ -1065,9 +1067,11 @@
 .vyu-steps li {
   padding: 28px 28px 8px 0;
 }
-.vyu-steps li + li {
-  padding-left: 28px;
-  border-left: 1px solid rgba(255, 255, 255, 0.12);
+@media (min-width: 861px) {
+  .vyu-steps li + li {
+    padding-left: 28px;
+    border-left: 1px solid rgba(255, 255, 255, 0.12);
+  }
 }
 .vyu-steps .n {
   font-size: 14px;
@@ -1558,21 +1562,32 @@
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 860px) {
   .vyu-story,
   .vyu-steps {
     grid-template-columns: minmax(0, 1fr);
   }
   .vyu-story li,
   .vyu-story li + li,
+  .vyu-band.paper .vyu-story li,
+  .vyu-band.paper .vyu-story li + li,
   .vyu-steps li,
-  .vyu-steps li + li {
-    padding: 24px 0 8px;
-    border-left: 0;
+  .vyu-steps li + li,
+  .vyu-band.paper .vyu-steps li,
+  .vyu-band.paper .vyu-steps li + li {
+    padding: 24px 0 8px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    border-left: none !important;
   }
   .vyu-story li + li,
   .vyu-steps li + li {
     border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .vyu-band.paper .vyu-story li + li,
+  .vyu-band.paper .vyu-steps li + li {
+    border-top: none !important;
+    border-left: none !important;
   }
   .vyu-qs,
   .vyu-trust,
