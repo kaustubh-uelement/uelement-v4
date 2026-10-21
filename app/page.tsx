@@ -183,10 +183,9 @@ export default function Home() {
             >
               <Chip icon="people">Who We Are</Chip>
               <h2 id="who" className="h2">
-                Building <span className="metal-text">DeepTech</span>, Quantum-safe
-                security solutions &amp;{" "}
-                <span className="metal-text">Enterprise</span> platforms for critical
-                Infrastructure.
+                Building <span className="metal-text">DeepTech</span>,
+                Quantum-safe security solutions &amp; Enterprise platforms for
+                critical Infrastructure.
               </h2>
             </div>
             <div
@@ -203,9 +202,10 @@ export default function Home() {
               </p>
               <blockquote className="quote-callout">
                 <p className="quote-callout__text">
-                  <span className="quote-callout__mark">“</span>Humanity already possesses the Talent, Capital and
-                  Intelligence required to repair our world, We simply need to
-                  Direct it with Purpose.<span className="quote-callout__mark">”</span>
+                  <span className="quote-callout__mark">“</span>Humanity already
+                  possesses the Talent, Capital and Intelligence required to
+                  repair our world, We simply need to Direct it with Purpose.
+                  <span className="quote-callout__mark">”</span>
                 </p>
               </blockquote>
             </div>
@@ -328,14 +328,14 @@ export default function Home() {
                   fontFamily:
                     '"Noto Sans", "Noto Sans Devanagari", var(--font-sans)',
                   fontStyle: "italic",
-                  fontSize: "clamp(20px, 2.15vw, 29px)",
-                  lineHeight: 1.38,
+                  fontSize: "clamp(18px, 1.6vw, 23px)",
+                  lineHeight: 1.45,
                 }}
               >
                 A future where humanity and technology progress together, and
                 the planet grows healthier because of both.
               </p>
-              <p className="muted">
+              <p className="muted" style={{ marginTop: "auto" }}>
                 A future with no need for the words “global warming”, and no
                 apocalyptic ending.
               </p>
@@ -353,8 +353,8 @@ export default function Home() {
                   fontFamily:
                     '"Noto Sans", "Noto Sans Devanagari", var(--font-sans)',
                   fontStyle: "italic",
-                  fontSize: "clamp(20px, 2.15vw, 29px)",
-                  lineHeight: 1.38,
+                  fontSize: "clamp(18px, 1.6vw, 23px)",
+                  lineHeight: 1.45,
                   color: "#2a1d05",
                 }}
               >
@@ -364,7 +364,7 @@ export default function Home() {
               <Link
                 className="btn btn--ink"
                 href="/company/mission/"
-                style={{ justifySelf: "start" }}
+                style={{ marginTop: "auto", alignSelf: "flex-start" }}
               >
                 Read the full Mission
               </Link>

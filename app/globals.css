@@ -2096,9 +2096,9 @@ a.mega__title:hover {
   margin-bottom: 22px;
 }
 .hero__title {
-  max-width: 21ch;
+  max-width: 22ch;
   color: var(--paper);
-  font-size: clamp(30px, 4.8vw, 72px);
+  font-size: clamp(28px, 3.8vw, 56px);
   margin-top: 0;
   margin-bottom: 22px;
 }
@@ -2360,7 +2360,7 @@ a.mega__title:hover {
     line-height: 1.35;
   }
   .hero__title {
-    font-size: clamp(26px, 7.2vw, 36px);
+    font-size: clamp(24px, 6.2vw, 32px);
     line-height: 1.15;
     letter-spacing: -0.025em;
     max-width: 17ch;
@@ -2556,11 +2556,16 @@ a.mega__title:hover {
   }
 }
 .vm {
-  padding: clamp(24px, 3.4vw, 48px);
-  display: grid;
-  gap: 20px;
-  align-content: start;
+  padding: clamp(24px, 3.4vw, 44px);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
   min-height: 280px;
+  height: 100%;
+}
+.vm .btn {
+  margin-top: auto;
+  align-self: flex-start;
 }
 .vm__label {
   font-size: 14px;
@@ -2986,12 +2991,14 @@ a.mega__title:hover {
   .vm {
     padding: 20px 16px;
     min-height: 0;
-    gap: 12px;
+    gap: 14px;
     border-radius: 16px;
+    display: flex;
+    flex-direction: column;
   }
   .vm .statement {
-    font-size: clamp(21px, 5.5vw, 26px) !important;
-    line-height: 1.22;
+    font-size: clamp(17px, 4.5vw, 20px) !important;
+    line-height: 1.35;
   }
   .vm p.muted {
     font-size: 13.5px;
