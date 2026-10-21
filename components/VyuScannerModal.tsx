@@ -522,6 +522,54 @@ export function VyuScannerModal() {
   const dispatchReportToEmail = async (scanRes: ScanResult) => {
     try {
       const apiUrl = getScannerApiUrl();
+      const enrichedAssets = (scanRes.assets || []).map((a: any, idx: number) => {
+        const assetName = a.asset || a.name || `Crypto Asset #${idx + 1}`;
+        let primitive = a.primitive || a.algorithm || a.algo || '';
+        const generic = ['key-agree', 'signature', 'ae', 'block-cipher', 'stream-cipher', 'hash', 'kem', 'protocol'];
+        if (!primitive || generic.includes(String(primitive).toLowerCase())) {
+          if (a.curve) primitive = `${String(a.curve).replace(/^(nist|other)\//i, '').toUpperCase()} (ECDH)`;
+          else if (a.family) primitive = `${a.family}${a.keyBits ? ' (' + a.keyBits + '-bit)' : ''}`;
+          else if (a.name && a.name !== assetName) primitive = a.name;
+          else primitive = a.name || 'Cryptographic Primitive';
+        }
+        if (primitive.toLowerCase() === 'x25519') primitive = 'X25519 (ECDHE)';
+        else if (primitive.toLowerCase() === 'secp256r1') primitive = 'NIST P-256 (secp256r1)';
+        else if (primitive.toLowerCase() === 'secp384r1') primitive = 'NIST P-384 (secp384r1)';
+        else if (primitive.toLowerCase() === 'rsa') primitive = `RSA (${a.keyBits || 2048}-bit)`;
+
+        const rawV = String(a.verdict || '').toLowerCase();
+        let verdict = 'safe';
+        if (rawV.includes('vulnerable') || rawV.includes('broken') || rawV.includes('shor') || rawV === 'critical') {
+          verdict = 'broken';
+        } else if (rawV.includes('weak') || rawV.includes('adequate') || rawV.includes('grover')) {
+          verdict = 'weak';
+        }
+
+        let replacement = a.replacement || a.recommendation || a.fix || '';
+        if (!replacement) {
+          if (verdict === 'broken') {
+            replacement = (primitive.includes('ECDH') || primitive.includes('X25519') || assetName.includes('TLS') || assetName.includes('Key'))
+              ? 'ML-KEM-768 / X25519MLKEM768 (FIPS 203)'
+              : 'ML-DSA-65 (FIPS 204) / SLH-DSA (FIPS 205)';
+          } else if (verdict === 'weak') {
+            replacement = 'Upgrade to AES-256-GCM / SHA-384 (CNSA 2.0)';
+          } else {
+            replacement = 'Compliant under NIST / CNSA 2.0';
+          }
+        }
+
+        return {
+          ...a,
+          name: assetName,
+          asset: assetName,
+          primitive,
+          purpose: a.purpose || 'Cryptographic Protection',
+          verdict,
+          verdictText: a.verdictText || (verdict === 'broken' ? 'Broken (Shor)' : verdict === 'weak' ? 'Weakened (Grover)' : 'Quantum-Safe'),
+          replacement,
+        };
+      });
+
       fetch(`${apiUrl}/api/report/send-email`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -533,8 +581,8 @@ export function VyuScannerModal() {
           target: scanRes.target,
           score: scanRes.score.total,
           band: scanRes.score.label,
-          cbomSummary: scanRes.assets.slice(0, 10),
-          cbom: scanRes.assets,
+          cbomSummary: enrichedAssets.slice(0, 10),
+          cbom: enrichedAssets,
           findings: scanRes.findings,
           when: new Date().toISOString(),
         }),

@@ -1181,12 +1181,53 @@ export function CbomScannerModal() {
 
     const targetLabel = results.target || 'Enterprise Asset';
 
-    const stats = results.stats || {
-      total: results.cbom?.length || 0,
-      broken: results.cbom?.filter((c) => c.verdict === 'broken').length || 0,
-      weak: results.cbom?.filter((c) => c.verdict === 'weak').length || 0,
-      safe: results.cbom?.filter((c) => c.verdict === 'safe').length || 0,
+    const allCbom = results.cbom || [];
+    const isBroken = (c: any) => {
+      const v = String(c?.verdict || '').toLowerCase();
+      const vt = String(c?.verdictText || '').toLowerCase();
+      return (
+        v.includes('vulnerable') ||
+        v.includes('broken') ||
+        v.includes('shor') ||
+        v === 'critical' ||
+        vt.includes('vulnerable') ||
+        vt.includes('broken') ||
+        vt.includes('shor')
+      );
     };
+    const isWeak = (c: any) => {
+      const v = String(c?.verdict || '').toLowerCase();
+      const vt = String(c?.verdictText || '').toLowerCase();
+      return (
+        v.includes('weak') ||
+        v.includes('adequate') ||
+        v.includes('grover') ||
+        vt.includes('weak') ||
+        vt.includes('adequate') ||
+        vt.includes('grover')
+      );
+    };
+    const isSafe = (c: any) => {
+      const v = String(c?.verdict || '').toLowerCase();
+      const vt = String(c?.verdictText || '').toLowerCase();
+      return (
+        v.includes('safe') ||
+        v.includes('resistant') ||
+        v.includes('hybrid') ||
+        vt.includes('safe') ||
+        vt.includes('resistant') ||
+        vt.includes('hybrid')
+      );
+    };
+
+    const stats = results.stats && results.stats.broken !== undefined && (results.stats.broken > 0 || results.stats.total === 0)
+      ? results.stats
+      : {
+          total: allCbom.length,
+          broken: allCbom.filter(isBroken).length,
+          weak: allCbom.filter(isWeak).length,
+          safe: allCbom.filter(isSafe).length,
+        };
 
     const printHeader = () => {
       // Deep navy top banner
@@ -1462,24 +1503,82 @@ export function CbomScannerModal() {
 
     renderTableHeader();
 
-    const allCbom = results.cbom || [];
     const maxTableRows = 11;
     const rowsToShow = allCbom.slice(0, maxTableRows);
     const remainingCount = Math.max(0, (stats.total || allCbom.length) - rowsToShow.length);
 
-    rowsToShow.forEach((row, rowIndex) => {
-      const verdictLabel =
-        row.verdict === 'broken'
-          ? 'Broken (Shor)'
-          : row.verdict === 'weak'
-            ? 'Weakened (Grover)'
-            : 'Quantum-Safe';
+    rowsToShow.forEach((row: any, rowIndex: number) => {
+      // 1. Asset Name
+      let assetName = row.asset || row.name || '';
+      if (!assetName || assetName === 'undefined') {
+        if (rowIndex === 0) assetName = `${targetLabel} Ingress TLS Layer`;
+        else if (rowIndex === 1) assetName = `${targetLabel} Identity Certificate`;
+        else assetName = `Crypto Asset #${rowIndex + 1}`;
+      }
 
-      const c0 = doc.splitTextToSize(String(row.asset || ''), colWidths[0] - 8);
-      const c1 = doc.splitTextToSize(String(row.primitive || ''), colWidths[1] - 8);
-      const c2 = doc.splitTextToSize(String(row.purpose || ''), colWidths[2] - 8);
+      // 2. Active Primitive
+      let primitive = row.primitive || row.algorithm || row.algo || '';
+      const genericPrimitives = ['key-agree', 'signature', 'ae', 'block-cipher', 'stream-cipher', 'hash', 'mac', 'kem', 'pke', 'other', 'protocol', 'algorithm', 'certificate'];
+      if (!primitive || genericPrimitives.includes(String(primitive).toLowerCase())) {
+        if (row.curve) {
+          primitive = `${String(row.curve).replace(/^(nist|other)\//i, '').toUpperCase()} (ECDH)`;
+        } else if (row.family) {
+          primitive = `${row.family}${row.keyBits ? ' (' + row.keyBits + '-bit)' : ''}`;
+        } else if (row.name && row.name !== assetName) {
+          primitive = row.name;
+        } else if (row.keyBits) {
+          primitive = `${row.family || 'Key'} (${row.keyBits}-bit)`;
+        } else {
+          primitive = row.name || 'Cryptographic Primitive';
+        }
+      }
+      if (primitive.toLowerCase() === 'x25519') primitive = 'X25519 (ECDHE)';
+      else if (primitive.toLowerCase() === 'secp256r1') primitive = 'NIST P-256 (secp256r1)';
+      else if (primitive.toLowerCase() === 'secp384r1') primitive = 'NIST P-384 (secp384r1)';
+      else if (primitive.toLowerCase() === 'rsa') primitive = `RSA (${row.keyBits || 2048}-bit)`;
+
+      // 3. Purpose
+      let purpose = row.purpose || (row.assetType === 'certificate' ? 'Identity Authentication' : 'Transport Security');
+
+      // 4. Verdict
+      const v = String(row.verdict || '').toLowerCase();
+      const vt = String(row.verdictText || '').toLowerCase();
+      let verdictLabel = 'Quantum-Safe';
+      let verdictColor = [22, 163, 74];
+
+      if (v.includes('vulnerable') || v.includes('broken') || v.includes('shor') || v === 'critical' || vt.includes('vulnerable') || vt.includes('broken') || vt.includes('shor')) {
+        verdictLabel = v.includes('broken-classical') ? 'Broken (Classical)' : 'Broken (Shor)';
+        verdictColor = [220, 38, 38];
+      } else if (v.includes('weak') || v.includes('adequate') || v.includes('grover') || vt.includes('weak') || vt.includes('adequate') || vt.includes('grover')) {
+        verdictLabel = 'Weakened (Grover)';
+        verdictColor = [202, 138, 4];
+      } else if (v.includes('hybrid') || vt.includes('hybrid')) {
+        verdictLabel = 'Hybrid PQC';
+        verdictColor = [37, 99, 235];
+      }
+
+      // 5. Replacement
+      let replacement = row.replacement || row.recommendation || row.fix || '';
+      if (!replacement) {
+        if (verdictLabel.includes('Broken')) {
+          const combo = `${assetName} ${primitive} ${purpose}`.toLowerCase();
+          if (combo.includes('key') || combo.includes('exchange') || combo.includes('ecdh') || combo.includes('x25519')) {
+            replacement = 'ML-KEM-768 / X25519MLKEM768 (FIPS 203)';
+          } else {
+            replacement = 'ML-DSA-65 (FIPS 204) / SLH-DSA (FIPS 205)';
+          }
+        } else if (verdictLabel.includes('Weakened')) {
+          replacement = 'Upgrade to AES-256-GCM / SHA-384 (CNSA 2.0)';
+        } else {
+          replacement = 'Compliant under NIST / CNSA 2.0';
+        }
+      }
+
+      const c0 = doc.splitTextToSize(String(assetName), colWidths[0] - 8);
+      const c1 = doc.splitTextToSize(String(primitive), colWidths[1] - 8);
+      const c2 = doc.splitTextToSize(String(purpose), colWidths[2] - 8);
       const c3 = doc.splitTextToSize(String(verdictLabel), colWidths[3] - 8);
-      const c4 = doc.splitTextToSize(String(row.replacement || ''), colWidths[4] - 8);
+      const c4 = doc.splitTextToSize(String(replacement), colWidths[4] - 8);
 
       const maxLines = Math.max(c0.length, c1.length, c2.length, c3.length, c4.length);
       const rowHeight = maxLines * 10.5 + 8;
@@ -1498,19 +1597,13 @@ export function CbomScannerModal() {
       }
 
       doc.setFont('helvetica', 'normal');
-      doc.setFontSize(7.8);
+      doc.setFontSize(7.6);
       doc.setTextColor(DARK_TEXT[0], DARK_TEXT[1], DARK_TEXT[2]);
 
       c0.forEach((l: string, idx: number) => doc.text(l, colX[0] + 4, y + 7 + idx * 10.5));
       c1.forEach((l: string, idx: number) => doc.text(l, colX[1] + 4, y + 7 + idx * 10.5));
       c2.forEach((l: string, idx: number) => doc.text(l, colX[2] + 4, y + 7 + idx * 10.5));
 
-      const verdictColor =
-        row.verdict === 'broken'
-          ? [220, 38, 38]
-          : row.verdict === 'weak'
-            ? [202, 138, 4]
-            : [22, 163, 74];
       doc.setTextColor(verdictColor[0], verdictColor[1], verdictColor[2]);
       doc.setFont('helvetica', 'bold');
       c3.forEach((l: string, idx: number) => doc.text(l, colX[3] + 4, y + 7 + idx * 10.5));
