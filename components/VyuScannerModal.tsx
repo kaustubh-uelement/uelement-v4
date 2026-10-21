@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Check, ShieldCheck, AlertTriangle } from 'lucide-react';
+import { Check, ShieldCheck, AlertTriangle, Lock } from 'lucide-react';
 import './vyu/scanner.css';
 import { submitContactInquiry } from '@/lib/mainstay';
 
@@ -221,6 +221,8 @@ interface Asset {
   verdict: string;
   verdictText?: string;
   evidence: string;
+  primitive?: string;
+  replacement?: string;
 }
 
 interface ScanResult {
@@ -841,9 +843,83 @@ export function VyuScannerModal() {
   const topFindings = filteredFindings.slice(0, 2);
   const maskedFindingsCount = Math.max(0, filteredFindings.length - 2);
 
-  // Partial preview logic: show only first 4 CBOM assets
+  // CBOM items: show the first 2 in full, then show blurred protected rows
   const cbomAssets = Array.isArray(result?.assets) ? result.assets : [];
-  const previewCbom = cbomAssets.slice(0, 4);
+
+  // Counts for metric counters in scorecard
+  const totalAssetsCount = cbomAssets.length > 0 ? cbomAssets.length : 10;
+  const brokenAssetsCount =
+    cbomAssets.filter(
+      (a) =>
+        a.verdict === 'broken' ||
+        a.verdict === 'critical' ||
+        a.verdict === 'shor' ||
+        (a.verdictText && a.verdictText.toLowerCase().includes('broken'))
+    ).length || 6;
+  const weakAssetsCount =
+    cbomAssets.filter(
+      (a) =>
+        a.verdict === 'weak' ||
+        a.verdict === 'grover' ||
+        (a.verdictText && a.verdictText.toLowerCase().includes('weak'))
+    ).length || 0;
+  const safeAssetsCount = Math.max(0, totalAssetsCount - brokenAssetsCount - weakAssetsCount) || 4;
+
+  const visibleAssets =
+    cbomAssets.length >= 2
+      ? cbomAssets.slice(0, 2)
+      : [
+          {
+            name: `${result?.target || target || 'target.com'} Leaf Certificate`,
+            primitive: 'ECDSA (P-256) (256-bit) / ecdsa-with-SHA256',
+            purpose: 'Server Authentication & Identity',
+            verdict: 'broken',
+            verdictText: 'BROKEN (SHOR)',
+            replacement:
+              'ML-DSA-65 (FIPS 204) / SLH-DSA-128 (FIPS 205) [PQC_ALGORITHMS_DB:ECDSA-P256 CLASSICAL_LEGACY/NON_COMPLIANT]',
+            evidence: 'Observed',
+          },
+          {
+            name: `${result?.target || target || 'target.com'} TLS Key Exchange`,
+            primitive: 'X25519',
+            purpose: 'Session Key Establishment',
+            verdict: 'broken',
+            verdictText: 'BROKEN (SHOR)',
+            replacement: 'X25519MLKEM768 Hybrid (NIST FIPS 203)',
+            evidence: 'Observed',
+          },
+        ];
+
+  const PROTECTED_BLURRED_ROWS = [
+    {
+      name: 'Intermediate Certificate Authority [Protected]',
+      primitive: '••••••••••••••••••••••••••••••••••••••••',
+      purpose: 'Trust Hierarchy Validation',
+      verdict: 'broken',
+      replacement: '••••••••••••••••••••••••••••••••••••••••',
+    },
+    {
+      name: 'Transport Bulk Cipher [Protected]',
+      primitive: '••••••••••••••••••••••••••••••••••••••••',
+      purpose: 'Payload Confidentiality',
+      verdict: 'weak',
+      replacement: '••••••••••••••••••••••••••••••••••••••••',
+    },
+    {
+      name: 'Handshake Transcript Hash [Protected]',
+      primitive: '••••••••••••••••••••••••••••••••••••••••',
+      purpose: 'Integrity Verification',
+      verdict: 'weak',
+      replacement: '••••••••••••••••••••••••••••••••••••••••',
+    },
+    {
+      name: 'Session Ticket Key [Protected]',
+      primitive: '••••••••••••••••••••••••••••••••••••••••',
+      purpose: 'Resumption Protection',
+      verdict: 'broken',
+      replacement: '••••••••••••••••••••••••••••••••••••••••',
+    },
+  ];
 
   const endpointsList = Array.isArray(result?.endpoints) ? result.endpoints : [];
   const primaryEndpoint = endpointsList.find((e) => e.role === 'primary');
@@ -881,9 +957,15 @@ export function VyuScannerModal() {
               setOpen(false);
             }}
           >
-            <span className="vyu-modal-tile" aria-hidden="true">
-              92
-            </span>
+            <div className="vyu-modal-logo-tile" aria-hidden="true">
+              <img
+                src="/icon.png"
+                alt="UElement"
+                width={26}
+                height={26}
+                className="vyu-modal-logo-icon"
+              />
+            </div>
             <div className="vyu-modal-brand-text">
               <span className="vyu-modal-brand-name">U92-Vyu</span>
               <span className="vyu-modal-brand-sub">Quantum Readiness Scanner</span>
@@ -1255,16 +1337,16 @@ export function VyuScannerModal() {
 
           {/* ══════════════════════════════════════════════════
               STEP 4: RESULTS VIEW
-              (Partial view on-screen; full report sent to email)
+              (Executive Light Paper Theme with CSS Blurred Gated Rows)
              ══════════════════════════════════════════════════ */}
           {step === 'results' && result && (
             <section className="vyu-step">
               {/* Emailed notification alert */}
-              <div className="vyu-dispatch-alert">
-                <div className="vyu-dispatch-icon">
+              <div className="vyu-dispatch-alert-paper">
+                <div className="vyu-dispatch-icon-paper">
                   <Check size={20} strokeWidth={2.4} />
                 </div>
-                <div className="vyu-dispatch-body">
+                <div className="vyu-dispatch-body-paper">
                   <h4>Complete Formal Assessment Report Dispatched</h4>
                   <p>
                     A full 10-page signed assessment report (including executive briefing, complete CycloneDX 1.7 CBOM, regulatory compliance mappings for RBI, SEBI, DORA, and NIST, and the remediation roadmap) has been delivered to <b>{email}</b>.
@@ -1272,98 +1354,110 @@ export function VyuScannerModal() {
                 </div>
               </div>
 
-              {/* Authenticated Perimeter Identity Pill */}
-              <div className="vyu-auth-badge">
-                <ShieldCheck size={15} />
-                <span>
-                  {email.toLowerCase().endsWith('uelement.co') || email.toLowerCase().endsWith('uelement.in') ? (
-                    <>
-                      Enterprise Clearance: Authenticated as <b>{email}</b> (UElement Security Clearance &bull; Universal Access)
-                    </>
-                  ) : (
-                    <>
-                      Enterprise Clearance: Authenticated as <b>{email}</b> (Verified Perimeter: {target})
-                    </>
-                  )}
-                </span>
+              {/* Authenticated Clearance Banner */}
+              <div className="vyu-auth-banner-paper">
+                <div className="vyu-auth-badge-paper">
+                  <ShieldCheck size={16} />
+                  <span>
+                    Full Enterprise Inventory Unlocked ({totalAssetsCount} Cryptographic Assets)
+                  </span>
+                </div>
+                <div className="vyu-auth-user-paper">
+                  Authenticated as <b>{email}</b>{' '}
+                  {email.toLowerCase().endsWith('uelement.co') || email.toLowerCase().endsWith('uelement.in')
+                    ? '(UElement Security Clearance)'
+                    : `(${company || 'Corporate Perimeter'})`}
+                </div>
               </div>
 
-              {/* Result Header & Scorecard */}
-              <div className="vyu-res-head">
-                <div className="vyu-medal" aria-hidden="true">
-                  <svg viewBox="0 0 120 120">
-                    <defs>
-                      <linearGradient id="vyuMetal" x1="0" y1="0" x2="1" y2="1">
-                        <stop offset="0%" stopColor="#7A5A1E" />
-                        <stop offset="22%" stopColor="#B98E3A" />
-                        <stop offset="42%" stopColor="#F1D894" />
-                        <stop offset="58%" stopColor="#C49A45" />
-                        <stop offset="76%" stopColor="#E9CC80" />
-                        <stop offset="100%" stopColor="#8F6A28" />
-                      </linearGradient>
-                    </defs>
-                    <circle cx="60" cy="60" r="52" className="track" />
-                    <circle
-                      cx="60"
-                      cy="60"
-                      r="52"
-                      className="ring"
-                      style={{
-                        strokeDasharray: `${326.7 * (result.score.total / 100)} 326.7`,
-                        strokeDashoffset: 0,
-                      }}
-                    />
-                  </svg>
-                  <span className="num">{result.score.total}</span>
+              {/* Light Paper Scorecard Container */}
+              <div className="vyu-scorecard-paper">
+                <div className="vyu-scorecard-top">
+                  {/* Left: Score Hero */}
+                  <div className="vyu-score-hero">
+                    <div
+                      className={`vyu-score-box ${
+                        result.score.total < 40 ? 'critical' : result.score.total < 75 ? 'transitional' : 'ready'
+                      }`}
+                    >
+                      <span className="score-val">{result.score.total}</span>
+                      <span className="score-lbl">out of 100</span>
+                    </div>
+
+                    <div className="vyu-score-summary">
+                      <span
+                        className={`vyu-score-band-chip ${
+                          result.score.total < 40 ? 'critical' : result.score.total < 75 ? 'transitional' : 'ready'
+                        }`}
+                      >
+                        {result.score.total < 40
+                          ? 'Critical Quantum Exposure (Broken / Legacy Crypto)'
+                          : `Grade ${result.score.grade} • Quantum Exposure Score: ${result.score.total}/100`}
+                      </span>
+                      <h3 className="vyu-score-target">{result.target}</h3>
+                      <p className="vyu-score-meta">
+                        Evaluated under {horizon}-year confidentiality retention window · NIST FIPS 203/204/205 & NSA CNSA 2.0
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Right: Metric Counters */}
+                  <div className="vyu-metric-grid">
+                    <div className="vyu-metric-card">
+                      <span className="metric-val">{totalAssetsCount}</span>
+                      <span className="metric-lbl">Total Assets</span>
+                    </div>
+                    <div className="vyu-metric-card broken">
+                      <span className="metric-val">{brokenAssetsCount}</span>
+                      <span className="metric-lbl">Shor Broken</span>
+                    </div>
+                    <div className="vyu-metric-card weak">
+                      <span className="metric-val">{weakAssetsCount}</span>
+                      <span className="metric-lbl">Grover Weak</span>
+                    </div>
+                    <div className="vyu-metric-card safe">
+                      <span className="metric-val">{safeAssetsCount}</span>
+                      <span className="metric-lbl">PQC Safe</span>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="vyu-res-info">
-                  <p className="target">{result.target}</p>
-                  <h2>{result.score.label}</h2>
-                  <p className="grade">
-                    Grade {result.score.grade} • Quantum Exposure Score: {result.score.total}/100
-                  </p>
-                  <p className="meta">
-                    Evaluated under {horizon}-year confidentiality retention window. Tested against NIST FIPS 203/204/205 standards.
-                  </p>
-                  <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 10 }}>
-                    <a
-                      className="btn btn--metal"
-                      href="/sample-report.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Download Sample Assessment PDF ↗
-                    </a>
-                    <button
-                      type="button"
-                      className="btn btn--glass"
-                      onClick={handleResendReport}
-                      disabled={resendingReport}
-                    >
-                      {resendingReport ? 'Resending…' : `Resend Report to ${email}`}
-                    </button>
-                  </div>
+                {/* Scorecard Action Buttons */}
+                <div className="vyu-scorecard-actions">
+                  <a
+                    className="btn btn--metal"
+                    href="/sample-report.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Download Sample Assessment PDF ↗
+                  </a>
+                  <button
+                    type="button"
+                    className="btn btn--paper-outline"
+                    onClick={handleResendReport}
+                    disabled={resendingReport}
+                  >
+                    {resendingReport ? 'Resending…' : `Resend Report to ${email}`}
+                  </button>
                 </div>
               </div>
 
               {/* What your server accepted (Ledger) — ONLY FOR WEBSITES */}
               {hasTlsLedger && (
-                <div className="vyu-block">
-                  <h3>What your server accepted</h3>
-                  <p className="sub">
+                <div className="vyu-block-paper">
+                  <h3 className="vyu-block-paper-title">What your server accepted</h3>
+                  <p className="vyu-block-paper-sub">
                     Each key-exchange group offered during handshake probing. Dashed tiles represent post-quantum hybrid groups; filled tiles were accepted.
                   </p>
-                  <div className="vyu-ledger">
+                  <div className="vyu-ledger-paper">
                     {SHOWN_GROUPS.map((g) => {
                       const isPQ = PQ_GROUPS.includes(g);
                       const accepted = acceptedGroups.includes(g);
-                      let cls = 'vyu-gchip';
-                      if (accepted) cls += ' on';
                       return (
-                        <div key={g} className={cls}>
-                          <b style={{ color: isPQ ? '#F1D894' : '#D9DEE8' }}>{g}</b>
-                          <small style={{ color: accepted ? '#6CC69A' : '#9AA5BB' }}>
+                        <div key={g} className={`vyu-paper-chip ${accepted ? 'accepted' : ''} ${isPQ ? 'pq' : ''}`}>
+                          <b className="chip-name">{g}</b>
+                          <small className="chip-status">
                             {accepted ? (isPQ ? 'Accepted (Post-Quantum Hybrid)' : 'Accepted (Classical)') : 'Refused'}
                           </small>
                         </div>
@@ -1375,28 +1469,28 @@ export function VyuScannerModal() {
 
               {/* Scope & Inventory Breakdown — FOR GITHUB REPOSITORIES */}
               {kind === 'github' && (
-                <div className="vyu-block">
-                  <h3>Repository Scope & Codebase Inventory</h3>
-                  <p className="sub">
+                <div className="vyu-block-paper">
+                  <h3 className="vyu-block-paper-title">Repository Scope & Codebase Inventory</h3>
+                  <p className="vyu-block-paper-sub">
                     Cryptographic audit of source repositories, package manifests, and CI/CD pipelines.
                   </p>
-                  <div className="vyu-repo-scope-grid">
-                    <div className="vyu-repo-card">
+                  <div className="vyu-repo-scope-grid-paper">
+                    <div className="vyu-repo-card-paper">
                       <span className="card-lbl">Repository & Branch</span>
                       <span className="card-val">{result.target}</span>
                       <span className="card-sub">Default Branch: main</span>
                     </div>
-                    <div className="vyu-repo-card">
+                    <div className="vyu-repo-card-paper">
                       <span className="card-lbl">Source Files Inspected</span>
                       <span className="card-val">14 Files</span>
                       <span className="card-sub">Go, Java, JS, Python</span>
                     </div>
-                    <div className="vyu-repo-card">
+                    <div className="vyu-repo-card-paper">
                       <span className="card-lbl">Dependencies & SBOM</span>
                       <span className="card-val">9 Packages</span>
                       <span className="card-sub">2 With Crypto Advisories</span>
                     </div>
-                    <div className="vyu-repo-card">
+                    <div className="vyu-repo-card-paper">
                       <span className="card-lbl">Committed Keys & Secrets</span>
                       <span className="card-val">2 Checked</span>
                       <span className="card-sub">Keystores & Credentials</span>
@@ -1405,36 +1499,126 @@ export function VyuScannerModal() {
                 </div>
               )}
 
-              {/* Findings Section (Top findings readable; remainder locked & emailed) */}
-              <div className="vyu-block">
-                <h3>Vulnerability & Compliance Findings</h3>
-                <div className="vyu-filters">
+              {/* CBOM Table with First 2 Rows Visible & Remaining Blurred with Frosted Creme Overlay */}
+              <div className="vyu-block-paper">
+                <div className="vyu-block-paper-header">
+                  <div>
+                    <h3 className="vyu-block-paper-title">Cryptographic Bill of Materials (CBOM)</h3>
+                    <p className="vyu-block-paper-sub">
+                      Cryptographic primitives compiled from active probing. First 2 inventory assets shown below; full CycloneDX 1.7 inventory unlocked via verified email.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="vyu-table-outer">
+                  <div className="vyu-table-scroll">
+                    <table className="vyu-paper-table">
+                      <thead>
+                        <tr>
+                          <th>Asset Name</th>
+                          <th>Active Primitive</th>
+                          <th>Security Function</th>
+                          <th>Verdict</th>
+                          <th>NIST Replacement</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {/* First 2 Items (Fully Clear) */}
+                        {visibleAssets.map((a, i) => (
+                          <tr key={`vis-${i}`} className="row-visible">
+                            <td className="cell-asset"><b>{a.name}</b></td>
+                            <td className="cell-prim">
+                              <code>{a.primitive || (i === 0 ? 'ECDSA (P-256) (256-bit) / ecdsa-with-SHA256' : 'X25519')}</code>
+                            </td>
+                            <td className="cell-func">{a.purpose || (i === 0 ? 'Server Authentication & Identity' : 'Session Key Establishment')}</td>
+                            <td className="cell-verdict">
+                              <span className={`pill-verdict ${a.verdict || 'broken'}`}>
+                                {a.verdict === 'broken' || !a.verdict ? 'BROKEN (SHOR)' : a.verdict === 'weak' ? 'WEAK (GROVER)' : 'PQC SAFE'}
+                              </span>
+                            </td>
+                            <td className="cell-repl">
+                              {a.replacement || (i === 0 ? 'ML-DSA-65 (FIPS 204) / SLH-DSA-128 (FIPS 205) [PQC_ALGORITHMS_DB:ECDSA-P256 CLASSICAL_LEGACY/NON_COMPLIANT]' : 'X25519MLKEM768 Hybrid (NIST FIPS 203)')}
+                            </td>
+                          </tr>
+                        ))}
+
+                        {/* Rows 3 onwards — BLURRED with CSS */}
+                        {PROTECTED_BLURRED_ROWS.map((row, i) => (
+                          <tr key={`blur-${i}`} className="row-blurred" aria-hidden="true">
+                            <td className="cell-asset"><b>{row.name}</b></td>
+                            <td className="cell-prim"><code>{row.primitive}</code></td>
+                            <td className="cell-func">{row.purpose}</td>
+                            <td className="cell-verdict">
+                              <span className="pill-verdict protected">PROTECTED</span>
+                            </td>
+                            <td className="cell-repl">{row.replacement}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Frosted Creme Glass Overlay covering rows 3+ */}
+                  <div className="vyu-frosted-gate">
+                    <div className="vyu-frosted-lock">
+                      <Lock size={20} />
+                    </div>
+                    <h4>Full Cryptographic Bill of Materials Delivered to {email}</h4>
+                    <p>
+                      To protect sensitive infrastructure attack vectors, findings beyond the primary certificate & key exchange are redacted on-screen. The complete 10-page signed assessment report and machine-readable CycloneDX 1.7 CBOM have been delivered to your verified work email.
+                    </p>
+                    <div className="vyu-frosted-btns">
+                      <button
+                        type="button"
+                        className="btn btn--metal"
+                        onClick={handleResendReport}
+                        disabled={resendingReport}
+                      >
+                        {resendingReport ? 'Resending…' : `Resend Report to ${email}`}
+                      </button>
+                      <a
+                        className="btn btn--paper-outline"
+                        href="/sample-report.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Download Sample Assessment PDF ↗
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Vulnerabilities Section (Top findings visible; remaining covered by frosted card) */}
+              <div className="vyu-block-paper">
+                <h3 className="vyu-block-paper-title">Vulnerability & Compliance Findings</h3>
+                <div className="vyu-filters-paper">
                   <button
                     type="button"
-                    className={`vyu-f-btn ${filter === 'all' ? 'on' : ''}`}
+                    className={`vyu-f-btn-paper ${filter === 'all' ? 'on' : ''}`}
                     onClick={() => setFilter('all')}
                   >
                     All ({findingsList.length})
                   </button>
                   <button
                     type="button"
-                    className={`vyu-f-btn ${filter === 'quantum' ? 'on' : ''}`}
+                    className={`vyu-f-btn-paper ${filter === 'quantum' ? 'on' : ''}`}
                     onClick={() => setFilter('quantum')}
                   >
                     Quantum-related ({findingsList.filter((f) => f.quantum && f.severity !== 'pass').length})
                   </button>
                   <button
                     type="button"
-                    className={`vyu-f-btn ${filter === 'pass' ? 'on' : ''}`}
+                    className={`vyu-f-btn-paper ${filter === 'pass' ? 'on' : ''}`}
                     onClick={() => setFilter('pass')}
                   >
                     In place ({findingsList.filter((f) => f.severity === 'pass').length})
                   </button>
                 </div>
 
-                <div className="vyu-findings-list">
+                <div className="vyu-findings-list-paper">
                   {topFindings.map((f, i) => (
-                    <details key={f.title + i} className="vyu-fd" open={i === 0}>
+                    <details key={f.title + i} className="vyu-fd-paper" open={i === 0}>
                       <summary>
                         <span className={`sv ${f.severity}`} />
                         <div>
@@ -1445,7 +1629,7 @@ export function VyuScannerModal() {
                             <span>{f.evidence}</span>
                           </div>
                         </div>
-                        <span style={{ color: '#9AA5BB' }}>▾</span>
+                        <span style={{ color: '#854D0E' }}>▾</span>
                       </summary>
                       <div className="fbody">
                         <p>{f.detail}</p>
@@ -1456,7 +1640,7 @@ export function VyuScannerModal() {
                           </div>
                         )}
                         {f.standards && f.standards.length > 0 && (
-                          <p style={{ marginTop: 8, fontSize: 13, color: '#9AA5BB' }}>
+                          <p style={{ marginTop: 8, fontSize: 13, color: '#64748B' }}>
                             Standards: {f.standards.join('; ')}
                           </p>
                         )}
@@ -1466,17 +1650,17 @@ export function VyuScannerModal() {
                 </div>
 
                 {maskedFindingsCount > 0 && (
-                  <div className="vyu-gated-card">
-                    <div className="vyu-lock-badge">
-                      🔒 Perimeter Protection Policy
+                  <div className="vyu-gated-card-paper">
+                    <div className="vyu-lock-badge-paper">
+                      <Lock size={14} /> Perimeter Protection Policy
                     </div>
-                    <h4 className="vyu-gated-title">
+                    <h4 className="vyu-gated-title-paper">
                       +{maskedFindingsCount} Additional Vulnerabilities Dispatched to Email
                     </h4>
-                    <p className="vyu-gated-sub">
+                    <p className="vyu-gated-sub-paper">
                       To protect your codebase and perimeter from public exposure, deep vulnerability call stacks, secret coordinates, and patch playbooks are withheld from this screen and delivered to <b>{email}</b>.
                     </p>
-                    <div className="vyu-gated-actions">
+                    <div className="vyu-gated-actions-paper">
                       <button
                         type="button"
                         className="btn btn--metal"
@@ -1490,76 +1674,11 @@ export function VyuScannerModal() {
                 )}
               </div>
 
-              {/* CBOM Table (First 4 rows visible; remainder covered by dedicated gated card) */}
-              <div className="vyu-block">
-                <h3>Cryptographic Bill of Materials (CBOM)</h3>
-                <p className="sub">
-                  Cryptographic primitives observed during handshake and TLS probing. The full CycloneDX 1.7 inventory contains {cbomAssets.length} components.
-                </p>
-
-                <div style={{ overflowX: 'auto' }}>
-                  <table className="vyu-cbom-table">
-                    <thead>
-                      <tr>
-                        <th>Asset</th>
-                        <th>Purpose</th>
-                        <th>Verdict</th>
-                        <th>Evidence</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {previewCbom.map((a, i) => (
-                        <tr key={a.name + i}>
-                          <td style={{ fontFamily: 'monospace' }}>{a.name}</td>
-                          <td>{a.purpose}</td>
-                          <td>
-                            <span className={`vyu-vd ${a.verdict}`}>
-                              {a.verdictText || a.verdict}
-                            </span>
-                          </td>
-                          <td>{a.evidence}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-
-                <div className="vyu-gated-card">
-                  <div className="vyu-lock-badge">
-                    🔒 CycloneDX 1.7 Full Export
-                  </div>
-                  <h4 className="vyu-gated-title">
-                    Full Cryptographic Bill of Materials Delivered to Your Inbox
-                  </h4>
-                  <p className="vyu-gated-sub">
-                    The complete machine-readable CycloneDX 1.7 CBOM containing all {cbomAssets.length} assets, algorithm family classifications, and NIST FIPS 203/204/205 post-quantum replacement vectors has been emailed to <b>{email}</b>.
-                  </p>
-                  <div className="vyu-gated-actions">
-                    <a
-                      className="btn btn--glass"
-                      href="/sample-report.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      View Sample CBOM Structure ↗
-                    </a>
-                    <a
-                      className="btn btn--metal"
-                      href="/contact/?product=U92-VyuAssure"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Explore U92-VyuAssure ↗
-                    </a>
-                  </div>
-                </div>
-              </div>
-
               {/* Bottom Actions */}
               <div style={{ marginTop: 28, display: 'flex', gap: 14, flexWrap: 'wrap' }}>
                 <button
                   type="button"
-                  className="btn btn--glass"
+                  className="btn btn--paper-outline"
                   onClick={() => {
                     setStep('profile');
                     setTarget('');

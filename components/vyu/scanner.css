@@ -65,19 +65,24 @@
   text-decoration: none;
   color: #fff;
 }
-.vyu-modal-tile {
+.vyu-modal-logo-tile {
   width: 40px;
   height: 40px;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(221, 187, 110, 0.35);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  font: 600 16px/1 var(--f-mark, "Montserrat", sans-serif);
-  color: #fff;
   backdrop-filter: blur(6px);
+  flex-shrink: 0;
+}
+.vyu-modal-logo-icon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  border-radius: 6px;
 }
 .vyu-modal-brand-text {
   display: flex;
@@ -85,8 +90,10 @@
   line-height: 1.2;
 }
 .vyu-modal-brand-name {
-  font-weight: 600;
-  font-size: 16px;
+  font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.015em;
   color: #fff;
 }
 .vyu-modal-brand-sub {
@@ -1076,6 +1083,619 @@
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ══════════════════════════════════════════════════════════
+   EXECUTIVE LIGHT PAPER RESULTS VIEW (WARM CREME / GOLD)
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Dispatched Alert (Paper Theme) ── */
+.vyu-dispatch-alert-paper {
+  background: #F0FDF4;
+  border: 1px solid #86EFAC;
+  border-radius: 14px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+.vyu-dispatch-icon-paper {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #DCFCE7;
+  border: 1px solid #4ADE80;
+  color: #166534;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.vyu-dispatch-body-paper h4 {
+  margin: 0 0 4px;
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #065F46;
+}
+.vyu-dispatch-body-paper p {
+  margin: 0;
+  font-size: 13.5px;
+  color: #166534;
+  line-height: 1.5;
+}
+
+/* ── Authenticated Clearance Banner ── */
+.vyu-auth-banner-paper {
+  background: #FAF6EF;
+  border: 1px solid rgba(221, 187, 110, 0.4);
+  border-radius: 12px;
+  padding: 12px 18px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.vyu-auth-badge-paper {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #15803D;
+}
+.vyu-auth-user-paper {
+  font-size: 12.5px;
+  color: #4E5774;
+}
+.vyu-auth-user-paper b {
+  color: #0E1B36;
+}
+
+/* ── Light Paper Scorecard Container ── */
+.vyu-scorecard-paper {
+  background: #FAF6EF;
+  border: 1px solid rgba(221, 187, 110, 0.45);
+  border-radius: 20px;
+  padding: 24px 28px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  margin-bottom: 26px;
+}
+.vyu-scorecard-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.vyu-score-hero {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.vyu-score-box {
+  width: 86px;
+  height: 86px;
+  border-radius: 18px;
+  background: #FFFFFF;
+  border: 2.5px solid #F59E0B;
+  box-shadow: 0 6px 18px rgba(245, 158, 11, 0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.vyu-score-box.critical {
+  border-color: #EF4444;
+  box-shadow: 0 6px 18px rgba(239, 68, 68, 0.18);
+}
+.vyu-score-box.critical .score-val { color: #B91C1C; }
+.vyu-score-box.transitional {
+  border-color: #F59E0B;
+  box-shadow: 0 6px 18px rgba(245, 158, 11, 0.18);
+}
+.vyu-score-box.transitional .score-val { color: #B45309; }
+.vyu-score-box.ready {
+  border-color: #16A34A;
+  box-shadow: 0 6px 18px rgba(22, 163, 74, 0.18);
+}
+.vyu-score-box.ready .score-val { color: #15803D; }
+
+.vyu-score-box .score-val {
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1;
+}
+.vyu-score-box .score-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+.vyu-score-summary {
+  display: flex;
+  flex-direction: column;
+}
+.vyu-score-band-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+  width: fit-content;
+}
+.vyu-score-band-chip.critical {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #991B1B;
+}
+.vyu-score-band-chip.transitional {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #92400E;
+}
+.vyu-score-band-chip.ready {
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  color: #166534;
+}
+.vyu-score-target {
+  margin: 0 0 4px;
+  font-size: 20px;
+  color: #0E1B36;
+  font-weight: 700;
+}
+.vyu-score-meta {
+  margin: 0;
+  font-size: 12px;
+  color: #4E5774;
+  font-weight: 500;
+}
+.vyu-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  text-align: center;
+}
+.vyu-metric-card {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #FFFFFF;
+  border: 1px solid rgba(196, 154, 69, 0.35);
+  box-shadow: 0 2px 6px rgba(14, 27, 54, 0.05);
+  min-width: 82px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.vyu-metric-card .metric-val {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0E1B36;
+  line-height: 1.1;
+}
+.vyu-metric-card .metric-lbl {
+  font-size: 11px;
+  color: #4E5774;
+  font-weight: 600;
+  margin-top: 4px;
+}
+.vyu-metric-card.broken .metric-val { color: #DC2626; }
+.vyu-metric-card.weak .metric-val { color: #D97706; }
+.vyu-metric-card.safe .metric-val { color: #16A34A; }
+
+.vyu-scorecard-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(221, 187, 110, 0.25);
+}
+
+/* ── Paper Outline Button ── */
+.btn--paper-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0E1B36;
+  background: #FFFFFF;
+  border: 1.5px solid rgba(196, 154, 69, 0.5);
+  box-shadow: 0 2px 6px rgba(14, 27, 54, 0.06);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.btn--paper-outline:hover {
+  background: #FDFBF7;
+  border-color: #8A6522;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(138, 101, 34, 0.15);
+}
+
+/* ── Paper Content Block ── */
+.vyu-block-paper {
+  background: #FAF6EF;
+  border: 1px solid rgba(221, 187, 110, 0.4);
+  border-radius: 18px;
+  padding: 24px 28px;
+  margin-bottom: 26px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+.vyu-block-paper-title {
+  margin: 0 0 6px;
+  font-size: 20px;
+  color: #0E1B36;
+  font-weight: 700;
+}
+.vyu-block-paper-sub {
+  margin: 0 0 18px;
+  font-size: 13.5px;
+  color: #4E5774;
+  line-height: 1.5;
+}
+
+/* ── CBOM Paper Table & Blur Effect ── */
+.vyu-table-outer {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(221, 187, 110, 0.35);
+  background: #FFFFFF;
+}
+.vyu-table-scroll {
+  overflow-x: auto;
+}
+.vyu-paper-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  text-align: left;
+}
+.vyu-paper-table thead th {
+  background: #EFE8D8;
+  color: #785419;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(221, 187, 110, 0.4);
+}
+.vyu-paper-table tbody tr {
+  border-bottom: 1px solid rgba(227, 214, 187, 0.45);
+}
+.vyu-paper-table tbody tr.row-visible {
+  background: #FFFFFF;
+}
+.vyu-paper-table tbody tr.row-visible:nth-child(even) {
+  background: rgba(253, 250, 243, 0.65);
+}
+.vyu-paper-table tbody tr.row-blurred {
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  opacity: 0.45;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
+  background: rgba(253, 250, 243, 0.6);
+}
+.vyu-paper-table td {
+  padding: 12px 16px;
+  vertical-align: middle;
+}
+.vyu-paper-table td.cell-asset {
+  color: #0E1B36;
+  font-weight: 600;
+}
+.vyu-paper-table td.cell-prim {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  color: #1E293B;
+}
+.vyu-paper-table td.cell-func {
+  color: #475569;
+  font-size: 12.5px;
+}
+.vyu-paper-table td.cell-verdict {
+  white-space: nowrap;
+}
+.vyu-paper-table td.cell-repl {
+  color: #854D0E;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* ── Verdict Pills ── */
+.pill-verdict {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 11px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.pill-verdict.broken {
+  background: #FEE2E2;
+  border: 1px solid #FCA5A5;
+  color: #991B1B;
+}
+.pill-verdict.weak {
+  background: #FEF3C7;
+  border: 1px solid #FCD34D;
+  color: #92400E;
+}
+.pill-verdict.pass,
+.pill-verdict.safe {
+  background: #DCFCE7;
+  border: 1px solid #86EFAC;
+  color: #166534;
+}
+.pill-verdict.protected {
+  background: #FEE2E2;
+  border: 1px solid #F87171;
+  color: #991B1B;
+}
+
+/* ── Frosted Creme Glass Overlay covering Rows 3+ ── */
+.vyu-frosted-gate {
+  position: relative;
+  margin-top: -160px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 24px 30px;
+  background: linear-gradient(180deg, rgba(250, 246, 238, 0.72) 0%, rgba(237, 227, 207, 0.96) 28%, #EDE3CF 100%);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  text-align: center;
+  border-top: 1px solid rgba(196, 154, 69, 0.45);
+}
+.vyu-frosted-lock {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1px solid rgba(196, 154, 69, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #785419;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 18px rgba(120, 84, 25, 0.18);
+}
+.vyu-frosted-gate h4 {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0E1B36;
+}
+.vyu-frosted-gate p {
+  margin: 0 0 20px;
+  font-size: 13.5px;
+  color: #4E5774;
+  max-width: 620px;
+  line-height: 1.5;
+}
+.vyu-frosted-btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ── Paper Handshake Ledger ── */
+.vyu-ledger-paper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 10px;
+}
+.vyu-paper-chip {
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #FFFFFF;
+  border: 1px solid rgba(196, 154, 69, 0.3);
+  box-shadow: 0 2px 6px rgba(14, 27, 54, 0.04);
+  display: flex;
+  flex-direction: column;
+}
+.vyu-paper-chip.accepted {
+  background: #F0FDF4;
+  border-color: #86EFAC;
+}
+.vyu-paper-chip.pq {
+  border-style: dashed;
+}
+.vyu-paper-chip .chip-name {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  color: #0E1B36;
+}
+.vyu-paper-chip .chip-status {
+  font-size: 12px;
+  margin-top: 4px;
+  font-weight: 600;
+  color: #64748B;
+}
+.vyu-paper-chip.accepted .chip-status {
+  color: #166534;
+}
+
+/* ── Paper Repository Scope ── */
+.vyu-repo-scope-grid-paper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+.vyu-repo-card-paper {
+  background: #FFFFFF;
+  border: 1px solid rgba(196, 154, 69, 0.3);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+}
+.vyu-repo-card-paper .card-lbl {
+  font-size: 11px;
+  color: #785419;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.vyu-repo-card-paper .card-val {
+  font-size: 17px;
+  font-weight: 700;
+  color: #0E1B36;
+  margin: 4px 0 2px;
+}
+.vyu-repo-card-paper .card-sub {
+  font-size: 11.5px;
+  color: #64748B;
+}
+
+/* ── Paper Vulnerability Findings ── */
+.vyu-filters-paper {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.vyu-f-btn-paper {
+  background: #FFFFFF;
+  border: 1px solid rgba(196, 154, 69, 0.35);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #4E5774;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.vyu-f-btn-paper.on {
+  background: #0E1B36;
+  color: #FAF6EF;
+  border-color: #0E1B36;
+}
+.vyu-findings-list-paper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.vyu-fd-paper {
+  background: #FFFFFF;
+  border: 1px solid rgba(196, 154, 69, 0.35);
+  border-radius: 12px;
+  padding: 14px 18px;
+  box-shadow: 0 2px 6px rgba(14, 27, 54, 0.04);
+}
+.vyu-fd-paper summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  list-style: none;
+}
+.vyu-fd-paper summary::-webkit-details-marker {
+  display: none;
+}
+.vyu-fd-paper .ttl {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0E1B36;
+}
+.vyu-fd-paper .tags {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 11px;
+}
+.vyu-fd-paper .tags span {
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: #F1F5F9;
+  color: #475569;
+  font-weight: 600;
+}
+.vyu-fd-paper .tags span.q {
+  background: #FEF3C7;
+  color: #92400E;
+}
+.vyu-fd-paper .fbody {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(227, 214, 187, 0.4);
+  font-size: 13.5px;
+  color: #334155;
+  line-height: 1.5;
+}
+.vyu-fd-paper .fix {
+  margin-top: 10px;
+  background: #FEFCE8;
+  border: 1px solid #FEF08A;
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #854D0E;
+  font-size: 13px;
+}
+.vyu-gated-card-paper {
+  background: #FFFFFF;
+  border: 1px solid rgba(196, 154, 69, 0.4);
+  border-radius: 14px;
+  padding: 22px 24px;
+  margin-top: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 16px rgba(14, 27, 54, 0.06);
+}
+.vyu-lock-badge-paper {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #FEF3C7;
+  border: 1px solid #FCD34D;
+  color: #92400E;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.vyu-gated-title-paper {
+  margin: 0 0 6px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #0E1B36;
+}
+.vyu-gated-sub-paper {
+  margin: 0 0 16px;
+  font-size: 13.5px;
+  color: #4E5774;
+  max-width: 520px;
+  line-height: 1.5;
+}
+.vyu-gated-actions-paper {
+  display: flex;
+  gap: 12px;
   justify-content: center;
 }
 

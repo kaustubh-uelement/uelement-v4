@@ -1179,7 +1179,13 @@ export function VyuProductView() {
 
           <div className="vyu-team">
             <div className="vyu-team-tile" aria-hidden="true">
-              92
+              <img
+                src="/icon.png"
+                alt="UElement"
+                width={32}
+                height={32}
+                style={{ objectFit: 'contain', borderRadius: '6px' }}
+              />
             </div>
             <div>
               <h3>Made by U92 Quantum Security at UElement</h3>
