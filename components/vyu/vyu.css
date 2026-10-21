@@ -907,25 +907,38 @@
   box-sizing: border-box;
   cursor: pointer;
   display: grid;
-  grid-template-columns: 34px minmax(0, 1fr);
-  gap: 14px;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 16px;
   align-items: start;
   padding: 16px 18px;
-  border-radius: 12px;
+  border-radius: 14px;
   border: 1px solid #DCCFB5;
   background: #FBF8F1;
-  transition: all 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.vyu-tt:hover:not([aria-selected="true"]) {
+  background: #F5EFE4;
+  border-color: #CDBE9F;
 }
 .vyu-tt .n {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
   display: grid;
   place-items: center;
-  font-weight: 600;
-  font-size: 14px;
+  font-weight: 650;
+  font-size: 13.5px;
+  letter-spacing: 0.02em;
   background: #EDE3CF;
-  color: #0E1B36;
+  color: #564730;
+  border: 1px solid rgba(14, 27, 54, 0.08);
+  flex: none;
+  transition: all 0.25s ease;
+}
+.vyu-tt:hover:not([aria-selected="true"]) .n {
+  background: #E4D7BF;
+  color: #2A1D05;
+  border-color: rgba(196, 154, 69, 0.35);
 }
 .vyu-tt b {
   display: block;
@@ -943,10 +956,26 @@
 .vyu-tt[aria-selected="true"] {
   background: #0E1B36;
   border-color: #0E1B36;
+  box-shadow: 0 14px 28px -10px rgba(14, 27, 54, 0.28);
 }
 .vyu-tt[aria-selected="true"] .n {
-  background: linear-gradient(118deg, #7A5A1E 0%, #B98E3A 22%, #F1D894 42%, #C49A45 58%, #E9CC80 76%, #8F6A28 100%);
-  color: #0E1B36;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: var(--metal, linear-gradient(135deg, #b3832c 0%, #d9ae52 30%, #ebd37f 50%, #d9ae52 70%, #b3832c 100%));
+  color: #33240a;
+  font-weight: 650;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 0 rgba(255, 245, 215, 0.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 250, 230, 0.8),
+    inset 0 -2px 3px rgba(90, 60, 10, 0.35),
+    0 6px 14px -6px rgba(0, 0, 0, 0.5);
+  border: none;
+  flex: none;
 }
 .vyu-tt[aria-selected="true"] b {
   color: #fff;

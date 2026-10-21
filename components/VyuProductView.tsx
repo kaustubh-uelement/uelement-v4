@@ -9,7 +9,7 @@ import './vyu/vyu.css';
 const REPORT_PAGES = [
   {
     id: 'glance',
-    num: '1',
+    num: '01',
     title: 'At a glance',
     desc: 'Score, grade, severity counts and the three fixes that matter most.',
     img: '/images/vyu/w-01-glance.jpg',
@@ -18,7 +18,7 @@ const REPORT_PAGES = [
   },
   {
     id: 'exposure',
-    num: '2',
+    num: '02',
     title: 'Exposure and workload',
     desc: 'When recorded traffic could be read, issues by area, and which team fixes what.',
     img: '/images/vyu/w-02-exposure.jpg',
@@ -27,7 +27,7 @@ const REPORT_PAGES = [
   },
   {
     id: 'handshake',
-    num: '3',
+    num: '03',
     title: 'The handshake',
     desc: 'All 21 key exchanges offered, what the server accepted, and the certificate it served.',
     img: '/images/vyu/w-03-handshake.jpg',
@@ -36,7 +36,7 @@ const REPORT_PAGES = [
   },
   {
     id: 'findings',
-    num: '4',
+    num: '04',
     title: 'Findings',
     desc: 'What we found, how we know, and exactly what to change.',
     img: '/images/vyu/w-04-findings.jpg',
@@ -45,7 +45,7 @@ const REPORT_PAGES = [
   },
   {
     id: 'cover',
-    num: '5',
+    num: '05',
     title: 'Cover',
     desc: 'Signed, dated and addressed to your organisation.',
     img: '/images/vyu/w-05-cover.jpg',
