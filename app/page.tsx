@@ -1,10 +1,50 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { HeroRing, HeroSparks } from "@/components/HeroRing";
 import { Icon, type IconName } from "@/components/Icon";
 import { Chip, SectionHead, ArrowLink } from "@/components/ui";
 import { RestrictedButton } from "@/components/RestrictedModal";
 import { company } from "@/lib/site";
 import { beliefs, commitments } from "@/lib/content";
+
+export const metadata: Metadata = {
+  title: {
+    absolute:
+      "UElement Technologies | Sovereign DeepTech systems for Resilient Enterprises",
+  },
+  description:
+    "Quantum-safe security, an Enterprise Data Plane and Sovereign Edge AI for the systems that cannot Fail. Built in Pune, Deployable Anywhere.",
+  openGraph: {
+    title:
+      "UElement Technologies | Sovereign DeepTech systems for Resilient Enterprises",
+    description:
+      "Quantum-safe security, an Enterprise Data Plane and Sovereign Edge AI for the systems that cannot Fail. Built in Pune, Deployable Anywhere.",
+    url: "https://uelement.co/",
+    siteName: "UElement Technologies",
+    locale: "en_IN",
+    type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "UElement Technologies — Sovereign DeepTech systems for Resilient Enterprises",
+        type: "image/png",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title:
+      "UElement Technologies | Sovereign DeepTech systems for Resilient Enterprises",
+    description:
+      "Quantum-safe security, an Enterprise Data Plane and Sovereign Edge AI for the systems that cannot Fail. Built in Pune, Deployable Anywhere.",
+    images: ["/og-image.png"],
+  },
+  alternates: {
+    canonical: "https://uelement.co/",
+  },
+};
 
 const whatWeDo: {
   icon: IconName;

@@ -11,7 +11,7 @@ export const company = {
   phoneHref: '+917620690561',
   address: 'Wakad, Pune, Maharashtra 411057, India',
   cin: 'U63990PN2026PTC251047',
-  site: 'https://www.uelement.co',
+  site: process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://uelement.co',
   socials: {
     linkedin: 'https://www.linkedin.com/company/uelement-technologies/posts/?feedView=all',
     github: 'https://github.com/UElement',

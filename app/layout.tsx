@@ -16,11 +16,11 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-SF70DJKM92';
 export const metadata: Metadata = {
   metadataBase: new URL(company.site),
   title: {
-    default: `UElement | ${company.tagline}`,
+    default: 'UElement Technologies | Sovereign DeepTech systems for Resilient Enterprises',
     template: '%s | UElement',
   },
   description:
-    'UElement is a DeepTech company from Pune, India, building quantum-safe security, an enterprise data platform and sovereign edge AI for the systems that cannot fail.',
+    'Quantum-safe security, an Enterprise Data Plane and Sovereign Edge AI for the systems that cannot Fail. Built in Pune, Deployable Anywhere.',
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
@@ -34,11 +34,29 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    siteName: 'UElement',
+    siteName: 'UElement Technologies',
     locale: 'en_IN',
     url: company.site,
+    title: 'UElement Technologies | Sovereign DeepTech systems for Resilient Enterprises',
+    description:
+      'Quantum-safe security, an Enterprise Data Plane and Sovereign Edge AI for the systems that cannot Fail. Built in Pune, Deployable Anywhere.',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'UElement Technologies — Sovereign DeepTech systems for Resilient Enterprises',
+        type: 'image/png',
+      },
+    ],
   },
-  twitter: { card: 'summary_large_image' },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'UElement Technologies | Sovereign DeepTech systems for Resilient Enterprises',
+    description:
+      'Quantum-safe security, an Enterprise Data Plane and Sovereign Edge AI for the systems that cannot Fail. Built in Pune, Deployable Anywhere.',
+    images: ['/og-image.png'],
+  },
   alternates: { canonical: '/' },
 };
 
@@ -53,6 +71,10 @@ const orgJsonLd = {
   name: company.name,
   alternateName: 'UElement',
   url: company.site,
+  logo: `${company.site}/logo.png`,
+  image: `${company.site}/og-image.png`,
+  description:
+    'Quantum-safe security, an Enterprise Data Plane and Sovereign Edge AI for the systems that cannot Fail. Built in Pune, Deployable Anywhere.',
   email: company.email,
   telephone: company.phone,
   address: {
