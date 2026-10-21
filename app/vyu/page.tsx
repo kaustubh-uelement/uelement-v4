@@ -1,16 +1,13 @@
 import type { Metadata } from 'next';
-import ProductPage, { generateMetadata as generateProductMetadata } from '../platforms/[platform]/[product]/page';
+import { VyuProductView } from '@/components/VyuProductView';
 
-export async function generateMetadata(): Promise<Metadata> {
-  return generateProductMetadata({
-    params: Promise.resolve({ platform: 'u92-quantum', product: 'vyu' }),
-  });
-}
+export const metadata: Metadata = {
+  title: 'U92-Vyu | Free Quantum Readiness & CBOM Scanner',
+  description:
+    'Find the cryptography in your website, API or public GitHub code that a quantum computer will break, score how exposed you are, and get a signed CycloneDX CBOM report.',
+  alternates: { canonical: '/vyu/' },
+};
 
-export default async function VyuPage() {
-  return (
-    <ProductPage
-      params={Promise.resolve({ platform: 'u92-quantum', product: 'vyu' })}
-    />
-  );
+export default function VyuPage() {
+  return <VyuProductView />;
 }

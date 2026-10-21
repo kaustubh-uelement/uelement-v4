@@ -1,0 +1,1025 @@
+/* U92-Vyu Scanner Modal Styles — UElement Brand Guidelines Aligned */
+
+.vyu-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  background: rgba(6, 11, 24, 0.85);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+}
+
+.vyu-modal-box {
+  position: relative;
+  width: min(1040px, 100%);
+  max-height: min(90vh, 920px);
+  border-radius: 16px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--abyss, #060B18);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+}
+
+.vyu-modal-close {
+  all: unset;
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  z-index: 20;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(13, 26, 52, 0.9);
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.vyu-modal-close:hover {
+  border-color: #DDBB6E;
+  color: #DDBB6E;
+  background: rgba(22, 42, 82, 0.95);
+}
+
+.vyu-modal-top {
+  padding: 22px 28px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.vyu-modal-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #fff;
+}
+.vyu-modal-tile {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 600 16px/1 var(--f-mark, "Montserrat", sans-serif);
+  color: #fff;
+  backdrop-filter: blur(6px);
+}
+.vyu-modal-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.vyu-modal-brand-name {
+  font-weight: 600;
+  font-size: 16px;
+  color: #fff;
+}
+.vyu-modal-brand-sub {
+  font-size: 13px;
+  color: #B4BED0;
+}
+.vyu-modal-toplink {
+  font-size: 13.5px;
+  color: #B4BED0;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  margin-right: 48px;
+  transition: color 0.2s ease;
+}
+.vyu-modal-toplink:hover {
+  color: #fff;
+  border-color: #fff;
+}
+
+.vyu-modal-main {
+  padding: 20px 28px 40px;
+  flex: 1;
+}
+
+/* Stepper progress */
+.vyu-progress {
+  list-style: none;
+  margin: 12px 0 32px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  counter-reset: s;
+}
+.vyu-progress li {
+  counter-increment: s;
+  font-size: 13px;
+  font-weight: 500;
+  color: #9AA5BB;
+  padding-top: 10px;
+  border-top: 3px solid rgba(255, 255, 255, 0.16);
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+.vyu-progress li span::before {
+  content: counter(s) "  ";
+  color: inherit;
+  font-weight: 600;
+}
+.vyu-progress li.on {
+  border-top-color: #C49A45;
+  color: #fff;
+  font-weight: 600;
+}
+.vyu-progress li.done {
+  border-top-color: rgba(196, 154, 69, 0.6);
+  color: #B4BED0;
+}
+
+/* Step 1: Target */
+.vyu-step h1 {
+  font-weight: 550;
+  font-size: clamp(26px, 3.8vw, 38px);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  margin: 0 0 14px;
+  color: #fff;
+  max-width: 22ch;
+}
+.vyu-step h2 {
+  font-weight: 550;
+  font-size: clamp(22px, 3vw, 30px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0 0 10px;
+  color: #fff;
+}
+.vyu-step .intro {
+  max-width: 68ch;
+  color: #D9DEE8;
+  font-size: 16px;
+  line-height: 1.55;
+  margin: 0 0 24px;
+}
+.vyu-step .sub {
+  color: #9AA5BB;
+  font-size: 14.5px;
+  margin: 0 0 14px;
+  max-width: 70ch;
+  line-height: 1.5;
+}
+
+.vyu-kinds {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 0 0 18px;
+}
+.vyu-kind-btn {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 16px 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(13, 26, 52, 0.6);
+  color: #D9DEE8;
+  transition: all 0.2s ease;
+}
+.vyu-kind-btn svg {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  margin-top: 2px;
+  fill: none;
+  stroke: #DDBB6E;
+  stroke-width: 1.5;
+}
+.vyu-kind-btn b {
+  display: block;
+  font-weight: 600;
+  color: #fff;
+  font-size: 16px;
+}
+.vyu-kind-btn small {
+  display: block;
+  font-size: 13px;
+  color: #9AA5BB;
+  line-height: 1.45;
+  margin-top: 2px;
+}
+.vyu-kind-btn.on {
+  border-color: #C49A45;
+  background: linear-gradient(180deg, rgba(196, 154, 69, 0.16), rgba(13, 26, 52, 0.8));
+  box-shadow: 0 0 0 1px rgba(196, 154, 69, 0.4);
+}
+
+.vyu-card {
+  background: #F6F0E4;
+  color: #2A3350;
+  color-scheme: light;
+  border-radius: 14px;
+  padding: 26px 26px 22px;
+  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.6);
+  border: 1px solid #DCCFB5;
+}
+.vyu-card h3 {
+  color: #0E1B36;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+.vyu-card .lbl {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #0E1B36;
+  margin: 0 0 6px;
+}
+.vyu-card input[type="text"],
+.vyu-card input[type="email"],
+.vyu-card input[type="tel"],
+.vyu-card select {
+  width: 100%;
+  font: 400 16px/1.3 "Onest", system-ui, sans-serif;
+  color: #0E1B36;
+  background: #fff;
+  border: 1px solid #D9CDB4;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin: 0 0 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.vyu-card input:focus,
+.vyu-card select:focus {
+  outline: none;
+  border-color: #C49A45;
+  box-shadow: 0 0 0 3px rgba(196, 154, 69, 0.25);
+}
+.vyu-card #target {
+  font-size: 17px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+}
+
+.vyu-examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  font-size: 13px;
+  color: #56607A;
+  margin-bottom: 18px;
+}
+.vyu-ex-btn {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-size: 13px;
+  color: #8A6522;
+  background: #fff;
+  border: 1px solid #E1D5BD;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+.vyu-ex-btn:hover {
+  border-color: #C49A45;
+  background: #FFFDF8;
+}
+
+.vyu-row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.vyu-row2.tight {
+  gap: 12px;
+}
+.vyu-hint {
+  font-size: 12.5px;
+  color: #56607A;
+  margin: -8px 0 14px;
+}
+.vyu-assure-note {
+  background: #EDE3CF;
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #2A3350;
+  border: 1px solid #DCCFB5;
+}
+.vyu-assure-note .lbl {
+  color: #0E1B36;
+  font-size: 13.5px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.vyu-assure-note a {
+  color: #8A6522;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 6px;
+}
+
+.vyu-consent {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 14px;
+  color: #2A3350;
+  margin: 6px 0 18px;
+  cursor: pointer;
+}
+.vyu-consent input {
+  margin: 3px 0 0;
+  width: 17px;
+  height: 17px;
+  accent-color: #8A6522;
+  flex: none;
+}
+.vyu-consent.dark {
+  color: #D9DEE8;
+}
+
+.vyu-err {
+  color: #9E2B25;
+  font-size: 13.5px;
+  margin-top: 8px;
+  font-weight: 500;
+}
+.vyu-fine {
+  font-size: 13px;
+  color: #9AA5BB;
+  margin-top: 14px;
+  line-height: 1.5;
+}
+.vyu-fine a {
+  color: #DDBB6E;
+  text-decoration: none;
+}
+
+/* Step 2: Progress */
+.vyu-steps-list {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.vyu-step-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+.vyu-step-item.running {
+  background: rgba(196, 154, 69, 0.1);
+  border-color: rgba(196, 154, 69, 0.4);
+}
+.vyu-step-item.done {
+  border-color: rgba(108, 198, 154, 0.3);
+  background: rgba(108, 198, 154, 0.05);
+}
+.vyu-step-item .ic {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #9AA5BB;
+  flex: none;
+  display: grid;
+  place-items: center;
+}
+.vyu-step-item.running .ic {
+  border-color: #DDBB6E;
+  border-top-color: transparent;
+  animation: vyuSpin 0.8s linear infinite;
+}
+.vyu-step-item.done .ic {
+  border-color: #6CC69A;
+  background: #6CC69A;
+}
+.vyu-step-item .t {
+  font-weight: 600;
+  color: #fff;
+  font-size: 15px;
+}
+.vyu-step-item .d {
+  font-size: 13px;
+  color: #9AA5BB;
+  margin-top: 2px;
+}
+
+@keyframes vyuSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* Step 3: Results */
+.vyu-res-head {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+.vyu-medal {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  flex: none;
+}
+.vyu-medal svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.vyu-medal .track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 10;
+}
+.vyu-medal .ring {
+  fill: none;
+  stroke: url(#vyuMetal);
+  stroke-width: 10;
+  stroke-linecap: round;
+  transition: stroke-dasharray 1.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.vyu-medal .num {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  font-weight: 600;
+  color: #fff;
+}
+.vyu-res-info .target {
+  font-size: 13.5px;
+  color: #DDBB6E;
+  font-weight: 600;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.vyu-res-info h2 {
+  font-size: clamp(20px, 2.6vw, 28px);
+  margin: 4px 0 6px;
+  color: #fff;
+}
+.vyu-res-info .grade {
+  font-size: 16px;
+  font-weight: 600;
+  color: #F1D894;
+  margin: 0;
+}
+.vyu-res-info .meta {
+  font-size: 13.5px;
+  color: #9AA5BB;
+  margin: 6px 0 14px;
+}
+.vyu-res-info .cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #0E1B36;
+  background: linear-gradient(118deg, #C99D48 0%, #F2DA98 38%, #D6B163 62%, #EFD58C 82%, #C8A050 100%);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.vyu-res-info .cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(196, 154, 69, 0.4);
+}
+
+.vyu-block {
+  margin-top: 36px;
+}
+.vyu-block h3 {
+  font-size: 20px;
+  color: #fff;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+.vyu-ledger {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+  margin-top: 14px;
+}
+.vyu-gchip {
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font: 400 13px/1.3 "JetBrains Mono", monospace;
+  display: flex;
+  flex-direction: column;
+}
+.vyu-gchip b {
+  font-weight: 500;
+  color: #D9DEE8;
+}
+.vyu-gchip small {
+  font-family: "Onest", sans-serif;
+  font-size: 12px;
+  color: #9AA5BB;
+  margin-top: 2px;
+}
+.vyu-gchip.pq {
+  border-style: dashed;
+  border-color: rgba(221, 187, 110, 0.4);
+}
+.vyu-gchip.pq b {
+  color: #F1D894;
+}
+.vyu-gchip.on {
+  background: rgba(108, 198, 154, 0.12);
+  border-color: rgba(108, 198, 154, 0.35);
+}
+.vyu-gchip.on b {
+  color: #fff;
+}
+.vyu-gchip.on small {
+  color: #6CC69A;
+  font-weight: 600;
+}
+.vyu-gchip.first {
+  background: rgba(196, 154, 69, 0.18);
+  border-color: #C49A45;
+}
+.vyu-gchip.first small {
+  color: #F1D894;
+  font-weight: 600;
+}
+
+/* Findings */
+.vyu-filters {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.vyu-f-btn {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #9AA5BB;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.03);
+  transition: all 0.2s ease;
+}
+.vyu-f-btn.on {
+  background: #F6F0E4;
+  color: #0E1B36;
+  border-color: #F6F0E4;
+  font-weight: 600;
+}
+.vyu-findings-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+}
+.vyu-fd {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.vyu-fd summary {
+  cursor: pointer;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr) 20px;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 18px;
+}
+.vyu-fd summary::-webkit-details-marker {
+  display: none;
+}
+.vyu-fd .sv {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #8FB0D6;
+}
+.vyu-fd .sv.critical { background: #E0705F; }
+.vyu-fd .sv.high { background: #E3935C; }
+.vyu-fd .sv.medium { background: #D9B45A; }
+.vyu-fd .sv.pass { background: #6CC69A; }
+
+.vyu-fd .ttl {
+  font-weight: 600;
+  color: #fff;
+  font-size: 15.5px;
+}
+.vyu-fd .tags {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #9AA5BB;
+}
+.vyu-fd .tags .q {
+  color: #F1D894;
+}
+.vyu-fd .fbody {
+  padding: 0 18px 18px 40px;
+  font-size: 14.5px;
+  color: #D9DEE8;
+  line-height: 1.5;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-top: 4px;
+}
+.vyu-fd .fbody .fix {
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  background: rgba(196, 154, 69, 0.1);
+  border-left: 3px solid #C49A45;
+  color: #F1D894;
+}
+.vyu-fd .fbody .proof {
+  font: 400 12.5px/1.4 "JetBrains Mono", monospace;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 10px 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+  color: #E2E8F0;
+  margin-top: 8px;
+}
+
+/* CBOM Table */
+.vyu-cbom-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin-top: 14px;
+}
+.vyu-cbom-table th,
+.vyu-cbom-table td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.vyu-cbom-table th {
+  color: #9AA5BB;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: rgba(255, 255, 255, 0.03);
+}
+.vyu-cbom-table td {
+  color: #D9DEE8;
+}
+.vyu-vd {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.vyu-vd.quantum-vulnerable,
+.vyu-vd.broken {
+  background: rgba(224, 112, 95, 0.18);
+  color: #E0705F;
+}
+.vyu-vd.weak {
+  background: rgba(227, 147, 92, 0.18);
+  color: #E3935C;
+}
+.vyu-vd.safe {
+  background: rgba(108, 198, 154, 0.18);
+  color: #6CC69A;
+}
+
+/* Twocol layout for bottom forms */
+.vyu-twocol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+.vyu-locked {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 22px 24px;
+}
+.vyu-locked h3 {
+  color: #DDBB6E;
+  margin: 0 0 10px;
+}
+.vyu-plain-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  font-size: 14px;
+  color: #D9DEE8;
+  line-height: 1.45;
+}
+.vyu-plain-list li::before {
+  content: "• ";
+  color: #C49A45;
+}
+
+.vyu-again-btn {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  padding: 11px 20px;
+  transition: all 0.2s ease;
+  margin-top: 24px;
+}
+.vyu-again-btn:hover {
+  border-color: #DDBB6E;
+  color: #DDBB6E;
+}
+
+@media (max-width: 860px) {
+  .vyu-kinds,
+  .vyu-row2,
+  .vyu-twocol {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Progress Stepper Bar (4 Steps) ── */
+.vyu-progress-bar {
+  list-style: none;
+  margin: 14px 0 32px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.vyu-progress-bar li {
+  font-size: 13.5px;
+  color: #6C7A9C;
+  padding-top: 10px;
+  border-top: 2.5px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+.vyu-progress-bar li.on {
+  border-top-color: #DDBB6E;
+  color: #fff;
+  font-weight: 600;
+}
+.vyu-progress-bar li.done {
+  border-top-color: rgba(196, 154, 69, 0.6);
+  color: #CBD5E1;
+}
+.vyu-progress-bar .step-idx {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 11px;
+  background: rgba(255, 255, 255, 0.08);
+  color: inherit;
+  flex: none;
+}
+.vyu-progress-bar li.on .step-idx {
+  background: #DDBB6E;
+  color: #060B18;
+  font-weight: 700;
+}
+.vyu-progress-bar li.done .step-idx {
+  background: rgba(196, 154, 69, 0.4);
+  color: #fff;
+}
+
+@media (max-width: 720px) {
+  .vyu-progress-bar {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+}
+
+/* ── OTP & Email Verification Screen ── */
+.vyu-otp-box {
+  background: #F6F0E4;
+  color: #0E1B36;
+  border-radius: 14px;
+  padding: 32px 28px;
+  max-width: 580px;
+  margin: 0 auto;
+  border: 1px solid #DCCFB5;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+.vyu-otp-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(196, 154, 69, 0.15);
+  border: 1px solid #C49A45;
+  color: #8A6522;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  font-size: 24px;
+}
+.vyu-otp-input {
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  letter-spacing: 10px !important;
+  text-align: center !important;
+  padding: 14px 18px !important;
+  border: 2px solid #C49A45 !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  color: #0E1B36 !important;
+  max-width: 320px;
+  margin: 16px auto !important;
+}
+.vyu-otp-resend-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 14px;
+  font-size: 13.5px;
+  color: #56607A;
+}
+.vyu-btn-link {
+  all: unset;
+  cursor: pointer;
+  color: #8A6522;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+.vyu-btn-link:hover {
+  color: #0E1B36;
+}
+
+/* ── Report Dispatched Alert Banner ── */
+.vyu-dispatch-alert {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.12) 0%, rgba(13, 26, 52, 0.8) 100%);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  color: #E2E8F0;
+}
+.vyu-dispatch-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(34, 197, 94, 0.2);
+  border: 1px solid #22c55e;
+  color: #4ade80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 18px;
+}
+.vyu-dispatch-body h4 {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #86efac;
+}
+.vyu-dispatch-body p {
+  margin: 0;
+  font-size: 13.5px;
+  color: #CBD5E1;
+  line-height: 1.5;
+}
+
+/* ── Repository Scope & Audit Metrics Grid (for GitHub scans) ── */
+.vyu-repo-scope-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+.vyu-repo-card {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.vyu-repo-card .card-lbl {
+  font-size: 12px;
+  color: #9AA5BB;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+.vyu-repo-card .card-val {
+  font-size: 17px;
+  font-weight: 600;
+  color: #fff;
+}
+.vyu-repo-card .card-sub {
+  font-size: 12.5px;
+  color: #DDBB6E;
+  margin-top: 2px;
+}
+
+/* ── Gated Content Protection Card (Non-Clipping & Fully Responsive) ── */
+.vyu-gated-card {
+  position: relative;
+  background: linear-gradient(180deg, rgba(13, 26, 52, 0.6) 0%, rgba(6, 11, 24, 0.95) 100%);
+  border: 1px solid rgba(196, 154, 69, 0.35);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+.vyu-lock-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(221, 187, 110, 0.15);
+  border: 1px solid rgba(221, 187, 110, 0.4);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #F1D894;
+  margin-bottom: 12px;
+}
+.vyu-gated-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 6px;
+}
+.vyu-gated-sub {
+  font-size: 13.5px;
+  color: #B4BED0;
+  max-width: 520px;
+  line-height: 1.5;
+  margin: 0 0 18px;
+}
+.vyu-gated-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+

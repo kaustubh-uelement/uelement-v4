@@ -1,0 +1,1459 @@
+{
+  "id": "VYU-DEMO-WEB-STD",
+  "kind": "website",
+  "target": "www.demo-bank.example",
+  "host": "www.demo-bank.example",
+  "domain": "demo-bank.example",
+  "mode": "standard",
+  "horizonYears": 12,
+  "status": "done",
+  "startedAt": "2026-10-21T17:17:48.85584Z",
+  "finishedAt": "2026-10-21T17:17:48.882788Z",
+  "scannerVersion": "2.1.0",
+  "sourceIp": "127.0.0.1 (demo lab)",
+  "steps": [
+    {
+      "key": "resolve",
+      "label": "Resolve and vet the target",
+      "status": "done",
+      "detail": "www.demo-bank.example → 198.18.10.10",
+      "at": "2026-10-21T22:47:48.855884+05:30"
+    },
+    {
+      "key": "tls",
+      "label": "TLS versions, cipher suites and key-exchange groups",
+      "status": "done",
+      "detail": "classical key exchange only (x25519)",
+      "at": "2026-10-21T22:47:48.882779+05:30"
+    },
+    {
+      "key": "cert",
+      "label": "Certificate chain and keys",
+      "status": "done",
+      "detail": "RSA 2048, expires in 356 days",
+      "at": "2026-10-21T22:47:48.882785+05:30"
+    },
+    {
+      "key": "dns",
+      "label": "DNS, CAA and DNSSEC",
+      "status": "done",
+      "detail": "DNSSEC off, no CAA",
+      "at": "2026-10-21T22:47:48.860513+05:30"
+    },
+    {
+      "key": "email",
+      "label": "Mail authentication (SPF, DMARC, DKIM, MTA-STS)",
+      "status": "done",
+      "detail": "1 MX, 2 DKIM keys found",
+      "at": "2026-10-21T22:47:48.861908+05:30"
+    },
+    {
+      "key": "web",
+      "label": "HTTP headers, page scripts and published signing keys",
+      "status": "done",
+      "detail": "HTTP 200, 5 scripts",
+      "at": "2026-10-21T22:47:48.865617+05:30"
+    },
+    {
+      "key": "ct",
+      "label": "Certificate Transparency inventory",
+      "status": "done",
+      "detail": "7 live certificates, 7 host names",
+      "at": "2026-10-21T22:47:48.860633+05:30"
+    },
+    {
+      "key": "legacy",
+      "label": "Legacy protocols (TLS 1.0/1.1, SSLv3)",
+      "status": "locked",
+      "at": "2026-10-21T22:47:48.855854+05:30"
+    },
+    {
+      "key": "ports",
+      "label": "Other TLS services on the host",
+      "status": "locked",
+      "at": "2026-10-21T22:47:48.855854+05:30"
+    },
+    {
+      "key": "ssh",
+      "label": "SSH key exchange",
+      "status": "locked",
+      "at": "2026-10-21T22:47:48.855855+05:30"
+    },
+    {
+      "key": "mailtls",
+      "label": "Mail server STARTTLS",
+      "status": "locked",
+      "at": "2026-10-21T22:47:48.855855+05:30"
+    },
+    {
+      "key": "sweep",
+      "label": "Subdomain sweep from CT logs",
+      "status": "locked",
+      "at": "2026-10-21T22:47:48.855855+05:30"
+    },
+    {
+      "key": "analyse",
+      "label": "Build CBOM, findings and score",
+      "status": "pending",
+      "at": "2026-10-21T22:47:48.855855+05:30"
+    }
+  ],
+  "endpoints": [
+    {
+      "host": "www.demo-bank.example",
+      "ip": "198.18.10.10",
+      "port": 443,
+      "service": "https",
+      "role": "primary",
+      "reachable": true,
+      "tls": {
+        "versions": [
+          {
+            "version": "TLS 1.3",
+            "supported": true,
+            "evidence": "observed"
+          },
+          {
+            "version": "TLS 1.2",
+            "supported": true,
+            "evidence": "observed"
+          },
+          {
+            "version": "TLS 1.1",
+            "supported": false,
+            "evidence": "not-tested"
+          },
+          {
+            "version": "TLS 1.0",
+            "supported": false,
+            "evidence": "not-tested"
+          },
+          {
+            "version": "SSLv3",
+            "supported": false,
+            "evidence": "not-tested"
+          }
+        ],
+        "groups": [
+          "x25519",
+          "secp256r1",
+          "secp384r1"
+        ],
+        "preferredGroup": "x25519",
+        "classicalFirstPick": "x25519",
+        "hybridPQ": false,
+        "pqEnforced": false,
+        "obsoleteKyber": false,
+        "tls13Suites": [
+          "TLS_AES_128_GCM_SHA256",
+          "TLS_AES_256_GCM_SHA384",
+          "TLS_CHACHA20_POLY1305_SHA256"
+        ],
+        "tls12Suites": [
+          {
+            "name": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+            "id": "0xC02F",
+            "kx": "ECDHE",
+            "curve": "x25519",
+            "bits": 128,
+            "pfs": true,
+            "weak": false,
+            "version": "TLS 1.2"
+          },
+          {
+            "name": "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+            "id": "0xC030",
+            "kx": "ECDHE",
+            "curve": "x25519",
+            "bits": 256,
+            "pfs": true,
+            "weak": false,
+            "version": "TLS 1.2"
+          },
+          {
+            "name": "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA",
+            "id": "0xC013",
+            "kx": "ECDHE",
+            "curve": "x25519",
+            "bits": 128,
+            "pfs": true,
+            "weak": false,
+            "version": "TLS 1.2"
+          },
+          {
+            "name": "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA",
+            "id": "0xC014",
+            "kx": "ECDHE",
+            "curve": "x25519",
+            "bits": 256,
+            "pfs": true,
+            "weak": false,
+            "version": "TLS 1.2"
+          },
+          {
+            "name": "TLS_RSA_WITH_AES_256_GCM_SHA384",
+            "id": "0x009D",
+            "kx": "RSA",
+            "bits": 256,
+            "pfs": false,
+            "weak": false,
+            "version": "TLS 1.2"
+          },
+          {
+            "name": "TLS_RSA_WITH_AES_128_CBC_SHA",
+            "id": "0x002F",
+            "kx": "RSA",
+            "bits": 128,
+            "pfs": false,
+            "weak": false,
+            "version": "TLS 1.2"
+          },
+          {
+            "name": "TLS_RSA_WITH_3DES_EDE_CBC_SHA",
+            "id": "0x000A",
+            "kx": "RSA",
+            "bits": 112,
+            "pfs": false,
+            "weak": true,
+            "version": "TLS 1.2"
+          }
+        ],
+        "tls12ServerOrder": true,
+        "chain": [
+          {
+            "subject": "www.demo-bank.example",
+            "issuer": "Demo Trust Root R1, Demo Trust Services",
+            "issuerOrg": "Demo Trust Services",
+            "serial": "2F244AE73116A28F",
+            "sans": [
+              "www.demo-bank.example",
+              "demo-bank.example"
+            ],
+            "notBefore": "2026-09-11T17:17:44Z",
+            "notAfter": "2027-10-13T17:17:44Z",
+            "lifetimeDays": 397,
+            "daysLeft": 356,
+            "keyAlg": "RSA",
+            "keyBits": 2048,
+            "sigAlg": "ECDSA-SHA384",
+            "sha256": "b12d0c44fd102e15506d5cceef63488a5e0f706a053b1eb7ede9a26334ee977a",
+            "position": "leaf",
+            "selfSigned": false,
+            "isCA": false,
+            "scts": 0,
+            "mustStaple": false,
+            "wildcard": false,
+            "ocsp": [
+              "http://ocsp.demo-trust.example"
+            ],
+            "keyOid": "1.2.840.113549.1.1.1"
+          },
+          {
+            "subject": "Demo Trust Root R1, Demo Trust Services",
+            "issuer": "Demo Trust Root R1, Demo Trust Services",
+            "issuerOrg": "Demo Trust Services",
+            "serial": "18E09AFD63DBEC10",
+            "notBefore": "2025-10-21T17:17:44Z",
+            "notAfter": "2036-10-18T17:17:44Z",
+            "lifetimeDays": 4015,
+            "daysLeft": 3649,
+            "keyAlg": "ECDSA",
+            "keyBits": 384,
+            "curve": "P-384",
+            "sigAlg": "ECDSA-SHA384",
+            "sha256": "706a083cc6066f506860aacf44241d2a2bf72da8cbcfa230cae824ddbb7359c0",
+            "position": "root",
+            "selfSigned": true,
+            "isCA": true,
+            "scts": 0,
+            "mustStaple": false,
+            "wildcard": false,
+            "keyOid": "1.2.840.10045.2.1"
+          }
+        ],
+        "chainValid": true,
+        "ocspStapled": false,
+        "sctsInHandshake": 0,
+        "alpn": "h2",
+        "negotiatedVersion": "TLS 1.3",
+        "negotiatedSuite": "TLS_AES_128_GCM_SHA256"
+      },
+      "handshakes": 19
+    }
+  ],
+  "dns": {
+    "domain": "demo-bank.example",
+    "a": [
+      "198.18.10.10"
+    ],
+    "ns": [
+      "ns1.demo-dns.example",
+      "ns2.demo-dns.example"
+    ],
+    "dnssec": false,
+    "dnssecValid": false,
+    "ech": false
+  },
+  "email": {
+    "mx": [
+      "mail.demo-bank.example"
+    ],
+    "spf": "v=spf1 ip4:198.18.10.40 include:_spf.demo-mail.example ~all",
+    "dmarc": "v=DMARC1; p=none; rua=mailto:dmarc@demo-bank.example",
+    "dmarcPolicy": "none",
+    "dkim": [
+      {
+        "selector": "selector1",
+        "keyType": "rsa",
+        "bits": 1024
+      },
+      {
+        "selector": "selector2",
+        "keyType": "rsa",
+        "bits": 2048
+      }
+    ]
+  },
+  "web": {
+    "finalUrl": "https://www.demo-bank.example/",
+    "status": 200,
+    "httpRedirectsToHttps": false,
+    "httpTested": true,
+    "hstsMaxAge": 0,
+    "hstsSubdomains": false,
+    "hstsPreload": false,
+    "headers": {
+      "Server": "nginx/1.24.0",
+      "X-Frame-Options": "SAMEORIGIN"
+    },
+    "server": "nginx/1.24.0",
+    "stack": [
+      "nginx"
+    ],
+    "http3": false,
+    "scripts": [
+      {
+        "src": "https://cdn.demo-cdn.example/ajax/libs/jquery/3.4.1/jquery.min.js",
+        "thirdParty": true,
+        "sri": false,
+        "library": "jQuery",
+        "version": "3.4.1",
+        "advisory": "Below 3.5.0: XSS issues CVE-2020-11022 / CVE-2020-11023"
+      },
+      {
+        "src": "https://cdn.demo-cdn.example/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js",
+        "thirdParty": true,
+        "sri": false,
+        "library": "Bootstrap",
+        "version": "4.1.3",
+        "advisory": "Below 3.4.1 / 4.3.1: XSS issue CVE-2019-8331"
+      },
+      {
+        "src": "https://cdn.demo-cdn.example/npm/lodash@4.17.21/lodash.min.js",
+        "thirdParty": true,
+        "sri": true,
+        "library": "Lodash",
+        "version": "4.17.21"
+      },
+      {
+        "src": "https://tags.demo-analytics.example/gtm.js?id=GTM-DEMO",
+        "thirdParty": true,
+        "sri": false
+      },
+      {
+        "src": "https://www.demo-bank.example/static/js/app.js",
+        "thirdParty": false,
+        "sri": false
+      }
+    ],
+    "thirdPartyOrigins": [
+      "https://cdn.demo-cdn.example",
+      "https://tags.demo-analytics.example"
+    ],
+    "oidc": {
+      "issuer": "https://www.demo-bank.example",
+      "jwksUri": "https://www.demo-bank.example/oauth2/jwks",
+      "signingAlgs": [
+        "RS256"
+      ],
+      "keys": [
+        {
+          "kid": "demo-2026",
+          "kty": "RSA",
+          "alg": "RS256",
+          "bits": 2048,
+          "use": "sig"
+        },
+        {
+          "kid": "demo-ec",
+          "kty": "EC",
+          "alg": "ES256",
+          "crv": "P-256",
+          "use": "sig"
+        }
+      ]
+    },
+    "securityTxt": false,
+    "cookiesInsecure": [
+      "JSESSIONID"
+    ]
+  },
+  "ct": {
+    "source": "Cert Spotter (SSLMate)",
+    "certificates": 7,
+    "keyAlgs": {
+      "ECDSA P-256": 1,
+      "RSA-2048": 5,
+      "RSA-4096": 1
+    },
+    "issuers": {
+      "Demo Trust Services": 6,
+      "Demo Wildcard CA": 1
+    },
+    "hostnames": [
+      "api.demo-bank.example",
+      "cards.demo-bank.example",
+      "demo-bank.example",
+      "mail.demo-bank.example",
+      "netbanking.demo-bank.example",
+      "uat.demo-bank.example",
+      "www.demo-bank.example"
+    ],
+    "wildcards": 1,
+    "longLived": 3,
+    "truncated": false,
+    "keysKnown": true
+  },
+  "assets": [
+    {
+      "ref": "crypto-1",
+      "assetType": "protocol",
+      "name": "TLS 1.3",
+      "nistLevel": 0,
+      "purpose": "Transport security",
+      "locations": [
+        "www.demo-bank.example:443 (https)"
+      ],
+      "source": "tls",
+      "verdict": "quantum-vulnerable",
+      "verdictText": "Quantum-vulnerable (Shor)",
+      "evidence": "observed",
+      "detail": "TLS 1.3 with classical key exchange only",
+      "protocol": {
+        "type": "tls",
+        "version": "1.3",
+        "suites": [
+          "TLS_AES_128_GCM_SHA256",
+          "TLS_AES_256_GCM_SHA384",
+          "TLS_CHACHA20_POLY1305_SHA256"
+        ],
+        "groups": [
+          "x25519",
+          "secp256r1",
+          "secp384r1"
+        ]
+      }
+    },
+    {
+      "ref": "crypto-2",
+      "assetType": "protocol",
+      "name": "TLS 1.2",
+      "nistLevel": 0,
+      "purpose": "Transport security",
+      "locations": [
+        "www.demo-bank.example:443 (https)"
+      ],
+      "source": "tls",
+      "verdict": "quantum-vulnerable",
+      "verdictText": "Quantum-vulnerable (Shor)",
+      "evidence": "observed",
+      "detail": "TLS 1.2 has no post-quantum key exchange",
+      "protocol": {
+        "type": "tls",
+        "version": "1.2",
+        "suites": [
+          "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+          "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+          "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA",
+          "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA",
+          "TLS_RSA_WITH_AES_256_GCM_SHA384",
+          "TLS_RSA_WITH_AES_128_CBC_SHA",
+          "TLS_RSA_WITH_3DES_EDE_CBC_SHA"
+        ]
+      }
+    },
+    {
+      "ref": "crypto-3",
+      "assetType": "algorithm",
+      "name": "x25519",
+      "family": "ECDH",
+      "primitive": "key-agree",
+      "curve": "other/Curve25519",
+      "classicalBits": 128,
+      "nistLevel": 0,
+      "purpose": "TLS session key establishment",
+      "locations": [
+        "www.demo-bank.example:443 (https)"
+      ],
+      "source": "tls",
+      "verdict": "quantum-vulnerable",
+      "verdictText": "Quantum-vulnerable (Shor)",
+      "evidence": "observed",
+      "recommendation": "Offer X25519MLKEM768 ahead of this group so recorded sessions stay safe."
+    },
+    {
+      "ref": "crypto-4",
+      "assetType": "algorithm",
+      "name": "secp256r1",
+      "family": "ECDH",
+      "primitive": "key-agree",
+      "curve": "nist/P-256",
+      "classicalBits": 128,
+      "nistLevel": 0,
+      "purpose": "TLS session key establishment",
+      "locations": [
+        "www.demo-bank.example:443 (https)"
+      ],
+      "source": "tls",
+      "verdict": "quantum-vulnerable",
+      "verdictText": "Quantum-vulnerable (Shor)",
+      "evidence": "observed",
+      "recommendation": "Offer X25519MLKEM768 ahead of this group so recorded sessions stay safe."
+    },
+    {
+      "ref": "crypto-5",
+      "assetType": "algorithm",
+      "name": "secp384r1",
+      "family": "ECDH",
+      "primitive": "key-agree",
+      "curve": "nist/P-384",
+      "classicalBits": 192,
+      "nistLevel": 0,
+      "purpose": "TLS session key establishment",
+      "locations": [
+        "www.demo-bank.example:443 (https)"
+      ],
+      "source": "tls",
+      "verdict": "quantum-vulnerable",
+      "verdictText": "Quantum-vulnerable (Shor)",
+      "evidence": "observed",
+      "recommendation": "Offer X25519MLKEM768 ahead of this group so recorded sessions stay safe."
+    },
+    {
+      "ref": "crypto-6",
+      "assetType": "algorithm",
+      "name": "AES-128-GCM",
+      "family": "AES",
+      "primitive": "ae",
+      "keyBits": 128,
+      "classicalBits": 128,
+      "nistLevel": 1,
+      "mode": "gcm",
+      "purpose": "TLS payload encryption",
+      "locations": [
+        "www.demo-bank.example:443 (https)"
+      ],
+      "source": "tls",
+      "verdict": "adequate",
+      "verdictText": "Adequate (Grover margin)",
+      "evidence": "observed",
+      "detail": "Acceptable under NIST guidance (security category 1). CNSA 2.0 and long-lived data call for AES-256.",
+      "recommendation": "Prefer AES-256-GCM in the server's suite order."
+    },
+    {
+      "ref": "crypto-7",
+      "assetType": "algorithm",
+      "name": "AES-256-GCM",
+      "family": "AES",
+      "primitive": "ae",
+      "keyBits": 256,
+      "classicalBits": 256,
+      "nistLevel": 5,
+      "mode": "gcm",
+      "purpose": "TLS payload encryption",
+      "locations": [
+        "www.demo-bank.example:443 (https)"
+      ],
+      "source": "tls",
+      "verdict": "quantum-resistant",
+      "verdictText": "Quantum-resistant",
+      "evidence": "observed",
+      "detail": "256-bit key keeps ample margin against Grover's algorithm (CNSA 2.0 compliant)."
+    },
+    {
+      "ref": "crypto-8",
+      "assetType": "algorithm",
+      "name": "ChaCha20-Poly1305",
+      "family": "ChaCha20",
+      "primitive": "ae",
+      "keyBits": 256,
+      "classicalBits": 256,
+      "nistLevel": 5,
+      "purpose": "TLS payload encryption",
+      "locations": [
+        "www.demo-bank.example:443 (https)"
+      ],
+      "source": "tls",
+      "verdict": "quantum-resistant",
+      "verdictText": "Quantum-resistant",
+      "evidence": "observed",
+      "detail": "256-bit key; not a NIST-approved cipher, so CNSA 2.0 and FIPS deployments use AES-256-GCM."
+    },
+    {
+      "ref": "crypto-9",
+      "assetType": "algorithm",
+      "name": "AES-128-CBC",
+      "family": "AES",
+      "primitive": "block-cipher",
+      "keyBits": 128,
+      "classicalBits": 128,
+      "nistLevel": 1,
+      "mode": "cbc",
+      "purpose": "TLS payload encryption",
+      "locations": [
+        "www.demo-bank.example:443 (https)"
+      ],
+      "source": "tls",
+      "verdict": "adequate",
+      "verdictText": "Adequate (Grover margin)",
+      "evidence": "observed",
+      "detail": "Acceptable under NIST guidance (security category 1). CNSA 2.0 and long-lived data call for AES-256. CBC-mode suites are legacy; prefer AEAD (GCM).",
+      "recommendation": "Prefer AES-256-GCM in the server's suite order."
+    },
+    {
+      "ref": "crypto-10",
+      "assetType": "algorithm",
+      "name": "AES-256-CBC",
+      "family": "AES",
+      "primitive": "block-cipher",
+      "keyBits": 256,
+      "classicalBits": 256,
+      "nistLevel": 5,
+      "mode": "cbc",
+      "purpose": "TLS payload encryption",
+      "locations": [
+        "www.demo-bank.example:443 (https)"
+      ],
+      "source": "tls",
+      "verdict": "quantum-resistant",
+      "verdictText": "Quantum-resistant",
+      "evidence": "observed",
+      "detail": "256-bit key keeps ample margin against Grover's algorithm (CNSA 2.0 compliant). CBC-mode suites are legacy; prefer AEAD (GCM)."
+    },
+    {
+      "ref": "crypto-11",
+      "assetType": "algorithm",
+      "name": "RSA key transport",
+      "family": "RSAES-PKCS1",
+      "primitive": "pke",
+      "nistLevel": 0,
+      "purpose": "TLS 1.2 key exchange without forward secrecy",
+      "locations": [
+        "www.demo-bank.example:443 (https)"
+      ],
+      "source": "tls",
+      "verdict": "quantum-vulnerable",
+      "verdictText": "Quantum-vulnerable (Shor)",
+      "evidence": "observed",
+      "detail": "Anyone holding the server's RSA private key (or a quantum computer able to derive it) can decrypt every recorded session.",
+      "recommendation": "Remove TLS_RSA_* suites; keep ECDHE only."
+    },
+    {
+      "ref": "crypto-12",
+      "assetType": "algorithm",
+      "name": "3DES-EDE-CBC",
+      "family": "3DES",
+      "primitive": "block-cipher",
+      "keyBits": 168,
+      "classicalBits": 112,
+      "nistLevel": 0,
+      "purpose": "TLS payload encryption",
+      "locations": [
+        "www.demo-bank.example:443 (https)"
+      ],
+      "source": "tls",
+      "verdict": "broken-classical",
+      "verdictText": "Weak today",
+      "evidence": "observed",
+      "detail": "64-bit block cipher, open to Sweet32; disallowed by NIST after 2023.",
+      "recommendation": "Remove 3DES suites."
+    },
+    {
+      "ref": "crypto-13",
+      "assetType": "algorithm",
+      "name": "RSA-2048",
+      "family": "RSASSA-PKCS1",
+      "primitive": "signature",
+      "keyBits": 2048,
+      "classicalBits": 112,
+      "nistLevel": 0,
+      "purpose": "Certificate signature key (leaf)",
+      "locations": [
+        "www.demo-bank.example:443 (https)"
+      ],
+      "source": "tls",
+      "verdict": "quantum-vulnerable",
+      "verdictText": "Quantum-vulnerable (Shor)",
+      "evidence": "observed",
+      "detail": "Classical signature key, breakable by Shor's algorithm",
+      "recommendation": "Migrate to ML-DSA-65 (FIPS 204) when your CA offers it; in the meantime keep RSA at 2048+ bits and automate renewal.",
+      "oid": "1.2.840.113549.1.1.1"
+    },
+    {
+      "ref": "crypto-14",
+      "assetType": "certificate",
+      "name": "Leaf certificate: www.demo-bank.example",
+      "nistLevel": 0,
+      "purpose": "Server authentication (leaf)",
+      "locations": [
+        "www.demo-bank.example:443 (https)"
+      ],
+      "source": "tls",
+      "verdict": "quantum-vulnerable",
+      "verdictText": "Quantum-vulnerable (Shor)",
+      "evidence": "observed",
+      "detail": "Classical signature key, breakable by Shor's algorithm",
+      "cert": {
+        "subject": "www.demo-bank.example",
+        "issuer": "Demo Trust Root R1, Demo Trust Services",
+        "issuerOrg": "Demo Trust Services",
+        "serial": "2F244AE73116A28F",
+        "sans": [
+          "www.demo-bank.example",
+          "demo-bank.example"
+        ],
+        "notBefore": "2026-09-11T17:17:44Z",
+        "notAfter": "2027-10-13T17:17:44Z",
+        "lifetimeDays": 397,
+        "daysLeft": 356,
+        "keyAlg": "RSA",
+        "keyBits": 2048,
+        "sigAlg": "ECDSA-SHA384",
+        "sha256": "b12d0c44fd102e15506d5cceef63488a5e0f706a053b1eb7ede9a26334ee977a",
+        "position": "leaf",
+        "selfSigned": false,
+        "isCA": false,
+        "scts": 0,
+        "mustStaple": false,
+        "wildcard": false,
+        "ocsp": [
+          "http://ocsp.demo-trust.example"
+        ],
+        "keyOid": "1.2.840.113549.1.1.1"
+      },
+      "related": [
+        "crypto-13"
+      ]
+    },
+    {
+      "ref": "crypto-15",
+      "assetType": "algorithm",
+      "name": "ECDSA P-384",
+      "family": "ECDSA",
+      "primitive": "signature",
+      "curve": "nist/P-384",
+      "keyBits": 384,
+      "classicalBits": 192,
+      "nistLevel": 0,
+      "purpose": "Certificate signature key (root)",
+      "locations": [
+        "www.demo-bank.example:443 (https)"
+      ],
+      "source": "tls",
+      "verdict": "quantum-vulnerable",
+      "verdictText": "Quantum-vulnerable (Shor)",
+      "evidence": "observed",
+      "detail": "Classical signature key, breakable by Shor's algorithm",
+      "recommendation": "Migrate to ML-DSA-65 (FIPS 204) when your CA offers it.",
+      "oid": "1.2.840.10045.2.1"
+    },
+    {
+      "ref": "crypto-16",
+      "assetType": "certificate",
+      "name": "Root certificate: Demo Trust Root R1",
+      "nistLevel": 0,
+      "purpose": "Server authentication (root)",
+      "locations": [
+        "www.demo-bank.example:443 (https)"
+      ],
+      "source": "tls",
+      "verdict": "quantum-vulnerable",
+      "verdictText": "Quantum-vulnerable (Shor)",
+      "evidence": "observed",
+      "detail": "Classical signature key, breakable by Shor's algorithm",
+      "cert": {
+        "subject": "Demo Trust Root R1, Demo Trust Services",
+        "issuer": "Demo Trust Root R1, Demo Trust Services",
+        "issuerOrg": "Demo Trust Services",
+        "serial": "18E09AFD63DBEC10",
+        "notBefore": "2025-10-21T17:17:44Z",
+        "notAfter": "2036-10-18T17:17:44Z",
+        "lifetimeDays": 4015,
+        "daysLeft": 3649,
+        "keyAlg": "ECDSA",
+        "keyBits": 384,
+        "curve": "P-384",
+        "sigAlg": "ECDSA-SHA384",
+        "sha256": "706a083cc6066f506860aacf44241d2a2bf72da8cbcfa230cae824ddbb7359c0",
+        "position": "root",
+        "selfSigned": true,
+        "isCA": true,
+        "scts": 0,
+        "mustStaple": false,
+        "wildcard": false,
+        "keyOid": "1.2.840.10045.2.1"
+      },
+      "related": [
+        "crypto-15"
+      ]
+    },
+    {
+      "ref": "crypto-17",
+      "assetType": "related-crypto-material",
+      "name": "DKIM RSA-1024",
+      "family": "RSASSA-PKCS1",
+      "primitive": "signature",
+      "keyBits": 1024,
+      "nistLevel": 0,
+      "purpose": "Mail signing (DKIM)",
+      "locations": [
+        "selector1._domainkey.demo-bank.example"
+      ],
+      "source": "dns",
+      "verdict": "broken-classical",
+      "verdictText": "Weak today",
+      "evidence": "observed",
+      "recommendation": "Rotate this DKIM key to RSA-2048."
+    },
+    {
+      "ref": "crypto-18",
+      "assetType": "related-crypto-material",
+      "name": "DKIM RSA-2048",
+      "family": "RSASSA-PKCS1",
+      "primitive": "signature",
+      "keyBits": 2048,
+      "nistLevel": 0,
+      "purpose": "Mail signing (DKIM)",
+      "locations": [
+        "selector2._domainkey.demo-bank.example"
+      ],
+      "source": "dns",
+      "verdict": "quantum-vulnerable",
+      "verdictText": "Quantum-vulnerable (Shor)",
+      "evidence": "observed"
+    },
+    {
+      "ref": "crypto-19",
+      "assetType": "related-crypto-material",
+      "name": "JWT signing key RSA-2048",
+      "family": "RSASSA-PKCS1",
+      "primitive": "signature",
+      "keyBits": 2048,
+      "nistLevel": 0,
+      "purpose": "Identity token signing (published JWKS)",
+      "locations": [
+        "https://www.demo-bank.example/oauth2/jwks"
+      ],
+      "source": "web",
+      "verdict": "quantum-vulnerable",
+      "verdictText": "Quantum-vulnerable (Shor)",
+      "evidence": "observed",
+      "detail": "Read from the public JWKS at https://www.demo-bank.example/oauth2/jwks"
+    },
+    {
+      "ref": "crypto-20",
+      "assetType": "related-crypto-material",
+      "name": "JWT signing key ECDSA P-256",
+      "family": "ECDSA",
+      "primitive": "signature",
+      "nistLevel": 0,
+      "purpose": "Identity token signing (published JWKS)",
+      "locations": [
+        "https://www.demo-bank.example/oauth2/jwks"
+      ],
+      "source": "web",
+      "verdict": "quantum-vulnerable",
+      "verdictText": "Quantum-vulnerable (Shor)",
+      "evidence": "observed",
+      "detail": "Read from the public JWKS at https://www.demo-bank.example/oauth2/jwks"
+    },
+    {
+      "ref": "crypto-21",
+      "assetType": "algorithm",
+      "name": "ECDSA P-256 certificates (CT logs)",
+      "primitive": "signature",
+      "nistLevel": 0,
+      "purpose": "1 live certificates for demo-bank.example and subdomains",
+      "locations": [
+        "CT logs: demo-bank.example"
+      ],
+      "source": "ct",
+      "verdict": "quantum-vulnerable",
+      "verdictText": "Quantum-vulnerable (Shor)",
+      "evidence": "inferred",
+      "detail": "Counted from public Certificate Transparency logs; not every certificate is in active use."
+    },
+    {
+      "ref": "crypto-22",
+      "assetType": "algorithm",
+      "name": "RSA-2048 certificates (CT logs)",
+      "primitive": "signature",
+      "nistLevel": 0,
+      "purpose": "5 live certificates for demo-bank.example and subdomains",
+      "locations": [
+        "CT logs: demo-bank.example"
+      ],
+      "source": "ct",
+      "verdict": "quantum-vulnerable",
+      "verdictText": "Quantum-vulnerable (Shor)",
+      "evidence": "inferred",
+      "detail": "Counted from public Certificate Transparency logs; not every certificate is in active use."
+    },
+    {
+      "ref": "crypto-23",
+      "assetType": "algorithm",
+      "name": "RSA-4096 certificates (CT logs)",
+      "primitive": "signature",
+      "nistLevel": 0,
+      "purpose": "1 live certificates for demo-bank.example and subdomains",
+      "locations": [
+        "CT logs: demo-bank.example"
+      ],
+      "source": "ct",
+      "verdict": "quantum-vulnerable",
+      "verdictText": "Quantum-vulnerable (Shor)",
+      "evidence": "inferred",
+      "detail": "Counted from public Certificate Transparency logs; not every certificate is in active use."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F01",
+      "title": "Key exchange is classical only: recorded traffic can be decrypted later",
+      "severity": "critical",
+      "category": "key-exchange",
+      "quantum": true,
+      "hosts": [
+        "www.demo-bank.example:443"
+      ],
+      "detail": "Every session to www.demo-bank.example is protected by classical ECDH or RSA key exchange. An adversary who records this traffic today can decrypt it once a cryptographically relevant quantum computer exists (harvest now, decrypt later). With a 12-year data horizon, this is the first thing to fix.",
+      "evidence": "observed",
+      "proof": [
+        "TLS 1.3 groups accepted (server's pick order): x25519, secp256r1, secp384r1",
+        "Offered X25519MLKEM768, SecP256r1MLKEM768, SecP384r1MLKEM1024 and pure ML-KEM: none accepted"
+      ],
+      "fix": "Enable hybrid X25519MLKEM768 key exchange at the TLS termination point (CDN, load balancer or web server). Browsers already offer it, so no client change is needed.",
+      "owner": "CDN / load balancer / web server team",
+      "effort": "Low: configuration change on PQ-capable software",
+      "snippets": [
+        {
+          "label": "nginx (built with OpenSSL 3.5+)",
+          "code": "ssl_protocols TLSv1.2 TLSv1.3;\nssl_ecdh_curve X25519MLKEM768:X25519:prime256v1;"
+        },
+        {
+          "label": "HAProxy (OpenSSL 3.5+)",
+          "code": "global\n    ssl-default-bind-curves X25519MLKEM768:X25519:P-256"
+        },
+        {
+          "label": "Go services",
+          "code": "// Go 1.24+ offers X25519MLKEM768 by default.\n// Leave tls.Config.CurvePreferences unset (or list tls.X25519MLKEM768 first)."
+        }
+      ],
+      "standards": [
+        "NIST FIPS 203 (ML-KEM)",
+        "NIST IR 8547 (draft): quantum-vulnerable public-key algorithms deprecated after 2030, disallowed after 2035",
+        "NIST SP 1800-38: migration to post-quantum cryptography"
+      ],
+      "phase": 1
+    },
+    {
+      "id": "F02",
+      "title": "RSA key-transport suites accepted (no forward secrecy)",
+      "severity": "high",
+      "category": "key-exchange",
+      "quantum": true,
+      "hosts": [
+        "www.demo-bank.example:443"
+      ],
+      "detail": "These suites encrypt the session key directly to the server's RSA key. Whoever obtains that key later, through a breach or a quantum computer, can decrypt every recorded session at once.",
+      "evidence": "observed",
+      "proof": [
+        "TLS_RSA_WITH_AES_256_GCM_SHA384",
+        "TLS_RSA_WITH_AES_128_CBC_SHA",
+        "TLS_RSA_WITH_3DES_EDE_CBC_SHA"
+      ],
+      "fix": "Remove all TLS_RSA_WITH_* suites; allow ECDHE (and hybrid ML-KEM in TLS 1.3) only.",
+      "owner": "Web server team",
+      "effort": "Low",
+      "snippets": [
+        {
+          "label": "nginx",
+          "code": "ssl_ciphers ECDHE+AESGCM:ECDHE+CHACHA20;\nssl_prefer_server_ciphers on;"
+        }
+      ],
+      "standards": [
+        "RFC 9325 / BCP 195: recommendations for secure use of TLS"
+      ],
+      "phase": 1
+    },
+    {
+      "id": "F03",
+      "title": "Broken cipher suites accepted",
+      "severity": "high",
+      "category": "symmetric",
+      "quantum": false,
+      "hosts": [
+        "www.demo-bank.example:443"
+      ],
+      "detail": "The server still accepts suites that are weak without any quantum computer (3DES, RC4, DES, export-grade, NULL or anonymous).",
+      "evidence": "observed",
+      "proof": [
+        "TLS_RSA_WITH_3DES_EDE_CBC_SHA"
+      ],
+      "fix": "Remove these suites from the server configuration.",
+      "owner": "Web server team",
+      "effort": "Low",
+      "standards": [
+        "RFC 9325 / BCP 195: recommendations for secure use of TLS"
+      ],
+      "phase": 1
+    },
+    {
+      "id": "F04",
+      "title": "DKIM key 'selector1' is RSA-1024",
+      "severity": "high",
+      "category": "email",
+      "quantum": false,
+      "hosts": [
+        "selector1._domainkey.demo-bank.example"
+      ],
+      "detail": "1024-bit RSA DKIM keys are within reach of well-funded attackers today, allowing forged signed mail.",
+      "evidence": "observed",
+      "fix": "Rotate to a 2048-bit key.",
+      "owner": "Email / IT admin",
+      "phase": 1
+    },
+    {
+      "id": "F05",
+      "title": "Server identity relies on a classical signature (RSA-2048)",
+      "severity": "medium",
+      "category": "pki",
+      "quantum": true,
+      "hosts": [
+        "www.demo-bank.example:443"
+      ],
+      "detail": "Certificates prove the server's identity at connection time, so this is a future forgery risk rather than a harvest-now risk. Public certificate authorities do not issue ML-DSA certificates yet; the work now is inventory, automation and short lifetimes so the switch is routine when they do.",
+      "evidence": "observed",
+      "proof": [
+        "Leaf: www.demo-bank.example, RSA-2048, issued by Demo Trust Root R1, Demo Trust Services, SHA-256 b12d0c44fd102e15…"
+      ],
+      "fix": "Automate issuance and renewal (ACME), keep keys at RSA-2048+/P-256, and track your CA's ML-DSA roadmap.",
+      "owner": "PKI / certificate owner",
+      "effort": "Medium",
+      "standards": [
+        "NIST FIPS 204 (ML-DSA)",
+        "NIST IR 8547 (draft): quantum-vulnerable public-key algorithms deprecated after 2030, disallowed after 2035"
+      ],
+      "phase": 3
+    },
+    {
+      "id": "F06",
+      "title": "Identity tokens are signed with classical keys",
+      "severity": "medium",
+      "category": "pki",
+      "quantum": true,
+      "hosts": [
+        "https://www.demo-bank.example/oauth2/jwks"
+      ],
+      "detail": "Read from your published JWKS. A future quantum attacker could derive these private keys from the public keys and forge login tokens. Short-lived tokens limit the window; the keys themselves need a migration plan.",
+      "evidence": "observed",
+      "proof": [
+        "demo-2026 RSA-2048 (RS256)",
+        "demo-ec EC P-256 (ES256)"
+      ],
+      "fix": "Keep signing algorithms configurable per key (JWKS 'alg'), shorten token lifetimes, and plan ML-DSA once your identity provider supports it.",
+      "owner": "Identity / IAM team",
+      "standards": [
+        "NIST FIPS 204 (ML-DSA)"
+      ],
+      "phase": 3
+    },
+    {
+      "id": "F07",
+      "title": "No HSTS header",
+      "severity": "medium",
+      "category": "web",
+      "quantum": false,
+      "hosts": [
+        "www.demo-bank.example"
+      ],
+      "detail": "Browsers may still try plain HTTP first, which allows downgrade and cookie theft.",
+      "evidence": "observed",
+      "fix": "Send Strict-Transport-Security with at least a one-year max-age.",
+      "owner": "Web app team",
+      "snippets": [
+        {
+          "label": "nginx",
+          "code": "add_header Strict-Transport-Security \"max-age=31536000; includeSubDomains\" always;"
+        }
+      ],
+      "phase": 1
+    },
+    {
+      "id": "F08",
+      "title": "Plain HTTP does not redirect to HTTPS",
+      "severity": "medium",
+      "category": "web",
+      "quantum": false,
+      "hosts": [
+        "www.demo-bank.example"
+      ],
+      "detail": "http://www.demo-bank.example answers without sending visitors to HTTPS.",
+      "evidence": "observed",
+      "fix": "Redirect all HTTP requests to HTTPS with a 301.",
+      "owner": "Web app team",
+      "phase": 1
+    },
+    {
+      "id": "F09",
+      "title": "Outdated JavaScript libraries with known issues",
+      "severity": "medium",
+      "category": "web",
+      "quantum": false,
+      "hosts": [
+        "www.demo-bank.example"
+      ],
+      "detail": "Detected from script URLs on the page (inferred from file names and paths).",
+      "evidence": "inferred",
+      "proof": [
+        "jQuery 3.4.1: Below 3.5.0: XSS issues CVE-2020-11022 / CVE-2020-11023",
+        "Bootstrap 4.1.3: Below 3.4.1 / 4.3.1: XSS issue CVE-2019-8331"
+      ],
+      "fix": "Upgrade these libraries.",
+      "owner": "Web app team",
+      "phase": 1
+    },
+    {
+      "id": "F10",
+      "title": "AES-128 preferred over AES-256",
+      "severity": "low",
+      "category": "symmetric",
+      "quantum": true,
+      "hosts": [
+        "www.demo-bank.example:443"
+      ],
+      "detail": "AES-128 is acceptable under NIST guidance; Grover's algorithm does not make it practical to break. CNSA 2.0 and very long-lived data call for AES-256, so preferring it costs little.",
+      "evidence": "observed",
+      "proof": [
+        "TLS 1.3 suite pick order: TLS_AES_128_GCM_SHA256, TLS_AES_256_GCM_SHA384, TLS_CHACHA20_POLY1305_SHA256"
+      ],
+      "fix": "Put TLS_AES_256_GCM_SHA384 first in the server's TLS 1.3 suite order.",
+      "owner": "Web server team",
+      "standards": [
+        "NSA CNSA 2.0 (AES-256, SHA-384, ML-KEM-1024, ML-DSA-87)"
+      ],
+      "phase": 2
+    },
+    {
+      "id": "F11",
+      "title": "Certificate lifetime exceeds the CA/Browser Forum limit",
+      "severity": "low",
+      "category": "pki",
+      "quantum": false,
+      "hosts": [
+        "www.demo-bank.example:443"
+      ],
+      "detail": "Lifetime 397 days; the limit for certificates issued on that date is 200 days and falls to 47 days by March 2029.",
+      "evidence": "observed",
+      "fix": "Automate renewal with ACME so shorter lifetimes are painless.",
+      "owner": "PKI / certificate owner",
+      "standards": [
+        "CA/Browser Forum Ballot SC-081"
+      ],
+      "phase": 2
+    },
+    {
+      "id": "F12",
+      "title": "No CAA record",
+      "severity": "low",
+      "category": "dns",
+      "quantum": false,
+      "hosts": [
+        "demo-bank.example"
+      ],
+      "detail": "Any public CA may issue certificates for this domain. A CAA record limits issuance to the CAs you use, which also helps you control the move to post-quantum certificates.",
+      "evidence": "observed",
+      "fix": "Publish CAA records naming your CAs.",
+      "owner": "DNS owner",
+      "snippets": [
+        {
+          "label": "DNS zone",
+          "code": "demo-bank.example. CAA 0 issue \"letsencrypt.org\"\ndemo-bank.example. CAA 0 iodef \"mailto:security@demo-bank.example\""
+        }
+      ],
+      "standards": [
+        "RFC 8659 (CAA)"
+      ],
+      "phase": 1
+    },
+    {
+      "id": "F13",
+      "title": "DNSSEC not enabled",
+      "severity": "low",
+      "category": "dns",
+      "quantum": false,
+      "hosts": [
+        "demo-bank.example"
+      ],
+      "detail": "DNS answers are unauthenticated, so traffic can be redirected before TLS starts. Note that today's DNSSEC algorithms are themselves classical.",
+      "evidence": "observed",
+      "fix": "Enable DNSSEC signing (ECDSAP256SHA256) at your DNS provider and publish the DS record at the registrar.",
+      "owner": "DNS owner",
+      "phase": 2
+    },
+    {
+      "id": "F14",
+      "title": "DMARC is in monitor-only mode (p=none)",
+      "severity": "low",
+      "category": "email",
+      "quantum": false,
+      "hosts": [
+        "demo-bank.example"
+      ],
+      "detail": "Spoofed mail is reported but still delivered.",
+      "evidence": "observed",
+      "fix": "Move to p=quarantine, then p=reject.",
+      "owner": "Email / IT admin",
+      "phase": 2
+    },
+    {
+      "id": "F15",
+      "title": "No MTA-STS policy",
+      "severity": "low",
+      "category": "email",
+      "quantum": false,
+      "hosts": [
+        "demo-bank.example"
+      ],
+      "detail": "Mail servers sending to you can be downgraded to unencrypted SMTP.",
+      "evidence": "observed",
+      "fix": "Publish an MTA-STS policy (start in testing mode) and a TLS-RPT record.",
+      "owner": "Email / IT admin",
+      "standards": [
+        "RFC 8461 (MTA-STS)"
+      ],
+      "phase": 2
+    },
+    {
+      "id": "F16",
+      "title": "Cookies set without the Secure flag",
+      "severity": "low",
+      "category": "web",
+      "quantum": false,
+      "hosts": [
+        "www.demo-bank.example"
+      ],
+      "detail": "These cookies could be sent over plain HTTP.",
+      "evidence": "observed",
+      "proof": [
+        "JSESSIONID"
+      ],
+      "fix": "Add Secure (and HttpOnly, SameSite) to session cookies.",
+      "owner": "Web app team",
+      "phase": 1
+    },
+    {
+      "id": "F17",
+      "title": "3 third-party scripts load without integrity checks",
+      "severity": "low",
+      "category": "web",
+      "quantum": false,
+      "hosts": [
+        "www.demo-bank.example"
+      ],
+      "detail": "If one of these hosts is compromised, the script runs with full access to your page. PCI DSS v4.0 requires an inventory and integrity control for payment-page scripts.",
+      "evidence": "observed",
+      "proof": [
+        "https://cdn.demo-cdn.example/ajax/libs/jquery/3.4.1/jquery.min.js",
+        "https://cdn.demo-cdn.example/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js",
+        "https://tags.demo-analytics.example/gtm.js?id=GTM-DEMO"
+      ],
+      "fix": "Add Subresource Integrity (integrity=\"sha384-…\") to static third-party scripts and keep an approved-script inventory.",
+      "owner": "Web app team",
+      "standards": [
+        "PCI DSS v4.0 requirements 6.4.3 and 11.6.1"
+      ],
+      "phase": 2
+    },
+    {
+      "id": "F18",
+      "title": "3 certificates exceed the CA/Browser Forum lifetime limit",
+      "severity": "low",
+      "category": "pki",
+      "quantum": false,
+      "hosts": [
+        "demo-bank.example"
+      ],
+      "detail": "Long-lived certificates make algorithm changes slow. Public certificate lifetimes fall to 47 days by March 2029.",
+      "evidence": "inferred",
+      "fix": "Automate issuance with ACME.",
+      "owner": "PKI / certificate owner",
+      "standards": [
+        "CA/Browser Forum Ballot SC-081"
+      ],
+      "phase": 2
+    },
+    {
+      "id": "F19",
+      "title": "Certificate inventory from Certificate Transparency",
+      "severity": "info",
+      "category": "pki",
+      "quantum": true,
+      "hosts": [
+        "demo-bank.example"
+      ],
+      "detail": "Public CT logs list 7 live certificates covering 7 host names under demo-bank.example. Key types: ECDSA P-256: 1, RSA-2048: 5, RSA-4096: 1. 1 are wildcard certificates. Every one of these is a classical key that must move to post-quantum signatures; this list is the start of your certificate CBOM.",
+      "evidence": "inferred",
+      "proof": [
+        "api.demo-bank.example",
+        "cards.demo-bank.example",
+        "demo-bank.example",
+        "mail.demo-bank.example",
+        "netbanking.demo-bank.example",
+        "uat.demo-bank.example",
+        "www.demo-bank.example"
+      ],
+      "fix": "Confirm which certificates are in use, retire the rest, and put the remainder under automated management.",
+      "owner": "PKI / certificate owner",
+      "phase": 2
+    },
+    {
+      "id": "F20",
+      "title": "No continuous cryptographic inventory (CBOM) yet",
+      "severity": "info",
+      "category": "governance",
+      "quantum": true,
+      "detail": "This scan sees only the public surface. Internal services, code, HSMs and vendor products hold most of an organisation's cryptography.",
+      "evidence": "inferred",
+      "fix": "Generate a CycloneDX CBOM for every build and every environment, and review it before release. U92-DeepVyu covers internal discovery.",
+      "owner": "Security / architecture",
+      "standards": [
+        "CERT-In Technical Guidelines on SBOM, QBOM \u0026 CBOM, AIBOM and HBOM v2.0 (July 2025)",
+        "NIST SP 1800-38: migration to post-quantum cryptography"
+      ],
+      "phase": 2
+    },
+    {
+      "id": "F21",
+      "title": "No security.txt",
+      "severity": "info",
+      "category": "web",
+      "quantum": false,
+      "hosts": [
+        "www.demo-bank.example"
+      ],
+      "detail": "Researchers have no published way to report vulnerabilities.",
+      "evidence": "observed",
+      "fix": "Publish /.well-known/security.txt with a contact and expiry.",
+      "owner": "Security team",
+      "standards": [
+        "RFC 9116"
+      ],
+      "phase": 1
+    }
+  ],
+  "score": {
+    "total": 31,
+    "grade": "E",
+    "label": "High quantum exposure",
+    "coverage": 94,
+    "subs": [
+      {
+        "name": "Key exchange",
+        "earned": 4,
+        "possible": 35,
+        "tested": true,
+        "notes": [
+          "TLS 1.3 with classical groups only",
+          "RSA key transport accepted (-6)"
+        ]
+      },
+      {
+        "name": "Authentication and PKI",
+        "earned": 12,
+        "possible": 20,
+        "tested": true,
+        "notes": [
+          "classical certificate, valid chain"
+        ]
+      },
+      {
+        "name": "Symmetric ciphers",
+        "earned": 4,
+        "possible": 15,
+        "tested": true,
+        "notes": [
+          "AES-128 preferred, 256-bit available",
+          "broken suites accepted (-6)",
+          "CBC suites enabled (-2)"
+        ]
+      },
+      {
+        "name": "Protocol hygiene",
+        "earned": 8,
+        "possible": 14,
+        "tested": true,
+        "notes": [
+          "TLS 1.3 (+8)",
+          "legacy protocols not tested in this mode"
+        ]
+      },
+      {
+        "name": "Ecosystem (DNS, mail, web)",
+        "earned": 1,
+        "possible": 10,
+        "tested": true
+      }
+    ],
+    "method": "Five dimensions with fixed weights: key exchange 35, authentication and PKI 20, symmetric ciphers 15, protocol hygiene 20, ecosystem (DNS, mail, web) 10. Checks that were not run in this mode are removed from both the points earned and the points possible, so the score reflects only what was tested; coverage shows how much of the full weight was tested. Grades: A 85+, B 70-84, C 55-69, D 40-54, E below 40."
+  },
+  "mosca": {
+    "horizonYears": 12,
+    "migrationYears": 3,
+    "kxProtected": false,
+    "scenarios": [
+      {
+        "crqcYear": 2030,
+        "exposedFrom": 2018,
+        "alreadyExposed": true,
+        "migrateBy": 2018,
+        "late": true
+      },
+      {
+        "crqcYear": 2035,
+        "exposedFrom": 2023,
+        "alreadyExposed": true,
+        "migrateBy": 2023,
+        "late": true
+      },
+      {
+        "crqcYear": 2040,
+        "exposedFrom": 2028,
+        "alreadyExposed": false,
+        "migrateBy": 2028,
+        "late": true
+      }
+    ]
+  },
+  "notTested": [
+    "Legacy protocol acceptance (TLS 1.0, TLS 1.1, SSLv3)",
+    "Other TLS services on the host (8443, 465, 993, 995, 636)",
+    "SSH key exchange",
+    "Mail server STARTTLS on your MX hosts",
+    "TLS on each subdomain found in Certificate Transparency logs",
+    "Internal services, authenticated APIs and service-to-service mTLS",
+    "Mobile apps, HSMs, key management systems and vendor appliances",
+    "Source code and build pipelines (run the GitHub audit, or U92-DeepVyu for private code)"
+  ],
+  "handshakes": 19
+}

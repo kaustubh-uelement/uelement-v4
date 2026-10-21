@@ -1,0 +1,1009 @@
+{
+  "id": "VYU-DEMO-GH",
+  "kind": "github",
+  "target": "demo-bank/payments-api",
+  "mode": "standard",
+  "horizonYears": 12,
+  "status": "done",
+  "startedAt": "2026-10-21T17:17:48.964037Z",
+  "finishedAt": "2026-10-21T17:17:48.972216Z",
+  "scannerVersion": "2.1.0",
+  "steps": [
+    {
+      "key": "repo",
+      "label": "Find the repository and default branch",
+      "status": "done",
+      "detail": "demo-bank/payments-api",
+      "at": "2026-10-21T22:47:48.964921+05:30"
+    },
+    {
+      "key": "tree",
+      "label": "List files and pick what to inspect",
+      "status": "done",
+      "detail": "14 files selected of 17",
+      "at": "2026-10-21T22:47:48.966155+05:30"
+    },
+    {
+      "key": "code",
+      "label": "Search source, configuration and IaC for cryptography",
+      "status": "done",
+      "detail": "14 files read, 15 cryptography matches",
+      "at": "2026-10-21T22:47:48.971656+05:30"
+    },
+    {
+      "key": "deps",
+      "label": "Parse dependency manifests (SBOM)",
+      "status": "done",
+      "detail": "9 dependencies",
+      "at": "2026-10-21T22:47:48.971657+05:30"
+    },
+    {
+      "key": "vulns",
+      "label": "Check dependencies against OSV advisories",
+      "status": "done",
+      "detail": "2 dependencies with known advisories",
+      "at": "2026-10-21T22:47:48.972214+05:30"
+    },
+    {
+      "key": "secrets",
+      "label": "Look for committed keys and secrets",
+      "status": "done",
+      "detail": "2 possible secrets, 1 keystore files",
+      "at": "2026-10-21T22:47:48.971658+05:30"
+    },
+    {
+      "key": "ci",
+      "label": "Review GitHub Actions workflows",
+      "status": "done",
+      "detail": "1 workflows, 4 issues",
+      "at": "2026-10-21T22:47:48.971658+05:30"
+    },
+    {
+      "key": "analyse",
+      "label": "Build CBOM, findings and score",
+      "status": "pending",
+      "at": "2026-10-21T22:47:48.964044+05:30"
+    }
+  ],
+  "repos": [
+    {
+      "owner": "demo-bank",
+      "name": "payments-api",
+      "url": "https://github.com/demo-bank/payments-api",
+      "branch": "main",
+      "commit": "4f9c2d1e8b7a6c5d4e3f2a1b0c9d8e7f6a5b4c3d",
+      "filesScanned": 14,
+      "filesSkipped": 0,
+      "truncated": false,
+      "languages": {
+        ".go": 2,
+        ".java": 1,
+        ".js": 1,
+        ".py": 1
+      },
+      "dependencies": [
+        {
+          "ecosystem": "go",
+          "name": "github.com/golang-jwt/jwt/v4",
+          "version": "4.5.0",
+          "manifest": "go.mod",
+          "purl": "pkg:golang/github.com/golang-jwt/jwt/v4@4.5.0",
+          "crypto": true
+        },
+        {
+          "ecosystem": "go",
+          "name": "golang.org/x/crypto",
+          "version": "0.21.0",
+          "manifest": "go.mod",
+          "purl": "pkg:golang/golang.org/x/crypto@0.21.0",
+          "crypto": true,
+          "pq": "ML-KEM lives in the standard library from Go 1.24 (crypto/mlkem)"
+        },
+        {
+          "ecosystem": "npm",
+          "name": "express",
+          "version": "4.18.2",
+          "manifest": "package.json",
+          "purl": "pkg:npm/express@4.18.2",
+          "crypto": false
+        },
+        {
+          "ecosystem": "npm",
+          "name": "jsonwebtoken",
+          "version": "8.5.1",
+          "manifest": "package.json",
+          "purl": "pkg:npm/jsonwebtoken@8.5.1",
+          "crypto": true,
+          "vulns": [
+            "GHSA-27h2-hvpr-p74q"
+          ]
+        },
+        {
+          "ecosystem": "npm",
+          "name": "lodash",
+          "version": "4.17.15",
+          "manifest": "package.json",
+          "purl": "pkg:npm/lodash@4.17.15",
+          "crypto": false,
+          "vulns": [
+            "GHSA-35jh-r3h4-6jhm",
+            "GHSA-p6mc-m468-83gw"
+          ]
+        },
+        {
+          "ecosystem": "npm",
+          "name": "node-forge",
+          "version": "1.3.1",
+          "manifest": "package.json",
+          "purl": "pkg:npm/node-forge@1.3.1",
+          "crypto": true
+        },
+        {
+          "ecosystem": "pypi",
+          "name": "cryptography",
+          "version": "41.0.0",
+          "manifest": "requirements.txt",
+          "purl": "pkg:pypi/cryptography@41.0.0",
+          "crypto": true
+        },
+        {
+          "ecosystem": "pypi",
+          "name": "pycryptodome",
+          "version": "3.19.0",
+          "manifest": "requirements.txt",
+          "purl": "pkg:pypi/pycryptodome@3.19.0",
+          "crypto": true
+        },
+        {
+          "ecosystem": "pypi",
+          "name": "requests",
+          "version": "2.31.0",
+          "manifest": "requirements.txt",
+          "purl": "pkg:pypi/requests@2.31.0",
+          "crypto": false
+        }
+      ],
+      "secrets": [
+        {
+          "type": "Credentials in connection string",
+          "path": "config/staging.env",
+          "line": 1,
+          "hint": "postgr"
+        },
+        {
+          "type": "AWS access key",
+          "path": "config/staging.env",
+          "line": 2,
+          "hint": "AKIAQZ"
+        }
+      ],
+      "workflows": 1,
+      "runtimes": [
+        {
+          "name": "Java 17",
+          "version": "17-jre",
+          "note": "JDK 24+ adds ML-KEM and ML-DSA to the standard JCA providers",
+          "old": true,
+          "path": "Dockerfile"
+        },
+        {
+          "name": "Go",
+          "version": "1.22",
+          "note": "Go 1.24+ uses hybrid X25519MLKEM768 TLS by default and ships crypto/mlkem",
+          "old": true,
+          "path": "go.mod"
+        }
+      ],
+      "hits": [
+        {
+          "rule": "nginx-protocols",
+          "title": "nginx/Apache TLS protocols",
+          "path": "deploy/nginx.conf",
+          "line": 3,
+          "snippet": "ssl_protocols TLSv1 TLSv1.1 TLSv1.2;",
+          "value": "TLSv1 TLSv1.1 TLSv1.2",
+          "url": "https://github.com/demo-bank/payments-api/blob/4f9c2d1e8b7a6c5d4e3f2a1b0c9d8e7f6a5b4c3d/deploy/nginx.conf#L3",
+          "test": false
+        },
+        {
+          "rule": "nginx-groups",
+          "title": "Web server key-exchange groups",
+          "path": "deploy/nginx.conf",
+          "line": 4,
+          "snippet": "ssl_ecdh_curve X25519:prime256v1;",
+          "value": "X25519:prime256v1",
+          "url": "https://github.com/demo-bank/payments-api/blob/4f9c2d1e8b7a6c5d4e3f2a1b0c9d8e7f6a5b4c3d/deploy/nginx.conf#L4",
+          "test": false
+        },
+        {
+          "rule": "aws-elb-policy",
+          "title": "AWS load balancer TLS policy",
+          "path": "infra/main.tf",
+          "line": 4,
+          "snippet": "ssl_policy = \"ELBSecurityPolicy-2016-08\"",
+          "value": "ELBSecurityPolicy-2016-08",
+          "url": "https://github.com/demo-bank/payments-api/blob/4f9c2d1e8b7a6c5d4e3f2a1b0c9d8e7f6a5b4c3d/infra/main.tf#L4",
+          "test": false
+        },
+        {
+          "rule": "kms-rsa",
+          "title": "Cloud KMS / key vault RSA or EC key",
+          "path": "infra/main.tf",
+          "line": 8,
+          "snippet": "customer_master_key_spec = \"RSA_2048\"",
+          "value": "RSA_2048",
+          "url": "https://github.com/demo-bank/payments-api/blob/4f9c2d1e8b7a6c5d4e3f2a1b0c9d8e7f6a5b4c3d/infra/main.tf#L8",
+          "test": false
+        },
+        {
+          "rule": "md5",
+          "title": "MD5",
+          "path": "legacy/src/main/java/com/demobank/Hash.java",
+          "line": 8,
+          "snippet": "MessageDigest md = MessageDigest.getInstance(\"MD5\");",
+          "url": "https://github.com/demo-bank/payments-api/blob/4f9c2d1e8b7a6c5d4e3f2a1b0c9d8e7f6a5b4c3d/legacy/src/main/java/com/demobank/Hash.java#L8",
+          "test": false
+        },
+        {
+          "rule": "ecb",
+          "title": "ECB mode",
+          "path": "legacy/src/main/java/com/demobank/Hash.java",
+          "line": 12,
+          "snippet": "return Cipher.getInstance(\"AES\");",
+          "url": "https://github.com/demo-bank/payments-api/blob/4f9c2d1e8b7a6c5d4e3f2a1b0c9d8e7f6a5b4c3d/legacy/src/main/java/com/demobank/Hash.java#L12",
+          "test": false
+        },
+        {
+          "rule": "rsa-java",
+          "title": "RSA in Java/JVM code",
+          "path": "legacy/src/main/java/com/demobank/Hash.java",
+          "line": 15,
+          "snippet": "KeyPairGenerator kpg = KeyPairGenerator.getInstance(\"RSA\");",
+          "url": "https://github.com/demo-bank/payments-api/blob/4f9c2d1e8b7a6c5d4e3f2a1b0c9d8e7f6a5b4c3d/legacy/src/main/java/com/demobank/Hash.java#L15",
+          "test": false
+        },
+        {
+          "rule": "rsa-java",
+          "title": "RSA in Java/JVM code",
+          "path": "legacy/src/main/java/com/demobank/Hash.java",
+          "line": 16,
+          "snippet": "kpg.initialize(1024);",
+          "size": 1024,
+          "url": "https://github.com/demo-bank/payments-api/blob/4f9c2d1e8b7a6c5d4e3f2a1b0c9d8e7f6a5b4c3d/legacy/src/main/java/com/demobank/Hash.java#L16",
+          "test": false
+        },
+        {
+          "rule": "jwt-rs",
+          "title": "JWT signed with RSA (RS/PS)",
+          "path": "portal/auth.js",
+          "line": 4,
+          "snippet": "module.exports.issue = (claims) =\u003e jwt.sign(claims, key, { algorithm: 'RS256', expiresIn: '12h' });",
+          "url": "https://github.com/demo-bank/payments-api/blob/4f9c2d1e8b7a6c5d4e3f2a1b0c9d8e7f6a5b4c3d/portal/auth.js#L4",
+          "test": false
+        },
+        {
+          "rule": "tls-noverify",
+          "title": "TLS certificate verification disabled",
+          "path": "scripts/healthcheck.py",
+          "line": 4,
+          "snippet": "r = requests.get(url, verify=False)",
+          "url": "https://github.com/demo-bank/payments-api/blob/4f9c2d1e8b7a6c5d4e3f2a1b0c9d8e7f6a5b4c3d/scripts/healthcheck.py#L4",
+          "test": false
+        },
+        {
+          "rule": "sha1",
+          "title": "SHA-1",
+          "path": "scripts/healthcheck.py",
+          "line": 5,
+          "snippet": "return hashlib.sha1(r.content).hexdigest()",
+          "url": "https://github.com/demo-bank/payments-api/blob/4f9c2d1e8b7a6c5d4e3f2a1b0c9d8e7f6a5b4c3d/scripts/healthcheck.py#L5",
+          "test": false
+        },
+        {
+          "rule": "rsa-go",
+          "title": "RSA in Go",
+          "path": "src/crypto/sign.go",
+          "line": 11,
+          "snippet": "return rsa.GenerateKey(rand.Reader, 2048)",
+          "size": 2048,
+          "url": "https://github.com/demo-bank/payments-api/blob/4f9c2d1e8b7a6c5d4e3f2a1b0c9d8e7f6a5b4c3d/src/crypto/sign.go#L11",
+          "test": false
+        },
+        {
+          "rule": "rsa-go",
+          "title": "RSA in Go",
+          "path": "src/crypto/sign.go",
+          "line": 16,
+          "snippet": "return rsa.SignPKCS1v15(rand.Reader, k, crypto.SHA256, h[:])",
+          "url": "https://github.com/demo-bank/payments-api/blob/4f9c2d1e8b7a6c5d4e3f2a1b0c9d8e7f6a5b4c3d/src/crypto/sign.go#L16",
+          "test": false
+        },
+        {
+          "rule": "pq-mlkem",
+          "title": "ML-KEM / Kyber in use",
+          "path": "src/pq/kem.go",
+          "line": 3,
+          "snippet": "import \"crypto/mlkem\"",
+          "url": "https://github.com/demo-bank/payments-api/blob/4f9c2d1e8b7a6c5d4e3f2a1b0c9d8e7f6a5b4c3d/src/pq/kem.go#L3",
+          "test": false
+        },
+        {
+          "rule": "pq-mlkem",
+          "title": "ML-KEM / Kyber in use",
+          "path": "src/pq/kem.go",
+          "line": 6,
+          "snippet": "func NewKEM() (*mlkem.DecapsulationKey768, error) { return mlkem.GenerateKey768() }",
+          "url": "https://github.com/demo-bank/payments-api/blob/4f9c2d1e8b7a6c5d4e3f2a1b0c9d8e7f6a5b4c3d/src/pq/kem.go#L6",
+          "test": false
+        }
+      ],
+      "certs": [
+        {
+          "path": "certs/partner-gateway.pem",
+          "line": 1,
+          "url": "https://github.com/demo-bank/payments-api/blob/4f9c2d1e8b7a6c5d4e3f2a1b0c9d8e7f6a5b4c3d/certs/partner-gateway.pem#L1",
+          "cert": {
+            "subject": "gateway.partner-demo.example",
+            "issuer": "Demo Trust Root R1, Demo Trust Services",
+            "issuerOrg": "Demo Trust Services",
+            "serial": "D0B69D56F73DDF7",
+            "sans": [
+              "gateway.partner-demo.example"
+            ],
+            "notBefore": "2025-09-16T17:17:48Z",
+            "notAfter": "2026-09-16T17:17:48Z",
+            "lifetimeDays": 365,
+            "daysLeft": -35,
+            "keyAlg": "RSA",
+            "keyBits": 2048,
+            "sigAlg": "ECDSA-SHA384",
+            "sha256": "e631b9d3bfb6bdbd7b995f146017cb21aeb4d7b2c319c5313991b5e4846200cf",
+            "position": "leaf",
+            "selfSigned": false,
+            "isCA": false,
+            "scts": 0,
+            "mustStaple": false,
+            "wildcard": false,
+            "ocsp": [
+              "http://ocsp.demo-trust.example"
+            ],
+            "keyOid": "1.2.840.113549.1.1.1"
+          }
+        }
+      ],
+      "keyStores": [
+        "keys/legacy-signing.p12"
+      ],
+      "workflowIssues": [
+        {
+          "path": ".github/workflows/ci.yml",
+          "line": 3,
+          "kind": "write-all",
+          "detail": "workflow grants write-all permissions to GITHUB_TOKEN",
+          "url": "https://github.com/demo-bank/payments-api/blob/4f9c2d1e8b7a6c5d4e3f2a1b0c9d8e7f6a5b4c3d/.github/workflows/ci.yml#L3"
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "line": 8,
+          "kind": "unpinned-first-party",
+          "detail": "actions/checkout pinned to a movable ref (v4) instead of a commit SHA",
+          "url": "https://github.com/demo-bank/payments-api/blob/4f9c2d1e8b7a6c5d4e3f2a1b0c9d8e7f6a5b4c3d/.github/workflows/ci.yml#L8"
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "line": 11,
+          "kind": "unpinned-action",
+          "detail": "tj-actions/changed-files pinned to a movable ref (v45) instead of a commit SHA",
+          "url": "https://github.com/demo-bank/payments-api/blob/4f9c2d1e8b7a6c5d4e3f2a1b0c9d8e7f6a5b4c3d/.github/workflows/ci.yml#L11"
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "line": 2,
+          "kind": "pull-request-target-checkout",
+          "detail": "uses pull_request_target, which runs with repository secrets on pull requests from forks and checks out the pull request's code: a known path to secret theft",
+          "url": "https://github.com/demo-bank/payments-api/blob/4f9c2d1e8b7a6c5d4e3f2a1b0c9d8e7f6a5b4c3d/.github/workflows/ci.yml#L2"
+        }
+      ]
+    }
+  ],
+  "owner": "demo-bank",
+  "assets": [
+    {
+      "ref": "crypto-1",
+      "assetType": "algorithm",
+      "name": "Cloud KMS key (RSA_2048)",
+      "primitive": "signature",
+      "classicalBits": 112,
+      "nistLevel": 0,
+      "purpose": "Managed key (KMS / Key Vault)",
+      "locations": [
+        "demo-bank/payments-api:infra/main.tf:8"
+      ],
+      "source": "code",
+      "verdict": "quantum-vulnerable",
+      "verdictText": "Quantum-vulnerable (Shor)",
+      "evidence": "observed",
+      "recommendation": "Track this key in your migration plan; check your cloud provider's ML-DSA / ML-KEM key specs and rotate when available."
+    },
+    {
+      "ref": "crypto-2",
+      "assetType": "algorithm",
+      "name": "MD5",
+      "family": "MD5",
+      "primitive": "hash",
+      "nistLevel": 0,
+      "purpose": "Hashing",
+      "locations": [
+        "demo-bank/payments-api:legacy/src/main/java/com/demobank/Hash.java:8"
+      ],
+      "source": "code",
+      "verdict": "broken-classical",
+      "verdictText": "Weak today",
+      "evidence": "observed",
+      "recommendation": "Use SHA-256 or SHA-384 for any security purpose. If this is a checksum only, mark it as non-security (for Python, usedforsecurity=False)."
+    },
+    {
+      "ref": "crypto-3",
+      "assetType": "algorithm",
+      "name": "AES-ECB",
+      "family": "AES",
+      "primitive": "block-cipher",
+      "classicalBits": 128,
+      "nistLevel": 1,
+      "purpose": "Encryption (ECB mode)",
+      "locations": [
+        "demo-bank/payments-api:legacy/src/main/java/com/demobank/Hash.java:12"
+      ],
+      "source": "code",
+      "verdict": "broken-classical",
+      "verdictText": "Weak today",
+      "evidence": "observed",
+      "recommendation": "ECB leaks patterns. Use AES-256-GCM. In Java, Cipher.getInstance(\"AES\") silently means AES/ECB/PKCS5Padding."
+    },
+    {
+      "ref": "crypto-4",
+      "assetType": "algorithm",
+      "name": "RSA",
+      "family": "RSASSA-PKCS1",
+      "primitive": "signature",
+      "classicalBits": 112,
+      "nistLevel": 0,
+      "purpose": "Asymmetric encryption / signatures",
+      "locations": [
+        "demo-bank/payments-api:legacy/src/main/java/com/demobank/Hash.java:15",
+        "demo-bank/payments-api:src/crypto/sign.go:16"
+      ],
+      "source": "code",
+      "verdict": "quantum-vulnerable",
+      "verdictText": "Quantum-vulnerable (Shor)",
+      "evidence": "observed",
+      "recommendation": "Route RSA use through a crypto-agility layer; plan ML-DSA (signatures) and ML-KEM (key transport) replacements. JDK 24+ ships ML-DSA and ML-KEM."
+    },
+    {
+      "ref": "crypto-5",
+      "assetType": "algorithm",
+      "name": "RSA-1024",
+      "family": "RSASSA-PKCS1",
+      "primitive": "signature",
+      "keyBits": 1024,
+      "classicalBits": 80,
+      "nistLevel": 0,
+      "purpose": "Asymmetric encryption / signatures",
+      "locations": [
+        "demo-bank/payments-api:legacy/src/main/java/com/demobank/Hash.java:16"
+      ],
+      "source": "code",
+      "verdict": "broken-classical",
+      "verdictText": "Weak today",
+      "evidence": "observed",
+      "recommendation": "RSA below 2048 bits is weak today. Route RSA use through a crypto-agility layer; plan ML-DSA (signatures) and ML-KEM (key transport) replacements. JDK 24+ ships ML-DSA and ML-KEM."
+    },
+    {
+      "ref": "crypto-6",
+      "assetType": "algorithm",
+      "name": "JWT RS/PS signing",
+      "family": "RSASSA-PKCS1",
+      "primitive": "signature",
+      "classicalBits": 112,
+      "nistLevel": 0,
+      "purpose": "Token signing (JWT)",
+      "locations": [
+        "demo-bank/payments-api:portal/auth.js:4"
+      ],
+      "source": "code",
+      "verdict": "quantum-vulnerable",
+      "verdictText": "Quantum-vulnerable (Shor)",
+      "evidence": "observed",
+      "recommendation": "Keep the algorithm configurable (JWKS with alg per key). Plan ML-DSA once your JOSE libraries support it; shorten token lifetimes meanwhile."
+    },
+    {
+      "ref": "crypto-7",
+      "assetType": "related-crypto-material",
+      "name": "Certificate verification disabled",
+      "primitive": "other",
+      "nistLevel": 0,
+      "purpose": "TLS configuration",
+      "locations": [
+        "demo-bank/payments-api:scripts/healthcheck.py:4"
+      ],
+      "source": "code",
+      "verdict": "broken-classical",
+      "verdictText": "Weak today",
+      "evidence": "observed",
+      "recommendation": "Remove the bypass; trust a specific CA bundle instead if you use a private CA."
+    },
+    {
+      "ref": "crypto-8",
+      "assetType": "algorithm",
+      "name": "SHA-1",
+      "family": "SHA-1",
+      "primitive": "hash",
+      "nistLevel": 0,
+      "purpose": "Hashing",
+      "locations": [
+        "demo-bank/payments-api:scripts/healthcheck.py:5"
+      ],
+      "source": "code",
+      "verdict": "broken-classical",
+      "verdictText": "Weak today",
+      "evidence": "observed",
+      "recommendation": "Use SHA-256 or SHA-384. SHA-1 collisions are practical."
+    },
+    {
+      "ref": "crypto-9",
+      "assetType": "algorithm",
+      "name": "RSA-2048",
+      "family": "RSASSA-PKCS1",
+      "primitive": "signature",
+      "keyBits": 2048,
+      "classicalBits": 112,
+      "nistLevel": 0,
+      "purpose": "Asymmetric encryption / signatures",
+      "locations": [
+        "demo-bank/payments-api:src/crypto/sign.go:11"
+      ],
+      "source": "code",
+      "verdict": "quantum-vulnerable",
+      "verdictText": "Quantum-vulnerable (Shor)",
+      "evidence": "observed",
+      "recommendation": "Plan ML-DSA for signatures; Go 1.24+ has crypto/mlkem for key encapsulation."
+    },
+    {
+      "ref": "crypto-10",
+      "assetType": "algorithm",
+      "name": "ML-KEM",
+      "family": "ML-KEM",
+      "primitive": "kem",
+      "nistLevel": 3,
+      "purpose": "Post-quantum key encapsulation",
+      "locations": [
+        "demo-bank/payments-api:src/pq/kem.go:3",
+        "demo-bank/payments-api:src/pq/kem.go:6"
+      ],
+      "source": "code",
+      "verdict": "quantum-resistant",
+      "verdictText": "Quantum-resistant",
+      "evidence": "observed"
+    },
+    {
+      "ref": "crypto-11",
+      "assetType": "certificate",
+      "name": "Committed certificate: gateway.partner-demo.example",
+      "nistLevel": 0,
+      "purpose": "Certificate in repository",
+      "locations": [
+        "demo-bank/payments-api:certs/partner-gateway.pem:1"
+      ],
+      "source": "code",
+      "verdict": "quantum-vulnerable",
+      "verdictText": "Quantum-vulnerable (Shor)",
+      "evidence": "observed",
+      "detail": "Classical signature key, breakable by Shor's algorithm",
+      "cert": {
+        "subject": "gateway.partner-demo.example",
+        "issuer": "Demo Trust Root R1, Demo Trust Services",
+        "issuerOrg": "Demo Trust Services",
+        "serial": "D0B69D56F73DDF7",
+        "sans": [
+          "gateway.partner-demo.example"
+        ],
+        "notBefore": "2025-09-16T17:17:48Z",
+        "notAfter": "2026-09-16T17:17:48Z",
+        "lifetimeDays": 365,
+        "daysLeft": -35,
+        "keyAlg": "RSA",
+        "keyBits": 2048,
+        "sigAlg": "ECDSA-SHA384",
+        "sha256": "e631b9d3bfb6bdbd7b995f146017cb21aeb4d7b2c319c5313991b5e4846200cf",
+        "position": "leaf",
+        "selfSigned": false,
+        "isCA": false,
+        "scts": 0,
+        "mustStaple": false,
+        "wildcard": false,
+        "ocsp": [
+          "http://ocsp.demo-trust.example"
+        ],
+        "keyOid": "1.2.840.113549.1.1.1"
+      }
+    },
+    {
+      "ref": "crypto-12",
+      "assetType": "related-crypto-material",
+      "name": "Keystore file",
+      "primitive": "other",
+      "nistLevel": 0,
+      "purpose": "Key/certificate container in repository",
+      "locations": [
+        "demo-bank/payments-api:keys/legacy-signing.p12"
+      ],
+      "source": "code",
+      "verdict": "informational",
+      "verdictText": "Informational",
+      "evidence": "observed",
+      "recommendation": "Remove keystores from version control and rotate any keys they hold."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F01",
+      "title": "Possible secrets and key material in demo-bank/payments-api",
+      "severity": "critical",
+      "category": "secrets",
+      "quantum": false,
+      "detail": "Found: AWS access key ×1, Credentials in connection string ×1, Keystore files ×1. Anything committed to a public repository should be treated as compromised, even after deletion, because it stays in git history and forks.",
+      "evidence": "observed",
+      "proof": [
+        "File paths are shown only to verified owners of the repository, in U92-VyuAssure."
+      ],
+      "fix": "Revoke and rotate each credential first, then remove it from history (git filter-repo) and add secret scanning to CI.",
+      "owner": "Security and development teams",
+      "phase": 1,
+      "restricted": true
+    },
+    {
+      "id": "F02",
+      "title": "RSA keys below 2048 bits",
+      "severity": "high",
+      "category": "code",
+      "quantum": true,
+      "detail": "Keys this short are weak today, before any quantum computer.",
+      "evidence": "observed",
+      "proof": [
+        "legacy/src/main/java/com/demobank/Hash.java:16 (1024 bits)"
+      ],
+      "fix": "Use 3072-bit RSA or move to ECDSA P-256 as an interim step; plan ML-DSA.",
+      "owner": "Development team",
+      "phase": 1
+    },
+    {
+      "id": "F03",
+      "title": "ECB mode",
+      "severity": "high",
+      "category": "code",
+      "quantum": false,
+      "detail": "1 matches (1 outside test or example code).",
+      "evidence": "observed",
+      "proof": [
+        "legacy/src/main/java/com/demobank/Hash.java:12  return Cipher.getInstance(\"AES\");"
+      ],
+      "fix": "ECB leaks patterns. Use AES-256-GCM. In Java, Cipher.getInstance(\"AES\") silently means AES/ECB/PKCS5Padding.",
+      "owner": "Development team",
+      "phase": 1
+    },
+    {
+      "id": "F04",
+      "title": "TLS certificate verification disabled",
+      "severity": "high",
+      "category": "code",
+      "quantum": false,
+      "detail": "1 matches (1 outside test or example code).",
+      "evidence": "observed",
+      "proof": [
+        "scripts/healthcheck.py:4  r = requests.get(url, verify=False)"
+      ],
+      "fix": "Remove the bypass; trust a specific CA bundle instead if you use a private CA.",
+      "owner": "Development team",
+      "phase": 1
+    },
+    {
+      "id": "F05",
+      "title": "Workflow runs untrusted pull-request code with secrets",
+      "severity": "high",
+      "category": "ci",
+      "quantum": false,
+      "detail": "pull_request_target combined with a checkout of the pull request's head lets a fork's code run with your repository secrets.",
+      "evidence": "observed",
+      "proof": [
+        ".github/workflows/ci.yml:2  uses pull_request_target, which runs with repository secrets on pull requests from forks and checks out the pull request's code: a known path to secret theft"
+      ],
+      "fix": "Use pull_request for untrusted code, or never check out the PR head in pull_request_target jobs.",
+      "owner": "DevOps",
+      "phase": 1
+    },
+    {
+      "id": "F06",
+      "title": "Quantum-vulnerable public-key cryptography in code: JWT RS/PS signing, RSA",
+      "severity": "medium",
+      "category": "code",
+      "quantum": true,
+      "detail": "5 call sites across 3 files use RSA, elliptic-curve or Diffie-Hellman primitives directly. Each one is a place to change when you migrate; the more they are spread out, the harder the migration.",
+      "evidence": "observed",
+      "proof": [
+        "portal/auth.js:4  module.exports.issue = (claims) =\u003e jwt.sign(claims, key, { algorithm: 'RS256', expiresIn: '12h' });",
+        "legacy/src/main/java/com/demobank/Hash.java:15  KeyPairGenerator kpg = KeyPairGenerator.getInstance(\"RSA\");",
+        "legacy/src/main/java/com/demobank/Hash.java:16  kpg.initialize(1024);",
+        "src/crypto/sign.go:11  return rsa.GenerateKey(rand.Reader, 2048)",
+        "src/crypto/sign.go:16  return rsa.SignPKCS1v15(rand.Reader, k, crypto.SHA256, h[:])"
+      ],
+      "fix": "Route these calls through one crypto-agility layer (algorithm chosen by configuration), then switch to ML-KEM / ML-DSA behind it. Start with code that protects long-lived data.",
+      "owner": "Development team",
+      "effort": "Medium to high",
+      "standards": [
+        "NIST FIPS 203 (ML-KEM)",
+        "NIST FIPS 204 (ML-DSA)",
+        "NIST IR 8547 (draft): quantum-vulnerable public-key algorithms deprecated after 2030, disallowed after 2035"
+      ],
+      "phase": 2
+    },
+    {
+      "id": "F07",
+      "title": "MD5",
+      "severity": "medium",
+      "category": "code",
+      "quantum": false,
+      "detail": "1 matches (1 outside test or example code).",
+      "evidence": "observed",
+      "proof": [
+        "legacy/src/main/java/com/demobank/Hash.java:8  MessageDigest md = MessageDigest.getInstance(\"MD5\");"
+      ],
+      "fix": "Use SHA-256 or SHA-384 for any security purpose. If this is a checksum only, mark it as non-security (for Python, usedforsecurity=False).",
+      "owner": "Development team",
+      "phase": 1
+    },
+    {
+      "id": "F08",
+      "title": "SHA-1",
+      "severity": "medium",
+      "category": "code",
+      "quantum": false,
+      "detail": "1 matches (1 outside test or example code).",
+      "evidence": "observed",
+      "proof": [
+        "scripts/healthcheck.py:5  return hashlib.sha1(r.content).hexdigest()"
+      ],
+      "fix": "Use SHA-256 or SHA-384. SHA-1 collisions are practical.",
+      "owner": "Development team",
+      "phase": 1
+    },
+    {
+      "id": "F09",
+      "title": "2 dependencies with published advisories",
+      "severity": "medium",
+      "category": "supply-chain",
+      "quantum": false,
+      "detail": "Matched against the OSV database for the exact versions pinned in manifests. Ranges and transitive dependencies are not resolved in the free scan.",
+      "evidence": "observed",
+      "proof": [
+        "jsonwebtoken@8.5.1: GHSA-27h2-hvpr-p74q",
+        "lodash@4.17.15: GHSA-35jh-r3h4-6jhm, GHSA-p6mc-m468-83gw"
+      ],
+      "fix": "Upgrade to fixed versions; add automated dependency updates.",
+      "owner": "Development team",
+      "phase": 1
+    },
+    {
+      "id": "F10",
+      "title": "1 third-party actions are not pinned to a commit",
+      "severity": "medium",
+      "category": "ci",
+      "quantum": false,
+      "detail": "Tags can be moved. A compromised action tag runs in your pipeline with its secrets, as happened with tj-actions/changed-files in 2025.",
+      "evidence": "observed",
+      "proof": [
+        ".github/workflows/ci.yml:11  tj-actions/changed-files pinned to a movable ref (v45) instead of a commit SHA"
+      ],
+      "fix": "Pin third-party actions to full commit SHAs and let Dependabot update them.",
+      "owner": "DevOps",
+      "phase": 1
+    },
+    {
+      "id": "F11",
+      "title": "Workflows grant write-all token permissions",
+      "severity": "medium",
+      "category": "ci",
+      "quantum": false,
+      "detail": "Every step gets a token that can push code and change releases.",
+      "evidence": "observed",
+      "proof": [
+        ".github/workflows/ci.yml:3  workflow grants write-all permissions to GITHUB_TOKEN"
+      ],
+      "fix": "Set permissions: contents: read at the top and grant more per job only where needed.",
+      "owner": "DevOps",
+      "phase": 1
+    },
+    {
+      "id": "F12",
+      "title": "Cloud KMS / key vault RSA or EC key",
+      "severity": "low",
+      "category": "infrastructure",
+      "quantum": true,
+      "detail": "1 definitions found in infrastructure code.",
+      "evidence": "observed",
+      "proof": [
+        "infra/main.tf:8  customer_master_key_spec = \"RSA_2048\""
+      ],
+      "fix": "Track this key in your migration plan; check your cloud provider's ML-DSA / ML-KEM key specs and rotate when available.",
+      "owner": "DevOps / platform team",
+      "phase": 2
+    },
+    {
+      "id": "F13",
+      "title": "TLS configuration in the repository has no post-quantum group",
+      "severity": "low",
+      "category": "infrastructure",
+      "quantum": true,
+      "detail": "Server and load-balancer TLS settings found in code and infrastructure files.",
+      "evidence": "observed",
+      "proof": [
+        "deploy/nginx.conf:3  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;",
+        "deploy/nginx.conf:4  ssl_ecdh_curve X25519:prime256v1;",
+        "infra/main.tf:4  ssl_policy = \"ELBSecurityPolicy-2016-08\""
+      ],
+      "fix": "Add X25519MLKEM768 to the group list where the TLS library supports it (OpenSSL 3.5+).",
+      "owner": "DevOps / platform team",
+      "phase": 1
+    },
+    {
+      "id": "F14",
+      "title": "Runtimes older than their first post-quantum release",
+      "severity": "low",
+      "category": "supply-chain",
+      "quantum": true,
+      "detail": "Upgrading the runtime is often the cheapest way to get hybrid TLS and ML-KEM/ML-DSA APIs.",
+      "evidence": "observed",
+      "proof": [
+        "Java 17 17-jre (Dockerfile): JDK 24+ adds ML-KEM and ML-DSA to the standard JCA providers",
+        "Go 1.22 (go.mod): Go 1.24+ uses hybrid X25519MLKEM768 TLS by default and ships crypto/mlkem"
+      ],
+      "fix": "Plan runtime upgrades (Go 1.24+, JDK 24+, OpenSSL 3.5+ in base images).",
+      "owner": "DevOps / platform team",
+      "phase": 2
+    },
+    {
+      "id": "F15",
+      "title": "Cryptography libraries in the dependency tree",
+      "severity": "info",
+      "category": "supply-chain",
+      "quantum": true,
+      "detail": "These libraries are where algorithm changes will land. Notes show which versions bring post-quantum algorithms.",
+      "evidence": "observed",
+      "proof": [
+        "github.com/golang-jwt/jwt/v4@4.5.0",
+        "golang.org/x/crypto@0.21.0 - ML-KEM lives in the standard library from Go 1.24 (crypto/mlkem)",
+        "jsonwebtoken@8.5.1",
+        "node-forge@1.3.1",
+        "cryptography@41.0.0",
+        "pycryptodome@3.19.0"
+      ],
+      "fix": "Keep them current and record them in your CBOM.",
+      "owner": "Development team",
+      "phase": 2
+    },
+    {
+      "id": "F16",
+      "title": "Generate a CBOM in CI",
+      "severity": "info",
+      "category": "governance",
+      "quantum": true,
+      "detail": "This scan reads the default branch once. A CBOM produced on every build catches new classical crypto before it ships and gives auditors a current record.",
+      "evidence": "inferred",
+      "fix": "Add a CycloneDX CBOM step to CI and fail builds that add new quantum-vulnerable algorithms outside the agility layer.",
+      "owner": "Security / DevOps",
+      "standards": [
+        "CERT-In Technical Guidelines on SBOM, QBOM \u0026 CBOM, AIBOM and HBOM v2.0 (July 2025)"
+      ],
+      "phase": 2
+    },
+    {
+      "id": "F17",
+      "title": "Post-quantum algorithms already referenced in code",
+      "severity": "pass",
+      "category": "code",
+      "quantum": true,
+      "detail": "ML-KEM, ML-DSA, SLH-DSA or hybrid TLS groups appear in the code base.",
+      "evidence": "observed",
+      "proof": [
+        "src/pq/kem.go:3  import \"crypto/mlkem\"",
+        "src/pq/kem.go:6  func NewKEM() (*mlkem.DecapsulationKey768, error) { return mlkem.GenerateKey768() }"
+      ]
+    }
+  ],
+  "score": {
+    "total": 43,
+    "grade": "D",
+    "label": "Classical with gaps",
+    "coverage": 100,
+    "subs": [
+      {
+        "name": "Quantum-vulnerable public-key use",
+        "earned": 23,
+        "possible": 30,
+        "tested": true,
+        "notes": [
+          "2 quantum-vulnerable families",
+          "post-quantum code present (+5)"
+        ]
+      },
+      {
+        "name": "Weak or broken cryptography",
+        "earned": 7,
+        "possible": 25,
+        "tested": true,
+        "notes": [
+          "2 high, 2 medium"
+        ]
+      },
+      {
+        "name": "Secrets and key material",
+        "earned": 0,
+        "possible": 20,
+        "tested": true
+      },
+      {
+        "name": "Supply chain",
+        "earned": 4,
+        "possible": 15,
+        "tested": true,
+        "notes": [
+          "2 vulnerable dependencies, 3 CI issues, 2 old runtimes"
+        ]
+      },
+      {
+        "name": "Concentration of crypto code",
+        "earned": 9,
+        "possible": 10,
+        "tested": true,
+        "notes": [
+          "3 production files call public-key primitives"
+        ]
+      }
+    ],
+    "method": "Five dimensions with fixed weights: quantum-vulnerable public-key use 30, weak or broken cryptography 25, secrets and key material 20, supply chain (dependencies, runtimes, CI) 15, concentration of crypto code 10. Grades: A 85+, B 70-84, C 55-69, D 40-54, E below 40."
+  },
+  "mosca": {
+    "horizonYears": 12,
+    "migrationYears": 3,
+    "kxProtected": false,
+    "scenarios": [
+      {
+        "crqcYear": 2030,
+        "exposedFrom": 2018,
+        "alreadyExposed": true,
+        "migrateBy": 2018,
+        "late": true
+      },
+      {
+        "crqcYear": 2035,
+        "exposedFrom": 2023,
+        "alreadyExposed": true,
+        "migrateBy": 2023,
+        "late": true
+      },
+      {
+        "crqcYear": 2040,
+        "exposedFrom": 2028,
+        "alreadyExposed": false,
+        "migrateBy": 2028,
+        "late": true
+      }
+    ]
+  },
+  "notTested": [
+    "Exact paths of possible secrets (shown to verified owners in U92-VyuAssure)",
+    "Private repositories (U92-VyuAssure)",
+    "Transitive dependencies and version ranges",
+    "Binary files and container images"
+  ],
+  "handshakes": 0
+}
