@@ -386,37 +386,46 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 14px 18px;
+  padding: 13px 18px;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .vyu-step-item.running {
-  background: rgba(196, 154, 69, 0.1);
-  border-color: rgba(196, 154, 69, 0.4);
+  background: linear-gradient(90deg, rgba(196, 154, 69, 0.12) 0%, rgba(13, 26, 52, 0.5) 100%);
+  border-color: rgba(221, 187, 110, 0.45);
+  box-shadow: 0 0 16px rgba(196, 154, 69, 0.12);
 }
 .vyu-step-item.done {
-  border-color: rgba(108, 198, 154, 0.3);
-  background: rgba(108, 198, 154, 0.05);
+  border-color: rgba(52, 211, 153, 0.28);
+  background: linear-gradient(90deg, rgba(16, 185, 129, 0.07) 0%, rgba(13, 26, 52, 0.35) 100%);
 }
 .vyu-step-item .ic {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  border: 2px solid #9AA5BB;
+  border: 1.5px solid rgba(154, 165, 187, 0.35);
+  background: rgba(255, 255, 255, 0.02);
   flex: none;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  color: transparent;
 }
 .vyu-step-item.running .ic {
-  border-color: #DDBB6E;
-  border-top-color: transparent;
+  border: 2px solid rgba(221, 187, 110, 0.25);
+  border-top-color: #DDBB6E;
+  background: rgba(221, 187, 110, 0.08);
   animation: vyuSpin 0.8s linear infinite;
+  color: transparent;
 }
 .vyu-step-item.done .ic {
-  border-color: #6CC69A;
-  background: #6CC69A;
+  border: 1px solid rgba(52, 211, 153, 0.45);
+  background: rgba(16, 185, 129, 0.14);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+  color: #34D399;
 }
 .vyu-step-item .t {
   font-weight: 600;
@@ -904,36 +913,83 @@
   color: #0E1B36;
 }
 
+/* ── Dynamic Corporate Email Perimeter Feedback ── */
+.vyu-email-feedback-wrap {
+  margin-top: 6px;
+}
+.vyu-email-feedback {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  line-height: 1.4;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+.vyu-email-feedback.success {
+  color: #6EE7B7;
+}
+.vyu-email-feedback.success svg {
+  color: #34D399;
+  flex-shrink: 0;
+}
+.vyu-email-feedback.error {
+  color: #FCA5A5;
+}
+.vyu-email-feedback.error svg {
+  color: #F87171;
+  flex-shrink: 0;
+}
+
+/* ── Authenticated Perimeter Identity Pill ── */
+.vyu-auth-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(90deg, rgba(16, 185, 129, 0.1) 0%, rgba(13, 26, 52, 0.5) 100%);
+  border: 1px solid rgba(52, 211, 153, 0.28);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 12.5px;
+  color: #D1FAE5;
+  margin-bottom: 20px;
+}
+.vyu-auth-badge svg {
+  color: #34D399;
+  flex-shrink: 0;
+}
+
 /* ── Report Dispatched Alert Banner ── */
 .vyu-dispatch-alert {
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.12) 0%, rgba(13, 26, 52, 0.8) 100%);
-  border: 1px solid rgba(34, 197, 94, 0.4);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(11, 23, 44, 0.75) 100%);
+  border: 1px solid rgba(52, 211, 153, 0.28);
   border-radius: 12px;
   padding: 18px 22px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   display: flex;
   align-items: flex-start;
   gap: 16px;
   color: #E2E8F0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 .vyu-dispatch-icon {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: rgba(34, 197, 94, 0.2);
-  border: 1px solid #22c55e;
-  color: #4ade80;
+  background: rgba(16, 185, 129, 0.14);
+  border: 1px solid rgba(52, 211, 153, 0.45);
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.2);
+  color: #34D399;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  font-size: 18px;
 }
 .vyu-dispatch-body h4 {
   margin: 0 0 4px;
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 600;
-  color: #86efac;
+  color: #A7F3D0;
 }
 .vyu-dispatch-body p {
   margin: 0;

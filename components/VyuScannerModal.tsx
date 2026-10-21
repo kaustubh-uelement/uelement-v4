@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { Check, ShieldCheck, AlertTriangle } from 'lucide-react';
 import './vyu/scanner.css';
 import { submitContactInquiry } from '@/lib/mainstay';
 
@@ -74,6 +75,88 @@ function isCorporateEmail(email: string): boolean {
   const domain = clean.split('@')[1];
   if (!domain) return false;
   return !FREE_DOMAINS.has(domain);
+}
+
+/* ── Domain Authorization & Perimeter Isolation ── */
+export function extractRootDomain(rawHost: string): string {
+  if (!rawHost) return '';
+  let host = String(rawHost).trim().toLowerCase();
+  host = host.replace(/^https?:\/\//i, '').replace(/^git@[^:]+:/i, '');
+  host = host.split('/')[0].split(':')[0];
+  const parts = host.split('.').filter(Boolean);
+  if (parts.length <= 2) return parts.join('.');
+  const secondLast = parts[parts.length - 2];
+  const multiPartTlds = ['co', 'com', 'org', 'net', 'gov', 'ac', 'edu'];
+  if (parts.length >= 3 && multiPartTlds.includes(secondLast) && parts[parts.length - 1].length === 2) {
+    return parts.slice(-3).join('.');
+  }
+  return parts.slice(-2).join('.');
+}
+
+export interface DomainAuthResult {
+  authorized: boolean;
+  reason:
+    | 'uelement_internal_exemption'
+    | 'domain_exact_match'
+    | 'brand_token_match'
+    | 'repo_org_match'
+    | 'domain_mismatch'
+    | 'repo_org_mismatch'
+    | 'missing_input'
+    | 'invalid_email'
+    | 'invalid_target';
+  targetDomain?: string;
+  emailDomain?: string;
+  expected?: string;
+}
+
+export function isDomainAuthorized(
+  email: string,
+  target: string
+): DomainAuthResult {
+  if (!email || !target) return { authorized: false, reason: 'missing_input' };
+  const emailNorm = String(email).trim().toLowerCase();
+  const emailDomain = emailNorm.split('@')[1] || '';
+  if (!emailDomain) return { authorized: false, reason: 'invalid_email' };
+
+  // Exemption: UElement personnel can evaluate any target perimeter
+  if (
+    emailDomain === 'uelement.co' ||
+    emailDomain.endsWith('.uelement.co') ||
+    emailDomain === 'uelement.in' ||
+    emailDomain.endsWith('.uelement.in')
+  ) {
+    return { authorized: true, reason: 'uelement_internal_exemption', emailDomain };
+  }
+
+  const t = String(target).trim().toLowerCase();
+  const ghMatch = t.match(/(?:github\.com\/|^)([a-zA-Z0-9_.-]+)\/([a-zA-Z0-9_.-]+)/);
+  const emailRoot = extractRootDomain(emailDomain);
+  const emailPrefix = emailRoot.split('.')[0];
+
+  if (ghMatch) {
+    const org = ghMatch[1].toLowerCase();
+    if (org === emailPrefix || org.includes(emailPrefix) || emailPrefix.includes(org)) {
+      return { authorized: true, reason: 'repo_org_match', expected: org, emailDomain };
+    }
+    return { authorized: false, reason: 'repo_org_mismatch', expected: org, emailDomain };
+  }
+
+  const targetRoot = extractRootDomain(t);
+  if (!targetRoot) return { authorized: false, reason: 'invalid_target' };
+
+  if (emailRoot === targetRoot) {
+    return { authorized: true, reason: 'domain_exact_match', targetDomain: targetRoot, emailDomain };
+  }
+
+  const targetPrefix = targetRoot.split('.')[0];
+  if (emailPrefix.length >= 4 && targetPrefix.length >= 4) {
+    if (emailPrefix.includes(targetPrefix) || targetPrefix.includes(emailPrefix)) {
+      return { authorized: true, reason: 'brand_token_match', targetDomain: targetRoot, emailDomain };
+    }
+  }
+
+  return { authorized: false, reason: 'domain_mismatch', targetDomain: targetRoot, emailDomain };
 }
 
 /* ── API Endpoints ── */
@@ -240,6 +323,18 @@ export function VyuScannerModal() {
   const [result, setResult] = useState<ScanResult | null>(null);
   const [filter, setFilter] = useState<'all' | 'quantum' | 'pass'>('all');
   const [resendingReport, setResendingReport] = useState(false);
+
+  // Real-time Domain Authorization Evaluation
+  const domainAuth = useMemo(() => {
+    if (!email || !target) return null;
+    const cleanEmail = email.trim().toLowerCase();
+    if (!cleanEmail.includes('@') || !cleanEmail.includes('.')) return null;
+    const domain = cleanEmail.split('@')[1];
+    if (!domain || FREE_DOMAINS.has(domain)) return null;
+    const normTarget = normalizeTarget(target, kind);
+    if (!normTarget) return null;
+    return isDomainAuthorized(cleanEmail, normTarget);
+  }, [email, target, kind]);
 
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -478,6 +573,13 @@ export function VyuScannerModal() {
     }
     if (!email.trim() || !isCorporateEmail(email)) {
       setFormErr('Enterprise Security Policy: Personal email providers (Gmail, Yahoo, Outlook, etc.) are not permitted. Please enter your official corporate work email.');
+      return;
+    }
+    const auth = isDomainAuthorized(email, normTarget);
+    if (!auth.authorized) {
+      setFormErr(
+        `Perimeter Isolation Policy: Assessment reports for "${normTarget}" can only be authorized for corporate emails matching "${auth.targetDomain || auth.expected || normTarget}". Addresses under "${auth.emailDomain}" cannot scan external perimeters.`
+      );
       return;
     }
     if (!company.trim() || company.trim().length < 2) {
@@ -934,6 +1036,37 @@ export function VyuScannerModal() {
                       placeholder="name@company.com"
                       required
                     />
+                    {email && email.includes('@') && (
+                      <div className="vyu-email-feedback-wrap">
+                        {!isCorporateEmail(email) ? (
+                          <span className="vyu-email-feedback error">
+                            <AlertTriangle size={12} />
+                            Personal email providers (Gmail, Yahoo, etc.) prohibited.
+                          </span>
+                        ) : domainAuth ? (
+                          domainAuth.authorized ? (
+                            <span className="vyu-email-feedback success">
+                              {domainAuth.reason === 'uelement_internal_exemption' ? (
+                                <>
+                                  <ShieldCheck size={13} />
+                                  UElement Security Clearance (Universal Access)
+                                </>
+                              ) : (
+                                <>
+                                  <Check size={13} />
+                                  Authorized perimeter: {domainAuth.targetDomain || domainAuth.expected || target}
+                                </>
+                              )}
+                            </span>
+                          ) : (
+                            <span className="vyu-email-feedback error">
+                              <AlertTriangle size={12} />
+                              Perimeter Isolation: &quot;{domainAuth.emailDomain}&quot; cannot access reports for &quot;{domainAuth.targetDomain || domainAuth.expected || target}&quot;
+                            </span>
+                          )
+                        ) : null}
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -1107,7 +1240,7 @@ export function VyuScannerModal() {
                       className={`vyu-step-item ${isDone ? 'done' : isCurrent ? 'running' : ''}`}
                     >
                       <span className="ic" aria-hidden="true">
-                        {isDone && '✓'}
+                        {isDone ? <Check size={13} strokeWidth={2.4} /> : null}
                       </span>
                       <div>
                         <div className="t">{st.label}</div>
@@ -1128,13 +1261,31 @@ export function VyuScannerModal() {
             <section className="vyu-step">
               {/* Emailed notification alert */}
               <div className="vyu-dispatch-alert">
-                <div className="vyu-dispatch-icon">✓</div>
+                <div className="vyu-dispatch-icon">
+                  <Check size={20} strokeWidth={2.4} />
+                </div>
                 <div className="vyu-dispatch-body">
                   <h4>Complete Formal Assessment Report Dispatched</h4>
                   <p>
                     A full 10-page signed assessment report (including executive briefing, complete CycloneDX 1.7 CBOM, regulatory compliance mappings for RBI, SEBI, DORA, and NIST, and the remediation roadmap) has been delivered to <b>{email}</b>.
                   </p>
                 </div>
+              </div>
+
+              {/* Authenticated Perimeter Identity Pill */}
+              <div className="vyu-auth-badge">
+                <ShieldCheck size={15} />
+                <span>
+                  {email.toLowerCase().endsWith('uelement.co') || email.toLowerCase().endsWith('uelement.in') ? (
+                    <>
+                      Enterprise Clearance: Authenticated as <b>{email}</b> (UElement Security Clearance &bull; Universal Access)
+                    </>
+                  ) : (
+                    <>
+                      Enterprise Clearance: Authenticated as <b>{email}</b> (Verified Perimeter: {target})
+                    </>
+                  )}
+                </span>
               </div>
 
               {/* Result Header & Scorecard */}
