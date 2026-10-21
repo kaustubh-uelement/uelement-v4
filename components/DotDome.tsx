@@ -30,7 +30,8 @@ export function DotDome({
     }
 
     let w = 0, h = 0, dpr = 1, raf = 0, visible = true, angle = 0.6;
-    const tilt = -0.42;
+    // Earth's axial tilt (obliquity of the ecliptic): 23.44° (23° 26′)
+    const tilt = -(23.44 * Math.PI) / 180;
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
