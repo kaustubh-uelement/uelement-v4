@@ -1,14 +1,20 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, CSSProperties } from 'react';
 
 // A slowly turning sphere of gold dots, drawn on canvas. Used behind inner page headings.
 export function DotDome({
   density = 6400,
   className,
+  style,
+  static: isStatic = false,
+  angle: initialAngle = 0.6,
 }: {
   density?: number;
   className?: string;
+  style?: CSSProperties;
+  static?: boolean;
+  angle?: number;
 }) {
   const ref = useRef<HTMLCanvasElement>(null);
 
@@ -29,9 +35,11 @@ export function DotDome({
       pts.push([Math.cos(t) * r, y, Math.sin(t) * r]);
     }
 
-    let w = 0, h = 0, dpr = 1, raf = 0, visible = true, angle = 0.6;
-    // Earth's axial tilt (obliquity of the ecliptic): 23.44° (23° 26′)
-    const tilt = -(23.44 * Math.PI) / 180;
+    let w = 0, h = 0, dpr = 1, raf = 0, visible = true, angle = initialAngle;
+    // Pitch forward toward viewer
+    const pitch = -(20 * Math.PI) / 180;
+    // Tilt the globe's rotating axis by 33 degrees to the right
+    const roll = (33 * Math.PI) / 180;
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
@@ -45,28 +53,39 @@ export function DotDome({
 
     const draw = () => {
       ctx.clearRect(0, 0, w, h);
-      // Main sphere radius (reduced slightly from 0.46)
+      // Main sphere radius
       const R = Math.min(w, h) * 0.44;
       const cx = w / 2, cy = h / 2;
       const ca = Math.cos(angle), sa = Math.sin(angle);
-      const ct = Math.cos(tilt), st = Math.sin(tilt);
+      const cp = Math.cos(pitch), sp = Math.sin(pitch);
+      const cr = Math.cos(roll), sr = Math.sin(roll);
+
       for (let i = 0; i < n; i++) {
         const [x0, y0, z0] = pts[i];
-        // rotate around Y
+        // 1. Rotate around polar Y axis (spin)
         const x1 = x0 * ca + z0 * sa;
+        const y1 = y0;
         const z1 = -x0 * sa + z0 * ca;
-        // tilt around X
-        const y2 = y0 * ct - z1 * st;
-        const z2 = y0 * st + z1 * ct;
-        const depth = (z2 + 1) / 2; // 0 back, 1 front
-        if (depth < 0.3) continue;
-        const px = cx + x1 * R;
-        const py = cy + y2 * R;
+
+        // 2. Pitch forward around X
+        const y2 = y1 * cp - z1 * sp;
+        const z2 = y1 * sp + z1 * cp;
+        const x2 = x1;
+
+        // 3. Roll around Z: tilt rotating axis by 33 degrees to the right
+        const x3 = x2 * cr - y2 * sr;
+        const y3 = x2 * sr + y2 * cr;
+        const z3 = z2;
+
+        const depth = (z3 + 1) / 2; // 0 back, 1 front
+        if (depth < 0.28) continue;
+        const px = cx + x3 * R;
+        const py = cy + y3 * R;
         const a = Math.pow(depth, 2.2) * 0.95;
         // Dot radius
         const s = 0.8 + depth * 1.8;
-        // brighter near the upper-left light source
-        const light = Math.max(0, (-x1 * 0.5 - y2 * 0.6 + z2 * 0.8));
+        // Brighter near the upper-left light source
+        const light = Math.max(0, (-x3 * 0.5 - y3 * 0.6 + z3 * 0.8));
         const rC = 196 + Math.round(45 * light), gC = 154 + Math.round(62 * light), bC = 69 + Math.round(78 * light);
         ctx.fillStyle = `rgba(${rC},${gC},${bC},${a.toFixed(3)})`;
         ctx.beginPath();
@@ -76,26 +95,34 @@ export function DotDome({
     };
 
     const loop = () => {
-      if (visible) {
+      if (!isStatic && visible) {
         angle += 0.0016;
         draw();
+        raf = requestAnimationFrame(loop);
       }
-      raf = requestAnimationFrame(loop);
     };
 
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
-    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; });
+    const io = new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      if (!isStatic && visible && !raf) {
+        raf = requestAnimationFrame(loop);
+      }
+    });
     io.observe(canvas);
     resize();
-    raf = requestAnimationFrame(loop);
+
+    if (!isStatic) {
+      raf = requestAnimationFrame(loop);
+    }
 
     return () => {
-      cancelAnimationFrame(raf);
+      if (raf) cancelAnimationFrame(raf);
       ro.disconnect();
       io.disconnect();
     };
-  }, [density]);
+  }, [density, isStatic, initialAngle]);
 
-  return <canvas ref={ref} className={className} />;
+  return <canvas ref={ref} className={className} style={style} />;
 }
