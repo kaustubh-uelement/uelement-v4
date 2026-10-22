@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Check, ShieldCheck, AlertTriangle, Lock } from 'lucide-react';
+import { Check, ShieldCheck, AlertTriangle, Lock, Shield, Mail, ArrowRight, ArrowLeft } from 'lucide-react';
 import './vyu/scanner.css';
 import { submitContactInquiry } from '@/lib/mainstay';
 
@@ -159,6 +159,36 @@ export function isDomainAuthorized(
   return { authorized: false, reason: 'domain_mismatch', targetDomain: targetRoot, emailDomain };
 }
 
+/* ── Zero-Cost Deterministic Organisation Deduction ── */
+export const KNOWN_ORGANISATIONS: Record<string, string> = {
+  'uelement.co': 'UElement Technologies Private Limited',
+  'uelement.in': 'UElement Technologies Private Limited',
+  'cloudflare.com': 'Cloudflare, Inc.',
+  'github.com': 'GitHub, Inc.',
+  'google.com': 'Google LLC',
+  'microsoft.com': 'Microsoft Corporation',
+  'amazon.com': 'Amazon.com, Inc.',
+  'apple.com': 'Apple Inc.',
+  'tcs.com': 'Tata Consultancy Services',
+  'infosys.com': 'Infosys Limited',
+  'wipro.com': 'Wipro Limited',
+  'hdfcbank.com': 'HDFC Bank',
+  'icicibank.com': 'ICICI Bank',
+};
+
+export function deduceOrganisationFromEmail(rawEmail: string): string {
+  if (!rawEmail || !rawEmail.includes('@')) return '';
+  const domain = rawEmail.trim().toLowerCase().split('@')[1];
+  if (!domain || FREE_DOMAINS.has(domain)) return '';
+  if (KNOWN_ORGANISATIONS[domain]) return KNOWN_ORGANISATIONS[domain];
+  const token = domain.split('.')[0];
+  if (!token || token.length < 2) return '';
+  return token
+    .split(/[-_]/)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
+
 /* ── API Endpoints ── */
 function getScannerApiUrl(): string {
   if (typeof window !== 'undefined') {
@@ -184,7 +214,7 @@ function getVyuGoApiUrl(): string {
 
 /* ── Types ── */
 type ScanKind = 'website' | 'github';
-type ModalStep = 'profile' | 'otp' | 'scanning' | 'results';
+type ModalStep = 'target' | 'scanning' | 'results' | 'claim_report' | 'claim_otp' | 'claim_success';
 
 interface ScoreSubs {
   name: string;
@@ -296,7 +326,7 @@ const GITHUB_STEPS_CONFIG = [
 
 export function VyuScannerModal() {
   const [open, setOpen] = useState(false);
-  const [step, setStep] = useState<ModalStep>('profile');
+  const [step, setStep] = useState<ModalStep>('target');
 
   // Corporate Profile & Target Inputs
   const [kind, setKind] = useState<ScanKind>('website');
@@ -328,6 +358,32 @@ export function VyuScannerModal() {
   const [scanId, setScanId] = useState('');
   const [viewKey, setViewKey] = useState('');
   const [pdfDownloadUrl, setPdfDownloadUrl] = useState('');
+  const [isReportDelivered, setIsReportDelivered] = useState(false);
+
+  // Auto-deduce organization when corporate email is typed
+  const handleEmailChange = (newEmail: string) => {
+    setEmail(newEmail);
+    const suggested = deduceOrganisationFromEmail(newEmail);
+    if (suggested && (!company || company.startsWith('UElement') || company.length < 3)) {
+      setCompany(suggested);
+    }
+  };
+
+  const handleResetScan = () => {
+    setResult(null);
+    setTarget('');
+    setFormErr('');
+    setOtpErr('');
+    setOtpCode('');
+    setIsReportDelivered(false);
+    setStep('target');
+  };
+
+  const openClaimReport = () => {
+    setFormErr('');
+    setOtpErr('');
+    setStep('claim_report');
+  };
 
   // Real-time Domain Authorization Evaluation
   const domainAuth = useMemo(() => {
@@ -363,14 +419,14 @@ export function VyuScannerModal() {
         setTarget(normalizeTarget(custom.detail.target, custom.detail.kind || 'website'));
       }
       setOpen(true);
-      setStep('profile');
+      setStep('target');
       setFormErr('');
       setOtpErr('');
     }
 
     function handleLegacyOpen() {
       setOpen(true);
-      setStep('profile');
+      setStep('target');
       setFormErr('');
     }
 
@@ -383,7 +439,7 @@ export function VyuScannerModal() {
       if (k) setKind(k);
       if (t) setTarget(normalizeTarget(t, k || 'website'));
       setOpen(true);
-      setStep('profile');
+      setStep('target');
     }
 
     window.addEventListener('uelement:open-vyu-scanner', handleOpen);
@@ -614,9 +670,9 @@ export function VyuScannerModal() {
     }
   };
 
-  /* ── Step 1: Corporate Profile Submit & Send OTP ── */
-  const handleProfileSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  /* ── Step 1: Immediate Frictionless Launch ── */
+  const handleStartScan = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     setFormErr('');
 
     const normTarget = normalizeTarget(target, kind);
@@ -632,6 +688,21 @@ export function VyuScannerModal() {
       setFormErr('Please specify the repository owner and name (e.g. demo-bank/payments-api).');
       return;
     }
+    if (!consent) {
+      setFormErr('Please confirm authorization to scan this target.');
+      return;
+    }
+
+    setTarget(normTarget);
+    startScanExecution(normTarget);
+  };
+
+  /* ── Step 4: Corporate Profile & Send OTP for Full Report Delivery ── */
+  const handleClaimProfileSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormErr('');
+
+    const normTarget = normalizeTarget(target, kind);
     if (!name.trim()) {
       setFormErr('Please enter your full name.');
       return;
@@ -656,13 +727,12 @@ export function VyuScannerModal() {
       return;
     }
     if (!consent) {
-      setFormErr('Please confirm you are authorised to request this evaluation.');
+      setFormErr('Please confirm authorization to receive this perimeter report.');
       return;
     }
 
-    setTarget(normTarget);
     setIsSendingOtp(true);
-    dispatchLeadCapture('Step 1: Corporate Profile Gate Submitted (OTP Pending)');
+    dispatchLeadCapture('Step 4: Full Report Requested (OTP Dispatched)');
 
     try {
       const apiUrl = getScannerApiUrl();
@@ -683,12 +753,12 @@ export function VyuScannerModal() {
       setResendTimer(30);
     } finally {
       setIsSendingOtp(false);
-      setStep('otp');
+      setStep('claim_otp');
     }
   };
 
-  /* ── Step 2: Verify OTP & Trigger Scan ── */
-  const handleVerifyOtp = async (e: React.FormEvent) => {
+  /* ── Step 5: Verify OTP & Email Authentic 10-Page Report ── */
+  const handleClaimVerifyOtp = async (e: React.FormEvent) => {
     e.preventDefault();
     setOtpErr('');
     const code = otpCode.trim();
@@ -730,8 +800,12 @@ export function VyuScannerModal() {
     }
 
     if (verified) {
-      dispatchLeadCapture('Step 2: Corporate Email Verified Successfully');
-      startScanExecution();
+      setIsReportDelivered(true);
+      dispatchLeadCapture('Corporate Identity Verified & Report Dispatched');
+      if (result) {
+        dispatchReportToEmail(result, scanId, viewKey, pdfDownloadUrl);
+      }
+      setStep('claim_success');
     }
   };
 
@@ -758,12 +832,12 @@ export function VyuScannerModal() {
     }
   };
 
-  /* ── Step 3: Run Diagnostic Probes ── */
-  const startScanExecution = async () => {
+  /* ── Step 2: Run Diagnostic Probes ── */
+  const startScanExecution = async (overrideTarget?: string) => {
     setStep('scanning');
     setActiveStepIndex(0);
     setSecondsElapsed(0);
-    const t = normalizeTarget(target, kind);
+    const t = overrideTarget || normalizeTarget(target, kind);
 
     let liveSuccess = false;
     let fetchedResult: ScanResult | null = null;
@@ -819,10 +893,10 @@ export function VyuScannerModal() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                  name: name.trim(),
-                  company: company.trim() || target,
-                  role: title.trim(),
-                  email: email.trim().toLowerCase(),
+                  name: name.trim() || 'Executive Scan Requester',
+                  company: company.trim() || t,
+                  role: title.trim() || 'Security Evaluator',
+                  email: email.trim().toLowerCase() || 'assessment@uelement.co',
                 }),
               });
               if (repRes.ok) {
@@ -913,7 +987,6 @@ export function VyuScannerModal() {
         if (!Array.isArray(fetchedResult.assets)) fetchedResult.assets = [];
         setResult(fetchedResult);
         setStep('results');
-        dispatchReportToEmail(fetchedResult, currentId, currentKey, finalPdfUrl);
       }
     }, 2800);
   };
@@ -921,6 +994,10 @@ export function VyuScannerModal() {
   /* ── Resend Report Button in Results ── */
   const handleResendReport = async () => {
     if (!result) return;
+    if (!email) {
+      setStep('claim_report');
+      return;
+    }
     setResendingReport(true);
     await dispatchReportToEmail(result, scanId, viewKey, pdfDownloadUrl);
     setTimeout(() => setResendingReport(false), 800);
@@ -1080,33 +1157,32 @@ export function VyuScannerModal() {
         <main className="vyu-modal-main">
           {/* Progress Stepper Bar (Horizontal with clean step pills) */}
           <ol className="vyu-progress-bar" aria-label="Assessment Progress">
-            <li className={step === 'profile' ? 'on' : 'done'}>
+            <li className={step === 'target' ? 'on' : 'done'}>
               <span className="step-idx">1</span>
-              <span>Corporate Identity</span>
+              <span>Target Scope</span>
             </li>
-            <li className={step === 'otp' ? 'on' : step === 'scanning' || step === 'results' ? 'done' : ''}>
+            <li className={step === 'scanning' ? 'on' : step === 'results' || step.startsWith('claim') ? 'done' : ''}>
               <span className="step-idx">2</span>
-              <span>Email OTP</span>
-            </li>
-            <li className={step === 'scanning' ? 'on' : step === 'results' ? 'done' : ''}>
-              <span className="step-idx">3</span>
               <span>Live Probing</span>
             </li>
-            <li className={step === 'results' ? 'on' : ''}>
+            <li className={step === 'results' ? 'on' : step.startsWith('claim') ? 'done' : ''}>
+              <span className="step-idx">3</span>
+              <span>Score & CBOM</span>
+            </li>
+            <li className={step.startsWith('claim') ? 'on' : ''}>
               <span className="step-idx">4</span>
-              <span>Assessment Report</span>
+              <span>Corporate Delivery</span>
             </li>
           </ol>
 
           {/* ══════════════════════════════════════════════════
-              STEP 1: CORPORATE PROFILE & TARGET GATE
+              STEP 1: TARGET SCOPE (Instant Frictionless Launch)
              ══════════════════════════════════════════════════ */}
-          {step === 'profile' && (
+          {step === 'target' && (
             <section className="vyu-step">
               <h1 className="vyu-step-h1">Find the cryptography a quantum computer will break</h1>
               <p className="vyu-step-intro">
-                Official corporate authorization and work email verification are required to scan external perimeters.
-                Enter your details to initiate the evaluation and receive your signed CycloneDX 1.7 CBOM report.
+                Instant cryptographic probe. Evaluates live edge handshakes, certificates, ciphers, and hybrid PQC key exchange without any upfront signup.
               </p>
 
               <div className="vyu-kinds" role="radiogroup" aria-label="What to scan">
@@ -1147,7 +1223,7 @@ export function VyuScannerModal() {
                 </button>
               </div>
 
-              <form className="vyu-card" onSubmit={handleProfileSubmit} noValidate>
+              <form className="vyu-card" onSubmit={handleStartScan} noValidate>
                 <label htmlFor="target" className="lbl">
                   {kind === 'website' ? 'Domain or endpoint to scan' : 'GitHub Repository to scan (owner/repository)'}
                 </label>
@@ -1155,7 +1231,10 @@ export function VyuScannerModal() {
                   id="target"
                   type="text"
                   value={target}
-                  onChange={(e) => setTarget(e.target.value)}
+                  onChange={(e) => {
+                    setTarget(e.target.value);
+                    setFormErr('');
+                  }}
                   placeholder={kind === 'website' ? 'example.com or api.example.com' : 'demo-bank/payments-api or owner/repo'}
                   required
                 />
@@ -1189,128 +1268,30 @@ export function VyuScannerModal() {
                   )}
                 </div>
 
-                <div className="vyu-row2">
-                  <div>
-                    <label htmlFor="p-name" className="lbl">Full name</label>
-                    <input
-                      id="p-name"
-                      type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="e.g. Kaustubh Kulkarni"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="p-email" className="lbl">
-                      Corporate work email <span style={{ color: '#8A6522', fontWeight: 600 }}>*Strict</span>
-                    </label>
-                    <input
-                      id="p-email"
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="name@company.com"
-                      required
-                    />
-                    {email && email.includes('@') && (
-                      <div className="vyu-email-feedback-wrap">
-                        {!isCorporateEmail(email) ? (
-                          <span className="vyu-email-feedback error">
-                            <AlertTriangle size={12} />
-                            Personal email providers (Gmail, Yahoo, etc.) prohibited.
-                          </span>
-                        ) : domainAuth ? (
-                          domainAuth.authorized ? (
-                            <span className="vyu-email-feedback success">
-                              {domainAuth.reason === 'uelement_internal_exemption' ? (
-                                <>
-                                  <ShieldCheck size={13} />
-                                  UElement Security Clearance (Universal Access)
-                                </>
-                              ) : (
-                                <>
-                                  <Check size={13} />
-                                  Authorized perimeter: {domainAuth.targetDomain || domainAuth.expected || target}
-                                </>
-                              )}
-                            </span>
-                          ) : (
-                            <span className="vyu-email-feedback error">
-                              <AlertTriangle size={12} />
-                              Perimeter Isolation: &quot;{domainAuth.emailDomain}&quot; cannot access reports for &quot;{domainAuth.targetDomain || domainAuth.expected || target}&quot;
-                            </span>
-                          )
-                        ) : null}
-                      </div>
-                    )}
-                  </div>
+                <div style={{ marginTop: 14 }}>
+                  <label htmlFor="horizon" className="lbl">Confidentiality retention horizon</label>
+                  <select
+                    id="horizon"
+                    value={horizon}
+                    onChange={(e) => setHorizon(e.target.value)}
+                  >
+                    <option value="5">5 years: general business data</option>
+                    <option value="7">7 years: contracts and tax records</option>
+                    <option value="10">10 years: customer and employee records</option>
+                    <option value="12">12 years: banking and insurance records</option>
+                    <option value="20">20 years: health, identity and intellectual property</option>
+                    <option value="30">30 years: government and defence secrets</option>
+                  </select>
                 </div>
 
-                <div className="vyu-row2">
-                  <div>
-                    <label htmlFor="p-company" className="lbl">Organisation / Company</label>
-                    <input
-                      id="p-company"
-                      type="text"
-                      value={company}
-                      onChange={(e) => setCompany(e.target.value)}
-                      placeholder="e.g. UElement Technologies"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="p-title" className="lbl">Job title / Role</label>
-                    <input
-                      id="p-title"
-                      type="text"
-                      value={title}
-                      onChange={(e) => setTitle(e.target.value)}
-                      placeholder="e.g. Chief Information Security Officer"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="vyu-row2">
-                  <div>
-                    <label htmlFor="p-phone" className="lbl">Mobile phone (optional)</label>
-                    <input
-                      id="p-phone"
-                      type="tel"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      placeholder="+91 9876543210"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="horizon" className="lbl">Confidentiality retention horizon</label>
-                    <select
-                      id="horizon"
-                      value={horizon}
-                      onChange={(e) => setHorizon(e.target.value)}
-                    >
-                      <option value="5">5 years: general business data</option>
-                      <option value="7">7 years: contracts and tax records</option>
-                      <option value="10">10 years: customer and employee records</option>
-                      <option value="12">12 years: banking and insurance records</option>
-                      <option value="20">20 years: health, identity and intellectual property</option>
-                      <option value="30">30 years: government and defence secrets</option>
-                    </select>
-                  </div>
-                </div>
-
-                <label className="vyu-consent">
+                <label className="vyu-consent" style={{ marginTop: 14 }}>
                   <input
                     type="checkbox"
                     checked={consent}
                     onChange={(e) => setConsent(e.target.checked)}
                   />
                   <span>
-                    I confirm that I am authorised to request this cryptographic evaluation for {target || 'the specified target'} and agree to perimeter terms.
+                    I confirm that I am authorised to perform a non-invasive diagnostic scan on {target || 'the specified target'}.
                   </span>
                 </label>
 
@@ -1319,83 +1300,16 @@ export function VyuScannerModal() {
                 <button
                   type="submit"
                   className="btn btn--metal"
-                  disabled={isSendingOtp}
-                  style={{ width: '100%', marginTop: 8 }}
+                  style={{ width: '100%', marginTop: 16 }}
                 >
-                  {isSendingOtp ? 'Validating & Dispatched OTP…' : 'Continue to Email Verification →'}
+                  Launch Free Diagnostic Scan →
                 </button>
               </form>
             </section>
           )}
 
           {/* ══════════════════════════════════════════════════
-              STEP 2: 6-DIGIT EMAIL OTP VERIFICATION
-             ══════════════════════════════════════════════════ */}
-          {step === 'otp' && (
-            <section className="vyu-step">
-              <div className="vyu-otp-box">
-                <div className="vyu-otp-icon">✉</div>
-                <h2 style={{ margin: '0 0 8px', fontSize: 22, color: '#0E1B36', fontWeight: 600 }}>
-                  Verify your corporate email
-                </h2>
-                <p style={{ margin: '0 0 20px', fontSize: 14.5, color: '#56607A', lineHeight: 1.5 }}>
-                  We have dispatched a 6-digit security code to <b>{email}</b>.
-                  Please enter it below to confirm your organization authorization and start the scan.
-                </p>
-
-                <form onSubmit={handleVerifyOtp}>
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    maxLength={6}
-                    value={otpCode}
-                    onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, ''))}
-                    placeholder="••••••"
-                    className="vyu-otp-input"
-                    autoFocus
-                    required
-                  />
-
-                  {otpErr && <p className="vyu-err" style={{ marginBottom: 14 }}>{otpErr}</p>}
-
-                  <button
-                    type="submit"
-                    className="btn btn--metal"
-                    disabled={isVerifyingOtp || otpCode.length !== 6}
-                    style={{ width: '100%', maxWidth: 320, margin: '0 auto' }}
-                  >
-                    {isVerifyingOtp ? 'Verifying Code…' : 'Verify & Launch Scan →'}
-                  </button>
-
-                  <div className="vyu-otp-resend-row">
-                    {resendTimer > 0 ? (
-                      <span>Resend code in {resendTimer}s</span>
-                    ) : (
-                      <button
-                        type="button"
-                        className="vyu-btn-link"
-                        onClick={handleResendOtp}
-                        disabled={isSendingOtp}
-                      >
-                        Resend code
-                      </button>
-                    )}
-                    <span>•</span>
-                    <button
-                      type="button"
-                      className="vyu-btn-link"
-                      onClick={() => setStep('profile')}
-                    >
-                      Edit details
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </section>
-          )}
-
-          {/* ══════════════════════════════════════════════════
-              STEP 3: LIVE SCAN PROGRESS
+              STEP 2: LIVE SCAN PROGRESS
              ══════════════════════════════════════════════════ */}
           {step === 'scanning' && (
             <section className="vyu-step">
@@ -1437,34 +1351,49 @@ export function VyuScannerModal() {
              ══════════════════════════════════════════════════ */}
           {step === 'results' && result && (
             <section className="vyu-step">
-              {/* Emailed notification alert */}
-              <div className="vyu-dispatch-alert-paper">
-                <div className="vyu-dispatch-icon-paper">
-                  <Check size={20} strokeWidth={2.4} />
+              {/* Preview Status / Dispatched Alert */}
+              {isReportDelivered ? (
+                <div className="vyu-dispatch-alert-paper">
+                  <div className="vyu-dispatch-icon-paper">
+                    <Check size={20} strokeWidth={2.4} />
+                  </div>
+                  <div className="vyu-dispatch-body-paper">
+                    <h4>Complete 10-Page Assessment Report Dispatched</h4>
+                    <p>
+                      A full 10-page signed assessment report (including executive briefing, complete CycloneDX 1.7 CBOM, regulatory compliance mappings for RBI, SEBI, DORA, and NIST, and the remediation roadmap) has been delivered to <b>{email}</b>.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    className="btn btn--paper-outline"
+                    onClick={handleResendReport}
+                    disabled={resendingReport}
+                    style={{ marginLeft: 'auto', whiteSpace: 'nowrap', fontSize: 13 }}
+                  >
+                    {resendingReport ? 'Resending…' : 'Resend Email ↻'}
+                  </button>
                 </div>
-                <div className="vyu-dispatch-body-paper">
-                  <h4>Complete Formal Assessment Report Dispatched</h4>
-                  <p>
-                    A full 10-page signed assessment report (including executive briefing, complete CycloneDX 1.7 CBOM, regulatory compliance mappings for RBI, SEBI, DORA, and NIST, and the remediation roadmap) has been delivered to <b>{email}</b>.
-                  </p>
+              ) : (
+                <div className="vyu-dispatch-alert-paper" style={{ borderLeft: '4px solid #C49A45' }}>
+                  <div className="vyu-dispatch-icon-paper" style={{ background: 'rgba(196, 154, 69, 0.15)', color: '#8A6522' }}>
+                    <Shield size={20} strokeWidth={2.4} />
+                  </div>
+                  <div className="vyu-dispatch-body-paper">
+                    <h4>Diagnostic Scan Completed · Preview Mode</h4>
+                    <p>
+                      Displaying live quantum readiness score, top 2 vulnerabilities, and sample CBOM items. To protect infrastructure attack vectors, the complete 10-page signed assessment report is delivered exclusively via verified corporate email.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    className="btn btn--metal"
+                    onClick={openClaimReport}
+                    style={{ marginLeft: 'auto', whiteSpace: 'nowrap', fontSize: 13 }}
+                  >
+                    Email Full Report ✉
+                  </button>
                 </div>
-              </div>
-
-              {/* Authenticated Clearance Banner */}
-              <div className="vyu-auth-banner-paper">
-                <div className="vyu-auth-badge-paper">
-                  <ShieldCheck size={16} />
-                  <span>
-                    Full Enterprise Inventory Unlocked ({totalAssetsCount} Cryptographic Assets)
-                  </span>
-                </div>
-                <div className="vyu-auth-user-paper">
-                  Authenticated as <b>{email}</b>{' '}
-                  {email.toLowerCase().endsWith('uelement.co') || email.toLowerCase().endsWith('uelement.in')
-                    ? '(UElement Security Clearance)'
-                    : `(${company || 'Corporate Perimeter'})`}
-                </div>
-              </div>
+              )}
 
               {/* Light Paper Scorecard Container */}
               <div className="vyu-scorecard-paper">
@@ -1518,23 +1447,24 @@ export function VyuScannerModal() {
                   </div>
                 </div>
 
-                {/* Scorecard Action Buttons */}
+                {/* Scorecard Action Buttons (No web download - email only) */}
                 <div className="vyu-scorecard-actions">
-                  <a
+                  <button
+                    type="button"
                     className="btn btn--metal"
-                    href={pdfDownloadUrl || "/sample-report.pdf"}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    onClick={isReportDelivered ? handleResendReport : openClaimReport}
+                    disabled={resendingReport}
                   >
-                    {pdfDownloadUrl ? 'Download Your Assessment PDF ↗' : 'Download Sample Assessment PDF ↗'}
-                  </a>
+                    {isReportDelivered
+                      ? (resendingReport ? 'Resending…' : `Resend Report to ${email}`)
+                      : 'Email Full 10-Page Audit Report ✉'}
+                  </button>
                   <button
                     type="button"
                     className="btn btn--paper-outline"
-                    onClick={handleResendReport}
-                    disabled={resendingReport}
+                    onClick={handleResetScan}
                   >
-                    {resendingReport ? 'Resending…' : `Resend Report to ${email}`}
+                    Scan Another Target ↻
                   </button>
                 </div>
               </div>
@@ -1659,27 +1589,23 @@ export function VyuScannerModal() {
                     <div className="vyu-frosted-lock">
                       <Lock size={20} />
                     </div>
-                    <h4>Full Cryptographic Bill of Materials Delivered to {email}</h4>
+                    <h4>{isReportDelivered ? `Full CBOM Delivered to ${email}` : 'Complete 23-Asset Cryptographic Bill of Materials Protected'}</h4>
                     <p>
-                      To protect sensitive infrastructure attack vectors, findings beyond the primary certificate & key exchange are redacted on-screen. The complete 10-page signed assessment report and machine-readable CycloneDX 1.7 CBOM have been delivered to your verified work email.
+                      {isReportDelivered
+                        ? 'To protect sensitive infrastructure attack vectors, findings beyond the primary certificate & key exchange are redacted on-screen. The complete 10-page signed assessment report and machine-readable CycloneDX 1.7 CBOM have been delivered to your verified work email.'
+                        : 'To protect sensitive infrastructure attack vectors, findings beyond the primary certificate & key exchange are redacted on-screen. The complete 10-page signed assessment report and machine-readable CycloneDX 1.7 CBOM are delivered directly to your verified work email.'}
                     </p>
                     <div className="vyu-frosted-btns">
                       <button
                         type="button"
                         className="btn btn--metal"
-                        onClick={handleResendReport}
+                        onClick={isReportDelivered ? handleResendReport : openClaimReport}
                         disabled={resendingReport}
                       >
-                        {resendingReport ? 'Resending…' : `Resend Report to ${email}`}
+                        {isReportDelivered
+                          ? (resendingReport ? 'Resending…' : `Resend Report to ${email}`)
+                          : 'Unlock & Receive Complete CBOM on Email ✉'}
                       </button>
-                      <a
-                        className="btn btn--paper-outline"
-                        href={pdfDownloadUrl || "/sample-report.pdf"}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {pdfDownloadUrl ? 'Download Your Assessment PDF ↗' : 'Download Sample Assessment PDF ↗'}
-                      </a>
                     </div>
                   </div>
                 </div>
@@ -1751,19 +1677,21 @@ export function VyuScannerModal() {
                       <Lock size={14} /> Perimeter Protection Policy
                     </div>
                     <h4 className="vyu-gated-title-paper">
-                      +{maskedFindingsCount} Additional Vulnerabilities Dispatched to Email
+                      +{maskedFindingsCount} Additional Vulnerabilities Protected
                     </h4>
                     <p className="vyu-gated-sub-paper">
-                      To protect your codebase and perimeter from public exposure, deep vulnerability call stacks, secret coordinates, and patch playbooks are withheld from this screen and delivered to <b>{email}</b>.
+                      To protect your codebase and perimeter from public exposure, deep vulnerability call stacks, secret coordinates, and patch playbooks are withheld from this screen and delivered exclusively to your corporate inbox.
                     </p>
                     <div className="vyu-gated-actions-paper">
                       <button
                         type="button"
                         className="btn btn--metal"
-                        onClick={handleResendReport}
+                        onClick={isReportDelivered ? handleResendReport : openClaimReport}
                         disabled={resendingReport}
                       >
-                        {resendingReport ? 'Resending…' : 'Re-send Full Findings to Verified Email'}
+                        {isReportDelivered
+                          ? (resendingReport ? 'Resending…' : `Resend Findings to ${email}`)
+                          : 'Unlock & Email Full Findings ✉'}
                       </button>
                     </div>
                   </div>
@@ -1775,23 +1703,279 @@ export function VyuScannerModal() {
                 <button
                   type="button"
                   className="btn btn--paper-outline"
-                  onClick={() => {
-                    setStep('profile');
-                    setTarget('');
-                    setResult(null);
-                    setOtpCode('');
-                  }}
+                  onClick={handleResetScan}
                 >
                   ← Scan another domain or repository
                 </button>
-                <a
+                <button
+                  type="button"
                   className="btn btn--metal"
-                  href="/contact/?product=U92-VyuAssure"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  onClick={isReportDelivered ? handleResendReport : openClaimReport}
                 >
-                  Consult with Post-Quantum Cryptographers ↗
-                </a>
+                  {isReportDelivered ? `Resend Full Report to ${email}` : 'Email Full 10-Page Audit Report ✉'}
+                </button>
+              </div>
+            </section>
+          )}
+
+          {/* ══════════════════════════════════════════════════
+              STEP 4: CORPORATE VERIFICATION GATE FOR REPORT
+             ══════════════════════════════════════════════════ */}
+          {step === 'claim_report' && (
+            <section className="vyu-step">
+              <div style={{ marginBottom: 16 }}>
+                <button
+                  type="button"
+                  className="vyu-btn-link"
+                  onClick={() => setStep('results')}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13 }}
+                >
+                  <ArrowLeft size={14} /> Back to Scan Preview
+                </button>
+              </div>
+
+              <h1 className="vyu-step-h1">Request Official 10-Page Assessment Report</h1>
+              <p className="vyu-step-intro">
+                Perimeter Confidentiality Policy: Assessment reports for <b>{target}</b> contain detailed vulnerability evidence, cryptographic parameters, and remediation playbooks. They are delivered exclusively to verified corporate email addresses.
+              </p>
+
+              <form className="vyu-card" onSubmit={handleClaimProfileSubmit} noValidate>
+                <div style={{ padding: '8px 14px', borderRadius: 8, background: 'rgba(196, 154, 69, 0.1)', border: '1px solid rgba(196, 154, 69, 0.3)', marginBottom: 16, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: 12.5, color: '#785419', fontWeight: 600 }}>Assessing Target:</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: '#0E1B36', fontFamily: 'monospace' }}>{target}</span>
+                </div>
+
+                <div className="vyu-row2">
+                  <div>
+                    <label htmlFor="claim-name" className="lbl">Full name</label>
+                    <input
+                      id="claim-name"
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="e.g. Kaustubh Kulkarni"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="claim-email" className="lbl">
+                      Corporate work email <span style={{ color: '#8A6522', fontWeight: 600 }}>*Strict</span>
+                    </label>
+                    <input
+                      id="claim-email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => handleEmailChange(e.target.value)}
+                      placeholder="name@company.com"
+                      required
+                    />
+                    {email && email.includes('@') && (
+                      <div className="vyu-email-feedback-wrap">
+                        {!isCorporateEmail(email) ? (
+                          <span className="vyu-email-feedback error">
+                            <AlertTriangle size={12} />
+                            Personal email providers (Gmail, Yahoo, etc.) prohibited.
+                          </span>
+                        ) : domainAuth ? (
+                          domainAuth.authorized ? (
+                            <span className="vyu-email-feedback success">
+                              {domainAuth.reason === 'uelement_internal_exemption' ? (
+                                <>
+                                  <ShieldCheck size={13} />
+                                  UElement Security Clearance (Universal Access)
+                                </>
+                              ) : (
+                                <>
+                                  <Check size={13} />
+                                  Authorized perimeter: {domainAuth.targetDomain || domainAuth.expected || target}
+                                </>
+                              )}
+                            </span>
+                          ) : (
+                            <span className="vyu-email-feedback error">
+                              <AlertTriangle size={12} />
+                              Perimeter Isolation: &quot;{domainAuth.emailDomain}&quot; cannot access reports for &quot;{domainAuth.targetDomain || domainAuth.expected || target}&quot;
+                            </span>
+                          )
+                        ) : null}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="vyu-row2">
+                  <div>
+                    <label htmlFor="claim-company" className="lbl">Organisation / Company</label>
+                    <input
+                      id="claim-company"
+                      type="text"
+                      value={company}
+                      onChange={(e) => setCompany(e.target.value)}
+                      placeholder="e.g. UElement Technologies"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="claim-title" className="lbl">Job title / Role</label>
+                    <input
+                      id="claim-title"
+                      type="text"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      placeholder="e.g. Chief Information Security Officer"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="vyu-row2">
+                  <div>
+                    <label htmlFor="claim-phone" className="lbl">Mobile phone (optional)</label>
+                    <input
+                      id="claim-phone"
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="+91 9876543210"
+                    />
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', paddingTop: 20 }}>
+                    <span style={{ fontSize: 12, color: '#64748B' }}>
+                      Report delivery format: Encrypted 10-Page PDF & CycloneDX 1.7 CBOM.
+                    </span>
+                  </div>
+                </div>
+
+                <label className="vyu-consent" style={{ marginTop: 12 }}>
+                  <input
+                    type="checkbox"
+                    checked={consent}
+                    onChange={(e) => setConsent(e.target.checked)}
+                  />
+                  <span>
+                    I confirm that I am authorised to receive this cryptographic evaluation for {target || 'the specified target'} and agree to perimeter terms.
+                  </span>
+                </label>
+
+                {formErr && <p className="vyu-err">{formErr}</p>}
+
+                <button
+                  type="submit"
+                  className="btn btn--metal"
+                  disabled={isSendingOtp}
+                  style={{ width: '100%', marginTop: 12 }}
+                >
+                  {isSendingOtp ? 'Validating & Sending Code…' : 'Send Verification Code to Email →'}
+                </button>
+              </form>
+            </section>
+          )}
+
+          {/* ══════════════════════════════════════════════════
+              STEP 5: OTP CONFIRMATION FOR REPORT DELIVERY
+             ══════════════════════════════════════════════════ */}
+          {step === 'claim_otp' && (
+            <section className="vyu-step">
+              <div className="vyu-otp-box">
+                <div className="vyu-otp-icon">✉</div>
+                <h2 style={{ margin: '0 0 8px', fontSize: 22, color: '#0E1B36', fontWeight: 600 }}>
+                  Verify your corporate email
+                </h2>
+                <p style={{ margin: '0 0 20px', fontSize: 14.5, color: '#56607A', lineHeight: 1.5 }}>
+                  We have dispatched a 6-digit security code to <b>{email}</b>.
+                  Please enter it below to confirm your organization authorization and dispatch your 10-page report.
+                </p>
+
+                <form onSubmit={handleClaimVerifyOtp}>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    maxLength={6}
+                    value={otpCode}
+                    onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, ''))}
+                    placeholder="••••••"
+                    className="vyu-otp-input"
+                    autoFocus
+                    required
+                  />
+
+                  {otpErr && <p className="vyu-err" style={{ marginBottom: 14 }}>{otpErr}</p>}
+
+                  <button
+                    type="submit"
+                    className="btn btn--metal"
+                    disabled={isVerifyingOtp || otpCode.length !== 6}
+                    style={{ width: '100%', maxWidth: 320, margin: '0 auto' }}
+                  >
+                    {isVerifyingOtp ? 'Verifying & Sending Report…' : 'Verify & Email 10-Page Report ✉'}
+                  </button>
+
+                  <div className="vyu-otp-resend-row">
+                    {resendTimer > 0 ? (
+                      <span>Resend code in {resendTimer}s</span>
+                    ) : (
+                      <button
+                        type="button"
+                        className="vyu-btn-link"
+                        onClick={handleResendOtp}
+                        disabled={isSendingOtp}
+                      >
+                        Resend code
+                      </button>
+                    )}
+                    <span>•</span>
+                    <button
+                      type="button"
+                      className="vyu-btn-link"
+                      onClick={() => setStep('claim_report')}
+                    >
+                      Edit details
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </section>
+          )}
+
+          {/* ══════════════════════════════════════════════════
+              STEP 6: REPORT DISPATCH CONFIRMATION
+             ══════════════════════════════════════════════════ */}
+          {step === 'claim_success' && (
+            <section className="vyu-step">
+              <div className="vyu-otp-box">
+                <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'rgba(34, 197, 94, 0.1)', border: '1px solid rgba(34, 197, 94, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
+                  <Check size={28} color="#16a34a" strokeWidth={3} />
+                </div>
+                <h2 style={{ margin: '0 0 8px', fontSize: 22, color: '#0E1B36', fontWeight: 700 }}>
+                  Assessment Report Dispatched!
+                </h2>
+                <p style={{ margin: '0 0 20px', fontSize: 14.5, color: '#56607A', lineHeight: 1.6 }}>
+                  The complete 10-page signed Cryptographic Bill of Materials (CBOM), Mosca exposure timeline, and remediation plan for <b>{target}</b> has been emailed to <b>{email}</b>.
+                </p>
+
+                <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '14px 18px', textAlign: 'left', marginBottom: 24, fontSize: 13, color: '#475569', lineHeight: 1.6 }}>
+                  <b style={{ color: '#0f172a', display: 'block', marginBottom: 4 }}>Perimeter Confidentiality Notice:</b>
+                  To protect your infrastructure attack vectors from public exposure, reports are exclusively distributed through verified corporate channels and are not stored for public download on the web.
+                </div>
+
+                <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+                  <button
+                    type="button"
+                    className="btn btn--metal"
+                    onClick={() => setStep('results')}
+                  >
+                    Return to Scan Summary
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn--paper-outline"
+                    onClick={handleResetScan}
+                  >
+                    Scan Another Target ↻
+                  </button>
+                </div>
               </div>
             </section>
           )}

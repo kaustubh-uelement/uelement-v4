@@ -757,13 +757,23 @@ export function VyuProductView() {
 
               <p className="vyu-sample-link">
                 From a scan of our fictional demo bank.{' '}
-                <a
-                  href="/sample-report.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  type="button"
+                  data-vyu-open
+                  data-vyu-target="demo.bank.uelement.co"
+                  data-vyu-kind="website"
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    padding: 0,
+                    color: 'inherit',
+                    font: 'inherit',
+                    textDecoration: 'underline',
+                    cursor: 'pointer',
+                  }}
                 >
-                  Open the full sample report (PDF) ↗
-                </a>
+                  Inspect demo bank assessment ↗
+                </button>
               </p>
             </div>
           </div>
