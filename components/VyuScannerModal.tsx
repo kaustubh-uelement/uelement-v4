@@ -178,7 +178,7 @@ function getVyuGoApiUrl(): string {
   }
   return (
     process.env.NEXT_PUBLIC_VYU_API_URL ||
-    'https://pqc-scanner-v2-7m5tqqcfxq-el.a.run.app'
+    'https://pqc-scanner-v2-445288556278.asia-south1.run.app'
   );
 }
 
@@ -325,6 +325,9 @@ export function VyuScannerModal() {
   const [result, setResult] = useState<ScanResult | null>(null);
   const [filter, setFilter] = useState<'all' | 'quantum' | 'pass'>('all');
   const [resendingReport, setResendingReport] = useState(false);
+  const [scanId, setScanId] = useState('');
+  const [viewKey, setViewKey] = useState('');
+  const [pdfDownloadUrl, setPdfDownloadUrl] = useState('');
 
   // Real-time Domain Authorization Evaluation
   const domainAuth = useMemo(() => {
@@ -519,7 +522,12 @@ export function VyuScannerModal() {
   };
 
   /* ── Dispatch Report to Verified Corporate Email ── */
-  const dispatchReportToEmail = async (scanRes: ScanResult) => {
+  const dispatchReportToEmail = async (
+    scanRes: ScanResult,
+    overrideScanId?: string,
+    overrideViewKey?: string,
+    overridePdfUrl?: string
+  ) => {
     try {
       const apiUrl = getScannerApiUrl();
       const enrichedAssets = (scanRes.assets || []).map((a: any, idx: number) => {
@@ -570,6 +578,10 @@ export function VyuScannerModal() {
         };
       });
 
+      const effectiveScanId = overrideScanId || scanId;
+      const effectiveViewKey = overrideViewKey || viewKey;
+      const effectivePdfUrl = overridePdfUrl || pdfDownloadUrl;
+
       fetch(`${apiUrl}/api/report/send-email`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -584,6 +596,9 @@ export function VyuScannerModal() {
           cbomSummary: enrichedAssets.slice(0, 10),
           cbom: enrichedAssets,
           findings: scanRes.findings,
+          scanId: effectiveScanId,
+          viewKey: effectiveViewKey,
+          pdfUrl: effectivePdfUrl,
           when: new Date().toISOString(),
         }),
       }).catch(() => null);
@@ -752,6 +767,9 @@ export function VyuScannerModal() {
 
     let liveSuccess = false;
     let fetchedResult: ScanResult | null = null;
+    let finalPdfUrl = '';
+    let currentId = '';
+    let currentKey = '';
 
     // 1. Try Go backend deployed on Cloud Run (pqc-scanner-v2)
     try {
@@ -769,14 +787,18 @@ export function VyuScannerModal() {
       });
 
       if (res.ok) {
-        const { id, viewKey } = await res.json();
-        if (id && viewKey) {
+        const { id, viewKey: k } = await res.json();
+        if (id && k) {
+          currentId = id;
+          currentKey = k;
+          setScanId(id);
+          setViewKey(k);
           let done = false;
           let attempts = 0;
           while (!done && attempts < 90) {
             await new Promise((r) => setTimeout(r, 1200));
             attempts++;
-            const pollRes = await fetch(`${goUrl}/api/scans/${id}?k=${viewKey}`);
+            const pollRes = await fetch(`${goUrl}/api/scans/${id}?k=${k}`);
             if (pollRes.ok) {
               const pollData = await pollRes.json();
               if (pollData.result) {
@@ -787,6 +809,32 @@ export function VyuScannerModal() {
                 done = true;
                 break;
               }
+            }
+          }
+
+          // Pre-generate authentic 10-page report via Go Chromium engine
+          if (liveSuccess && fetchedResult) {
+            try {
+              const repRes = await fetch(`${goUrl}/api/scans/${id}/report?k=${k}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  name: name.trim(),
+                  company: company.trim() || target,
+                  role: title.trim(),
+                  email: email.trim().toLowerCase(),
+                }),
+              });
+              if (repRes.ok) {
+                const repData = await repRes.json();
+                if (repData.links?.pdf) {
+                  const resolvedPdf = repData.links.pdf.replace('https://scan.uelement.co', goUrl);
+                  finalPdfUrl = resolvedPdf;
+                  setPdfDownloadUrl(resolvedPdf);
+                }
+              }
+            } catch {
+              // Non-fatal fallback to static 10-page sample
             }
           }
         }
@@ -865,7 +913,7 @@ export function VyuScannerModal() {
         if (!Array.isArray(fetchedResult.assets)) fetchedResult.assets = [];
         setResult(fetchedResult);
         setStep('results');
-        dispatchReportToEmail(fetchedResult);
+        dispatchReportToEmail(fetchedResult, currentId, currentKey, finalPdfUrl);
       }
     }, 2800);
   };
@@ -874,7 +922,7 @@ export function VyuScannerModal() {
   const handleResendReport = async () => {
     if (!result) return;
     setResendingReport(true);
-    await dispatchReportToEmail(result);
+    await dispatchReportToEmail(result, scanId, viewKey, pdfDownloadUrl);
     setTimeout(() => setResendingReport(false), 800);
   };
 
@@ -1474,11 +1522,11 @@ export function VyuScannerModal() {
                 <div className="vyu-scorecard-actions">
                   <a
                     className="btn btn--metal"
-                    href="/sample-report.pdf"
+                    href={pdfDownloadUrl || "/sample-report.pdf"}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Download Sample Assessment PDF ↗
+                    {pdfDownloadUrl ? 'Download Your Assessment PDF ↗' : 'Download Sample Assessment PDF ↗'}
                   </a>
                   <button
                     type="button"
@@ -1626,11 +1674,11 @@ export function VyuScannerModal() {
                       </button>
                       <a
                         className="btn btn--paper-outline"
-                        href="/sample-report.pdf"
+                        href={pdfDownloadUrl || "/sample-report.pdf"}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        Download Sample Assessment PDF ↗
+                        {pdfDownloadUrl ? 'Download Your Assessment PDF ↗' : 'Download Sample Assessment PDF ↗'}
                       </a>
                     </div>
                   </div>

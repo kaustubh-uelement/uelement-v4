@@ -11,6 +11,7 @@ RUN npm install --omit=dev
 COPY lib/ ./lib/
 COPY shared/ ./shared/
 COPY server.mjs ./
+COPY sample-report.pdf ./
 
 ENV NODE_ENV=production \
     PORT=8080 \
