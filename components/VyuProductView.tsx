@@ -156,7 +156,8 @@ export function VyuProductView() {
               <span>U92-Vyu</span>
             </nav>
 
-            <span className="status status--gold" style={{ marginBottom: 16 }}>
+            <span className="vyu-label vyu-lab-live" style={{ marginBottom: 16 }}>
+              <i aria-hidden="true" />
               Live, free to use
             </span>
 
@@ -410,7 +411,7 @@ export function VyuProductView() {
       </section>
 
       {/* ── THE RISK SECTION ── */}
-      <section className="vyu-band paper" id="risk" aria-labelledby="risk-title">
+      <section className="vyu-band dark" id="risk" aria-labelledby="risk-title">
         <div className="vyu-wrap">
           <p className="vyu-eyebrow">The risk, in plain words</p>
           <h2 className="vyu-h2" id="risk-title">
@@ -599,7 +600,7 @@ export function VyuProductView() {
       </section>
 
       {/* ── QUESTIONS ANSWERED ── */}
-      <section className="vyu-band creme" id="answers" aria-labelledby="answers-title">
+      <section className="vyu-band paper" id="answers" aria-labelledby="answers-title">
         <div className="vyu-wrap">
           <p className="vyu-eyebrow">What one scan tells you</p>
           <h2 className="vyu-h2" id="answers-title">
@@ -687,7 +688,7 @@ export function VyuProductView() {
       </section>
 
       {/* ── REPORT TOUR ── */}
-      <section className="vyu-band paper" id="report" aria-labelledby="report-title">
+      <section className="vyu-band creme" id="report" aria-labelledby="report-title">
         <div className="vyu-wrap">
           <p className="vyu-eyebrow">The report</p>
           <h2 className="vyu-h2" id="report-title">
@@ -781,7 +782,7 @@ export function VyuProductView() {
       </section>
 
       {/* ── WHAT IT CHECKS (COVERAGE) ── */}
-      <section className="vyu-band creme" id="checks" aria-labelledby="checks-title">
+      <section className="vyu-band paper" id="checks" aria-labelledby="checks-title">
         <div className="vyu-wrap">
           <p className="vyu-eyebrow">Coverage</p>
           <h2 className="vyu-h2" id="checks-title">What a free scan checks</h2>
@@ -965,12 +966,12 @@ export function VyuProductView() {
 
           <ol className="vyu-steps">
             <li>
-              <span className="n">Step 1</span>
+              <span className="n">Step 01</span>
               <h3>Enter a domain or repository</h3>
               <p>Confirm you are authorised to request the evaluation.</p>
             </li>
             <li>
-              <span className="n">Step 2</span>
+              <span className="n">Step 02</span>
               <h3>Watch the checks run</h3>
               <p>
                 Handshakes, certificates, DNS, mail, page scripts and certificate
@@ -978,7 +979,7 @@ export function VyuProductView() {
               </p>
             </li>
             <li>
-              <span className="n">Step 3</span>
+              <span className="n">Step 03</span>
               <h3>Read the results, get the report</h3>
               <p>
                 Score and fixes on screen straight away. Leave a work email for
@@ -1190,15 +1191,7 @@ export function VyuProductView() {
           </div>
 
           <div className="vyu-team">
-            <div className="vyu-team-tile" aria-hidden="true">
-              <img
-                src="/icon.png"
-                alt="UElement"
-                width={32}
-                height={32}
-                style={{ objectFit: 'contain', borderRadius: '6px' }}
-              />
-            </div>
+            <span className="vyu-tile" aria-hidden="true">92</span>
             <div>
               <h3>Made by U92 Quantum Security at UElement</h3>
               <p>
@@ -1296,13 +1289,19 @@ export function VyuProductView() {
                   <th scope="col">
                     <div className="vyu-th-col">
                       <span className="vyu-th-title">U92-Vyu</span>
-                      <span className="status status--gold">Live, free</span>
+                      <span className="vyu-label vyu-lab-live">
+                        <i aria-hidden="true" />
+                        Live, free
+                      </span>
                     </div>
                   </th>
                   <th scope="col">
                     <div className="vyu-th-col">
                       <span className="vyu-th-title">U92-VyuAssure</span>
-                      <span className="status status--line">In build, early access</span>
+                      <span className="vyu-label vyu-lab-build">
+                        <i aria-hidden="true" />
+                        In build, early access
+                      </span>
                     </div>
                   </th>
                 </tr>
@@ -1418,28 +1417,40 @@ export function VyuProductView() {
 
           <div className="vyu-journey">
             <div className="vyu-jc">
-              <span className="step">Step 1: See</span>
+              <span className="step">Step 01: See</span>
               <h3>U92-Vyu</h3>
               <p>A free check of one public host or repository, with a signed summary and CBOM.</p>
-              <span className="status status--gold">Live, free</span>
+              <span className="vyu-label vyu-lab-live">
+                <i aria-hidden="true" />
+                Live, free
+              </span>
             </div>
             <div className="vyu-jc">
-              <span className="step">Step 2: Prove</span>
+              <span className="step">Step 02: Prove</span>
               <h3>U92-VyuAssure</h3>
               <p>Every endpoint, a full SBOM with VEX, and evidence packs for your regulators.</p>
-              <span className="status status--line">In build, early access</span>
+              <span className="vyu-label vyu-lab-build">
+                <i aria-hidden="true" />
+                In build, early access
+              </span>
             </div>
             <div className="vyu-jc">
-              <span className="step">Step 3: Discover</span>
+              <span className="step">Step 03: Discover</span>
               <h3>U92-DeepVyu</h3>
               <p>Internal services, private code, HSMs and key stores, in one signed inventory with a costed plan.</p>
-              <span className="status status--dash">By engagement</span>
+              <span className="vyu-label vyu-lab-eng">
+                <i aria-hidden="true" />
+                By engagement
+              </span>
             </div>
             <div className="vyu-jc">
-              <span className="step">Step 4: Migrate</span>
+              <span className="step">Step 04: Migrate</span>
               <h3>U92-PQc</h3>
               <p>Applications moved to ML-KEM and ML-DSA one at a time, with crypto-agility built in.</p>
-              <span className="status status--dash">By engagement</span>
+              <span className="vyu-label vyu-lab-eng">
+                <i aria-hidden="true" />
+                By engagement
+              </span>
             </div>
           </div>
         </div>

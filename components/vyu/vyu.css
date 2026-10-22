@@ -522,9 +522,6 @@
   padding: 0;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
-.vyu-band.paper .vyu-story {
-  border-top: 1px solid #DCCFB5;
-}
 .vyu-story li {
   list-style: none;
   padding: 28px 28px 8px 0;
@@ -535,25 +532,10 @@
     padding-left: 28px;
     border-left: 1px solid rgba(255, 255, 255, 0.12);
   }
-  .vyu-band.paper .vyu-story li + li {
-    border-left: 1px solid #DCCFB5;
-  }
 }
 .vyu-story svg {
   width: 44px;
   height: 44px;
-}
-.vyu-band.paper .vyu-story svg rect {
-  fill: #EDE3CF;
-  stroke: #DCCFB5;
-}
-.vyu-band.paper .vyu-story svg path,
-.vyu-band.paper .vyu-story svg ellipse,
-.vyu-band.paper .vyu-story svg circle {
-  stroke: #8A6522;
-}
-.vyu-band.paper .vyu-story svg rect[stroke="#E0705F"] {
-  stroke: #C9473C;
 }
 .vyu-story h3 {
   font-size: 21px;
@@ -561,16 +543,10 @@
   margin: 16px 0 8px;
   font-weight: 550;
 }
-.vyu-band.paper .vyu-story h3 {
-  color: #0E1B36;
-}
 .vyu-story p {
   font-size: 16px;
   color: #D9DEE8;
   line-height: 1.5;
-}
-.vyu-band.paper .vyu-story p {
-  color: #2A3350;
 }
 .vyu-story .yr {
   font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
@@ -581,9 +557,7 @@
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.02em;
 }
-.vyu-band.paper .vyu-story .yr {
-  color: #8A6522;
-}
+
 .vyu-relief {
   margin-top: 40px;
   display: grid;
@@ -595,29 +569,19 @@
   border-radius: 14px;
   padding: 20px 22px;
 }
-.vyu-band.paper .vyu-relief {
-  background: rgba(47, 122, 87, 0.08);
-  border: 1px solid rgba(47, 122, 87, 0.28);
-}
 .vyu-relief svg {
   width: 26px;
   height: 26px;
 }
 .vyu-relief p {
-  font-size: 16px;
+  font-size: 16.5px;
   color: #D9DEE8;
   line-height: 1.55;
   margin: 0;
 }
-.vyu-band.paper .vyu-relief p {
-  color: #2A3350;
-}
 .vyu-relief b {
   color: #fff;
   font-weight: 600;
-}
-.vyu-band.paper .vyu-relief b {
-  color: #0E1B36;
 }
 
 /* Exposure Calculator */
@@ -630,20 +594,15 @@
   padding-top: 44px;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
-.vyu-band.paper .vyu-calc {
-  border-top: 1px solid #DCCFB5;
-}
 .vyu-calc h3 {
   font-size: 26px;
   color: #fff;
   letter-spacing: -0.015em;
   font-weight: 550;
 }
-.vyu-band.paper .vyu-calc h3 {
-  color: #0E1B36;
-}
-.vyu-band.paper .vyu-calc .vyu-lead {
-  color: #2A3350;
+.vyu-calc .vyu-lead {
+  font-size: 17px;
+  color: #D9DEE8;
 }
 .vyu-ctl {
   display: grid;
@@ -653,7 +612,7 @@
 .vyu-ctl .lbl {
   display: block;
   font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 600;
   color: #fff;
   margin-bottom: 8px;
@@ -662,9 +621,6 @@
 .vyu-ctl .lbl b {
   font-family: inherit;
   font-variant-numeric: tabular-nums;
-}
-.vyu-band.paper .vyu-ctl .lbl {
-  color: #0E1B36;
 }
 .vyu-seg {
   display: flex;
@@ -676,24 +632,19 @@
   box-sizing: border-box;
   cursor: pointer;
   font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
   color: #D9DEE8;
-  padding: 8px 14px;
+  padding: 8px 13px;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.03);
   transition: all 0.2s ease;
 }
-.vyu-band.paper .vyu-seg button {
-  background: #fff;
-  border: 1px solid #DCCFB5;
-  color: #2A3350;
-}
-.vyu-band.paper .vyu-seg button:hover:not([aria-pressed="true"]) {
-  background: #FBF8F1;
-  border-color: #C49A45;
+.vyu-seg button:hover:not([aria-pressed="true"]) {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 .vyu-seg button[aria-pressed="true"] {
   background: #F6F0E4;
@@ -701,60 +652,38 @@
   border-color: #F6F0E4;
   font-weight: 600;
 }
-.vyu-band.paper .vyu-seg button[aria-pressed="true"] {
-  background: #0E1B36;
-  color: #fff;
-  border-color: #0E1B36;
-}
-.vyu-seg button:hover:not([aria-pressed="true"]) {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.25);
+.vyu-seg button:focus-visible {
+  outline: 2px solid #DDBB6E;
+  outline-offset: 2px;
 }
 
 .vyu-out {
-  background: rgba(6, 11, 24, 0.6);
+  background: rgba(6, 11, 24, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 14px;
-  padding: 24px;
-}
-.vyu-band.paper .vyu-out {
-  background: #FBF8F1;
-  border: 1px solid #DCCFB5;
-  box-shadow: 0 10px 30px -10px rgba(14, 27, 54, 0.08);
+  padding: 22px;
 }
 .vyu-verdict-big {
   font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
-  font-size: 22px;
-  line-height: 1.35;
+  font-size: 23px;
+  line-height: 1.28;
   color: #fff;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.01em;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   margin: 0;
 }
-.vyu-band.paper .vyu-verdict-big {
-  color: #0E1B36;
-}
 .vyu-verdict-big.bad {
   color: #F3B3A8;
 }
-.vyu-band.paper .vyu-verdict-big.bad {
-  color: #9E2B25;
-}
 .vyu-verdict-big.ok {
   color: #A8E0C2;
-}
-.vyu-band.paper .vyu-verdict-big.ok {
-  color: #2F7A57;
 }
 .vyu-out p.sub {
   font-size: 15px;
   color: #D9DEE8;
   margin: 10px 0 0;
   line-height: 1.5;
-}
-.vyu-band.paper .vyu-out p.sub {
-  color: #56607A;
 }
 
 .vyu-tlbar {
@@ -763,9 +692,6 @@
   border-radius: 4px;
   background: rgba(255, 255, 255, 0.08);
   margin: 40px 0 40px;
-}
-.vyu-band.paper .vyu-tlbar {
-  background: rgba(14, 27, 54, 0.08);
 }
 .vyu-tlbar .seg-r {
   position: absolute;
@@ -787,9 +713,6 @@
   bottom: -10px;
   border-left: 2px dashed #fff;
 }
-.vyu-band.paper .vyu-tlbar .mk {
-  border-left-color: #0E1B36;
-}
 .vyu-tlbar .mk span {
   position: absolute;
   top: -24px;
@@ -802,9 +725,6 @@
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
-.vyu-band.paper .vyu-tlbar .mk span {
-  color: #0E1B36;
-}
 .vyu-tlbar .q {
   position: absolute;
   top: -4px;
@@ -814,11 +734,6 @@
   transform: rotate(45deg);
   background: #F6F0E4;
   border-radius: 3px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-.vyu-band.paper .vyu-tlbar .q {
-  background: #0E1B36;
-  box-shadow: 0 2px 8px rgba(14, 27, 54, 0.3);
 }
 .vyu-tlbar .ql {
   position: absolute;
@@ -831,9 +746,6 @@
   font-weight: 500;
   font-variant-numeric: tabular-nums;
 }
-.vyu-band.paper .vyu-tlbar .ql {
-  color: #56607A;
-}
 .vyu-tlaxis {
   display: flex;
   justify-content: space-between;
@@ -843,9 +755,6 @@
   font-variant-numeric: tabular-nums;
   margin-top: -20px;
 }
-.vyu-band.paper .vyu-tlaxis {
-  color: #56607A;
-}
 .vyu-legend {
   display: flex;
   flex-wrap: wrap;
@@ -853,9 +762,6 @@
   font-size: 13px;
   color: #9AA5BB;
   margin-top: 14px;
-}
-.vyu-band.paper .vyu-legend {
-  color: #56607A;
 }
 .vyu-legend i {
   display: inline-block;
@@ -869,11 +775,8 @@
   display: block;
   font-size: 13px;
   color: #9AA5BB;
-  margin-top: 16px;
+  margin-top: 14px;
   line-height: 1.5;
-}
-.vyu-band.paper .vyu-calc small {
-  color: #56607A;
 }
 
 /* Questions answered grid */
@@ -1238,8 +1141,10 @@
   flex-wrap: wrap;
   gap: 6px 16px;
   margin-top: 10px;
+  font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
   font-size: 13px;
   color: #56607A;
+  font-variant-numeric: tabular-nums;
 }
 .vyu-wl i {
   display: inline-block;
@@ -1342,17 +1247,23 @@
   border-radius: 14px;
   padding: 24px 26px;
 }
+.vyu-tile,
 .vyu-team-tile {
   width: 52px;
   height: 52px;
-  font-size: 20px;
+  font-size: 22px;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
   display: grid;
   place-items: center;
   color: #fff;
-  font-weight: 600;
+  font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  flex: none;
 }
 .vyu-team h3 {
   color: #fff;
@@ -1667,25 +1578,14 @@
   }
   .vyu-story li,
   .vyu-story li + li,
-  .vyu-band.paper .vyu-story li,
-  .vyu-band.paper .vyu-story li + li,
   .vyu-steps li,
-  .vyu-steps li + li,
-  .vyu-band.paper .vyu-steps li,
-  .vyu-band.paper .vyu-steps li + li {
-    padding: 24px 0 8px !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    border-left: none !important;
+  .vyu-steps li + li {
+    padding: 24px 0 8px;
+    border-left: 0;
   }
   .vyu-story li + li,
   .vyu-steps li + li {
     border-top: 1px solid rgba(255, 255, 255, 0.12);
-  }
-  .vyu-band.paper .vyu-story li + li,
-  .vyu-band.paper .vyu-steps li + li {
-    border-top: none !important;
-    border-left: none !important;
   }
   .vyu-qs,
   .vyu-trust,
