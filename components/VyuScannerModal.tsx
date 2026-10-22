@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Check, ShieldCheck, AlertTriangle, Lock, Shield, Mail, RotateCcw, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Check, ShieldCheck, AlertTriangle, Lock, Shield, Mail, RotateCcw, ArrowRight, ArrowLeft, X } from 'lucide-react';
 import './vyu/scanner.css';
 import { submitContactInquiry } from '@/lib/mainstay';
 
@@ -1112,15 +1112,6 @@ export function VyuScannerModal() {
       aria-label="U92-Vyu Quantum Readiness Scanner"
     >
       <div className="vyu-modal-box" ref={modalRef}>
-        <button
-          type="button"
-          className="vyu-modal-close"
-          onClick={() => setOpen(false)}
-          aria-label="Close scanner"
-        >
-          ×
-        </button>
-
         <header className="vyu-modal-top">
           <a
             className="vyu-modal-brand"
@@ -1144,14 +1135,24 @@ export function VyuScannerModal() {
               <span className="vyu-modal-brand-sub">Quantum Readiness Scanner</span>
             </div>
           </a>
-          <a
-            className="vyu-modal-toplink"
-            href="/vyu/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            How Vyu scans ↗
-          </a>
+          <div className="vyu-modal-top-actions">
+            <a
+              className="vyu-modal-toplink"
+              href="/vyu/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              How Vyu scans ↗
+            </a>
+            <button
+              type="button"
+              className="vyu-modal-close"
+              onClick={() => setOpen(false)}
+              aria-label="Close scanner"
+            >
+              <X size={17} strokeWidth={2.4} aria-hidden="true" />
+            </button>
+          </div>
         </header>
 
         <main className="vyu-modal-main">

@@ -28,27 +28,28 @@
 
 .vyu-modal-close {
   all: unset;
-  position: absolute;
-  top: 14px;
-  right: 16px;
-  z-index: 20;
+  box-sizing: border-box;
   width: 36px;
   height: 36px;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.22);
   background: rgba(13, 26, 52, 0.9);
   color: #fff;
-  font-size: 22px;
-  line-height: 1;
   cursor: pointer;
+  flex-shrink: 0;
   transition: all 0.2s ease;
 }
 .vyu-modal-close:hover {
   border-color: #DDBB6E;
   color: #DDBB6E;
   background: rgba(22, 42, 82, 0.95);
+  box-shadow: 0 0 12px rgba(221, 187, 110, 0.25);
+}
+.vyu-modal-close svg {
+  display: block;
 }
 
 .vyu-modal-top {
@@ -100,13 +101,21 @@
   font-size: 13px;
   color: #B4BED0;
 }
+.vyu-modal-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
 .vyu-modal-toplink {
   font-size: 13.5px;
   color: #B4BED0;
   text-decoration: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-  margin-right: 48px;
-  transition: color 0.2s ease;
+  margin-right: 0;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.2;
+  transition: color 0.2s ease, border-color 0.2s ease;
 }
 .vyu-modal-toplink:hover {
   color: #fff;
