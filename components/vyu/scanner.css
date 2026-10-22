@@ -139,8 +139,10 @@
 }
 .vyu-progress li span::before {
   content: counter(s) "  ";
+  font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
+  font-variant-numeric: tabular-nums;
   color: inherit;
-  font-weight: 600;
+  font-weight: 700;
 }
 .vyu-progress li.on {
   border-top-color: #C49A45;
@@ -490,8 +492,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
   font-size: 34px;
-  font-weight: 600;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
   color: #fff;
 }
 .vyu-res-info .target {
@@ -839,7 +843,10 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
+  font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
   font-size: 11px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
   background: rgba(255, 255, 255, 0.08);
   color: inherit;
   flex: none;
@@ -887,8 +894,10 @@
   font-size: 24px;
 }
 .vyu-otp-input {
+  font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif) !important;
   font-size: 28px !important;
   font-weight: 700 !important;
+  font-variant-numeric: tabular-nums !important;
   letter-spacing: 10px !important;
   text-align: center !important;
   padding: 14px 18px !important;
@@ -1207,11 +1216,14 @@
 .vyu-score-box.ready .score-val { color: #15803D; }
 
 .vyu-score-box .score-val {
+  font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
   font-size: 32px;
   font-weight: 800;
+  font-variant-numeric: tabular-nums;
   line-height: 1;
 }
 .vyu-score-box .score-lbl {
+  font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
   font-size: 10px;
   font-weight: 700;
   color: #64748B;
@@ -1227,8 +1239,10 @@
   align-items: center;
   padding: 3px 12px;
   border-radius: 999px;
+  font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
   font-size: 11px;
   font-weight: 700;
+  font-variant-numeric: tabular-nums;
   letter-spacing: 0.04em;
   margin-bottom: 6px;
   width: fit-content;
@@ -1278,8 +1292,10 @@
   align-items: center;
 }
 .vyu-metric-card .metric-val {
+  font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
   font-size: 22px;
   font-weight: 800;
+  font-variant-numeric: tabular-nums;
   color: #0E1B36;
   line-height: 1.1;
 }

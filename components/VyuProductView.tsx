@@ -324,8 +324,8 @@ export function VyuProductView() {
                   x="60"
                   y="64"
                   textAnchor="middle"
-                  fontFamily="Onest, sans-serif"
-                  fontWeight="600"
+                  fontFamily="var(--font-reddit, 'Reddit Sans', system-ui, sans-serif)"
+                  fontWeight="700"
                   fontSize="34"
                   fill="#fff"
                 >
@@ -335,8 +335,10 @@ export function VyuProductView() {
                   x="60"
                   y="84"
                   textAnchor="middle"
-                  fontFamily="Onest, sans-serif"
+                  fontFamily="var(--font-reddit, 'Reddit Sans', system-ui, sans-serif)"
+                  fontWeight="600"
                   fontSize="11"
+                  letterSpacing="0.04em"
                   fill="#9AA5BB"
                 >
                   Grade E
