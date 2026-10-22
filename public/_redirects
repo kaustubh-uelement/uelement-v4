@@ -1,0 +1,4 @@
+# Cloudflare Pages 301 Redirects
+/platforms/u92-quantum/vyu/* /vyu/ 301
+/platforms/u92-quantum/vyu/  /vyu/ 301
+/platforms/u92-quantum/vyu   /vyu/ 301

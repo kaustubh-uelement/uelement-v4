@@ -55,7 +55,7 @@ export const nav: NavMenu[] = [
         title: 'U92 Quantum',
         href: '/platforms/u92-quantum/',
         links: [
-          { label: 'U92-Vyu', href: '/platforms/u92-quantum/vyu/', note: 'Cryptographic discovery' },
+          { label: 'U92-Vyu', href: '/vyu/', note: 'Cryptographic discovery' },
           { label: 'U92-PQc', href: '/platforms/u92-quantum/pqc/', note: 'Post-quantum migration' },
           { label: 'U92-CryptoAG', href: '/platforms/u92-quantum/cryptoag/', note: 'Crypto-agility' },
           { label: 'U92-QKD', href: '/platforms/u92-quantum/qkd/', note: 'Quantum key distribution' },

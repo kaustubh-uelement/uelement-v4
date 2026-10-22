@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { PageHero, SectionHead, StatusBadge, CtaPanel } from "@/components/ui";
 import { ProductCard } from "@/components/blocks";
 import { platforms, industries } from "@/lib/content";
@@ -28,6 +28,13 @@ export async function generateMetadata({
   params: Promise<{ platform: string; product: string }>;
 }): Promise<Metadata> {
   const { platform, product } = await params;
+  if (platform === "u92-quantum" && product === "vyu") {
+    return {
+      title: "U92-Vyu: Quantum Readiness Evaluation",
+      description: "Find your quantum exposure in sixty seconds.",
+      alternates: { canonical: "/vyu/" },
+    };
+  }
   const f = find(platform, product);
   if (!f) return {};
   return {
@@ -43,6 +50,9 @@ export default async function ProductPage({
   params: Promise<{ platform: string; product: string }>;
 }) {
   const { platform, product } = await params;
+  if (platform === "u92-quantum" && product === "vyu") {
+    redirect("/vyu/");
+  }
   const f = find(platform, product);
   if (!f) notFound();
   const { p, x } = f;

@@ -108,7 +108,7 @@ const platformsData = [
         badgeType: 'gold' as const,
         title: 'Cryptographic Discovery',
         summary: 'Find every cryptographic lock, key, and certificate you depend on.',
-        href: '/platforms/u92-quantum/vyu/',
+        href: '/vyu/',
       },
       {
         code: 'Q · 02',
@@ -730,7 +730,7 @@ export function Header() {
 
                   {/* Bottom Footer Links */}
                   <div className="mega-platform__footer">
-                    <Link href="/platforms/u92-quantum/vyu/" className="mega-platform__footer-link">
+                    <Link href="/vyu/" className="mega-platform__footer-link">
                       CHECK YOUR QUANTUM EXPOSURE <Icon name="arrow" />
                     </Link>
                     <Link href="/platforms/u92-enterprise/nexus/" className="mega-platform__footer-link">

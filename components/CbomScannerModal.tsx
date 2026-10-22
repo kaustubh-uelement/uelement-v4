@@ -1240,18 +1240,12 @@ export function CbomScannerModal() {
 
       // Official UElement white brand logo
       try {
-        doc.addImage(UELEMENT_WHITE_LOGO_BASE64, 'PNG', M, 20, 115, 35);
+        doc.addImage(UELEMENT_WHITE_LOGO_BASE64, 'PNG', M, 28, 120, 18);
       } catch {
-        doc.setFillColor(255, 255, 255);
-        doc.roundedRect(M, 20, 35, 35, 4, 4, 'F');
-        doc.setTextColor(NAVY[0], NAVY[1], NAVY[2]);
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(14);
-        doc.text('92', M + 9, 42);
-
         doc.setTextColor(255, 255, 255);
-        doc.setFontSize(12);
-        doc.text('UELEMENT', M + 44, 42);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(16);
+        doc.text('UELEMENT', M, 42);
       }
 
       // Vertical divider line in header

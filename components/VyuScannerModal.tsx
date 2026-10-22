@@ -1146,7 +1146,7 @@ export function VyuScannerModal() {
           </a>
           <a
             className="vyu-modal-toplink"
-            href="/platforms/u92-quantum/vyu/"
+            href="/vyu/"
             target="_blank"
             rel="noopener noreferrer"
           >
