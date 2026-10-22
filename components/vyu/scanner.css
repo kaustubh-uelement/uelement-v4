@@ -920,13 +920,15 @@
 .vyu-btn-link {
   all: unset;
   cursor: pointer;
-  color: #8A6522;
+  color: #C49A45;
   font-weight: 600;
   text-decoration: underline;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
 }
 .vyu-btn-link:hover {
-  color: #0E1B36;
+  color: #F6E6C2;
+  text-decoration: underline;
+  text-shadow: 0 0 10px rgba(246, 230, 194, 0.4);
 }
 
 /* ── Dynamic Corporate Email Perimeter Feedback ── */
