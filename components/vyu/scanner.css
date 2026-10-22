@@ -1106,14 +1106,16 @@
   border-radius: 14px;
   padding: 16px 20px;
   display: flex;
-  align-items: flex-start;
-  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
 }
 .vyu-dispatch-icon-paper {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: #DCFCE7;
   border: 1px solid #4ADE80;
@@ -1122,6 +1124,10 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+}
+.vyu-dispatch-body-paper {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 .vyu-dispatch-body-paper h4 {
   margin: 0 0 4px;
@@ -1134,6 +1140,31 @@
   font-size: 13.5px;
   color: #166534;
   line-height: 1.5;
+}
+.vyu-dispatch-btn-paper {
+  flex-shrink: 0;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 20px;
+  height: 42px;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .vyu-dispatch-alert-paper {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px;
+    gap: 14px;
+  }
+  .vyu-dispatch-btn-paper {
+    width: 100%;
+    margin-left: 0 !important;
+  }
 }
 
 /* ── Authenticated Clearance Banner ── */

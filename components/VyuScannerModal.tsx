@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Check, ShieldCheck, AlertTriangle, Lock, Shield, Mail, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Check, ShieldCheck, AlertTriangle, Lock, Shield, Mail, RotateCcw, ArrowRight, ArrowLeft } from 'lucide-react';
 import './vyu/scanner.css';
 import { submitContactInquiry } from '@/lib/mainstay';
 
@@ -1365,12 +1365,12 @@ export function VyuScannerModal() {
                   </div>
                   <button
                     type="button"
-                    className="btn btn--paper-outline"
+                    className="btn btn--paper-outline vyu-dispatch-btn-paper"
                     onClick={handleResendReport}
                     disabled={resendingReport}
-                    style={{ marginLeft: 'auto', whiteSpace: 'nowrap', fontSize: 13 }}
                   >
-                    {resendingReport ? 'Resending…' : 'Resend Email ↻'}
+                    <RotateCcw size={15} strokeWidth={2.2} className={resendingReport ? 'spin' : ''} />
+                    <span>{resendingReport ? 'Resending…' : 'Resend Email'}</span>
                   </button>
                 </div>
               ) : (
@@ -1386,11 +1386,11 @@ export function VyuScannerModal() {
                   </div>
                   <button
                     type="button"
-                    className="btn btn--metal"
+                    className="btn btn--metal vyu-dispatch-btn-paper"
                     onClick={openClaimReport}
-                    style={{ marginLeft: 'auto', whiteSpace: 'nowrap', fontSize: 13 }}
                   >
-                    Email Full Report ✉
+                    <Mail size={15} strokeWidth={2.2} />
+                    <span>Email Full Report</span>
                   </button>
                 </div>
               )}
@@ -1454,17 +1454,28 @@ export function VyuScannerModal() {
                     className="btn btn--metal"
                     onClick={isReportDelivered ? handleResendReport : openClaimReport}
                     disabled={resendingReport}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
                   >
-                    {isReportDelivered
-                      ? (resendingReport ? 'Resending…' : `Resend Report to ${email}`)
-                      : 'Email Full 10-Page Audit Report ✉'}
+                    {isReportDelivered ? (
+                      <>
+                        <RotateCcw size={15} strokeWidth={2.2} className={resendingReport ? 'spin' : ''} />
+                        <span>{resendingReport ? 'Resending…' : `Resend Report to ${email}`}</span>
+                      </>
+                    ) : (
+                      <>
+                        <Mail size={15} strokeWidth={2.2} />
+                        <span>Email Full 10-Page Audit Report</span>
+                      </>
+                    )}
                   </button>
                   <button
                     type="button"
                     className="btn btn--paper-outline"
                     onClick={handleResetScan}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
                   >
-                    Scan Another Target ↻
+                    <RotateCcw size={14} strokeWidth={2.2} />
+                    <span>Scan Another Target</span>
                   </button>
                 </div>
               </div>
@@ -1601,10 +1612,19 @@ export function VyuScannerModal() {
                         className="btn btn--metal"
                         onClick={isReportDelivered ? handleResendReport : openClaimReport}
                         disabled={resendingReport}
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
                       >
-                        {isReportDelivered
-                          ? (resendingReport ? 'Resending…' : `Resend Report to ${email}`)
-                          : 'Unlock & Receive Complete CBOM on Email ✉'}
+                        {isReportDelivered ? (
+                          <>
+                            <RotateCcw size={15} strokeWidth={2.2} className={resendingReport ? 'spin' : ''} />
+                            <span>{resendingReport ? 'Resending…' : `Resend Report to ${email}`}</span>
+                          </>
+                        ) : (
+                          <>
+                            <Mail size={15} strokeWidth={2.2} />
+                            <span>Unlock & Receive Complete CBOM on Email</span>
+                          </>
+                        )}
                       </button>
                     </div>
                   </div>
@@ -1688,10 +1708,19 @@ export function VyuScannerModal() {
                         className="btn btn--metal"
                         onClick={isReportDelivered ? handleResendReport : openClaimReport}
                         disabled={resendingReport}
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
                       >
-                        {isReportDelivered
-                          ? (resendingReport ? 'Resending…' : `Resend Findings to ${email}`)
-                          : 'Unlock & Email Full Findings ✉'}
+                        {isReportDelivered ? (
+                          <>
+                            <RotateCcw size={15} strokeWidth={2.2} className={resendingReport ? 'spin' : ''} />
+                            <span>{resendingReport ? 'Resending…' : `Resend Findings to ${email}`}</span>
+                          </>
+                        ) : (
+                          <>
+                            <Mail size={15} strokeWidth={2.2} />
+                            <span>Unlock & Email Full Findings</span>
+                          </>
+                        )}
                       </button>
                     </div>
                   </div>
@@ -1704,15 +1733,29 @@ export function VyuScannerModal() {
                   type="button"
                   className="btn btn--paper-outline"
                   onClick={handleResetScan}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
                 >
-                  ← Scan another domain or repository
+                  <ArrowLeft size={14} strokeWidth={2.2} />
+                  <span>Scan another domain or repository</span>
                 </button>
                 <button
                   type="button"
                   className="btn btn--metal"
                   onClick={isReportDelivered ? handleResendReport : openClaimReport}
+                  disabled={resendingReport}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
                 >
-                  {isReportDelivered ? `Resend Full Report to ${email}` : 'Email Full 10-Page Audit Report ✉'}
+                  {isReportDelivered ? (
+                    <>
+                      <RotateCcw size={15} strokeWidth={2.2} className={resendingReport ? 'spin' : ''} />
+                      <span>{resendingReport ? 'Resending…' : `Resend Full Report to ${email}`}</span>
+                    </>
+                  ) : (
+                    <>
+                      <Mail size={15} strokeWidth={2.2} />
+                      <span>Email Full 10-Page Audit Report</span>
+                    </>
+                  )}
                 </button>
               </div>
             </section>
@@ -1879,7 +1922,9 @@ export function VyuScannerModal() {
           {step === 'claim_otp' && (
             <section className="vyu-step">
               <div className="vyu-otp-box">
-                <div className="vyu-otp-icon">✉</div>
+                <div className="vyu-otp-icon">
+                  <Mail size={26} strokeWidth={2.2} />
+                </div>
                 <h2 style={{ margin: '0 0 8px', fontSize: 22, color: '#0E1B36', fontWeight: 600 }}>
                   Verify your corporate email
                 </h2>
@@ -1907,9 +1952,10 @@ export function VyuScannerModal() {
                     type="submit"
                     className="btn btn--metal"
                     disabled={isVerifyingOtp || otpCode.length !== 6}
-                    style={{ width: '100%', maxWidth: 320, margin: '0 auto' }}
+                    style={{ width: '100%', maxWidth: 320, margin: '0 auto', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
                   >
-                    {isVerifyingOtp ? 'Verifying & Sending Report…' : 'Verify & Email 10-Page Report ✉'}
+                    <Mail size={15} strokeWidth={2.2} />
+                    <span>{isVerifyingOtp ? 'Verifying & Sending Report…' : 'Verify & Email 10-Page Report'}</span>
                   </button>
 
                   <div className="vyu-otp-resend-row">
@@ -1921,8 +1967,10 @@ export function VyuScannerModal() {
                         className="vyu-btn-link"
                         onClick={handleResendOtp}
                         disabled={isSendingOtp}
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
                       >
-                        Resend code
+                        <RotateCcw size={13} strokeWidth={2.2} className={isSendingOtp ? 'spin' : ''} />
+                        <span>Resend code</span>
                       </button>
                     )}
                     <span>•</span>
@@ -1972,8 +2020,10 @@ export function VyuScannerModal() {
                     type="button"
                     className="btn btn--paper-outline"
                     onClick={handleResetScan}
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
                   >
-                    Scan Another Target ↻
+                    <RotateCcw size={14} strokeWidth={2.2} />
+                    <span>Scan Another Target</span>
                   </button>
                 </div>
               </div>
