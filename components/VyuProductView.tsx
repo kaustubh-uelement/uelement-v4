@@ -156,8 +156,8 @@ export function VyuProductView() {
               <span>U92-Vyu</span>
             </nav>
 
-            <span className="vyu-label vyu-lab-live">
-              <i /> Live, free to use
+            <span className="status status--gold" style={{ marginBottom: 16 }}>
+              Live, free to use
             </span>
 
             <h1 id="hero-title">Is your website ready for quantum computers?</h1>
@@ -1284,10 +1284,16 @@ export function VyuProductView() {
                 <tr>
                   <th scope="col" />
                   <th scope="col">
-                    U92-Vyu <span className="vyu-label vyu-lab-live"><i></i>Live, free</span>
+                    <div className="vyu-th-col">
+                      <span className="vyu-th-title">U92-Vyu</span>
+                      <span className="status status--gold">Live, free</span>
+                    </div>
                   </th>
                   <th scope="col">
-                    U92-VyuAssure <span className="vyu-label vyu-lab-build"><i></i>In build, early access</span>
+                    <div className="vyu-th-col">
+                      <span className="vyu-th-title">U92-VyuAssure</span>
+                      <span className="status status--line">In build, early access</span>
+                    </div>
                   </th>
                 </tr>
               </thead>
@@ -1405,25 +1411,25 @@ export function VyuProductView() {
               <span className="step">Step 1: See</span>
               <h3>U92-Vyu</h3>
               <p>A free check of one public host or repository, with a signed summary and CBOM.</p>
-              <span className="vyu-label vyu-lab-live"><i></i>Live, free</span>
+              <span className="status status--gold">Live, free</span>
             </div>
             <div className="vyu-jc">
               <span className="step">Step 2: Prove</span>
               <h3>U92-VyuAssure</h3>
               <p>Every endpoint, a full SBOM with VEX, and evidence packs for your regulators.</p>
-              <span className="vyu-label vyu-lab-build"><i></i>In build, early access</span>
+              <span className="status status--line">In build, early access</span>
             </div>
             <div className="vyu-jc">
               <span className="step">Step 3: Discover</span>
               <h3>U92-DeepVyu</h3>
               <p>Internal services, private code, HSMs and key stores, in one signed inventory with a costed plan.</p>
-              <span className="vyu-label vyu-lab-eng"><i></i>By engagement</span>
+              <span className="status status--dash">By engagement</span>
             </div>
             <div className="vyu-jc">
               <span className="step">Step 4: Migrate</span>
               <h3>U92-PQc</h3>
               <p>Applications moved to ML-KEM and ML-DSA one at a time, with crypto-agility built in.</p>
-              <span className="vyu-label vyu-lab-eng"><i></i>By engagement</span>
+              <span className="status status--dash">By engagement</span>
             </div>
           </div>
         </div>

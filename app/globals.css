@@ -811,13 +811,39 @@ ol {
   width: 5px;
   height: 5px;
 }
+.status--green {
+  background: rgba(47, 122, 87, 0.12);
+  color: #2F7A57;
+  box-shadow: inset 0 0 0 1px rgba(47, 122, 87, 0.28);
+}
+.status--green::before {
+  background: #2F7A57;
+}
+.panel--dark .status--green,
+.vyu-band.dark .status--green,
+.vyu-band.deep .status--green {
+  background: rgba(34, 197, 94, 0.16);
+  color: #86efac;
+  box-shadow: inset 0 0 0 1px rgba(34, 197, 94, 0.4);
+}
+.panel--dark .status--green::before,
+.vyu-band.dark .status--green::before,
+.vyu-band.deep .status--green::before {
+  background: #4ade80;
+}
+
 .panel--paper .status--line,
-.paper-card .status--line {
+.paper-card .status--line,
+.vyu-band.paper .status--line,
+.vyu-band.creme .status--line {
   color: var(--gold-ink);
   box-shadow: inset 0 0 0 1px rgba(138, 101, 34, 0.45);
+  background: rgba(196, 154, 69, 0.08);
 }
 .panel--paper .status--dash,
-.paper-card .status--dash {
+.paper-card .status--dash,
+.vyu-band.paper .status--dash,
+.vyu-band.creme .status--dash {
   color: var(--text-2);
   border-color: rgba(78, 87, 116, 0.45);
 }
