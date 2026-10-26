@@ -167,12 +167,19 @@
 .vyu-step h1,
 .vyu-step-h1 {
   font-weight: 600;
-  font-size: clamp(19px, 2.2vw, 24px);
+  font-size: clamp(18px, 2.1vw, 23px);
   line-height: 1.2;
   letter-spacing: -0.02em;
   margin: 0 0 8px;
   color: #fff;
-  max-width: 28ch;
+  max-width: 100%;
+  white-space: nowrap;
+}
+@media (max-width: 680px) {
+  .vyu-step h1,
+  .vyu-step-h1 {
+    white-space: normal;
+  }
 }
 .vyu-step h2,
 .vyu-step-h2 {

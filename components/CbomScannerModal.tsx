@@ -1281,28 +1281,7 @@ export function CbomScannerModal() {
     };
 
     const printFooter = (currPage: number) => {
-      doc.setDrawColor(BORDER_COLOR[0], BORDER_COLOR[1], BORDER_COLOR[2]);
-      doc.setLineWidth(0.6);
-      doc.line(M, H - 42, W - M, H - 42);
-
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(7);
-      doc.setTextColor(MUTED_TEXT[0], MUTED_TEXT[1], MUTED_TEXT[2]);
-      doc.text(
-        'UElement Technologies Private Limited · Wakad, Pune, Maharashtra 411057, India · www.uelement.co · contact@uelement.co',
-        M,
-        H - 30
-      );
-      doc.text(
-        'Vyu is an enterprise cryptographic evaluation platform from UElement U92 Quantum. Non-invasive technical diagnostic.',
-        M,
-        H - 20
-      );
-
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(7.5);
-      doc.setTextColor(BODY_TEXT[0], BODY_TEXT[1], BODY_TEXT[2]);
-      doc.text(`Page ${currPage}`, W - M - 30, H - 20);
+      // Stamped at document finalization across all pages with total page count
     };
 
     const checkPageRoom = (needed: number) => {
@@ -1820,8 +1799,33 @@ export function CbomScannerModal() {
       8.5
     );
 
-    // Final page footer
-    printFooter(page);
+    // Final page footer & total page numbering across all pages
+    const totalPages = doc.getNumberOfPages();
+    for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.setDrawColor(BORDER_COLOR[0], BORDER_COLOR[1], BORDER_COLOR[2]);
+      doc.setLineWidth(0.5);
+      doc.line(M, H - 38, W - M, H - 38);
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(6.8);
+      doc.setTextColor(MUTED_TEXT[0], MUTED_TEXT[1], MUTED_TEXT[2]);
+      doc.text(
+        'Wakad, Pune, Maharashtra 411057, India · +91 7620690561 · www.uelement.co · contact@uelement.co',
+        M,
+        H - 26
+      );
+      doc.text(
+        'CIN U63990PN2026PTC251047 · GSTIN 27AAECU0576G1Z9 · Private & Confidential',
+        M,
+        H - 16
+      );
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7.2);
+      doc.setTextColor(MUTED_TEXT[0], MUTED_TEXT[1], MUTED_TEXT[2]);
+      doc.text(`Page ${i} of ${totalPages}`, W - M - 52, H - 20);
+    }
 
     const sanitizedName = targetLabel
       .replace(/[^a-zA-Z0-9._-]/g, '_')
