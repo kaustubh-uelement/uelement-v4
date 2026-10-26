@@ -1840,3 +1840,150 @@
   justify-content: center;
 }
 
+/* ── Mobile Responsive Optimizations for Scorecard & Frosted Gate ── */
+@media (max-width: 680px) {
+  .vyu-scorecard-paper {
+    padding: 14px 12px;
+    border-radius: 14px;
+  }
+
+  .vyu-scorecard-top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .vyu-score-hero {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .vyu-score-box {
+    min-width: 112px;
+    max-width: 124px;
+    min-height: 68px;
+    padding: 6px 8px;
+    flex-shrink: 0;
+  }
+
+  .vyu-score-box .hndl-level {
+    font-size: 16px;
+  }
+
+  .vyu-score-box .hndl-sub {
+    font-size: 9px;
+  }
+
+  .vyu-score-box .hndl-action {
+    font-size: 8.5px;
+  }
+
+  .vyu-score-summary {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .vyu-score-band-chip {
+    font-size: 10.5px;
+    padding: 2.5px 8px;
+    white-space: nowrap;
+    max-width: 100%;
+    margin-bottom: 4px;
+  }
+
+  .vyu-score-target {
+    font-size: 15.5px;
+    margin: 0 0 2px;
+    word-break: break-all;
+    line-height: 1.25;
+  }
+
+  .vyu-score-meta {
+    font-size: 10px;
+    line-height: 1.3;
+  }
+
+  /* Metric cards: 4 columns that fit 100% within the mobile card without overflow */
+  .vyu-metric-grid {
+    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+    box-sizing: border-box;
+  }
+
+  .vyu-metric-card {
+    min-width: 0;
+    width: 100%;
+    padding: 7px 3px;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+
+  .vyu-metric-card .metric-val {
+    font-size: 15px;
+    line-height: 1.1;
+  }
+
+  .vyu-metric-card .metric-lbl {
+    font-size: 9px;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    width: 100%;
+  }
+
+  .vyu-scorecard-actions {
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 14px;
+    padding-top: 14px;
+  }
+
+  .vyu-scorecard-actions .btn,
+  .vyu-scorecard-actions .btn--paper-outline {
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  /* Frosted gate container and button */
+  .vyu-frosted-gate {
+    padding: 18px 12px 18px;
+    margin-top: -120px;
+  }
+
+  .vyu-frosted-gate h4 {
+    font-size: 14px;
+    line-height: 1.35;
+  }
+
+  .vyu-frosted-gate p {
+    font-size: 11.5px;
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+
+  .vyu-frosted-btns {
+    width: 100%;
+  }
+
+  .vyu-frosted-btns .btn {
+    width: 100%;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+    font-size: 13px;
+    padding: 10px 14px;
+    height: auto;
+    min-height: 44px;
+    line-height: 1.3;
+    box-sizing: border-box;
+  }
+}
+
+

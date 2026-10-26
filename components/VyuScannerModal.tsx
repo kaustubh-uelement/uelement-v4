@@ -1479,9 +1479,7 @@ export function VyuScannerModal() {
                               scoreVal < 60 ? 'critical' : scoreVal < 85 ? 'transitional' : 'ready'
                             }`}
                           >
-                            {scoreVal < 60
-                              ? `Grade ${result.score.grade} • Poor HNDL Protection (Score: ${scoreVal}/100)`
-                              : `Grade ${result.score.grade} • Quantum Exposure Score: ${scoreVal}/100`}
+                            Grade {result.score.grade} • Score: {scoreVal}/100
                           </span>
                           <h3 className="vyu-score-target">{result.target}</h3>
                           <p className="vyu-score-meta">
