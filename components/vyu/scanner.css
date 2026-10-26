@@ -53,7 +53,7 @@
 }
 
 .vyu-modal-top {
-  padding: 22px 28px 0;
+  padding: 16px 24px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -62,14 +62,14 @@
 .vyu-modal-brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   text-decoration: none;
   color: #fff;
 }
 .vyu-modal-logo-tile {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(221, 187, 110, 0.35);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -80,10 +80,10 @@
   flex-shrink: 0;
 }
 .vyu-modal-logo-icon {
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   object-fit: contain;
-  border-radius: 6px;
+  border-radius: 5px;
 }
 .vyu-modal-brand-text {
   display: flex;
@@ -93,12 +93,12 @@
 .vyu-modal-brand-name {
   font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
   font-weight: 700;
-  font-size: 17px;
+  font-size: 15.5px;
   letter-spacing: -0.015em;
   color: #fff;
 }
 .vyu-modal-brand-sub {
-  font-size: 13px;
+  font-size: 11.5px;
   color: #B4BED0;
 }
 .vyu-modal-top-actions {
@@ -123,27 +123,27 @@
 }
 
 .vyu-modal-main {
-  padding: 20px 28px 40px;
+  padding: 14px 24px 24px;
   flex: 1;
 }
 
 /* Stepper progress */
 .vyu-progress {
   list-style: none;
-  margin: 12px 0 32px;
+  margin: 8px 0 18px;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: 10px;
   counter-reset: s;
 }
 .vyu-progress li {
   counter-increment: s;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   color: #9AA5BB;
-  padding-top: 10px;
-  border-top: 3px solid rgba(255, 255, 255, 0.16);
+  padding-top: 6px;
+  border-top: 2.5px solid rgba(255, 255, 255, 0.16);
   transition: border-color 0.3s ease, color 0.3s ease;
 }
 .vyu-progress li span::before {
@@ -164,34 +164,37 @@
 }
 
 /* Step 1: Target */
-.vyu-step h1 {
-  font-weight: 550;
-  font-size: clamp(26px, 3.8vw, 38px);
-  line-height: 1.1;
-  letter-spacing: -0.025em;
-  margin: 0 0 14px;
-  color: #fff;
-  max-width: 22ch;
-}
-.vyu-step h2 {
-  font-weight: 550;
-  font-size: clamp(22px, 3vw, 30px);
-  line-height: 1.15;
+.vyu-step h1,
+.vyu-step-h1 {
+  font-weight: 600;
+  font-size: clamp(19px, 2.2vw, 24px);
+  line-height: 1.2;
   letter-spacing: -0.02em;
-  margin: 0 0 10px;
+  margin: 0 0 8px;
+  color: #fff;
+  max-width: 28ch;
+}
+.vyu-step h2,
+.vyu-step-h2 {
+  font-weight: 600;
+  font-size: clamp(17px, 1.8vw, 21px);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin: 0 0 8px;
   color: #fff;
 }
-.vyu-step .intro {
+.vyu-step .intro,
+.vyu-step-intro {
   max-width: 68ch;
   color: #D9DEE8;
-  font-size: 16px;
-  line-height: 1.55;
-  margin: 0 0 24px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  margin: 0 0 16px;
 }
 .vyu-step .sub {
   color: #9AA5BB;
-  font-size: 14.5px;
-  margin: 0 0 14px;
+  font-size: 12.5px;
+  margin: 0 0 10px;
   max-width: 70ch;
   line-height: 1.5;
 }
@@ -248,36 +251,36 @@
   background: #F6F0E4;
   color: #2A3350;
   color-scheme: light;
-  border-radius: 14px;
-  padding: 26px 26px 22px;
-  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  padding: 16px 20px 14px;
+  box-shadow: 0 16px 40px -16px rgba(0, 0, 0, 0.5);
   border: 1px solid #DCCFB5;
 }
 .vyu-card h3 {
   color: #0E1B36;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
-  margin: 0 0 12px;
+  margin: 0 0 8px;
 }
 .vyu-card .lbl {
   display: block;
-  font-size: 13.5px;
+  font-size: 12px;
   font-weight: 600;
   color: #0E1B36;
-  margin: 0 0 6px;
+  margin: 0 0 4px;
 }
 .vyu-card input[type="text"],
 .vyu-card input[type="email"],
 .vyu-card input[type="tel"],
 .vyu-card select {
   width: 100%;
-  font: 400 16px/1.3 "Onest", system-ui, sans-serif;
+  font: 400 13.5px/1.3 "Onest", system-ui, sans-serif;
   color: #0E1B36;
   background: #fff;
   border: 1px solid #D9CDB4;
   border-radius: 8px;
-  padding: 12px 14px;
-  margin: 0 0 14px;
+  padding: 9px 12px;
+  margin: 0 0 10px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .vyu-card input:focus,
@@ -287,9 +290,9 @@
   box-shadow: 0 0 0 3px rgba(196, 154, 69, 0.25);
 }
 .vyu-card #target {
-  font-size: 17px;
-  padding: 14px 16px;
-  margin-bottom: 10px;
+  font-size: 14.5px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
 }
 
 .vyu-examples {
@@ -392,36 +395,36 @@
   text-decoration: none;
 }
 
-/* Step 2: Progress */
+/* Step 2: Progress (Shrunk Compact Live Probing Items) */
 .vyu-steps-list {
   list-style: none;
-  margin: 24px 0 0;
+  margin: 10px 0 0;
   padding: 0;
   display: grid;
-  gap: 10px;
+  gap: 6px;
 }
 .vyu-step-item {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 13px 18px;
-  border-radius: 10px;
+  gap: 10px;
+  padding: 6px 12px;
+  border-radius: 8px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .vyu-step-item.running {
   background: linear-gradient(90deg, rgba(196, 154, 69, 0.12) 0%, rgba(13, 26, 52, 0.5) 100%);
   border-color: rgba(221, 187, 110, 0.45);
-  box-shadow: 0 0 16px rgba(196, 154, 69, 0.12);
+  box-shadow: 0 0 10px rgba(196, 154, 69, 0.1);
 }
 .vyu-step-item.done {
   border-color: rgba(52, 211, 153, 0.28);
   background: linear-gradient(90deg, rgba(16, 185, 129, 0.07) 0%, rgba(13, 26, 52, 0.35) 100%);
 }
 .vyu-step-item .ic {
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   border: 1.5px solid rgba(154, 165, 187, 0.35);
   background: rgba(255, 255, 255, 0.02);
@@ -433,7 +436,7 @@
   color: transparent;
 }
 .vyu-step-item.running .ic {
-  border: 2px solid rgba(221, 187, 110, 0.25);
+  border: 1.5px solid rgba(221, 187, 110, 0.25);
   border-top-color: #DDBB6E;
   background: rgba(221, 187, 110, 0.08);
   animation: vyuSpin 0.8s linear infinite;
@@ -442,18 +445,20 @@
 .vyu-step-item.done .ic {
   border: 1px solid rgba(52, 211, 153, 0.45);
   background: rgba(16, 185, 129, 0.14);
-  box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.2);
   color: #34D399;
 }
 .vyu-step-item .t {
   font-weight: 600;
   color: #fff;
-  font-size: 15px;
+  font-size: 12.5px;
+  line-height: 1.25;
 }
 .vyu-step-item .d {
-  font-size: 13px;
+  font-size: 11px;
   color: #9AA5BB;
-  margin-top: 2px;
+  margin-top: 1px;
+  line-height: 1.3;
 }
 
 @keyframes vyuSpin {
@@ -819,20 +824,20 @@
 /* ── Progress Stepper Bar (4 Steps) ── */
 .vyu-progress-bar {
   list-style: none;
-  margin: 14px 0 32px;
+  margin: 6px 0 16px;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  gap: 8px;
 }
 .vyu-progress-bar li {
-  font-size: 13.5px;
+  font-size: 11.5px;
   color: #6C7A9C;
-  padding-top: 10px;
-  border-top: 2.5px solid rgba(255, 255, 255, 0.12);
+  padding-top: 5px;
+  border-top: 2px solid rgba(255, 255, 255, 0.12);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   transition: all 0.3s ease;
   font-weight: 500;
 }
@@ -849,11 +854,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
+  width: 17px;
+  height: 17px;
   border-radius: 50%;
   font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
-  font-size: 11px;
+  font-size: 9.5px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   background: rgba(255, 255, 255, 0.08);
@@ -1211,32 +1216,32 @@
 .vyu-scorecard-paper {
   background: #FAF6EF;
   border: 1px solid rgba(221, 187, 110, 0.45);
-  border-radius: 20px;
-  padding: 24px 28px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  margin-bottom: 26px;
+  border-radius: 16px;
+  padding: 16px 20px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  margin-bottom: 16px;
 }
 .vyu-scorecard-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: 16px;
   flex-wrap: wrap;
 }
 .vyu-score-hero {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 14px;
 }
 .vyu-score-box {
-  min-width: 148px;
-  max-width: 180px;
-  padding: 10px 14px;
-  min-height: 86px;
-  border-radius: 16px;
+  min-width: 136px;
+  max-width: 165px;
+  padding: 8px 12px;
+  min-height: 74px;
+  border-radius: 14px;
   background: #FFFFFF;
   border: 2px solid #F59E0B;
-  box-shadow: 0 6px 18px rgba(245, 158, 11, 0.16);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.14);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1249,35 +1254,35 @@
 /* Tone styles for HNDL Protection levels */
 .vyu-score-box.tone-perfect {
   border-color: #16A34A;
-  box-shadow: 0 6px 18px rgba(22, 163, 74, 0.16);
+  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.14);
 }
 .vyu-score-box.tone-perfect .hndl-level { color: #15803D; }
 .vyu-score-box.tone-perfect .hndl-action { color: #166534; }
 
 .vyu-score-box.tone-good {
   border-color: #059669;
-  box-shadow: 0 6px 18px rgba(5, 150, 105, 0.16);
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.14);
 }
 .vyu-score-box.tone-good .hndl-level { color: #047857; }
 .vyu-score-box.tone-good .hndl-action { color: #065F46; }
 
 .vyu-score-box.tone-adequate {
   border-color: #D97706;
-  box-shadow: 0 6px 18px rgba(217, 119, 6, 0.16);
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.14);
 }
 .vyu-score-box.tone-adequate .hndl-level { color: #B45309; }
 .vyu-score-box.tone-adequate .hndl-action { color: #92400E; }
 
 .vyu-score-box.tone-weak {
   border-color: #EA580C;
-  box-shadow: 0 6px 18px rgba(234, 88, 12, 0.18);
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.16);
 }
 .vyu-score-box.tone-weak .hndl-level { color: #C2410C; }
 .vyu-score-box.tone-weak .hndl-action { color: #9A3412; }
 
 .vyu-score-box.tone-poor {
   border-color: #EF4444;
-  box-shadow: 0 6px 18px rgba(239, 68, 68, 0.18);
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.16);
 }
 .vyu-score-box.tone-poor .hndl-level { color: #B91C1C; }
 .vyu-score-box.tone-poor .hndl-action { color: #991B1B; }
@@ -1285,29 +1290,29 @@
 /* 3-line Typography */
 .vyu-score-box .hndl-level {
   font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
-  font-size: 21px;
+  font-size: 18px;
   font-weight: 800;
   letter-spacing: -0.01em;
-  line-height: 1.15;
+  line-height: 1.1;
 }
 
 .vyu-score-box .hndl-sub {
   font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   color: #334155;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-top: 3px;
-  line-height: 1.2;
+  margin-top: 2px;
+  line-height: 1.15;
 }
 
 .vyu-score-box .hndl-action {
   font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
-  font-size: 10px;
+  font-size: 9.5px;
   font-weight: 600;
   margin-top: 2px;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
 /* Fallback score numbers */
@@ -1375,47 +1380,48 @@
   color: #166534;
 }
 .vyu-score-target {
-  margin: 0 0 4px;
-  font-size: 20px;
+  margin: 0 0 2px;
+  font-size: 16.5px;
   color: #0E1B36;
   font-weight: 700;
 }
 .vyu-score-meta {
   margin: 0;
-  font-size: 12px;
+  font-size: 11px;
   color: #4E5774;
   font-weight: 500;
+  line-height: 1.35;
 }
 .vyu-metric-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 8px;
   text-align: center;
 }
 .vyu-metric-card {
-  padding: 12px 14px;
-  border-radius: 12px;
+  padding: 8px 10px;
+  border-radius: 10px;
   background: #FFFFFF;
   border: 1px solid rgba(196, 154, 69, 0.35);
-  box-shadow: 0 2px 6px rgba(14, 27, 54, 0.05);
-  min-width: 82px;
+  box-shadow: 0 2px 5px rgba(14, 27, 54, 0.04);
+  min-width: 72px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .vyu-metric-card .metric-val {
   font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
   color: #0E1B36;
   line-height: 1.1;
 }
 .vyu-metric-card .metric-lbl {
-  font-size: 11px;
+  font-size: 10px;
   color: #4E5774;
   font-weight: 600;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 .vyu-metric-card.broken .metric-val { color: #DC2626; }
 .vyu-metric-card.weak .metric-val { color: #D97706; }
@@ -1459,28 +1465,28 @@
 .vyu-block-paper {
   background: #FAF6EF;
   border: 1px solid rgba(221, 187, 110, 0.4);
-  border-radius: 18px;
-  padding: 24px 28px;
-  margin-bottom: 26px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
 }
 .vyu-block-paper-title {
-  margin: 0 0 6px;
-  font-size: 20px;
+  margin: 0 0 4px;
+  font-size: 16px;
   color: #0E1B36;
   font-weight: 700;
 }
 .vyu-block-paper-sub {
-  margin: 0 0 18px;
-  font-size: 13.5px;
+  margin: 0 0 12px;
+  font-size: 12px;
   color: #4E5774;
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
 /* ── CBOM Paper Table & Blur Effect ── */
 .vyu-table-outer {
   position: relative;
-  border-radius: 14px;
+  border-radius: 12px;
   overflow: hidden;
   border: 1px solid rgba(221, 187, 110, 0.35);
   background: #FFFFFF;
@@ -1491,17 +1497,17 @@
 .vyu-paper-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
+  font-size: 12px;
   text-align: left;
 }
 .vyu-paper-table thead th {
   background: #EFE8D8;
   color: #785419;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  padding: 12px 16px;
+  padding: 8px 12px;
   border-bottom: 1px solid rgba(221, 187, 110, 0.4);
 }
 .vyu-paper-table tbody tr {
@@ -1523,7 +1529,7 @@
   background: rgba(253, 250, 243, 0.6);
 }
 .vyu-paper-table td {
-  padding: 12px 16px;
+  padding: 8px 12px;
   vertical-align: middle;
 }
 .vyu-paper-table td.cell-asset {
@@ -1585,13 +1591,13 @@
 /* ── Frosted Creme Glass Overlay covering Rows 3+ ── */
 .vyu-frosted-gate {
   position: relative;
-  margin-top: -160px;
+  margin-top: -140px;
   z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 36px 24px 30px;
+  padding: 24px 20px 22px;
   background: linear-gradient(180deg, rgba(250, 246, 238, 0.72) 0%, rgba(237, 227, 207, 0.96) 28%, #EDE3CF 100%);
   backdrop-filter: blur(12px) saturate(180%);
   -webkit-backdrop-filter: blur(12px) saturate(180%);
@@ -1599,8 +1605,8 @@
   border-top: 1px solid rgba(196, 154, 69, 0.45);
 }
 .vyu-frosted-lock {
-  width: 48px;
-  height: 48px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: #FFFFFF;
   border: 1px solid rgba(196, 154, 69, 0.45);
@@ -1608,25 +1614,25 @@
   align-items: center;
   justify-content: center;
   color: #785419;
-  margin-bottom: 14px;
-  box-shadow: 0 4px 18px rgba(120, 84, 25, 0.18);
+  margin-bottom: 8px;
+  box-shadow: 0 4px 14px rgba(120, 84, 25, 0.14);
 }
 .vyu-frosted-gate h4 {
-  margin: 0 0 6px;
-  font-size: 18px;
+  margin: 0 0 4px;
+  font-size: 15.5px;
   font-weight: 700;
   color: #0E1B36;
 }
 .vyu-frosted-gate p {
-  margin: 0 0 20px;
-  font-size: 13.5px;
+  margin: 0 0 14px;
+  font-size: 12px;
   color: #4E5774;
-  max-width: 620px;
-  line-height: 1.5;
+  max-width: 580px;
+  line-height: 1.45;
 }
 .vyu-frosted-btns {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -1725,19 +1731,19 @@
 .vyu-findings-list-paper {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 .vyu-fd-paper {
   background: #FFFFFF;
   border: 1px solid rgba(196, 154, 69, 0.35);
-  border-radius: 12px;
-  padding: 14px 18px;
-  box-shadow: 0 2px 6px rgba(14, 27, 54, 0.04);
+  border-radius: 10px;
+  padding: 10px 14px;
+  box-shadow: 0 2px 5px rgba(14, 27, 54, 0.04);
 }
 .vyu-fd-paper summary {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   cursor: pointer;
   list-style: none;
 }
@@ -1745,7 +1751,7 @@
   display: none;
 }
 .vyu-fd-paper .ttl {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   color: #0E1B36;
 }
