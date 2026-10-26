@@ -1229,18 +1229,88 @@
   gap: 20px;
 }
 .vyu-score-box {
-  width: 86px;
-  height: 86px;
-  border-radius: 18px;
+  min-width: 148px;
+  max-width: 180px;
+  padding: 10px 14px;
+  min-height: 86px;
+  border-radius: 16px;
   background: #FFFFFF;
-  border: 2.5px solid #F59E0B;
-  box-shadow: 0 6px 18px rgba(245, 158, 11, 0.18);
+  border: 2px solid #F59E0B;
+  box-shadow: 0 6px 18px rgba(245, 158, 11, 0.16);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
   flex-shrink: 0;
+  box-sizing: border-box;
 }
+
+/* Tone styles for HNDL Protection levels */
+.vyu-score-box.tone-perfect {
+  border-color: #16A34A;
+  box-shadow: 0 6px 18px rgba(22, 163, 74, 0.16);
+}
+.vyu-score-box.tone-perfect .hndl-level { color: #15803D; }
+.vyu-score-box.tone-perfect .hndl-action { color: #166534; }
+
+.vyu-score-box.tone-good {
+  border-color: #059669;
+  box-shadow: 0 6px 18px rgba(5, 150, 105, 0.16);
+}
+.vyu-score-box.tone-good .hndl-level { color: #047857; }
+.vyu-score-box.tone-good .hndl-action { color: #065F46; }
+
+.vyu-score-box.tone-adequate {
+  border-color: #D97706;
+  box-shadow: 0 6px 18px rgba(217, 119, 6, 0.16);
+}
+.vyu-score-box.tone-adequate .hndl-level { color: #B45309; }
+.vyu-score-box.tone-adequate .hndl-action { color: #92400E; }
+
+.vyu-score-box.tone-weak {
+  border-color: #EA580C;
+  box-shadow: 0 6px 18px rgba(234, 88, 12, 0.18);
+}
+.vyu-score-box.tone-weak .hndl-level { color: #C2410C; }
+.vyu-score-box.tone-weak .hndl-action { color: #9A3412; }
+
+.vyu-score-box.tone-poor {
+  border-color: #EF4444;
+  box-shadow: 0 6px 18px rgba(239, 68, 68, 0.18);
+}
+.vyu-score-box.tone-poor .hndl-level { color: #B91C1C; }
+.vyu-score-box.tone-poor .hndl-action { color: #991B1B; }
+
+/* 3-line Typography */
+.vyu-score-box .hndl-level {
+  font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.vyu-score-box .hndl-sub {
+  font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  color: #334155;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 3px;
+  line-height: 1.2;
+}
+
+.vyu-score-box .hndl-action {
+  font-family: var(--font-reddit, "Reddit Sans", system-ui, -apple-system, sans-serif);
+  font-size: 10px;
+  font-weight: 600;
+  margin-top: 2px;
+  line-height: 1.2;
+}
+
+/* Fallback score numbers */
 .vyu-score-box.critical {
   border-color: #EF4444;
   box-shadow: 0 6px 18px rgba(239, 68, 68, 0.18);

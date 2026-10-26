@@ -83,6 +83,19 @@ export function VyuProductView() {
     return () => clearInterval(interval);
   }, []);
 
+  // Smooth scroll to anchor on landing if hash present
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.hash) {
+      const id = window.location.hash.replace('#', '');
+      const el = document.getElementById(id);
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 120);
+      }
+    }
+  }, []);
+
   // Handle Scan Box Submit
   const handleScanboxSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -957,7 +970,7 @@ export function VyuProductView() {
       </section>
 
       {/* ── HOW IT WORKS ── */}
-      <section className="vyu-band dark" aria-labelledby="how-title">
+      <section className="vyu-band dark" aria-labelledby="how-title" id="how-it-works">
         <div className="vyu-wrap">
           <p className="vyu-eyebrow">How it works</p>
           <h2 className="vyu-h2" id="how-title">

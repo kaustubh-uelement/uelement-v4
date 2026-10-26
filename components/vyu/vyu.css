@@ -1026,6 +1026,10 @@
   color: #0E1B36;
 }
 
+#how-it-works {
+  scroll-margin-top: 50px;
+}
+
 /* Process steps */
 .vyu-steps {
   list-style: none;

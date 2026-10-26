@@ -233,6 +233,54 @@ interface ScanScore {
   method?: string;
 }
 
+export interface HndlProtectionTier {
+  level: string;
+  sub: string;
+  action: string;
+  tone: 'perfect' | 'good' | 'adequate' | 'weak' | 'poor';
+}
+
+export function getHndlProtectionTier(score: number): HndlProtectionTier {
+  if (score >= 95) {
+    return {
+      level: 'Perfect',
+      sub: 'HNDL Protection',
+      action: '(Optimal)',
+      tone: 'perfect',
+    };
+  }
+  if (score >= 85) {
+    return {
+      level: 'Good',
+      sub: 'HNDL Protection',
+      action: '(Compliant)',
+      tone: 'good',
+    };
+  }
+  if (score >= 75) {
+    return {
+      level: 'Adequate',
+      sub: 'HNDL Protection',
+      action: '(Needs Monitoring)',
+      tone: 'adequate',
+    };
+  }
+  if (score >= 60) {
+    return {
+      level: 'Weak',
+      sub: 'HNDL Protection',
+      action: '(Action Required)',
+      tone: 'weak',
+    };
+  }
+  return {
+    level: 'Poor',
+    sub: 'HNDL Protection',
+    action: '(Urgent Remediation)',
+    tone: 'poor',
+  };
+}
+
 interface Finding {
   severity: 'critical' | 'high' | 'medium' | 'low' | 'info' | 'pass';
   quantum?: boolean;
@@ -1132,15 +1180,25 @@ export function VyuScannerModal() {
             </div>
             <div className="vyu-modal-brand-text">
               <span className="vyu-modal-brand-name">U92-Vyu</span>
-              <span className="vyu-modal-brand-sub">Quantum Readiness Scanner</span>
+              <span className="vyu-modal-brand-sub">External Cryptographic Attack Surface Scanner</span>
             </div>
           </a>
           <div className="vyu-modal-top-actions">
             <a
               className="vyu-modal-toplink"
-              href="/vyu/"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/vyu/#how-it-works"
+              onClick={(e) => {
+                if (typeof window !== 'undefined' && window.location.pathname.replace(/\/$/, '') === '/vyu') {
+                  e.preventDefault();
+                  setOpen(false);
+                  const el = document.getElementById('how-it-works') || document.getElementById('how-title');
+                  if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  } else {
+                    window.location.hash = '#how-it-works';
+                  }
+                }
+              }}
             >
               How Vyu scans ↗
             </a>
@@ -1172,7 +1230,7 @@ export function VyuScannerModal() {
             </li>
             <li className={step.startsWith('claim') ? 'on' : ''}>
               <span className="step-idx">4</span>
-              <span>Corporate Delivery</span>
+              <span>Email Report</span>
             </li>
           </ol>
 
@@ -1181,9 +1239,9 @@ export function VyuScannerModal() {
              ══════════════════════════════════════════════════ */}
           {step === 'target' && (
             <section className="vyu-step">
-              <h1 className="vyu-step-h1">Find the cryptography a quantum computer will break</h1>
+              <h1 className="vyu-step-h1">Get, Instant external surface CBOM scan report.</h1>
               <p className="vyu-step-intro">
-                Instant cryptographic probe. Evaluates live edge handshakes, certificates, ciphers, and hybrid PQC key exchange without any upfront signup.
+                Evaluate live edge handshakes, certificates, cipher suites, and hybrid PQC key exchanges - no signup required.
               </p>
 
               <div className="vyu-kinds" role="radiogroup" aria-label="What to scan">
@@ -1200,7 +1258,7 @@ export function VyuScannerModal() {
                   </svg>
                   <div className="txt">
                     <b>Website or API</b>
-                    <small>TLS handshake, post-quantum key exchange, certificates, DNS and mail</small>
+                    <small>TLS handshake, Post-quantum key exchange, Certificates & DNS</small>
                   </div>
                 </button>
 
@@ -1219,14 +1277,14 @@ export function VyuScannerModal() {
                   </svg>
                   <div className="txt">
                     <b>Public GitHub code</b>
-                    <small>Crypto calls, keys and secrets, dependencies, runtimes and CI workflows</small>
+                    <small>Crypto calls, Keys and secrets, Dependencies, Runtimes & CI workflows</small>
                   </div>
                 </button>
               </div>
 
               <form className="vyu-card" onSubmit={handleStartScan} noValidate>
                 <label htmlFor="target" className="lbl">
-                  {kind === 'website' ? 'Domain or endpoint to scan' : 'GitHub Repository to scan (owner/repository)'}
+                  {kind === 'website' ? 'Domain or Endpoint to scan' : 'GitHub Repository to scan (owner/repository)'}
                 </label>
                 <input
                   id="target"
@@ -1270,7 +1328,7 @@ export function VyuScannerModal() {
                 </div>
 
                 <div style={{ marginTop: 14 }}>
-                  <label htmlFor="horizon" className="lbl">Confidentiality retention horizon</label>
+                  <label htmlFor="horizon" className="lbl">select Confidentiality Retention horizon</label>
                   <select
                     id="horizon"
                     value={horizon}
@@ -1399,33 +1457,40 @@ export function VyuScannerModal() {
               {/* Light Paper Scorecard Container */}
               <div className="vyu-scorecard-paper">
                 <div className="vyu-scorecard-top">
-                  {/* Left: Score Hero */}
-                  <div className="vyu-score-hero">
-                    <div
-                      className={`vyu-score-box ${
-                        result.score.total < 40 ? 'critical' : result.score.total < 75 ? 'transitional' : 'ready'
-                      }`}
-                    >
-                      <span className="score-val">{result.score.total}</span>
-                      <span className="score-lbl">out of 100</span>
-                    </div>
+                  {/* Left: Score Hero with HNDL Protection Tier */}
+                  {(() => {
+                    const scoreVal = typeof result.score?.total === 'number' ? result.score.total : 0;
+                    const hndlTier = getHndlProtectionTier(scoreVal);
+                    return (
+                      <div className="vyu-score-hero">
+                        <div
+                          className={`vyu-score-box tone-${hndlTier.tone} ${
+                            scoreVal < 60 ? 'critical' : scoreVal < 85 ? 'transitional' : 'ready'
+                          }`}
+                        >
+                          <span className="hndl-level">{hndlTier.level}</span>
+                          <span className="hndl-sub">{hndlTier.sub}</span>
+                          <span className="hndl-action">{hndlTier.action}</span>
+                        </div>
 
-                    <div className="vyu-score-summary">
-                      <span
-                        className={`vyu-score-band-chip ${
-                          result.score.total < 40 ? 'critical' : result.score.total < 75 ? 'transitional' : 'ready'
-                        }`}
-                      >
-                        {result.score.total < 40
-                          ? 'Critical Quantum Exposure (Broken / Legacy Crypto)'
-                          : `Grade ${result.score.grade} • Quantum Exposure Score: ${result.score.total}/100`}
-                      </span>
-                      <h3 className="vyu-score-target">{result.target}</h3>
-                      <p className="vyu-score-meta">
-                        Evaluated under {horizon}-year confidentiality retention window · NIST FIPS 203/204/205 & NSA CNSA 2.0
-                      </p>
-                    </div>
-                  </div>
+                        <div className="vyu-score-summary">
+                          <span
+                            className={`vyu-score-band-chip ${
+                              scoreVal < 60 ? 'critical' : scoreVal < 85 ? 'transitional' : 'ready'
+                            }`}
+                          >
+                            {scoreVal < 60
+                              ? `Grade ${result.score.grade} • Poor HNDL Protection (Score: ${scoreVal}/100)`
+                              : `Grade ${result.score.grade} • Quantum Exposure Score: ${scoreVal}/100`}
+                          </span>
+                          <h3 className="vyu-score-target">{result.target}</h3>
+                          <p className="vyu-score-meta">
+                            Evaluated under {horizon}-year confidentiality retention window · NIST FIPS 203/204/205 & NSA CNSA 2.0
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })()}
 
                   {/* Right: Metric Counters */}
                   <div className="vyu-metric-grid">
