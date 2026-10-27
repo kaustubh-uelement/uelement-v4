@@ -1309,37 +1309,8 @@ export function VyuScannerModal() {
                   required
                 />
 
-                <div className="vyu-examples">
-                  <span>Quick examples:</span>
-                  {kind === 'website' ? (
-                    <>
-                      <button type="button" className="vyu-ex-btn" onClick={() => setTarget('uelement.co')}>
-                        uelement.co
-                      </button>
-                      <button type="button" className="vyu-ex-btn" onClick={() => setTarget('cloudflare.com')}>
-                        cloudflare.com
-                      </button>
-                      <button type="button" className="vyu-ex-btn" onClick={() => setTarget('github.com')}>
-                        github.com
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <button type="button" className="vyu-ex-btn" onClick={() => setTarget('demo-bank/payments-api')}>
-                        demo-bank/payments-api
-                      </button>
-                      <button type="button" className="vyu-ex-btn" onClick={() => setTarget('open-quantum-safe/liboqs')}>
-                        open-quantum-safe/liboqs
-                      </button>
-                      <button type="button" className="vyu-ex-btn" onClick={() => setTarget('cloudflare/circl')}>
-                        cloudflare/circl
-                      </button>
-                    </>
-                  )}
-                </div>
-
                 <div style={{ marginTop: 14 }}>
-                  <label htmlFor="horizon" className="lbl">select Confidentiality Retention horizon</label>
+                  <label htmlFor="horizon" className="lbl">Select Confidentiality Retention Horizon</label>
                   <select
                     id="horizon"
                     value={horizon}
