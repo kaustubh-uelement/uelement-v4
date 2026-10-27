@@ -512,15 +512,18 @@ export function VyuScannerModal() {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [open]);
 
-  // Lock body scroll when modal open
+  // Lock body scroll and prevent layout shift when modal open
   useEffect(() => {
     if (open) {
       document.documentElement.style.overflow = 'hidden';
+      document.documentElement.style.scrollbarGutter = 'stable';
     } else {
       document.documentElement.style.overflow = '';
+      document.documentElement.style.scrollbarGutter = '';
     }
     return () => {
       document.documentElement.style.overflow = '';
+      document.documentElement.style.scrollbarGutter = '';
     };
   }, [open]);
 
@@ -1191,12 +1194,16 @@ export function VyuScannerModal() {
                 if (typeof window !== 'undefined' && window.location.pathname.replace(/\/$/, '') === '/vyu') {
                   e.preventDefault();
                   setOpen(false);
-                  const el = document.getElementById('how-it-works') || document.getElementById('how-title');
-                  if (el) {
-                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  } else {
-                    window.location.hash = '#how-it-works';
-                  }
+                  requestAnimationFrame(() => {
+                    setTimeout(() => {
+                      const el = document.getElementById('how-it-works') || document.getElementById('how-title');
+                      if (el) {
+                        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      } else {
+                        window.location.hash = '#how-it-works';
+                      }
+                    }, 80);
+                  });
                 }
               }}
             >

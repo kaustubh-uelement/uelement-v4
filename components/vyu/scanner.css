@@ -10,6 +10,7 @@
   align-items: center;
   justify-content: center;
   padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  overscroll-behavior: contain;
 }
 
 .vyu-modal-box {
@@ -19,6 +20,7 @@
   border-radius: 16px;
   overflow-y: auto;
   overflow-x: hidden;
+  overscroll-behavior: contain;
   background: var(--abyss, #060B18);
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 30px 90px rgba(0, 0, 0, 0.85);
@@ -515,11 +517,19 @@
   color: transparent;
 }
 .vyu-step-item.running .ic {
-  border: 1.5px solid rgba(221, 187, 110, 0.25);
+  border: 1.5px solid rgba(221, 187, 110, 0.4);
   border-top-color: #DDBB6E;
   background: rgba(221, 187, 110, 0.08);
-  animation: vyuSpin 0.8s linear infinite;
+  animation: vyuSpin 0.8s linear infinite, vyuPulseGlow 2s ease-in-out infinite;
   color: transparent;
+}
+@keyframes vyuPulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 3px rgba(221, 187, 110, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(221, 187, 110, 0.55);
+  }
 }
 .vyu-step-item.done .ic {
   border: 1px solid rgba(52, 211, 153, 0.45);

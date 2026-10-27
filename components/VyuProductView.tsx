@@ -125,6 +125,19 @@ export function VyuProductView() {
     }
   };
 
+  // One-click demo scan from hero presets
+  const handlePresetClick = (presetTarget: string) => {
+    setTarget(presetTarget);
+    setScanErr('');
+    openVyuScanner({ kind, target: presetTarget });
+  };
+
+  const cleanDomainPreview = target.trim()
+    ? kind === 'website'
+      ? target.trim().replace(/^https?:\/\//i, '').replace(/\/.*$/, '').trim()
+      : target.trim().replace(/^https?:\/\/(www\.)?github\.com\//i, '').replace(/\.git$/i, '').replace(/^\/+|\/+$/g, '').trim()
+    : '';
+
   // Calculator Math (Mosca's Inequality)
   const exposedFrom = qYear - life;
   const startBy = exposedFrom - mig;
@@ -234,6 +247,31 @@ export function VyuProductView() {
                 <button className="btn btn--metal" type="submit">
                   Check my readiness
                 </button>
+              </div>
+
+              {cleanDomainPreview && cleanDomainPreview !== target.trim() && (
+                <div className="vyu-clean-preview-hint">
+                  Targeting host: <code>{cleanDomainPreview}</code>
+                </div>
+              )}
+
+              <div className="vyu-hero-presets">
+                <span className="vyu-presets-lbl">Quick Demo Scans:</span>
+                <div className="vyu-presets-list">
+                  {(kind === 'website'
+                    ? ['cloudflare.com', 'apple.com', 'google.com', 'uelement.co']
+                    : ['torvalds/linux', 'openssl/openssl', 'facebook/react']
+                  ).map((p) => (
+                    <button
+                      key={p}
+                      type="button"
+                      className="vyu-preset-pill"
+                      onClick={() => handlePresetClick(p)}
+                    >
+                      {p} ↗
+                    </button>
+                  ))}
+                </div>
               </div>
 
               {scanErr && <p className="err">{scanErr}</p>}
@@ -732,7 +770,7 @@ export function VyuProductView() {
               ))}
             </div>
 
-            <div>
+            <div className="vyu-tour-preview">
               <figure className="vyu-sheet" id="sheet" role="tabpanel">
                 <Image
                   src={activeTour.img}
@@ -1294,6 +1332,10 @@ export function VyuProductView() {
             auditor or a customer.
           </p>
 
+          <div className="vyu-table-hint-mobile">
+            <span>⇄ Swipe horizontally to compare tiers & standards</span>
+          </div>
+
           <div className="vyu-tablewrap">
             <table className="vyu-table">
               <thead>
@@ -1558,9 +1600,15 @@ export function VyuProductView() {
           <button
             type="button"
             className="btn btn--metal"
-            onClick={scrollToScanbox}
+            onClick={() => {
+              if (target.trim()) {
+                openVyuScanner({ kind, target: target.trim() });
+              } else {
+                openVyuScanner({ kind });
+              }
+            }}
           >
-            Check my readiness
+            Check my readiness →
           </button>
         </div>
       </section>
