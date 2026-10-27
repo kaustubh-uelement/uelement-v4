@@ -14,7 +14,10 @@ export default function MissionPage() {
     <>
       {/* HERO */}
       <PageHero
-        crumbs={[{ label: "Company", href: "/company/" }, { label: "Our mission" }]}
+        crumbs={[
+          { label: "Company", href: "/company/" },
+          { label: "Our mission" },
+        ]}
         chip="Our mission"
         chipIcon="spark"
         title={
@@ -137,7 +140,6 @@ export default function MissionPage() {
                 <div className="lg__body">
                   <div className="lg__top">
                     <h4 className="h4">The Climate Pledge</h4>
-                    <span className="status status--line">Signatory</span>
                   </div>
                   <p className="small muted">
                     Net-zero carbon by 2040, through regular reporting, real
@@ -157,7 +159,6 @@ export default function MissionPage() {
                 <div className="lg__body">
                   <div className="lg__top">
                     <h4 className="h4">WWF</h4>
-                    <span className="status status--line">Partner</span>
                   </div>
                   <p className="small muted">
                     Supporting WWF’s work to protect and restore nature, the
@@ -175,7 +176,6 @@ export default function MissionPage() {
                 <div className="lg__body">
                   <div className="lg__top">
                     <h4 className="h4">Green Software Foundation</h4>
-                    <span className="status status--line">Member</span>
                   </div>
                   <p className="small muted">
                     Software that emits less: carbon-aware design, and measuring
@@ -193,7 +193,6 @@ export default function MissionPage() {
                 <div className="lg__body">
                   <div className="lg__top">
                     <h4 className="h4">FinOps Foundation</h4>
-                    <span className="status status--line">Member</span>
                   </div>
                   <p className="small muted">
                     Making cloud spend and resource use visible and accountable,
@@ -211,7 +210,6 @@ export default function MissionPage() {
                 <div className="lg__body">
                   <div className="lg__top">
                     <h4 className="h4">Open Planet</h4>
-                    <span className="placeholder">Relationship</span>
                   </div>
                   <p className="small muted">
                     Free environmental footage and data that help us tell the
@@ -242,7 +240,6 @@ export default function MissionPage() {
                 <div className="lg__body">
                   <div className="lg__top">
                     <h4 className="h4">UN Global Compact</h4>
-                    <span className="status status--line">Participant</span>
                   </div>
                   <p className="small muted">
                     Strategy and operations aligned with the Ten Principles on
@@ -261,7 +258,6 @@ export default function MissionPage() {
                 <div className="lg__body">
                   <div className="lg__top">
                     <h4 className="h4">UN Sustainable Development Goals</h4>
-                    <span className="status status--line">Aligned</span>
                   </div>
                   <p className="small muted">
                     The seventeen goals we measure our work against. Our seven
@@ -279,7 +275,6 @@ export default function MissionPage() {
                 <div className="lg__body">
                   <div className="lg__top">
                     <h4 className="h4">World Economic Forum</h4>
-                    <span className="placeholder">Relationship</span>
                   </div>
                   <p className="small muted">
                     Where public and private leaders work together on
@@ -310,7 +305,6 @@ export default function MissionPage() {
                 <div className="lg__body">
                   <div className="lg__top">
                     <h4 className="h4">The Linux Foundation</h4>
-                    <span className="status status--line">Member</span>
                   </div>
                   <p className="small muted">
                     Open, vendor-neutral foundations for the software our
@@ -328,7 +322,6 @@ export default function MissionPage() {
                 <div className="lg__body">
                   <div className="lg__top">
                     <h4 className="h4">OpenSSF</h4>
-                    <span className="status status--line">Member</span>
                   </div>
                   <p className="small muted">
                     Securing the open-source supply chain that every SBOM and
@@ -347,7 +340,6 @@ export default function MissionPage() {
                 <div className="lg__body">
                   <div className="lg__top">
                     <h4 className="h4">National Quantum Mission</h4>
-                    <span className="placeholder">Relationship</span>
                   </div>
                   <p className="small muted">
                     Department of Science &amp; Technology, Government of India.
