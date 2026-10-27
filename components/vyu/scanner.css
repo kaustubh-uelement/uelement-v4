@@ -115,6 +115,7 @@
   display: inline-flex;
   align-items: center;
   line-height: 1.2;
+  white-space: nowrap;
   transition: color 0.2s ease, border-color 0.2s ease;
 }
 .vyu-modal-toplink:hover {
@@ -302,6 +303,70 @@
   margin-bottom: 8px;
 }
 
+/* Compact Card Modifier to save vertical space in modals */
+.vyu-card--compact {
+  padding: 12px 18px 12px;
+}
+.vyu-card--compact .lbl {
+  font-size: 11.5px;
+  margin: 0 0 3px;
+}
+.vyu-card--compact input[type="text"],
+.vyu-card--compact input[type="email"],
+.vyu-card--compact input[type="tel"],
+.vyu-card--compact select {
+  padding: 7px 11px;
+  margin: 0 0 7px;
+  font-size: 13px;
+  border-radius: 7px;
+}
+.vyu-card--compact .vyu-row2.tight {
+  gap: 6px 14px;
+}
+.vyu-target-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(196, 154, 69, 0.12);
+  border: 1px solid rgba(196, 154, 69, 0.35);
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  margin-bottom: 9px;
+}
+.vyu-target-badge .lbl-target {
+  font-weight: 500;
+  color: #8A6522;
+}
+.vyu-target-badge .val-target {
+  font-weight: 700;
+  color: #0E1B36;
+  font-family: monospace;
+}
+.vyu-claim-delivery-note {
+  display: flex;
+  align-items: center;
+  font-size: 11.5px;
+  line-height: 1.35;
+  color: #56607A;
+  margin-top: 11px;
+  padding: 7px 10px;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 6px;
+  border: 1px dashed #D9CDB4;
+}
+.vyu-consent.compact {
+  font-size: 11.5px;
+  line-height: 1.35;
+  margin: 4px 0 6px;
+  gap: 7px;
+}
+.vyu-consent.compact input {
+  width: 15px;
+  height: 15px;
+  margin-top: 1px;
+}
+
 .vyu-examples {
   display: flex;
   flex-wrap: wrap;
@@ -402,23 +467,30 @@
   text-decoration: none;
 }
 
-/* Step 2: Progress (Shrunk Compact Live Probing Items) */
+/* Step 2: Progress (2-Column Grid Layout) */
 .vyu-steps-list {
   list-style: none;
-  margin: 10px 0 0;
+  margin: 12px 0 0;
   padding: 0;
   display: grid;
-  gap: 6px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 12px;
 }
 .vyu-step-item {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 6px 12px;
+  padding: 7px 12px;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 0;
+  box-sizing: border-box;
+}
+.vyu-step-item > div {
+  min-width: 0;
+  flex: 1;
 }
 .vyu-step-item.running {
   background: linear-gradient(90deg, rgba(196, 154, 69, 0.12) 0%, rgba(13, 26, 52, 0.5) 100%);
@@ -882,10 +954,34 @@
   color: #fff;
 }
 
+.step-label-short {
+  display: none;
+}
+
 @media (max-width: 720px) {
+  .step-label-full {
+    display: none;
+  }
+  .step-label-short {
+    display: inline;
+  }
   .vyu-progress-bar {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin: 4px 0 10px;
+  }
+  .vyu-progress-bar li {
+    font-size: 10.5px;
+    padding-top: 3px;
+    gap: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .vyu-progress-bar .step-idx {
+    width: 15px;
+    height: 15px;
+    font-size: 8.5px;
   }
 }
 
@@ -1842,6 +1938,171 @@
 
 /* ── Mobile Responsive Optimizations for Scorecard & Frosted Gate ── */
 @media (max-width: 680px) {
+  .vyu-modal-overlay {
+    padding: max(8px, env(safe-area-inset-top, 0px)) max(8px, env(safe-area-inset-right, 0px)) max(8px, env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-left, 0px));
+  }
+
+  .vyu-modal-box {
+    width: 100%;
+    max-height: calc(100dvh - 16px);
+    border-radius: 14px;
+  }
+
+  .vyu-modal-top {
+    padding: 10px 14px 0;
+    gap: 8px;
+  }
+
+  .vyu-modal-brand {
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .vyu-modal-brand-name {
+    font-size: 14.5px;
+  }
+
+  .vyu-modal-brand-sub {
+    display: none;
+  }
+
+  .vyu-modal-logo-tile {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+  }
+
+  .vyu-modal-logo-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .vyu-modal-top-actions {
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .vyu-modal-toplink {
+    font-size: 11.5px;
+    white-space: nowrap;
+    padding: 2px 0;
+  }
+
+  .vyu-modal-close {
+    width: 30px;
+    height: 30px;
+  }
+
+  .vyu-modal-main {
+    padding: 8px 12px 14px;
+  }
+
+  /* Step 2 Live Probing Mobile Polish — 1 column only, fits in one screen without scroll */
+  .vyu-step-h1 {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0 0 2px;
+    white-space: normal;
+  }
+
+  .vyu-step-intro {
+    font-size: 11px;
+    line-height: 1.35;
+    color: #9AA5BB;
+    margin: 0 0 6px;
+    max-width: 100%;
+  }
+
+  .vyu-steps-list {
+    margin: 3px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .vyu-step-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 9px;
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    min-width: 0;
+  }
+
+  .vyu-step-item > div {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .vyu-step-item .ic {
+    width: 15px;
+    height: 15px;
+    border-width: 1.2px;
+    flex-shrink: 0;
+  }
+
+  .vyu-step-item .ic svg {
+    width: 10px;
+    height: 10px;
+  }
+
+  .vyu-step-item .t {
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #FFFFFF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .vyu-step-item .d {
+    font-size: 9.5px;
+    line-height: 1.2;
+    color: #8A97AF;
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Compact Claim Report Form on Mobile */
+  .vyu-card--compact {
+    padding: 10px 12px 10px;
+    border-radius: 10px;
+  }
+
+  .vyu-card--compact .vyu-row2.tight {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .vyu-target-badge {
+    padding: 4px 8px;
+    font-size: 11px;
+    margin-bottom: 7px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .vyu-claim-delivery-note {
+    margin-top: -2px;
+    margin-bottom: 8px;
+    font-size: 11px;
+    padding: 5px 8px;
+  }
+
+  .vyu-consent.compact {
+    font-size: 11px;
+    margin: 2px 0 6px;
+    line-height: 1.3;
+  }
+
   .vyu-scorecard-paper {
     padding: 14px 12px;
     border-radius: 14px;

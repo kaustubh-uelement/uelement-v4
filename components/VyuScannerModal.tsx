@@ -1218,19 +1218,23 @@ export function VyuScannerModal() {
           <ol className="vyu-progress-bar" aria-label="Assessment Progress">
             <li className={step === 'target' ? 'on' : 'done'}>
               <span className="step-idx">1</span>
-              <span>Target Scope</span>
+              <span className="step-label-full">Target Scope</span>
+              <span className="step-label-short">Scope</span>
             </li>
             <li className={step === 'scanning' ? 'on' : step === 'results' || step.startsWith('claim') ? 'done' : ''}>
               <span className="step-idx">2</span>
-              <span>Live Probing</span>
+              <span className="step-label-full">Live Probing</span>
+              <span className="step-label-short">Probing</span>
             </li>
             <li className={step === 'results' ? 'on' : step.startsWith('claim') ? 'done' : ''}>
               <span className="step-idx">3</span>
-              <span>Score & CBOM</span>
+              <span className="step-label-full">Score & CBOM</span>
+              <span className="step-label-short">CBOM</span>
             </li>
             <li className={step.startsWith('claim') ? 'on' : ''}>
               <span className="step-idx">4</span>
-              <span>Email Report</span>
+              <span className="step-label-full">Email Report</span>
+              <span className="step-label-short">Report</span>
             </li>
           </ol>
 
@@ -1830,29 +1834,31 @@ export function VyuScannerModal() {
              ══════════════════════════════════════════════════ */}
           {step === 'claim_report' && (
             <section className="vyu-step">
-              <div style={{ marginBottom: 16 }}>
+              <div style={{ marginBottom: 6 }}>
                 <button
                   type="button"
                   className="vyu-btn-link"
                   onClick={() => setStep('results')}
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13 }}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12 }}
                 >
-                  <ArrowLeft size={14} /> Back to Scan Preview
+                  <ArrowLeft size={13} /> Back to Scan Preview
                 </button>
               </div>
 
-              <h1 className="vyu-step-h1">Request Official 10-Page Assessment Report</h1>
-              <p className="vyu-step-intro">
-                Perimeter Confidentiality Policy: Assessment reports for <b>{target}</b> contain detailed vulnerability evidence, cryptographic parameters, and remediation playbooks. They are delivered exclusively to verified corporate email addresses.
+              <h1 className="vyu-step-h1" style={{ fontSize: 'clamp(16px, 1.9vw, 20px)', margin: '0 0 3px' }}>
+                Request Official 10-Page Assessment Report
+              </h1>
+              <p className="vyu-step-intro" style={{ fontSize: 12, margin: '0 0 10px', lineHeight: 1.4 }}>
+                Perimeter Confidentiality Policy: Assessment reports for <b>{target}</b> contain detailed vulnerability evidence and playbooks. Delivered exclusively to verified corporate email addresses.
               </p>
 
-              <form className="vyu-card" onSubmit={handleClaimProfileSubmit} noValidate>
-                <div style={{ padding: '8px 14px', borderRadius: 8, background: 'rgba(196, 154, 69, 0.1)', border: '1px solid rgba(196, 154, 69, 0.3)', marginBottom: 16, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <span style={{ fontSize: 12.5, color: '#785419', fontWeight: 600 }}>Assessing Target:</span>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: '#0E1B36', fontFamily: 'monospace' }}>{target}</span>
+              <form className="vyu-card vyu-card--compact" onSubmit={handleClaimProfileSubmit} noValidate>
+                <div className="vyu-target-badge">
+                  <span className="lbl-target">Assessing Target:</span>
+                  <span className="val-target">{target}</span>
                 </div>
 
-                <div className="vyu-row2">
+                <div className="vyu-row2 tight">
                   <div>
                     <label htmlFor="claim-name" className="lbl">Full name</label>
                     <input
@@ -1911,7 +1917,7 @@ export function VyuScannerModal() {
                   </div>
                 </div>
 
-                <div className="vyu-row2">
+                <div className="vyu-row2 tight">
                   <div>
                     <label htmlFor="claim-company" className="lbl">Organisation / Company</label>
                     <input
@@ -1937,7 +1943,7 @@ export function VyuScannerModal() {
                   </div>
                 </div>
 
-                <div className="vyu-row2">
+                <div className="vyu-row2 tight" style={{ alignItems: 'center' }}>
                   <div>
                     <label htmlFor="claim-phone" className="lbl">Mobile phone (optional)</label>
                     <input
@@ -1948,14 +1954,14 @@ export function VyuScannerModal() {
                       placeholder="+91 9876543210"
                     />
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', paddingTop: 20 }}>
-                    <span style={{ fontSize: 12, color: '#64748B' }}>
+                  <div className="vyu-claim-delivery-note">
+                    <span>
                       Report delivery format: Encrypted 10-Page PDF & CycloneDX 1.7 CBOM.
                     </span>
                   </div>
                 </div>
 
-                <label className="vyu-consent" style={{ marginTop: 12 }}>
+                <label className="vyu-consent compact">
                   <input
                     type="checkbox"
                     checked={consent}
@@ -1972,7 +1978,7 @@ export function VyuScannerModal() {
                   type="submit"
                   className="btn btn--metal"
                   disabled={isSendingOtp}
-                  style={{ width: '100%', marginTop: 12 }}
+                  style={{ width: '100%', marginTop: 8 }}
                 >
                   {isSendingOtp ? 'Validating & Sending Code…' : 'Send Verification Code to Email →'}
                 </button>
