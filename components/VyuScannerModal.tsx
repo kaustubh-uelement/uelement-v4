@@ -257,7 +257,7 @@ export function getHndlProtectionTier(score: number): HndlProtectionTier {
       tone: 'good',
     };
   }
-  if (score >= 75) {
+  if (score >= 70) {
     return {
       level: 'Adequate',
       sub: 'HNDL Protection',
@@ -265,7 +265,7 @@ export function getHndlProtectionTier(score: number): HndlProtectionTier {
       tone: 'adequate',
     };
   }
-  if (score >= 60) {
+  if (score >= 50) {
     return {
       level: 'Weak',
       sub: 'HNDL Protection',
@@ -311,6 +311,7 @@ interface ScanResult {
   findings: Finding[];
   assets: Asset[];
   notTested?: string[];
+  quantumSafe?: boolean;
   repos?: Array<{
     owner: string;
     name: string;
@@ -336,6 +337,8 @@ const PQ_GROUPS = [
   'MLKEM512',
   'MLKEM768',
   'MLKEM1024',
+  'X25519Kyber768Draft00',
+  'SecP256r1Kyber768Draft00',
 ];
 
 const SHOWN_GROUPS = [
@@ -345,9 +348,14 @@ const SHOWN_GROUPS = [
   'secp384r1',
   'secp521r1',
   'x448',
-  'X25519Kyber768Draft00',
   'ffdhe2048',
   'ffdhe3072',
+  'ffdhe4096',
+  'ffdhe6144',
+  'ffdhe8192',
+  'brainpoolP256r1',
+  'brainpoolP384r1',
+  'brainpoolP512r1',
 ];
 
 const WEBSITE_STEPS_CONFIG = [
@@ -1070,24 +1078,75 @@ export function VyuScannerModal() {
   // CBOM items: show the first 2 in full, then show blurred protected rows
   const cbomAssets = Array.isArray(result?.assets) ? result.assets : [];
 
+  const isAssetHybrid = (a: any) => {
+    const v = String(a?.verdict || '').toLowerCase();
+    const vt = String(a?.verdictText || '').toLowerCase();
+    const prim = String(a?.primitive || a?.name || '').toLowerCase();
+    return (
+      v.includes('hybrid') ||
+      vt.includes('hybrid') ||
+      ((prim.includes('x25519') || prim.includes('secp256r1') || prim.includes('secp384r1')) &&
+        (prim.includes('mlkem') || prim.includes('kyber')))
+    );
+  };
+
+  const isAssetBroken = (a: any) => {
+    if (isAssetHybrid(a)) return false;
+    const v = String(a?.verdict || '').toLowerCase();
+    const vt = String(a?.verdictText || '').toLowerCase();
+    const prim = String(a?.primitive || a?.name || '').toLowerCase();
+    const isClassicalAsymmetric =
+      (prim.includes('ecdsa') ||
+        prim.includes('rsa') ||
+        prim.includes('dsa') ||
+        prim.includes('x25519') ||
+        prim.includes('secp256r1') ||
+        prim.includes('secp384r1')) &&
+      !prim.includes('mlkem') &&
+      !prim.includes('kyber') &&
+      !prim.includes('mldsa') &&
+      !prim.includes('slhdsa');
+
+    return (
+      v === 'broken' ||
+      v === 'critical' ||
+      v === 'shor' ||
+      v.includes('vulnerable') ||
+      v.includes('broken') ||
+      vt.includes('vulnerable') ||
+      vt.includes('broken') ||
+      vt.includes('shor') ||
+      isClassicalAsymmetric
+    );
+  };
+
+  const isAssetWeak = (a: any) => {
+    if (isAssetHybrid(a) || isAssetBroken(a)) return false;
+    const v = String(a?.verdict || '').toLowerCase();
+    const vt = String(a?.verdictText || '').toLowerCase();
+    return (
+      v === 'weak' ||
+      v === 'grover' ||
+      v.includes('weak') ||
+      v.includes('grover') ||
+      vt.includes('weak') ||
+      vt.includes('grover')
+    );
+  };
+
   // Counts for metric counters in scorecard
-  const totalAssetsCount = cbomAssets.length > 0 ? cbomAssets.length : 10;
+  const totalAssetsCount = cbomAssets.length > 0 ? cbomAssets.length : 21;
   const brokenAssetsCount =
-    cbomAssets.filter(
-      (a) =>
-        a.verdict === 'broken' ||
-        a.verdict === 'critical' ||
-        a.verdict === 'shor' ||
-        (a.verdictText && a.verdictText.toLowerCase().includes('broken'))
-    ).length || 6;
+    cbomAssets.length > 0
+      ? cbomAssets.filter((a) => isAssetBroken(a)).length
+      : 14;
   const weakAssetsCount =
-    cbomAssets.filter(
-      (a) =>
-        a.verdict === 'weak' ||
-        a.verdict === 'grover' ||
-        (a.verdictText && a.verdictText.toLowerCase().includes('weak'))
-    ).length || 0;
-  const safeAssetsCount = Math.max(0, totalAssetsCount - brokenAssetsCount - weakAssetsCount) || 4;
+    cbomAssets.length > 0
+      ? cbomAssets.filter((a) => isAssetWeak(a)).length
+      : 2;
+  const safeAssetsCount = Math.max(0, totalAssetsCount - brokenAssetsCount - weakAssetsCount);
+
+  const isPqcKexSupported = Boolean(result?.endpoints?.some((e) => e.tls?.hybridPQ) || result?.quantumSafe);
 
   const visibleAssets =
     cbomAssets.length >= 2
@@ -1105,11 +1164,11 @@ export function VyuScannerModal() {
           },
           {
             name: `${result?.target || target || 'target.com'} TLS Key Exchange`,
-            primitive: 'X25519',
+            primitive: isPqcKexSupported ? 'X25519MLKEM768 Hybrid' : 'X25519',
             purpose: 'Session Key Establishment',
-            verdict: 'broken',
-            verdictText: 'BROKEN (SHOR)',
-            replacement: 'X25519MLKEM768 Hybrid (NIST FIPS 203)',
+            verdict: isPqcKexSupported ? 'hybrid' : 'broken',
+            verdictText: isPqcKexSupported ? 'HYBRID PQC' : 'BROKEN (SHOR)',
+            replacement: isPqcKexSupported ? 'X25519MLKEM768 (Active FIPS 203 Transition)' : 'X25519MLKEM768 Hybrid (NIST FIPS 203)',
             evidence: 'Observed',
           },
         ];
@@ -1607,23 +1666,45 @@ export function VyuScannerModal() {
                       </thead>
                       <tbody>
                         {/* First 2 Items (Fully Clear) */}
-                        {visibleAssets.map((a, i) => (
-                          <tr key={`vis-${i}`} className="row-visible">
-                            <td className="cell-asset"><b>{a.name}</b></td>
-                            <td className="cell-prim">
-                              <code>{a.primitive || (i === 0 ? 'ECDSA (P-256) (256-bit) / ecdsa-with-SHA256' : 'X25519')}</code>
-                            </td>
-                            <td className="cell-func">{a.purpose || (i === 0 ? 'Server Authentication & Identity' : 'Session Key Establishment')}</td>
-                            <td className="cell-verdict">
-                              <span className={`pill-verdict ${a.verdict || 'broken'}`}>
-                                {a.verdict === 'broken' || !a.verdict ? 'BROKEN (SHOR)' : a.verdict === 'weak' ? 'WEAK (GROVER)' : 'PQC SAFE'}
-                              </span>
-                            </td>
-                            <td className="cell-repl">
-                              {a.replacement || (i === 0 ? 'ML-DSA-65 (FIPS 204) / SLH-DSA-128 (FIPS 205) [PQC_ALGORITHMS_DB:ECDSA-P256 CLASSICAL_LEGACY/NON_COMPLIANT]' : 'X25519MLKEM768 Hybrid (NIST FIPS 203)')}
-                            </td>
-                          </tr>
-                        ))}
+                        {visibleAssets.map((a, i) => {
+                          const isHybrid = isAssetHybrid(a);
+                          const isBroken = !isHybrid && isAssetBroken(a);
+                          const isWeak = !isHybrid && !isBroken && isAssetWeak(a);
+
+                          const verdictLabel = isHybrid
+                            ? 'HYBRID PQC'
+                            : isBroken
+                            ? 'BROKEN (SHOR)'
+                            : isWeak
+                            ? 'WEAK (GROVER)'
+                            : 'PQC SAFE';
+
+                          const verdictClass = isHybrid
+                            ? 'hybrid'
+                            : isBroken
+                            ? 'broken'
+                            : isWeak
+                            ? 'weak'
+                            : 'safe';
+
+                          return (
+                            <tr key={`vis-${i}`} className="row-visible">
+                              <td className="cell-asset"><b>{a.name}</b></td>
+                              <td className="cell-prim">
+                                <code>{a.primitive || (i === 0 ? 'ECDSA (P-256) (256-bit) / ecdsa-with-SHA256' : (isPqcKexSupported ? 'X25519MLKEM768 Hybrid' : 'X25519'))}</code>
+                              </td>
+                              <td className="cell-func">{a.purpose || (i === 0 ? 'Server Authentication & Identity' : 'Session Key Establishment')}</td>
+                              <td className="cell-verdict">
+                                <span className={`pill-verdict ${verdictClass}`}>
+                                  {verdictLabel}
+                                </span>
+                              </td>
+                              <td className="cell-repl">
+                                {a.replacement || (i === 0 ? 'ML-DSA-65 (FIPS 204) / SLH-DSA-128 (FIPS 205) [PQC_ALGORITHMS_DB:ECDSA-P256 CLASSICAL_LEGACY/NON_COMPLIANT]' : 'X25519MLKEM768 Hybrid (NIST FIPS 203)')}
+                              </td>
+                            </tr>
+                          );
+                        })}
 
                         {/* Rows 3 onwards — BLURRED with CSS */}
                         {PROTECTED_BLURRED_ROWS.map((row, i) => (
@@ -1646,7 +1727,7 @@ export function VyuScannerModal() {
                     <div className="vyu-frosted-lock">
                       <Lock size={20} />
                     </div>
-                    <h4>{isReportDelivered ? `Full CBOM Delivered to ${email}` : 'Complete 23-Asset Cryptographic Bill of Materials Protected'}</h4>
+                    <h4>{isReportDelivered ? `Full CBOM Delivered to ${email}` : `Complete ${totalAssetsCount}-Asset Cryptographic Bill of Materials Protected`}</h4>
                     <p>
                       {isReportDelivered
                         ? 'To protect sensitive infrastructure attack vectors, findings beyond the primary certificate & key exchange are redacted on-screen. The complete 10-page signed assessment report and machine-readable CycloneDX 1.7 CBOM have been delivered to your verified work email.'

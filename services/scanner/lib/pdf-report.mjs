@@ -88,17 +88,34 @@ function resolveAssetRow(row, rowIndex, target) {
   // 4. Verdict
   const v = String(row.verdict || '').toLowerCase();
   const vt = String(row.verdictText || '').toLowerCase();
+  const prim = String(primitive || '').toLowerCase();
+  const isClassicalAsymmetric =
+    (prim.includes('ecdsa') ||
+      prim.includes('rsa') ||
+      prim.includes('dsa') ||
+      prim.includes('x25519') ||
+      prim.includes('secp256r1') ||
+      prim.includes('secp384r1')) &&
+    !prim.includes('mlkem') &&
+    !prim.includes('kyber') &&
+    !prim.includes('mldsa') &&
+    !prim.includes('slhdsa');
+
   let verdictLabel = 'Quantum-Safe';
   let verdictColor = [22, 163, 74]; // Green
 
-  if (
+  if (v.includes('hybrid') || vt.includes('hybrid')) {
+    verdictLabel = 'Hybrid PQC';
+    verdictColor = [37, 99, 235]; // Blue
+  } else if (
     v.includes('vulnerable') ||
     v.includes('broken') ||
     v.includes('shor') ||
     v === 'critical' ||
     vt.includes('vulnerable') ||
     vt.includes('broken') ||
-    vt.includes('shor')
+    vt.includes('shor') ||
+    isClassicalAsymmetric
   ) {
     if (v.includes('broken-classical') || vt.includes('classical')) {
       verdictLabel = 'Broken (Classical)';
@@ -116,9 +133,6 @@ function resolveAssetRow(row, rowIndex, target) {
   ) {
     verdictLabel = 'Weakened (Grover)';
     verdictColor = [202, 138, 4]; // Amber
-  } else if (v.includes('hybrid') || vt.includes('hybrid')) {
-    verdictLabel = 'Hybrid PQC';
-    verdictColor = [37, 99, 235]; // Blue
   } else if (v.includes('safe') || v.includes('resistant') || vt.includes('safe') || vt.includes('resistant')) {
     verdictLabel = 'Quantum-Safe';
     verdictColor = [22, 163, 74]; // Green

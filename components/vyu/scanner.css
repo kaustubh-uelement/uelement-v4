@@ -1689,6 +1689,11 @@
   border: 1px solid #FCD34D;
   color: #92400E;
 }
+.pill-verdict.hybrid {
+  background: #DBEAFE;
+  border: 1px solid #93C5FD;
+  color: #1E40AF;
+}
 .pill-verdict.pass,
 .pill-verdict.safe {
   background: #DCFCE7;
