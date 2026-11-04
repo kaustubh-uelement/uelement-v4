@@ -5,7 +5,7 @@ import { PageHero, Chip } from "@/components/ui";
 export const metadata: Metadata = {
   title: "Our mission",
   description:
-    "A promise is easy to make and easy to forget. So we have made ours in public, alongside eleven organisations that set the standard and hold us to it.",
+    "This page sets out what we are committed to or associated with, what we have joined, and how we will report on both.",
   alternates: { canonical: "/company/mission/" },
 };
 
@@ -26,7 +26,7 @@ export default function MissionPage() {
             <span className="metal-text">better off.</span>
           </>
         }
-        lede="A promise is easy to make and easy to forget. So we have made ours in public, alongside eleven organisations that set the standard and hold us to it. This page sets out what we are committed to or associated with, what we have joined, and how we will report on both."
+        lede="This page sets out what we are committed to or associated with, what we have joined, and how we will report on both."
       >
         <a className="btn btn--metal" href="#signed">
           What Matters to Us
