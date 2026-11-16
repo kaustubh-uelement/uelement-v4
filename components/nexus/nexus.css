@@ -2,7 +2,7 @@
 
 .nexus-page {
   width: 100%;
-  font-family: var(--font-sans), 'Noto Sans', -apple-system, 'Segoe UI', sans-serif;
+  font-family: var(--font-sans), 'Onest Variable', 'Onest', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   color: #3A4363;
   background: var(--paper, #FAF6EE);
   position: relative;
@@ -21,6 +21,38 @@
 
 .nexus-page a:hover {
   color: var(--ink, #0E1B36);
+}
+
+/* Ensure landing page button text colors are not overridden by anchor tags */
+.nexus-page a.btn--metal,
+.nexus-page button.btn--metal {
+  color: #2a1d05 !important;
+}
+
+.nexus-page a.btn--metal:hover,
+.nexus-page button.btn--metal:hover {
+  color: #2a1d05 !important;
+}
+
+.nexus-page a.btn--glass,
+.nexus-page button.btn--glass {
+  color: var(--paper, #F6F1E6) !important;
+}
+
+.nexus-page a.btn--glass:hover,
+.nexus-page button.btn--glass:hover {
+  color: #FFFFFF !important;
+  border-color: rgba(241, 216, 148, 0.4) !important;
+}
+
+.nexus-page a.btn--ink,
+.nexus-page button.btn--ink {
+  color: var(--paper, #F6F1E6) !important;
+}
+
+.nexus-page a.btn--creme,
+.nexus-page button.btn--creme {
+  color: var(--ink, #0E1B36) !important;
 }
 
 .nexus-page [id] {
@@ -49,27 +81,7 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* Button & interactive animations */
-.nexus-btn {
-  transition: transform .18s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
-              box-shadow .18s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
-              background-position .5s ease;
-}
-
-.nexus-btn:hover {
-  transform: translateY(-1px);
-}
-
-.nexus-ghost {
-  transition: border-color .2s, color .2s, background-color .2s;
-}
-
-.nexus-ghost:hover {
-  border-color: #DDBB6E !important;
-  color: #F1D894 !important;
-  background-color: rgba(255, 255, 255, 0.08) !important;
-}
-
+/* Interactive card & button hover styling matching system */
 .nexus-card {
   transition: transform .2s, box-shadow .2s;
 }
@@ -79,30 +91,29 @@
   box-shadow: 0 1px 2px rgba(13, 26, 52, .08), 0 30px 60px -24px rgba(13, 26, 52, .35) !important;
 }
 
-.nexus-navlink {
-  transition: color .2s, background-color .2s;
-}
-
-.nexus-navlink:hover {
-  color: #FFFFFF !important;
-  background: rgba(255, 255, 255, .08);
-}
-
-/* Hero Section with Chakra Integration */
+/* Hero Section with Stable, Non-glitching Chakra */
 .nexus-hero {
   position: relative;
   overflow: hidden;
   background: radial-gradient(120% 90% at 50% 0%, #12254D 0%, #0A1530 42%, #060B18 100%);
-  padding: calc(var(--header-h, 76px) + 20px) 24px 0;
+  padding: calc(var(--header-h, 76px) + 40px) 24px 0;
   isolation: isolate;
 }
 
 .nexus-hero__chakra-wrap {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 760px;
   pointer-events: none;
   overflow: hidden;
   z-index: 1;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  contain: layout paint;
 }
 
 .nexus-hero__chakra-wrap .hero__sparks {
@@ -112,17 +123,26 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
+  transform: translateZ(0);
 }
 
 .nexus-hero__chakra-wrap .hero__ring {
   position: absolute;
   top: 140px;
   left: 50%;
-  width: clamp(860px, 110vw, 1920px);
-  transform: translateX(-50%);
+  width: clamp(860px, 110vw, 1800px);
+  transform: translateX(-50%) translateZ(0);
   pointer-events: none;
   z-index: 1;
-  opacity: 0.94;
+  opacity: 0.92;
+  contain: paint;
+}
+
+/* Disable initial coordinate-shift animation on ring in hero to prevent spark emitter jitter */
+.nexus-hero__chakra-wrap .ring-rise {
+  animation: none !important;
+  transform: none !important;
+  opacity: 1 !important;
 }
 
 .nexus-hero__chakra-wrap .hero__ring svg {
@@ -138,9 +158,6 @@
 
 /* Media queries */
 @media (max-width: 900px) {
-  .nexus-navlinks {
-    display: none !important;
-  }
   .nexus-mock-side {
     display: none !important;
   }
@@ -153,7 +170,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .nexus-btn,
   .nexus-card {
     transition: none !important;
   }

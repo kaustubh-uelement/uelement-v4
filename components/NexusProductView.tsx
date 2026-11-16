@@ -719,7 +719,7 @@ export function NexusProductView() {
     const base: React.CSSProperties = {
       padding: '3px 10px',
       borderRadius: '999px',
-      fontFamily: 'var(--font-reddit), sans-serif',
+      fontFamily: 'var(--font-sans), sans-serif',
       fontSize: '11.5px',
       fontWeight: 700,
       letterSpacing: '.08em',
@@ -743,67 +743,18 @@ export function NexusProductView() {
           <HeroRing />
         </div>
 
-        {/* Secondary anchor pill navigation */}
-        <nav
-          aria-label="Nexus Navigation"
-          className="nexus-hero__content"
-          style={{
-            maxWidth: '1120px',
-            margin: '0 auto',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '20px',
-            padding: '10px 12px 10px 22px',
-            borderRadius: '999px',
-            background: 'linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03))',
-            border: '1px solid rgba(221,187,110,.35)',
-            boxShadow: '0 10px 40px -10px rgba(0,0,0,.6)',
-            backdropFilter: 'blur(14px)',
-            WebkitBackdropFilter: 'blur(14px)',
-          }}
-        >
-          <Link href="/" aria-label="UElement home" style={{ display: 'flex', alignItems: 'center' }}>
-            <span style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: '18px', color: '#F1D894', letterSpacing: '0.02em' }}>
-              UElement
-            </span>
-          </Link>
-          <span className="nexus-hide-sm" aria-hidden="true" style={{ width: '1px', height: '22px', background: 'rgba(255,255,255,.18)' }} />
-          <span className="nexus-hide-sm" style={{ fontFamily: 'var(--font-reddit), sans-serif', fontWeight: 700, fontSize: '16px', color: '#FFFFFF', letterSpacing: '.01em' }}>
-            Nexus
-          </span>
-          <div className="nexus-navlinks" style={{ display: 'flex', gap: '4px', marginLeft: 'auto', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '15px', fontWeight: 500 }}>
-            <a className="nexus-navlink" href="#why" style={{ color: '#D9DEE8', padding: '9px 14px', borderRadius: '999px' }}>Why Nexus</a>
-            <a className="nexus-navlink" href="#modules" style={{ color: '#D9DEE8', padding: '9px 14px', borderRadius: '999px' }}>Modules</a>
-            <a className="nexus-navlink" href="#ai" style={{ color: '#D9DEE8', padding: '9px 14px', borderRadius: '999px' }}>NexusIQ</a>
-            <a className="nexus-navlink" href="#packages" style={{ color: '#D9DEE8', padding: '9px 14px', borderRadius: '999px' }}>Packages</a>
-            <a className="nexus-navlink" href="#faq" style={{ color: '#D9DEE8', padding: '9px 14px', borderRadius: '999px' }}>FAQ</a>
-          </div>
-          <a
-            className="btn btn--metal btn--sm nexus-btn"
-            href="#demo"
-            style={{
-              marginLeft: 'auto',
-              whiteSpace: 'nowrap',
-              fontFamily: 'var(--font-reddit), sans-serif',
-              fontWeight: 700,
-            }}
-          >
-            Book a Demo
-          </a>
-        </nav>
-
         {/* Hero copy */}
         <div
           className="nexus-hero__content"
           style={{
-            maxWidth: '980px',
+            maxWidth: '880px',
             margin: '0 auto',
-            padding: '76px 0 0',
+            padding: '24px 0 0',
             textAlign: 'center',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '22px',
+            gap: '18px',
           }}
         >
           <div
@@ -811,12 +762,12 @@ export function NexusProductView() {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '10px',
-              padding: '6px 16px 6px 6px',
+              padding: '5px 14px 5px 6px',
               borderRadius: '999px',
               background: 'rgba(255,255,255,.05)',
               border: '1px solid rgba(255,255,255,.14)',
-              fontFamily: 'var(--font-reddit), sans-serif',
-              fontSize: '14px',
+              fontFamily: 'var(--font-sans), sans-serif',
+              fontSize: '13.5px',
               color: '#C9D1E0',
               backdropFilter: 'blur(10px)',
               WebkitBackdropFilter: 'blur(10px)',
@@ -827,15 +778,15 @@ export function NexusProductView() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '6px',
-                padding: '4px 12px',
+                padding: '3px 10px',
                 borderRadius: '999px',
                 background: 'linear-gradient(118deg, #C99D48, #F2DA98 45%, #D6B163)',
                 color: '#1A1408',
                 fontWeight: 700,
-                fontSize: '13px',
+                fontSize: '12.5px',
               }}
             >
-              <span aria-hidden="true" style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#1A1408' }} />
+              <span aria-hidden="true" style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#1A1408' }} />
               Live
             </span>
             <span>
@@ -846,11 +797,11 @@ export function NexusProductView() {
           <h1
             style={{
               margin: 0,
-              fontFamily: 'var(--font-reddit), sans-serif',
+              fontFamily: 'var(--font-sans), sans-serif',
               fontWeight: 600,
-              fontSize: 'clamp(46px, 7.2vw, 96px)',
-              lineHeight: 1,
-              letterSpacing: '-.03em',
+              fontSize: 'clamp(32px, 4.4vw, 56px)',
+              lineHeight: 1.1,
+              letterSpacing: '-.025em',
               color: '#F6F1E6',
             }}
           >
@@ -860,51 +811,31 @@ export function NexusProductView() {
           <p
             style={{
               margin: 0,
-              maxWidth: '780px',
-              fontSize: 'clamp(18px, 1.7vw, 21px)',
+              maxWidth: '680px',
+              fontSize: 'clamp(15.5px, 1.3vw, 18px)',
               lineHeight: 1.6,
               color: '#C9D1E0',
+              fontFamily: 'var(--font-sans), sans-serif',
             }}
           >
             Nexus replaces the dozen tools behind your website, apps, portals, support and marketing with{' '}
             <strong style={{ color: '#FFFFFF', fontWeight: 600 }}>one platform</strong>: one sign-in for your team, one record of every customer, one AI that does the busywork, and one bill. Start with three modules. Add the rest as you grow.
           </p>
 
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '14px', paddingTop: '6px' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '12px', paddingTop: '4px' }}>
             <a
-              className="btn btn--metal nexus-btn"
+              className="btn btn--metal"
               href="#demo"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '10px',
-                minHeight: '56px',
-                padding: '0 30px',
-                borderRadius: '999px',
-                fontFamily: 'var(--font-reddit), sans-serif',
-                fontWeight: 700,
-                fontSize: '17px',
-              }}
             >
               Book a 30-minute demo
-              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14" />
                 <path d="M13 6l6 6-6 6" />
               </svg>
             </a>
             <a
-              className="btn btn--glass nexus-btn nexus-ghost"
+              className="btn btn--glass"
               href="#why"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                minHeight: '56px',
-                padding: '0 28px',
-                borderRadius: '999px',
-                fontFamily: 'var(--font-reddit), sans-serif',
-                fontWeight: 600,
-                fontSize: '17px',
-              }}
             >
               See what changes
             </a>
@@ -919,32 +850,32 @@ export function NexusProductView() {
               display: 'flex',
               flexWrap: 'wrap',
               justifyContent: 'center',
-              gap: '10px 22px',
-              fontFamily: 'var(--font-reddit), sans-serif',
-              fontSize: '15.5px',
+              gap: '8px 20px',
+              fontFamily: 'var(--font-sans), sans-serif',
+              fontSize: '14px',
               color: '#E6EAF2',
             }}
           >
             <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DDBB6E" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DDBB6E" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12.5l4.5 4.5L19 7.5" />
               </svg>
               One login for every tool
             </li>
             <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DDBB6E" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DDBB6E" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12.5l4.5 4.5L19 7.5" />
               </svg>
               Every customer on one screen
             </li>
             <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DDBB6E" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DDBB6E" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12.5l4.5 4.5L19 7.5" />
               </svg>
               AI drafts, your team approves
             </li>
             <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DDBB6E" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DDBB6E" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12.5l4.5 4.5L19 7.5" />
               </svg>
               Pay only for what you switch on
@@ -973,7 +904,7 @@ export function NexusProductView() {
               overflow: 'hidden',
               display: 'flex',
               minHeight: '420px',
-              fontFamily: 'var(--font-reddit), sans-serif',
+              fontFamily: 'var(--font-sans), sans-serif',
             }}
           >
             {/* Sidebar */}
@@ -1126,8 +1057,8 @@ export function NexusProductView() {
                 borderRadius: '999px',
                 background: '#FFFFFF',
                 border: '1px solid rgba(13,26,52,.08)',
-                fontFamily: 'var(--font-reddit), sans-serif',
-                fontSize: '14px',
+                fontFamily: 'var(--font-sans), sans-serif',
+                fontSize: '13.5px',
                 color: '#0E1B36',
               }}
             >
@@ -1146,18 +1077,18 @@ export function NexusProductView() {
               id="value-h"
               style={{
                 margin: 0,
-                fontFamily: 'var(--font-reddit), sans-serif',
+                fontFamily: 'var(--font-sans), sans-serif',
                 fontWeight: 600,
-                fontSize: 'clamp(36px, 4.6vw, 62px)',
-                lineHeight: 1.04,
-                letterSpacing: '-.025em',
+                fontSize: 'clamp(28px, 3.4vw, 44px)',
+                lineHeight: 1.12,
+                letterSpacing: '-.02em',
                 color: '#0E1B36',
               }}
             >
               Better days for your team.{' '}
               <span className="nexus-goldink">Better results for your business.</span>
             </h2>
-            <p style={{ margin: 0, fontSize: '19px', lineHeight: 1.65, color: '#3A4363' }}>
+            <p style={{ margin: 0, fontSize: '16.5px', lineHeight: 1.65, color: '#3A4363', fontFamily: 'var(--font-sans), sans-serif' }}>
               Most businesses run their customer front door on a site builder, a form tool, a chatbot, a newsletter sender, a few portals and a help desk, each with its own login, bill and copy of the customer. Here is what changes when it all runs on one platform.
             </p>
           </div>
@@ -1166,8 +1097,8 @@ export function NexusProductView() {
             {/* For your people card */}
             <div
               style={{
-                padding: '34px',
-                borderRadius: '20px',
+                padding: '30px',
+                borderRadius: '18px',
                 background: '#FFFFFF',
                 boxShadow: '0 1px 2px rgba(13,26,52,.06), 0 30px 60px -28px rgba(13,26,52,.3)',
                 display: 'flex',
@@ -1179,16 +1110,16 @@ export function NexusProductView() {
                 <span
                   aria-hidden="true"
                   style={{
-                    width: '48px',
-                    height: '48px',
-                    borderRadius: '14px',
+                    width: '44px',
+                    height: '44px',
+                    borderRadius: '12px',
                     background: '#F3EBDC',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}
                 >
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8A6522" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8A6522" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="9" cy="8" r="3.2" />
                     <path d="M3.5 19c.8-3.2 3-5 5.5-5s4.7 1.8 5.5 5" />
                     <circle cx="17" cy="9" r="2.5" />
@@ -1196,22 +1127,22 @@ export function NexusProductView() {
                   </svg>
                 </span>
                 <div>
-                  <h3 style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '26px', fontWeight: 700, color: '#0E1B36' }}>
+                  <h3 style={{ margin: 0, fontFamily: 'var(--font-sans), sans-serif', fontSize: '22px', fontWeight: 700, color: '#0E1B36' }}>
                     For your people
                   </h3>
-                  <p style={{ margin: '2px 0 0', fontSize: '15.5px', color: '#5B6380' }}>
+                  <p style={{ margin: '2px 0 0', fontSize: '14px', color: '#5B6380', fontFamily: 'var(--font-sans), sans-serif' }}>
                     Less busywork. Fewer logins. No copy-paste.
                   </p>
                 </div>
               </div>
 
               <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
-                <li style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '18px 0', borderTop: '1px solid rgba(13,26,52,.1)' }}>
-                  <span style={{ fontSize: '15px', lineHeight: 1.5, color: '#7A8099', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px' }}>
+                <li style={{ display: 'flex', flexDirection: 'column', gap: '5px', padding: '16px 0', borderTop: '1px solid rgba(13,26,52,.1)' }}>
+                  <span style={{ fontSize: '13.5px', lineHeight: 1.5, color: '#7A8099', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px', fontFamily: 'var(--font-sans), sans-serif' }}>
                     A separate login for every tool
                   </span>
-                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '19px', lineHeight: 1.4, fontWeight: 600, color: '#0E1B36' }}>
-                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
+                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-sans), sans-serif', fontSize: '16px', lineHeight: 1.45, fontWeight: 600, color: '#0E1B36' }}>
+                    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
                       <path d="M5 12h14" />
                       <path d="M13 6l6 6-6 6" />
                     </svg>
@@ -1219,12 +1150,12 @@ export function NexusProductView() {
                   </span>
                 </li>
 
-                <li style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '18px 0', borderTop: '1px solid rgba(13,26,52,.1)' }}>
-                  <span style={{ fontSize: '15px', lineHeight: 1.5, color: '#7A8099', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px' }}>
+                <li style={{ display: 'flex', flexDirection: 'column', gap: '5px', padding: '16px 0', borderTop: '1px solid rgba(13,26,52,.1)' }}>
+                  <span style={{ fontSize: '13.5px', lineHeight: 1.5, color: '#7A8099', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px', fontFamily: 'var(--font-sans), sans-serif' }}>
                     Copying customer details from one system to the next
                   </span>
-                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '19px', lineHeight: 1.4, fontWeight: 600, color: '#0E1B36' }}>
-                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
+                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-sans), sans-serif', fontSize: '16px', lineHeight: 1.45, fontWeight: 600, color: '#0E1B36' }}>
+                    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
                       <path d="M5 12h14" />
                       <path d="M13 6l6 6-6 6" />
                     </svg>
@@ -1232,12 +1163,12 @@ export function NexusProductView() {
                   </span>
                 </li>
 
-                <li style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '18px 0', borderTop: '1px solid rgba(13,26,52,.1)' }}>
-                  <span style={{ fontSize: '15px', lineHeight: 1.5, color: '#7A8099', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px' }}>
+                <li style={{ display: 'flex', flexDirection: 'column', gap: '5px', padding: '16px 0', borderTop: '1px solid rgba(13,26,52,.1)' }}>
+                  <span style={{ fontSize: '13.5px', lineHeight: 1.5, color: '#7A8099', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px', fontFamily: 'var(--font-sans), sans-serif' }}>
                     Waiting on IT to change a page or launch a campaign
                   </span>
-                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '19px', lineHeight: 1.4, fontWeight: 600, color: '#0E1B36' }}>
-                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
+                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-sans), sans-serif', fontSize: '16px', lineHeight: 1.45, fontWeight: 600, color: '#0E1B36' }}>
+                    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
                       <path d="M5 12h14" />
                       <path d="M13 6l6 6-6 6" />
                     </svg>
@@ -1245,12 +1176,12 @@ export function NexusProductView() {
                   </span>
                 </li>
 
-                <li style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '18px 0', borderTop: '1px solid rgba(13,26,52,.1)' }}>
-                  <span style={{ fontSize: '15px', lineHeight: 1.5, color: '#7A8099', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px' }}>
+                <li style={{ display: 'flex', flexDirection: 'column', gap: '5px', padding: '16px 0', borderTop: '1px solid rgba(13,26,52,.1)' }}>
+                  <span style={{ fontSize: '13.5px', lineHeight: 1.5, color: '#7A8099', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px', fontFamily: 'var(--font-sans), sans-serif' }}>
                     Writing every reply, FAQ and translation by hand
                   </span>
-                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '19px', lineHeight: 1.4, fontWeight: 600, color: '#0E1B36' }}>
-                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
+                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-sans), sans-serif', fontSize: '16px', lineHeight: 1.45, fontWeight: 600, color: '#0E1B36' }}>
+                    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
                       <path d="M5 12h14" />
                       <path d="M13 6l6 6-6 6" />
                     </svg>
@@ -1263,8 +1194,8 @@ export function NexusProductView() {
             {/* For your business card */}
             <div
               style={{
-                padding: '34px',
-                borderRadius: '20px',
+                padding: '30px',
+                borderRadius: '18px',
                 background: 'linear-gradient(160deg, #12254D, #0A1530)',
                 border: '1px solid rgba(221,187,110,.35)',
                 boxShadow: '0 30px 60px -28px rgba(13,26,52,.55)',
@@ -1277,16 +1208,16 @@ export function NexusProductView() {
                 <span
                   aria-hidden="true"
                   style={{
-                    width: '48px',
-                    height: '48px',
-                    borderRadius: '14px',
+                    width: '44px',
+                    height: '44px',
+                    borderRadius: '12px',
                     background: 'rgba(221,187,110,.14)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}
                 >
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#DDBB6E" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DDBB6E" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M4 19V10" />
                     <path d="M10 19V6" />
                     <path d="M16 19v-7" />
@@ -1295,22 +1226,22 @@ export function NexusProductView() {
                   </svg>
                 </span>
                 <div>
-                  <h3 style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '26px', fontWeight: 700, color: '#FFFFFF' }}>
+                  <h3 style={{ margin: 0, fontFamily: 'var(--font-sans), sans-serif', fontSize: '22px', fontWeight: 700, color: '#FFFFFF' }}>
                     For your business
                   </h3>
-                  <p style={{ margin: '2px 0 0', fontSize: '15.5px', color: '#B9C3D5' }}>
+                  <p style={{ margin: '2px 0 0', fontSize: '14px', color: '#B9C3D5', fontFamily: 'var(--font-sans), sans-serif' }}>
                     Fewer vendors. Faster response. One view of the customer.
                   </p>
                 </div>
               </div>
 
               <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
-                <li style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '18px 0', borderTop: '1px solid rgba(255,255,255,.12)' }}>
-                  <span style={{ fontSize: '15px', lineHeight: 1.5, color: '#8D97AD', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px' }}>
+                <li style={{ display: 'flex', flexDirection: 'column', gap: '5px', padding: '16px 0', borderTop: '1px solid rgba(255,255,255,.12)' }}>
+                  <span style={{ fontSize: '13.5px', lineHeight: 1.5, color: '#8D97AD', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px', fontFamily: 'var(--font-sans), sans-serif' }}>
                     A dozen vendors, contracts and renewals
                   </span>
-                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '19px', lineHeight: 1.4, fontWeight: 600, color: '#FFFFFF' }}>
-                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
+                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-sans), sans-serif', fontSize: '16px', lineHeight: 1.45, fontWeight: 600, color: '#FFFFFF' }}>
+                    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
                       <path d="M5 12h14" />
                       <path d="M13 6l6 6-6 6" />
                     </svg>
@@ -1318,12 +1249,12 @@ export function NexusProductView() {
                   </span>
                 </li>
 
-                <li style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '18px 0', borderTop: '1px solid rgba(255,255,255,.12)' }}>
-                  <span style={{ fontSize: '15px', lineHeight: 1.5, color: '#8D97AD', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px' }}>
+                <li style={{ display: 'flex', flexDirection: 'column', gap: '5px', padding: '16px 0', borderTop: '1px solid rgba(255,255,255,.12)' }}>
+                  <span style={{ fontSize: '13.5px', lineHeight: 1.5, color: '#8D97AD', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px', fontFamily: 'var(--font-sans), sans-serif' }}>
                     Customers scattered across tools nobody can join up
                   </span>
-                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '19px', lineHeight: 1.4, fontWeight: 600, color: '#FFFFFF' }}>
-                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
+                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-sans), sans-serif', fontSize: '16px', lineHeight: 1.45, fontWeight: 600, color: '#FFFFFF' }}>
+                    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
                       <path d="M5 12h14" />
                       <path d="M13 6l6 6-6 6" />
                     </svg>
@@ -1331,12 +1262,12 @@ export function NexusProductView() {
                   </span>
                 </li>
 
-                <li style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '18px 0', borderTop: '1px solid rgba(255,255,255,.12)' }}>
-                  <span style={{ fontSize: '15px', lineHeight: 1.5, color: '#8D97AD', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px' }}>
+                <li style={{ display: 'flex', flexDirection: 'column', gap: '5px', padding: '16px 0', borderTop: '1px solid rgba(255,255,255,.12)' }}>
+                  <span style={{ fontSize: '13.5px', lineHeight: 1.5, color: '#8D97AD', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px', fontFamily: 'var(--font-sans), sans-serif' }}>
                     Missed enquiries and SLA breaches found too late
                   </span>
-                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '19px', lineHeight: 1.4, fontWeight: 600, color: '#FFFFFF' }}>
-                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
+                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-sans), sans-serif', fontSize: '16px', lineHeight: 1.45, fontWeight: 600, color: '#FFFFFF' }}>
+                    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
                       <path d="M5 12h14" />
                       <path d="M13 6l6 6-6 6" />
                     </svg>
@@ -1344,12 +1275,12 @@ export function NexusProductView() {
                   </span>
                 </li>
 
-                <li style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '18px 0', borderTop: '1px solid rgba(255,255,255,.12)' }}>
-                  <span style={{ fontSize: '15px', lineHeight: 1.5, color: '#8D97AD', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px' }}>
+                <li style={{ display: 'flex', flexDirection: 'column', gap: '5px', padding: '16px 0', borderTop: '1px solid rgba(255,255,255,.12)' }}>
+                  <span style={{ fontSize: '13.5px', lineHeight: 1.5, color: '#8D97AD', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px', fontFamily: 'var(--font-sans), sans-serif' }}>
                     Compliance bolted on, tool by tool
                   </span>
-                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '19px', lineHeight: 1.4, fontWeight: 600, color: '#FFFFFF' }}>
-                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
+                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-sans), sans-serif', fontSize: '16px', lineHeight: 1.45, fontWeight: 600, color: '#FFFFFF' }}>
+                    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
                       <path d="M5 12h14" />
                       <path d="M13 6l6 6-6 6" />
                     </svg>
@@ -1357,12 +1288,12 @@ export function NexusProductView() {
                   </span>
                 </li>
 
-                <li style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '18px 0', borderTop: '1px solid rgba(255,255,255,.12)' }}>
-                  <span style={{ fontSize: '15px', lineHeight: 1.5, color: '#8D97AD', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px' }}>
+                <li style={{ display: 'flex', flexDirection: 'column', gap: '5px', padding: '16px 0', borderTop: '1px solid rgba(255,255,255,.12)' }}>
+                  <span style={{ fontSize: '13.5px', lineHeight: 1.5, color: '#8D97AD', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px', fontFamily: 'var(--font-sans), sans-serif' }}>
                     A new tool to buy for every new need
                   </span>
-                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '19px', lineHeight: 1.4, fontWeight: 600, color: '#FFFFFF' }}>
-                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
+                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-sans), sans-serif', fontSize: '16px', lineHeight: 1.45, fontWeight: 600, color: '#FFFFFF' }}>
+                    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
                       <path d="M5 12h14" />
                       <path d="M13 6l6 6-6 6" />
                     </svg>
@@ -1381,46 +1312,24 @@ export function NexusProductView() {
               alignItems: 'center',
               justifyContent: 'space-between',
               gap: '18px',
-              padding: '26px 30px',
-              borderRadius: '18px',
+              padding: '22px 28px',
+              borderRadius: '16px',
               background: '#F3EBDC',
             }}
           >
-            <p style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '22px', fontWeight: 600, color: '#0E1B36' }}>
+            <p style={{ margin: 0, fontFamily: 'var(--font-sans), sans-serif', fontSize: '18px', fontWeight: 600, color: '#0E1B36' }}>
               See what this looks like for your business, on your own use case.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
               <a
-                className="btn btn--metal nexus-btn"
+                className="btn btn--metal"
                 href="#demo"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  minHeight: '52px',
-                  padding: '0 26px',
-                  borderRadius: '999px',
-                  fontFamily: 'var(--font-reddit), sans-serif',
-                  fontWeight: 700,
-                  fontSize: '16px',
-                }}
               >
                 Book a demo
               </a>
               <a
-                className="btn nexus-btn"
+                className="btn btn--ink"
                 href="#packages"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  minHeight: '52px',
-                  padding: '0 24px',
-                  borderRadius: '999px',
-                  background: '#0E1B36',
-                  color: '#FFFFFF',
-                  fontFamily: 'var(--font-reddit), sans-serif',
-                  fontWeight: 600,
-                  fontSize: '16px',
-                }}
               >
                 Build your package
               </a>
@@ -1430,23 +1339,23 @@ export function NexusProductView() {
       </section>
 
       {/* ============ FACT STRIP ============ */}
-      <section aria-label="Nexus at a glance" style={{ background: '#0E1B36', borderTop: '1px solid rgba(221,187,110,.4)', padding: '30px 24px' }}>
-        <div style={{ maxWidth: '1120px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px', fontFamily: 'var(--font-reddit), sans-serif' }}>
+      <section aria-label="Nexus at a glance" style={{ background: '#0E1B36', borderTop: '1px solid rgba(221,187,110,.4)', padding: '28px 24px' }}>
+        <div style={{ maxWidth: '1120px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px', fontFamily: 'var(--font-sans), sans-serif' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            <span className="nexus-gold" style={{ fontSize: '40px', fontWeight: 700, lineHeight: 1 }}>37</span>
-            <span style={{ color: '#C9D1E0', fontSize: '15px' }}>core modules in six categories</span>
+            <span className="nexus-gold" style={{ fontSize: '36px', fontWeight: 700, lineHeight: 1 }}>37</span>
+            <span style={{ color: '#C9D1E0', fontSize: '14px' }}>core modules in six categories</span>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            <span className="nexus-gold" style={{ fontSize: '40px', fontWeight: 700, lineHeight: 1 }}>251</span>
-            <span style={{ color: '#C9D1E0', fontSize: '15px' }}>capabilities across those modules and add-ons</span>
+            <span className="nexus-gold" style={{ fontSize: '36px', fontWeight: 700, lineHeight: 1 }}>251</span>
+            <span style={{ color: '#C9D1E0', fontSize: '14px' }}>capabilities across those modules and add-ons</span>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            <span className="nexus-gold" style={{ fontSize: '40px', fontWeight: 700, lineHeight: 1 }}>12</span>
-            <span style={{ color: '#C9D1E0', fontSize: '15px' }}>platform features in every package</span>
+            <span className="nexus-gold" style={{ fontSize: '36px', fontWeight: 700, lineHeight: 1 }}>12</span>
+            <span style={{ color: '#C9D1E0', fontSize: '14px' }}>platform features in every package</span>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            <span className="nexus-gold" style={{ fontSize: '40px', fontWeight: 700, lineHeight: 1 }}>3</span>
-            <span style={{ color: '#C9D1E0', fontSize: '15px' }}>industry add-ons: franchise, investor relations, BFSI risk</span>
+            <span className="nexus-gold" style={{ fontSize: '36px', fontWeight: 700, lineHeight: 1 }}>3</span>
+            <span style={{ color: '#C9D1E0', fontSize: '14px' }}>industry add-ons: franchise, investor relations, BFSI risk</span>
           </div>
         </div>
       </section>
@@ -1465,8 +1374,8 @@ export function NexusProductView() {
                 borderRadius: '999px',
                 background: 'rgba(255,255,255,.06)',
                 border: '1px solid rgba(255,255,255,.14)',
-                fontFamily: 'var(--font-reddit), sans-serif',
-                fontSize: '14px',
+                fontFamily: 'var(--font-sans), sans-serif',
+                fontSize: '13.5px',
                 color: '#E6EAF2',
               }}
             >
@@ -1477,17 +1386,17 @@ export function NexusProductView() {
               id="ones-h"
               style={{
                 margin: 0,
-                fontFamily: 'var(--font-reddit), sans-serif',
+                fontFamily: 'var(--font-sans), sans-serif',
                 fontWeight: 600,
-                fontSize: 'clamp(34px, 4vw, 54px)',
-                lineHeight: 1.06,
+                fontSize: 'clamp(28px, 3.4vw, 44px)',
+                lineHeight: 1.12,
                 letterSpacing: '-.02em',
                 color: '#F6F1E6',
               }}
             >
               Four things you get <span className="nexus-gold">only once.</span>
             </h2>
-            <p style={{ margin: 0, fontSize: '18px', lineHeight: 1.7, color: '#C2CBDB' }}>
+            <p style={{ margin: 0, fontSize: 'clamp(15.5px, 1.3vw, 17.5px)', lineHeight: 1.6, color: '#C2CBDB' }}>
               This is the core promise. Everything else on this page follows from it.
             </p>
           </div>
@@ -1498,7 +1407,7 @@ export function NexusProductView() {
                 <rect x="5" y="11" width="14" height="9" rx="2" />
                 <path d="M8 11V8a4 4 0 0 1 8 0v3" />
               </svg>
-              <h3 style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '22px', fontWeight: 700, color: '#FFFFFF' }}>One sign-in</h3>
+              <h3 style={{ margin: 0, fontFamily: 'var(--font-sans), sans-serif', fontSize: '20px', fontWeight: 600, color: '#FFFFFF' }}>One sign-in</h3>
               <p style={{ margin: 0, fontSize: '16px', lineHeight: 1.65, color: '#C2CBDB' }}>
                 Customers, partners, candidates and staff use one identity across every site, app and portal: OTP, passkeys, Google and LinkedIn sign-in, SAML and OIDC for staff.
               </p>
@@ -1510,7 +1419,7 @@ export function NexusProductView() {
                 <path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6" />
                 <path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6" />
               </svg>
-              <h3 style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '22px', fontWeight: 700, color: '#FFFFFF' }}>One database</h3>
+              <h3 style={{ margin: 0, fontFamily: 'var(--font-sans), sans-serif', fontSize: '20px', fontWeight: 600, color: '#FFFFFF' }}>One database</h3>
               <p style={{ margin: 0, fontSize: '16px', lineHeight: 1.65, color: '#C2CBDB' }}>
                 The Nexus Unified Database holds content and customer records for every module, with one Party Graph per person and company and a full audit log.
               </p>
@@ -1521,7 +1430,7 @@ export function NexusProductView() {
                 <path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z" />
                 <path d="M18 15l.8 2.2L21 18l-2.2.8L18 21l-.8-2.2L15 18l2.2-.8z" />
               </svg>
-              <h3 style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '22px', fontWeight: 700, color: '#FFFFFF' }}>One AI layer</h3>
+              <h3 style={{ margin: 0, fontFamily: 'var(--font-sans), sans-serif', fontSize: '20px', fontWeight: 600, color: '#FFFFFF' }}>One AI layer</h3>
               <p style={{ margin: 0, fontSize: '16px', lineHeight: 1.65, color: '#C2CBDB' }}>
                 NexusIQ serves every module: cited answers, drafting, translation, agents and analytics, governed in one place with a human approving what matters.
               </p>
@@ -1533,7 +1442,7 @@ export function NexusProductView() {
                 <path d="M3 10h18" />
                 <path d="M7 15h4" />
               </svg>
-              <h3 style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '22px', fontWeight: 700, color: '#FFFFFF' }}>One subscription</h3>
+              <h3 style={{ margin: 0, fontFamily: 'var(--font-sans), sans-serif', fontSize: '20px', fontWeight: 600, color: '#FFFFFF' }}>One subscription</h3>
               <p style={{ margin: 0, fontSize: '16px', lineHeight: 1.65, color: '#C2CBDB' }}>
                 Pay for the modules you switch on, in packages of 3, 6, 12 or 24. Add one module at a time as you grow. Every platform feature is included.
               </p>
@@ -1557,7 +1466,7 @@ export function NexusProductView() {
                   borderRadius: '999px',
                   background: '#FFFFFF',
                   border: '1px solid rgba(13,26,52,.08)',
-                  fontFamily: 'var(--font-reddit), sans-serif',
+                  fontFamily: 'var(--font-sans), sans-serif',
                   fontSize: '14px',
                   color: '#0E1B36',
                 }}
@@ -1568,17 +1477,17 @@ export function NexusProductView() {
               <h2
                 style={{
                   margin: 0,
-                  fontFamily: 'var(--font-reddit), sans-serif',
+                  fontFamily: 'var(--font-sans), sans-serif',
                   fontWeight: 600,
-                  fontSize: 'clamp(34px, 4vw, 54px)',
-                  lineHeight: 1.06,
+                  fontSize: 'clamp(28px, 3.4vw, 44px)',
+                  lineHeight: 1.15,
                   letterSpacing: '-.02em',
                   color: '#0E1B36',
                 }}
               >
                 Switch on <span className="nexus-goldink">only what you need.</span>
               </h2>
-              <p style={{ margin: 0, fontSize: '18px', lineHeight: 1.7, color: '#3A4363' }}>
+              <p style={{ margin: 0, fontSize: 'clamp(15.5px, 1.3vw, 17.5px)', lineHeight: 1.6, color: '#3A4363' }}>
                 Browse all 37 modules and the add-ons. Tap <strong style={{ color: '#0E1B36' }}>Add</strong> on the ones you want and we will size your package below.
               </p>
             </div>
@@ -1594,7 +1503,7 @@ export function NexusProductView() {
                 borderRadius: '999px',
                 background: '#0E1B36',
                 color: '#FFFFFF',
-                fontFamily: 'var(--font-reddit), sans-serif',
+                fontFamily: 'var(--font-sans), sans-serif',
                 fontWeight: 600,
                 fontSize: '16px',
               }}
@@ -1625,7 +1534,7 @@ export function NexusProductView() {
                     border: on ? '1px solid #0E1B36' : '1px solid rgba(13,26,52,.18)',
                     background: on ? '#0E1B36' : '#FFFFFF',
                     color: on ? '#FFFFFF' : '#0E1B36',
-                    fontFamily: 'var(--font-reddit), sans-serif',
+                    fontFamily: 'var(--font-sans), sans-serif',
                     fontSize: '15px',
                     fontWeight: 600,
                     cursor: 'pointer',
@@ -1643,7 +1552,7 @@ export function NexusProductView() {
 
           {/* Category Header */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'baseline', justifyContent: 'space-between', borderBottom: '1px solid rgba(13,26,52,.14)', paddingBottom: '16px' }}>
-            <h3 style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '26px', fontWeight: 700, color: '#0E1B36' }}>
+            <h3 style={{ margin: 0, fontFamily: 'var(--font-sans), sans-serif', fontSize: '26px', fontWeight: 700, color: '#0E1B36' }}>
               <span>{currentCat.name}</span> <span style={{ color: '#8A6522', fontWeight: 600 }}>{currentCat.range}</span>
             </h3>
             <p style={{ margin: 0, fontSize: '16px', color: '#5B6380' }}>{currentCat.desc}</p>
@@ -1670,7 +1579,7 @@ export function NexusProductView() {
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <span style={{ fontFamily: 'var(--font-reddit), sans-serif', fontWeight: 700, fontSize: '15px', color: '#8A6522' }}>{m.n}</span>
+                    <span style={{ fontFamily: 'var(--font-sans), sans-serif', fontWeight: 700, fontSize: '15px', color: '#8A6522' }}>{m.n}</span>
                     <span style={getTierStyle(m.tier)}>{m.tier}</span>
                     <button
                       type="button"
@@ -1684,7 +1593,7 @@ export function NexusProductView() {
                         padding: '0 14px',
                         borderRadius: '999px',
                         cursor: 'pointer',
-                        fontFamily: 'var(--font-reddit), sans-serif',
+                        fontFamily: 'var(--font-sans), sans-serif',
                         fontSize: '14px',
                         fontWeight: 700,
                         background: isPicked
@@ -1698,13 +1607,13 @@ export function NexusProductView() {
                       {isPicked ? 'Added' : 'Add'}
                     </button>
                   </div>
-                  <h4 style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '21px', fontWeight: 700, lineHeight: 1.2, color: '#0E1B36' }}>
+                  <h4 style={{ margin: 0, fontFamily: 'var(--font-sans), sans-serif', fontSize: '18px', fontWeight: 600, lineHeight: 1.25, color: '#0E1B36' }}>
                     {m.name}
                   </h4>
-                  <p style={{ margin: 0, fontSize: '15.5px', lineHeight: 1.6, color: '#3A4363' }}>{m.blurb}</p>
+                  <p style={{ margin: 0, fontSize: '14px', lineHeight: 1.55, color: '#3A4363' }}>{m.blurb}</p>
                   <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                     {m.subs.map((s) => (
-                      <li key={s} style={{ padding: '4px 10px', borderRadius: '999px', background: '#F6EFE2', color: '#4A5373', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '13px' }}>
+                      <li key={s} style={{ padding: '4px 10px', borderRadius: '999px', background: '#F6EFE2', color: '#4A5373', fontFamily: 'var(--font-sans), sans-serif', fontSize: '13px' }}>
                         {s}
                       </li>
                     ))}
@@ -1731,7 +1640,7 @@ export function NexusProductView() {
                   borderRadius: '999px',
                   background: 'rgba(255,255,255,.06)',
                   border: '1px solid rgba(255,255,255,.14)',
-                  fontFamily: 'var(--font-reddit), sans-serif',
+                  fontFamily: 'var(--font-sans), sans-serif',
                   fontSize: '14px',
                   color: '#E6EAF2',
                 }}
@@ -1742,10 +1651,10 @@ export function NexusProductView() {
               <h2
                 style={{
                   margin: 0,
-                  fontFamily: 'var(--font-reddit), sans-serif',
+                  fontFamily: 'var(--font-sans), sans-serif',
                   fontWeight: 600,
-                  fontSize: 'clamp(34px, 4vw, 54px)',
-                  lineHeight: 1.06,
+                  fontSize: 'clamp(28px, 3.4vw, 44px)',
+                  lineHeight: 1.15,
                   letterSpacing: '-.02em',
                   color: '#F6F1E6',
                 }}
@@ -1753,56 +1662,56 @@ export function NexusProductView() {
                 AI in every module. <span className="nexus-gold">A human on every decision that matters.</span>
               </h2>
             </div>
-            <p style={{ margin: 0, fontSize: '18px', lineHeight: 1.7, color: '#C2CBDB' }}>
+            <p style={{ margin: 0, fontSize: 'clamp(15.5px, 1.3vw, 17.5px)', lineHeight: 1.6, color: '#C2CBDB' }}>
               NexusIQ is one AI layer shared by all modules, so it answers from your approved content, knows the customer record and works inside your rules. Agents draft. People approve. Every action is logged and explainable.
             </p>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
             <div style={{ padding: '28px', borderRadius: '16px', background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.12)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <span style={{ fontFamily: 'var(--font-reddit), sans-serif', fontSize: '13px', fontWeight: 700, letterSpacing: '.12em', color: '#DDBB6E' }}>
+              <span style={{ fontFamily: 'var(--font-sans), sans-serif', fontSize: '13px', fontWeight: 700, letterSpacing: '.12em', color: '#DDBB6E' }}>
                 03 · 26
               </span>
-              <h3 style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '21px', fontWeight: 700, color: '#FFFFFF' }}>
+              <h3 style={{ margin: 0, fontFamily: 'var(--font-sans), sans-serif', fontSize: '19px', fontWeight: 600, color: '#FFFFFF' }}>
                 Answers with sources
               </h3>
-              <p style={{ margin: 0, fontSize: '15.5px', lineHeight: 1.65, color: '#C2CBDB' }}>
+              <p style={{ margin: 0, fontSize: '14.5px', lineHeight: 1.6, color: '#C2CBDB' }}>
                 Site search and an assistant that answer in plain language with citations, fall back to links when unsure and hand off to a person with full context.
               </p>
             </div>
 
             <div style={{ padding: '28px', borderRadius: '16px', background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.12)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <span style={{ fontFamily: 'var(--font-reddit), sans-serif', fontSize: '13px', fontWeight: 700, letterSpacing: '.12em', color: '#DDBB6E' }}>
+              <span style={{ fontFamily: 'var(--font-sans), sans-serif', fontSize: '13px', fontWeight: 700, letterSpacing: '.12em', color: '#DDBB6E' }}>
                 28
               </span>
-              <h3 style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '21px', fontWeight: 700, color: '#FFFFFF' }}>
+              <h3 style={{ margin: 0, fontFamily: 'var(--font-sans), sans-serif', fontSize: '19px', fontWeight: 600, color: '#FFFFFF' }}>
                 Agents with an approval queue
               </h3>
-              <p style={{ margin: 0, fontSize: '15.5px', lineHeight: 1.65, color: '#C2CBDB' }}>
+              <p style={{ margin: 0, fontSize: '14.5px', lineHeight: 1.6, color: '#C2CBDB' }}>
                 Ready-made Follow-up, Router, Summariser and Content-gap agents, plus your own rules. Volume limits, permitted actions and a queue where staff approve, edit or reject.
               </p>
             </div>
 
             <div style={{ padding: '28px', borderRadius: '16px', background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.12)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <span style={{ fontFamily: 'var(--font-reddit), sans-serif', fontSize: '13px', fontWeight: 700, letterSpacing: '.12em', color: '#DDBB6E' }}>
+              <span style={{ fontFamily: 'var(--font-sans), sans-serif', fontSize: '13px', fontWeight: 700, letterSpacing: '.12em', color: '#DDBB6E' }}>
                 01 · 06 · 11 · 21
               </span>
-              <h3 style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '21px', fontWeight: 700, color: '#FFFFFF' }}>
+              <h3 style={{ margin: 0, fontFamily: 'var(--font-sans), sans-serif', fontSize: '19px', fontWeight: 600, color: '#FFFFFF' }}>
                 Work that drafts itself
               </h3>
-              <p style={{ margin: 0, fontSize: '15.5px', lineHeight: 1.65, color: '#C2CBDB' }}>
+              <p style={{ margin: 0, fontSize: '14.5px', lineHeight: 1.6, color: '#C2CBDB' }}>
                 Pages from a brief, posts and digests, translations into Indian languages, weekly sentiment summaries, contract clause extraction and plain-language summaries.
               </p>
             </div>
 
             <div style={{ padding: '28px', borderRadius: '16px', background: 'rgba(255,255,255,.04)', border: '1px solid rgba(255,255,255,.12)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <span style={{ fontFamily: 'var(--font-reddit), sans-serif', fontSize: '13px', fontWeight: 700, letterSpacing: '.12em', color: '#DDBB6E' }}>
+              <span style={{ fontFamily: 'var(--font-sans), sans-serif', fontSize: '13px', fontWeight: 700, letterSpacing: '.12em', color: '#DDBB6E' }}>
                 33
               </span>
-              <h3 style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '21px', fontWeight: 700, color: '#FFFFFF' }}>
+              <h3 style={{ margin: 0, fontFamily: 'var(--font-sans), sans-serif', fontSize: '19px', fontWeight: 600, color: '#FFFFFF' }}>
                 AI you can audit
               </h3>
-              <p style={{ margin: 0, fontSize: '15.5px', lineHeight: 1.65, color: '#C2CBDB' }}>
+              <p style={{ margin: 0, fontSize: '14.5px', lineHeight: 1.6, color: '#C2CBDB' }}>
                 Conversation QA, bias and drift alerts, an explainability log, human-override analytics and model documentation packaged for RBI and DPDP-style reviews.
               </p>
             </div>
@@ -1824,7 +1733,7 @@ export function NexusProductView() {
                 borderRadius: '999px',
                 background: '#FFFFFF',
                 border: '1px solid rgba(13,26,52,.08)',
-                fontFamily: 'var(--font-reddit), sans-serif',
+                fontFamily: 'var(--font-sans), sans-serif',
                 fontSize: '14px',
                 color: '#0E1B36',
               }}
@@ -1836,17 +1745,17 @@ export function NexusProductView() {
               id="flows-h"
               style={{
                 margin: 0,
-                fontFamily: 'var(--font-reddit), sans-serif',
+                fontFamily: 'var(--font-sans), sans-serif',
                 fontWeight: 600,
-                fontSize: 'clamp(34px, 4vw, 54px)',
-                lineHeight: 1.06,
+                fontSize: 'clamp(28px, 3.4vw, 44px)',
+                lineHeight: 1.15,
                 letterSpacing: '-.02em',
                 color: '#0E1B36',
               }}
             >
               Modules that <span className="nexus-goldink">finish each other's work.</span>
             </h2>
-            <p style={{ margin: 0, fontSize: '18px', lineHeight: 1.7, color: '#3A4363' }}>
+            <p style={{ margin: 0, fontSize: 'clamp(15.5px, 1.3vw, 17.5px)', lineHeight: 1.6, color: '#3A4363' }}>
               Because every module shares one database, work flows on without exports, re-keying or extra integrations. A few of the flows that run in Nexus today:
             </p>
           </div>
@@ -1864,7 +1773,7 @@ export function NexusProductView() {
                   borderRadius: '14px',
                   background: '#FFFFFF',
                   boxShadow: '0 1px 2px rgba(13,26,52,.06), 0 16px 36px -24px rgba(13,26,52,.25)',
-                  fontFamily: 'var(--font-reddit), sans-serif',
+                  fontFamily: 'var(--font-sans), sans-serif',
                 }}
               >
                 <span style={{ flex: 'none', padding: '6px 12px', borderRadius: '999px', background: '#0E1B36', color: '#FFFFFF', fontSize: '13.5px', fontWeight: 600 }}>
@@ -1899,7 +1808,7 @@ export function NexusProductView() {
                 borderRadius: '999px',
                 background: 'rgba(255,255,255,.06)',
                 border: '1px solid rgba(255,255,255,.14)',
-                fontFamily: 'var(--font-reddit), sans-serif',
+                fontFamily: 'var(--font-sans), sans-serif',
                 fontSize: '14px',
                 color: '#E6EAF2',
               }}
@@ -1911,10 +1820,10 @@ export function NexusProductView() {
               id="trust-h"
               style={{
                 margin: 0,
-                fontFamily: 'var(--font-reddit), sans-serif',
+                fontFamily: 'var(--font-sans), sans-serif',
                 fontWeight: 600,
-                fontSize: 'clamp(34px, 4vw, 54px)',
-                lineHeight: 1.06,
+                fontSize: 'clamp(28px, 3.4vw, 44px)',
+                lineHeight: 1.15,
                 letterSpacing: '-.02em',
                 color: '#F6F1E6',
               }}
@@ -1936,7 +1845,7 @@ export function NexusProductView() {
           >
             {TRUST.map((t, idx) => (
               <div key={idx} style={{ background: '#0F1E3E', padding: '26px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                <h3 style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '18px', fontWeight: 700, color: '#FFFFFF' }}>{t.title}</h3>
+                <h3 style={{ margin: 0, fontFamily: 'var(--font-sans), sans-serif', fontSize: '18px', fontWeight: 700, color: '#FFFFFF' }}>{t.title}</h3>
                 <p style={{ margin: 0, fontSize: '15px', lineHeight: 1.6, color: '#B9C3D5' }}>{t.body}</p>
               </div>
             ))}
@@ -1958,7 +1867,7 @@ export function NexusProductView() {
                 borderRadius: '999px',
                 background: '#FFFFFF',
                 border: '1px solid rgba(13,26,52,.08)',
-                fontFamily: 'var(--font-reddit), sans-serif',
+                fontFamily: 'var(--font-sans), sans-serif',
                 fontSize: '14px',
                 color: '#0E1B36',
               }}
@@ -1970,17 +1879,17 @@ export function NexusProductView() {
               id="roles-h"
               style={{
                 margin: 0,
-                fontFamily: 'var(--font-reddit), sans-serif',
+                fontFamily: 'var(--font-sans), sans-serif',
                 fontWeight: 600,
-                fontSize: 'clamp(34px, 4vw, 54px)',
-                lineHeight: 1.06,
+                fontSize: 'clamp(28px, 3.4vw, 44px)',
+                lineHeight: 1.15,
                 letterSpacing: '-.02em',
                 color: '#0E1B36',
               }}
             >
               Different teams. <span className="nexus-goldink">One platform.</span>
             </h2>
-            <p style={{ margin: 0, fontSize: '18px', lineHeight: 1.7, color: '#3A4363' }}>
+            <p style={{ margin: 0, fontSize: 'clamp(15.5px, 1.3vw, 17.5px)', lineHeight: 1.6, color: '#3A4363' }}>
               For startups, SMEs and growing enterprises that want one platform instead of a dozen tools.
             </p>
           </div>
@@ -2003,7 +1912,7 @@ export function NexusProductView() {
                     border: on ? '1px solid #0E1B36' : '1px solid rgba(13,26,52,.18)',
                     background: on ? '#0E1B36' : '#FFFFFF',
                     color: on ? '#FFFFFF' : '#0E1B36',
-                    fontFamily: 'var(--font-reddit), sans-serif',
+                    fontFamily: 'var(--font-sans), sans-serif',
                     fontSize: '15px',
                     fontWeight: 600,
                     cursor: 'pointer',
@@ -2032,13 +1941,13 @@ export function NexusProductView() {
             }}
           >
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              <h3 style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '30px', lineHeight: 1.15, fontWeight: 600, color: '#0E1B36' }}>
+              <h3 style={{ margin: 0, fontFamily: 'var(--font-sans), sans-serif', fontSize: '24px', lineHeight: 1.2, fontWeight: 600, color: '#0E1B36' }}>
                 {currentRole.head}
               </h3>
-              <p style={{ margin: 0, fontSize: '17px', lineHeight: 1.7, color: '#3A4363' }}>{currentRole.body}</p>
+              <p style={{ margin: 0, fontSize: '15.5px', lineHeight: 1.6, color: '#3A4363' }}>{currentRole.body}</p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', paddingTop: '6px' }}>
                 {currentRole.mods.map((mod) => (
-                  <span key={mod} style={{ padding: '6px 12px', borderRadius: '999px', background: '#0E1B36', color: '#FFFFFF', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '13.5px', fontWeight: 500 }}>
+                  <span key={mod} style={{ padding: '6px 12px', borderRadius: '999px', background: '#0E1B36', color: '#FFFFFF', fontFamily: 'var(--font-sans), sans-serif', fontSize: '13.5px', fontWeight: 500 }}>
                     {mod}
                   </span>
                 ))}
@@ -2046,7 +1955,7 @@ export function NexusProductView() {
             </div>
             <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '14px' }}>
               {currentRole.wins.map((w, idx) => (
-                <li key={idx} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', fontSize: '16.5px', lineHeight: 1.6, color: '#3A4363' }}>
+                <li key={idx} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', fontSize: '15px', lineHeight: 1.55, color: '#3A4363' }}>
                   <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B48632" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '2px' }}>
                     <path d="M5 12.5l4.5 4.5L19 7.5" />
                   </svg>
@@ -2058,7 +1967,7 @@ export function NexusProductView() {
 
           {/* Industry link pills */}
           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px' }}>
-            <span style={{ fontFamily: 'var(--font-reddit), sans-serif', fontSize: '14px', fontWeight: 700, letterSpacing: '.12em', textTransform: 'uppercase', color: '#5B6380', marginRight: '6px' }}>
+            <span style={{ fontFamily: 'var(--font-sans), sans-serif', fontSize: '14px', fontWeight: 700, letterSpacing: '.12em', textTransform: 'uppercase', color: '#5B6380', marginRight: '6px' }}>
               Industries
             </span>
             {[
@@ -2079,7 +1988,7 @@ export function NexusProductView() {
                   borderRadius: '999px',
                   border: '1px solid rgba(13,26,52,.18)',
                   color: '#0E1B36',
-                  fontFamily: 'var(--font-reddit), sans-serif',
+                  fontFamily: 'var(--font-sans), sans-serif',
                   fontSize: '14.5px',
                   transition: 'border-color .2s, background-color .2s',
                 }}
@@ -2105,7 +2014,7 @@ export function NexusProductView() {
                 borderRadius: '999px',
                 background: '#FFFFFF',
                 border: '1px solid rgba(13,26,52,.08)',
-                fontFamily: 'var(--font-reddit), sans-serif',
+                fontFamily: 'var(--font-sans), sans-serif',
                 fontSize: '14px',
                 color: '#0E1B36',
               }}
@@ -2116,17 +2025,17 @@ export function NexusProductView() {
             <h2
               style={{
                 margin: 0,
-                fontFamily: 'var(--font-reddit), sans-serif',
+                fontFamily: 'var(--font-sans), sans-serif',
                 fontWeight: 600,
-                fontSize: 'clamp(34px, 4vw, 54px)',
-                lineHeight: 1.06,
+                fontSize: 'clamp(28px, 3.4vw, 44px)',
+                lineHeight: 1.15,
                 letterSpacing: '-.02em',
                 color: '#0E1B36',
               }}
             >
               Priced by <span className="nexus-goldink">how many modules you switch on.</span>
             </h2>
-            <p style={{ margin: 0, fontSize: '18px', lineHeight: 1.7, color: '#3A4363' }}>
+            <p style={{ margin: 0, fontSize: 'clamp(15.5px, 1.3vw, 17.5px)', lineHeight: 1.6, color: '#3A4363' }}>
               Pick a package by module count, add single modules any time, and renew yearly from year two. All twelve platform features come with every package.
             </p>
           </div>
@@ -2151,21 +2060,21 @@ export function NexusProductView() {
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
-                    <h3 style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '22px', fontWeight: 700, color: isRecommended ? '#FFFFFF' : '#0E1B36' }}>
+                    <h3 style={{ margin: 0, fontFamily: 'var(--font-sans), sans-serif', fontSize: '20px', fontWeight: 600, color: isRecommended ? '#FFFFFF' : '#0E1B36' }}>
                       {p.name}
                     </h3>
                     {isRecommended && (
-                      <span style={{ padding: '4px 10px', borderRadius: '999px', background: 'linear-gradient(118deg, #C99D48, #F2DA98 45%, #D6B163)', color: '#1A1408', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '12px', fontWeight: 700 }}>
+                      <span style={{ padding: '4px 10px', borderRadius: '999px', background: 'linear-gradient(118deg, #C99D48, #F2DA98 45%, #D6B163)', color: '#1A1408', fontFamily: 'var(--font-sans), sans-serif', fontSize: '12px', fontWeight: 700 }}>
                         Fits your pick
                       </span>
                     )}
                   </div>
-                  <div style={{ fontFamily: 'var(--font-reddit), sans-serif', fontSize: '15px', fontWeight: 600, color: isRecommended ? '#DDBB6E' : '#8A6522' }}>
+                  <div style={{ fontFamily: 'var(--font-sans), sans-serif', fontSize: '15px', fontWeight: 600, color: isRecommended ? '#DDBB6E' : '#8A6522' }}>
                     {p.mods} modules
                   </div>
                   {SHOW_PRICES && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                      <div style={{ fontFamily: 'var(--font-reddit), sans-serif', fontSize: '34px', fontWeight: 700, lineHeight: 1.1, color: isRecommended ? '#FFFFFF' : '#0E1B36' }}>
+                      <div style={{ fontFamily: 'var(--font-sans), sans-serif', fontSize: '28px', fontWeight: 600, lineHeight: 1.1, color: isRecommended ? '#FFFFFF' : '#0E1B36' }}>
                         {usd(p.first)}
                       </div>
                       <div style={{ fontSize: '14px', color: isRecommended ? '#B9C3D5' : '#5B6380' }}>
@@ -2189,10 +2098,10 @@ export function NexusProductView() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 0, borderRadius: '18px', overflow: 'hidden', boxShadow: '0 30px 60px -24px rgba(13,26,52,.45)' }}>
             {/* Left: Your Nexus */}
             <div style={{ background: 'linear-gradient(160deg, #12254D, #0A1530)', padding: '34px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <span style={{ fontFamily: 'var(--font-reddit), sans-serif', fontSize: '13px', fontWeight: 700, letterSpacing: '.14em', textTransform: 'uppercase', color: '#DDBB6E' }}>
+              <span style={{ fontFamily: 'var(--font-sans), sans-serif', fontSize: '13px', fontWeight: 700, letterSpacing: '.14em', textTransform: 'uppercase', color: '#DDBB6E' }}>
                 Your Nexus
               </span>
-              <div aria-live="polite" style={{ fontFamily: 'var(--font-reddit), sans-serif', fontSize: '30px', lineHeight: 1.15, fontWeight: 600, color: '#FFFFFF' }}>
+              <div aria-live="polite" style={{ fontFamily: 'var(--font-sans), sans-serif', fontSize: '24px', lineHeight: 1.2, fontWeight: 600, color: '#FFFFFF' }}>
                 {bestHead}
               </div>
               <p style={{ margin: 0, fontSize: '16px', lineHeight: 1.65, color: '#C2CBDB' }}>
@@ -2216,7 +2125,7 @@ export function NexusProductView() {
                       background: 'rgba(255,255,255,.08)',
                       border: '1px solid rgba(255,255,255,.18)',
                       color: '#FFFFFF',
-                      fontFamily: 'var(--font-reddit), sans-serif',
+                      fontFamily: 'var(--font-sans), sans-serif',
                       fontSize: '13.5px',
                       cursor: 'pointer',
                     }}
@@ -2232,38 +2141,16 @@ export function NexusProductView() {
 
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', paddingTop: '6px' }}>
                 <a
-                  className="btn btn--metal nexus-btn"
+                  className="btn btn--metal"
                   href="#demo"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    minHeight: '52px',
-                    padding: '0 26px',
-                    borderRadius: '999px',
-                    fontFamily: 'var(--font-reddit), sans-serif',
-                    fontWeight: 700,
-                    fontSize: '16px',
-                  }}
                 >
                   {picked.length ? 'Request a proposal for these' : 'Book a demo instead'}
                 </a>
                 {picked.length > 0 && (
                   <button
                     type="button"
-                    className="nexus-ghost"
+                    className="btn btn--glass"
                     onClick={clearPicked}
-                    style={{
-                      minHeight: '52px',
-                      padding: '0 22px',
-                      borderRadius: '999px',
-                      background: 'transparent',
-                      border: '1px solid rgba(255,255,255,.25)',
-                      color: '#FFFFFF',
-                      fontFamily: 'var(--font-reddit), sans-serif',
-                      fontWeight: 600,
-                      fontSize: '15px',
-                      cursor: 'pointer',
-                    }}
                   >
                     Clear
                   </button>
@@ -2273,7 +2160,7 @@ export function NexusProductView() {
 
             {/* Right: Presets */}
             <div style={{ background: '#FFFDF8', padding: '34px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              <span style={{ fontFamily: 'var(--font-reddit), sans-serif', fontSize: '13px', fontWeight: 700, letterSpacing: '.14em', textTransform: 'uppercase', color: '#5B6380' }}>
+              <span style={{ fontFamily: 'var(--font-sans), sans-serif', fontSize: '13px', fontWeight: 700, letterSpacing: '.14em', textTransform: 'uppercase', color: '#5B6380' }}>
                 Or start from a common first step
               </span>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
@@ -2296,7 +2183,7 @@ export function NexusProductView() {
                       transition: 'border-color .2s, box-shadow .2s',
                     }}
                   >
-                    <span style={{ fontFamily: 'var(--font-reddit), sans-serif', fontSize: '17px', fontWeight: 700, color: '#0E1B36' }}>
+                    <span style={{ fontFamily: 'var(--font-sans), sans-serif', fontSize: '17px', fontWeight: 700, color: '#0E1B36' }}>
                       {p.name}
                     </span>
                     <span style={{ fontSize: '14.5px', color: '#5B6380' }}>{p.desc}</span>
@@ -2322,7 +2209,7 @@ export function NexusProductView() {
                 borderRadius: '999px',
                 background: '#FFFFFF',
                 border: '1px solid rgba(13,26,52,.08)',
-                fontFamily: 'var(--font-reddit), sans-serif',
+                fontFamily: 'var(--font-sans), sans-serif',
                 fontSize: '14px',
                 color: '#0E1B36',
               }}
@@ -2334,10 +2221,10 @@ export function NexusProductView() {
               id="cmp-h"
               style={{
                 margin: 0,
-                fontFamily: 'var(--font-reddit), sans-serif',
+                fontFamily: 'var(--font-sans), sans-serif',
                 fontWeight: 600,
-                fontSize: 'clamp(34px, 4vw, 54px)',
-                lineHeight: 1.06,
+                fontSize: 'clamp(28px, 3.4vw, 44px)',
+                lineHeight: 1.15,
                 letterSpacing: '-.02em',
                 color: '#0E1B36',
               }}
@@ -2349,7 +2236,7 @@ export function NexusProductView() {
           <div style={{ overflowX: 'auto', borderRadius: '16px', background: '#FFFFFF', boxShadow: '0 1px 2px rgba(13,26,52,.06), 0 22px 48px -22px rgba(13,26,52,.25)' }}>
             <table style={{ width: '100%', minWidth: '760px', borderCollapse: 'collapse', fontFamily: 'var(--font-sans), sans-serif', fontSize: '15.5px', color: '#3A4363' }}>
               <thead>
-                <tr style={{ background: '#0E1B36', color: '#FFFFFF', fontFamily: 'var(--font-reddit), sans-serif', textAlign: 'left' }}>
+                <tr style={{ background: '#0E1B36', color: '#FFFFFF', fontFamily: 'var(--font-sans), sans-serif', textAlign: 'left' }}>
                   <th scope="col" style={{ padding: '18px 22px', fontWeight: 600, width: '28%' }}>What you need</th>
                   <th scope="col" style={{ padding: '18px 22px', fontWeight: 600 }}>Point tools stitched together</th>
                   <th scope="col" style={{ padding: '18px 22px', fontWeight: 600 }}>Large enterprise suites</th>
@@ -2359,7 +2246,7 @@ export function NexusProductView() {
               <tbody>
                 {COMPARE.map((r, i) => (
                   <tr key={i} style={{ borderTop: '1px solid rgba(13,26,52,.08)' }}>
-                    <th scope="row" style={{ padding: '16px 22px', textAlign: 'left', fontFamily: 'var(--font-reddit), sans-serif', fontWeight: 600, color: '#0E1B36' }}>
+                    <th scope="row" style={{ padding: '16px 22px', textAlign: 'left', fontFamily: 'var(--font-sans), sans-serif', fontWeight: 600, color: '#0E1B36' }}>
                       {r.k}
                     </th>
                     <td style={{ padding: '16px 22px' }}>{r.a}</td>
@@ -2387,7 +2274,7 @@ export function NexusProductView() {
                 borderRadius: '999px',
                 background: '#FFFFFF',
                 border: '1px solid rgba(13,26,52,.08)',
-                fontFamily: 'var(--font-reddit), sans-serif',
+                fontFamily: 'var(--font-sans), sans-serif',
                 fontSize: '14px',
                 color: '#0E1B36',
               }}
@@ -2399,10 +2286,10 @@ export function NexusProductView() {
               id="start-h"
               style={{
                 margin: 0,
-                fontFamily: 'var(--font-reddit), sans-serif',
+                fontFamily: 'var(--font-sans), sans-serif',
                 fontWeight: 600,
-                fontSize: 'clamp(34px, 4vw, 54px)',
-                lineHeight: 1.06,
+                fontSize: 'clamp(28px, 3.4vw, 44px)',
+                lineHeight: 1.15,
                 letterSpacing: '-.02em',
                 color: '#0E1B36',
               }}
@@ -2413,23 +2300,23 @@ export function NexusProductView() {
 
           <ol style={{ margin: 0, padding: 0, listStyle: 'none', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: '24px' }}>
             <li style={{ display: 'flex', flexDirection: 'column', gap: '10px', paddingTop: '22px', borderTop: '2px solid #C49A45' }}>
-              <span className="nexus-goldink" style={{ fontFamily: 'var(--font-reddit), sans-serif', fontSize: '34px', fontWeight: 700, lineHeight: 1 }}>01</span>
-              <h3 style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '20px', fontWeight: 700, color: '#0E1B36' }}>See it on your use case</h3>
+              <span className="nexus-goldink" style={{ fontFamily: 'var(--font-sans), sans-serif', fontSize: '28px', fontWeight: 600, lineHeight: 1 }}>01</span>
+              <h3 style={{ margin: 0, fontFamily: 'var(--font-sans), sans-serif', fontSize: '18px', fontWeight: 600, color: '#0E1B36' }}>See it on your use case</h3>
               <p style={{ margin: 0, fontSize: '16px', lineHeight: 1.65, color: '#3A4363' }}>A 30-minute demo shaped around what you want to launch first.</p>
             </li>
             <li style={{ display: 'flex', flexDirection: 'column', gap: '10px', paddingTop: '22px', borderTop: '2px solid #C49A45' }}>
-              <span className="nexus-goldink" style={{ fontFamily: 'var(--font-reddit), sans-serif', fontSize: '34px', fontWeight: 700, lineHeight: 1 }}>02</span>
-              <h3 style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '20px', fontWeight: 700, color: '#0E1B36' }}>Agree a fixed-scope first step</h3>
+              <span className="nexus-goldink" style={{ fontFamily: 'var(--font-sans), sans-serif', fontSize: '28px', fontWeight: 600, lineHeight: 1 }}>02</span>
+              <h3 style={{ margin: 0, fontFamily: 'var(--font-sans), sans-serif', fontSize: '18px', fontWeight: 600, color: '#0E1B36' }}>Agree a fixed-scope first step</h3>
               <p style={{ margin: 0, fontSize: '16px', lineHeight: 1.65, color: '#3A4363' }}>Choose a package and the modules in it. You judge our work before you commit to more.</p>
             </li>
             <li style={{ display: 'flex', flexDirection: 'column', gap: '10px', paddingTop: '22px', borderTop: '2px solid #C49A45' }}>
-              <span className="nexus-goldink" style={{ fontFamily: 'var(--font-reddit), sans-serif', fontSize: '34px', fontWeight: 700, lineHeight: 1 }}>03</span>
-              <h3 style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '20px', fontWeight: 700, color: '#0E1B36' }}>Launch from a sandbox</h3>
+              <span className="nexus-goldink" style={{ fontFamily: 'var(--font-sans), sans-serif', fontSize: '28px', fontWeight: 600, lineHeight: 1 }}>03</span>
+              <h3 style={{ margin: 0, fontFamily: 'var(--font-sans), sans-serif', fontSize: '18px', fontWeight: 600, color: '#0E1B36' }}>Launch from a sandbox</h3>
               <p style={{ margin: 0, fontSize: '16px', lineHeight: 1.65, color: '#3A4363' }}>Configure and test in your own sandbox, promote to production, roll back in one click if needed.</p>
             </li>
             <li style={{ display: 'flex', flexDirection: 'column', gap: '10px', paddingTop: '22px', borderTop: '2px dashed #C49A45' }}>
-              <span className="nexus-goldink" style={{ fontFamily: 'var(--font-reddit), sans-serif', fontSize: '34px', fontWeight: 700, lineHeight: 1 }}>04</span>
-              <h3 style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '20px', fontWeight: 700, color: '#0E1B36' }}>Grow when you are ready</h3>
+              <span className="nexus-goldink" style={{ fontFamily: 'var(--font-sans), sans-serif', fontSize: '28px', fontWeight: 600, lineHeight: 1 }}>04</span>
+              <h3 style={{ margin: 0, fontFamily: 'var(--font-sans), sans-serif', fontSize: '18px', fontWeight: 600, color: '#0E1B36' }}>Grow when you are ready</h3>
               <p style={{ margin: 0, fontSize: '16px', lineHeight: 1.65, color: '#3A4363' }}>Switch on the next module. Your data, users and branding are already there.</p>
             </li>
           </ol>
@@ -2437,10 +2324,10 @@ export function NexusProductView() {
           {/* Coming next to Nexus */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '18px', padding: '30px', borderRadius: '18px', background: '#FFFDF8', border: '1px solid rgba(13,26,52,.08)' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <span style={{ fontFamily: 'var(--font-reddit), sans-serif', fontSize: '13px', fontWeight: 700, letterSpacing: '.14em', textTransform: 'uppercase', color: '#5B6380' }}>
+              <span style={{ fontFamily: 'var(--font-sans), sans-serif', fontSize: '13px', fontWeight: 700, letterSpacing: '.14em', textTransform: 'uppercase', color: '#5B6380' }}>
                 Coming next to Nexus
               </span>
-              <h3 style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '24px', fontWeight: 600, color: '#0E1B36' }}>
+              <h3 style={{ margin: 0, fontFamily: 'var(--font-sans), sans-serif', fontSize: '24px', fontWeight: 600, color: '#0E1B36' }}>
                 Growth and intelligence
               </h3>
               <p style={{ margin: 0, fontSize: '15.5px', lineHeight: 1.65, color: '#3A4363' }}>
@@ -2449,8 +2336,8 @@ export function NexusProductView() {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '18px', borderRadius: '14px', background: '#FFFFFF', boxShadow: '0 1px 2px rgba(13,26,52,.06)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span style={{ fontFamily: 'var(--font-reddit), sans-serif', fontWeight: 700, fontSize: '18px', color: '#0E1B36' }}>Searchlight</span>
-                <span style={{ padding: '3px 10px', borderRadius: '999px', border: '1px solid rgba(13,26,52,.25)', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '12px', fontWeight: 600, color: '#4A5373' }}>
+                <span style={{ fontFamily: 'var(--font-sans), sans-serif', fontWeight: 700, fontSize: '18px', color: '#0E1B36' }}>Searchlight</span>
+                <span style={{ padding: '3px 10px', borderRadius: '999px', border: '1px solid rgba(13,26,52,.25)', fontFamily: 'var(--font-sans), sans-serif', fontSize: '12px', fontWeight: 600, color: '#4A5373' }}>
                   In build
                 </span>
               </div>
@@ -2460,8 +2347,8 @@ export function NexusProductView() {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: '18px', borderRadius: '14px', background: '#FFFFFF', boxShadow: '0 1px 2px rgba(13,26,52,.06)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span style={{ fontFamily: 'var(--font-reddit), sans-serif', fontWeight: 700, fontSize: '18px', color: '#0E1B36' }}>Pipeline builder</span>
-                <span style={{ padding: '3px 10px', borderRadius: '999px', border: '1px solid rgba(13,26,52,.25)', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '12px', fontWeight: 600, color: '#4A5373' }}>
+                <span style={{ fontFamily: 'var(--font-sans), sans-serif', fontWeight: 700, fontSize: '18px', color: '#0E1B36' }}>Pipeline builder</span>
+                <span style={{ padding: '3px 10px', borderRadius: '999px', border: '1px solid rgba(13,26,52,.25)', fontFamily: 'var(--font-sans), sans-serif', fontSize: '12px', fontWeight: 600, color: '#4A5373' }}>
                   In build
                 </span>
               </div>
@@ -2487,7 +2374,7 @@ export function NexusProductView() {
                 borderRadius: '999px',
                 background: '#FFFFFF',
                 border: '1px solid rgba(13,26,52,.08)',
-                fontFamily: 'var(--font-reddit), sans-serif',
+                fontFamily: 'var(--font-sans), sans-serif',
                 fontSize: '14px',
                 color: '#0E1B36',
               }}
@@ -2498,10 +2385,10 @@ export function NexusProductView() {
             <h2
               style={{
                 margin: 0,
-                fontFamily: 'var(--font-reddit), sans-serif',
+                fontFamily: 'var(--font-sans), sans-serif',
                 fontWeight: 600,
-                fontSize: 'clamp(34px, 4vw, 54px)',
-                lineHeight: 1.06,
+                fontSize: 'clamp(28px, 3.4vw, 44px)',
+                lineHeight: 1.15,
                 letterSpacing: '-.02em',
                 color: '#0E1B36',
               }}
@@ -2532,8 +2419,8 @@ export function NexusProductView() {
                         border: 0,
                         cursor: 'pointer',
                         textAlign: 'left',
-                        fontFamily: 'var(--font-reddit), sans-serif',
-                        fontSize: '20px',
+                        fontFamily: 'var(--font-sans), sans-serif',
+                        fontSize: '17.5px',
                         fontWeight: 600,
                         color: '#0E1B36',
                       }}
@@ -2566,8 +2453,8 @@ export function NexusProductView() {
                       style={{
                         margin: 0,
                         padding: '0 40px 24px 0',
-                        fontSize: '17px',
-                        lineHeight: 1.7,
+                        fontSize: '15px',
+                        lineHeight: 1.6,
                         color: '#3A4363',
                       }}
                     >
@@ -2603,7 +2490,7 @@ export function NexusProductView() {
                 borderRadius: '999px',
                 background: 'rgba(255,255,255,.06)',
                 border: '1px solid rgba(255,255,255,.14)',
-                fontFamily: 'var(--font-reddit), sans-serif',
+                fontFamily: 'var(--font-sans), sans-serif',
                 fontSize: '14px',
                 color: '#E6EAF2',
               }}
@@ -2614,20 +2501,20 @@ export function NexusProductView() {
             <h2
               style={{
                 margin: 0,
-                fontFamily: 'var(--font-reddit), sans-serif',
+                fontFamily: 'var(--font-sans), sans-serif',
                 fontWeight: 600,
-                fontSize: 'clamp(36px, 4.4vw, 58px)',
-                lineHeight: 1.04,
+                fontSize: 'clamp(28px, 3.4vw, 44px)',
+                lineHeight: 1.15,
                 letterSpacing: '-.02em',
                 color: '#F6F1E6',
               }}
             >
               See Nexus run <span className="nexus-gold">your front door.</span>
             </h2>
-            <p style={{ margin: 0, fontSize: '18px', lineHeight: 1.7, color: '#C2CBDB' }}>
+            <p style={{ margin: 0, fontSize: 'clamp(15.5px, 1.3vw, 17.5px)', lineHeight: 1.6, color: '#C2CBDB' }}>
               Tell us what you want to launch first. We will show it working in a 30-minute demo and suggest a small, fixed-scope first step.
             </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', paddingTop: '6px', fontFamily: 'var(--font-reddit), sans-serif' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', paddingTop: '6px', fontFamily: 'var(--font-sans), sans-serif' }}>
               <a
                 href="mailto:contact@uelement.co?subject=Nexus%20demo"
                 style={{
@@ -2688,7 +2575,7 @@ export function NexusProductView() {
             }}
           >
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
-              <label style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '14px', fontWeight: 600, color: '#0E1B36' }}>
+              <label style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontFamily: 'var(--font-sans), sans-serif', fontSize: '14px', fontWeight: 600, color: '#0E1B36' }}>
                 Full name
                 <input
                   type="text"
@@ -2710,7 +2597,7 @@ export function NexusProductView() {
                   }}
                 />
               </label>
-              <label style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '14px', fontWeight: 600, color: '#0E1B36' }}>
+              <label style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontFamily: 'var(--font-sans), sans-serif', fontSize: '14px', fontWeight: 600, color: '#0E1B36' }}>
                 Work email
                 <input
                   type="email"
@@ -2731,7 +2618,7 @@ export function NexusProductView() {
                   }}
                 />
               </label>
-              <label style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '14px', fontWeight: 600, color: '#0E1B36' }}>
+              <label style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontFamily: 'var(--font-sans), sans-serif', fontSize: '14px', fontWeight: 600, color: '#0E1B36' }}>
                 Company
                 <input
                   type="text"
@@ -2751,7 +2638,7 @@ export function NexusProductView() {
                   }}
                 />
               </label>
-              <label style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '14px', fontWeight: 600, color: '#0E1B36' }}>
+              <label style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontFamily: 'var(--font-sans), sans-serif', fontSize: '14px', fontWeight: 600, color: '#0E1B36' }}>
                 Phone or WhatsApp
                 <input
                   type="tel"
@@ -2773,7 +2660,7 @@ export function NexusProductView() {
               </label>
             </div>
 
-            <label style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '14px', fontWeight: 600, color: '#0E1B36' }}>
+            <label style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontFamily: 'var(--font-sans), sans-serif', fontSize: '14px', fontWeight: 600, color: '#0E1B36' }}>
               What do you want to launch first?
               <select
                 name="first"
@@ -2800,7 +2687,7 @@ export function NexusProductView() {
               </select>
             </label>
 
-            <label style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '14px', fontWeight: 600, color: '#0E1B36' }}>
+            <label style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontFamily: 'var(--font-sans), sans-serif', fontSize: '14px', fontWeight: 600, color: '#0E1B36' }}>
               Modules you picked
               <input
                 type="text"
@@ -2836,15 +2723,12 @@ export function NexusProductView() {
 
             <button
               type="submit"
-              className="btn btn--metal nexus-btn"
+              className="btn btn--metal"
               style={{
-                minHeight: '56px',
+                minHeight: '50px',
                 border: 0,
-                borderRadius: '999px',
-                fontFamily: 'var(--font-reddit), sans-serif',
-                fontWeight: 700,
-                fontSize: '17px',
                 cursor: 'pointer',
+                width: '100%',
               }}
             >
               Book my demo
