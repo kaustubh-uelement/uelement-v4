@@ -5,6 +5,7 @@ import { PageHero, SectionHead, StatusBadge, CtaPanel } from "@/components/ui";
 import { ProductCard } from "@/components/blocks";
 import { platforms, industries } from "@/lib/content";
 import { Icon } from "@/components/Icon";
+import { NexusProductView } from "@/components/NexusProductView";
 import {
   CbomScannerModal,
   CbomScannerTrigger,
@@ -35,6 +36,20 @@ export async function generateMetadata({
       alternates: { canonical: "/vyu/" },
     };
   }
+  if (platform === "u92-enterprise" && product === "nexus") {
+    return {
+      title: "U92 Nexus | One platform for your website, apps, portals and AI",
+      description:
+        "Nexus runs your website, search, apps, portals and the workflows behind them on one sign-in, one database and one AI layer, under one subscription. 37 modules, India-ready, start with three.",
+      alternates: { canonical: "/platforms/u92-enterprise/nexus/" },
+      openGraph: {
+        title: "U92 Nexus: one fabric for everything your customers see",
+        description:
+          "Website, search, apps, portals, workflows and AI on one platform. Switch on only the modules you need.",
+        url: "https://uelement.co/platforms/u92-enterprise/nexus/",
+      },
+    };
+  }
   const f = find(platform, product);
   if (!f) return {};
   return {
@@ -52,6 +67,9 @@ export default async function ProductPage({
   const { platform, product } = await params;
   if (platform === "u92-quantum" && product === "vyu") {
     redirect("/vyu/");
+  }
+  if (platform === "u92-enterprise" && product === "nexus") {
+    return <NexusProductView />;
   }
   const f = find(platform, product);
   if (!f) notFound();

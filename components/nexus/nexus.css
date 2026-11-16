@@ -1,0 +1,160 @@
+/* U92 Nexus Product Page Styles — Matching Brand System & landing chakra */
+
+.nexus-page {
+  width: 100%;
+  font-family: var(--font-sans), 'Noto Sans', -apple-system, 'Segoe UI', sans-serif;
+  color: #3A4363;
+  background: var(--paper, #FAF6EE);
+  position: relative;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+.nexus-page * {
+  box-sizing: border-box;
+}
+
+.nexus-page a {
+  text-decoration: none;
+  color: var(--gold-ink, #8A6522);
+}
+
+.nexus-page a:hover {
+  color: var(--ink, #0E1B36);
+}
+
+.nexus-page [id] {
+  scroll-margin-top: calc(var(--header-h, 76px) + 24px);
+}
+
+.nexus-page :focus-visible {
+  outline: 3px solid #E0A769;
+  outline-offset: 3px;
+}
+
+/* Gradient typography */
+.nexus-gold {
+  background: linear-gradient(118deg, #B98E3A 0%, #F1D894 38%, #C49A45 58%, #E9CC80 78%, #B48632 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.nexus-goldink {
+  background: linear-gradient(118deg, #7A5A1E 0%, #A97F2E 30%, #C49A45 55%, #8F6A28 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Button & interactive animations */
+.nexus-btn {
+  transition: transform .18s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+              box-shadow .18s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+              background-position .5s ease;
+}
+
+.nexus-btn:hover {
+  transform: translateY(-1px);
+}
+
+.nexus-ghost {
+  transition: border-color .2s, color .2s, background-color .2s;
+}
+
+.nexus-ghost:hover {
+  border-color: #DDBB6E !important;
+  color: #F1D894 !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.nexus-card {
+  transition: transform .2s, box-shadow .2s;
+}
+
+.nexus-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 1px 2px rgba(13, 26, 52, .08), 0 30px 60px -24px rgba(13, 26, 52, .35) !important;
+}
+
+.nexus-navlink {
+  transition: color .2s, background-color .2s;
+}
+
+.nexus-navlink:hover {
+  color: #FFFFFF !important;
+  background: rgba(255, 255, 255, .08);
+}
+
+/* Hero Section with Chakra Integration */
+.nexus-hero {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(120% 90% at 50% 0%, #12254D 0%, #0A1530 42%, #060B18 100%);
+  padding: calc(var(--header-h, 76px) + 20px) 24px 0;
+  isolation: isolate;
+}
+
+.nexus-hero__chakra-wrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.nexus-hero__chakra-wrap .hero__sparks {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.nexus-hero__chakra-wrap .hero__ring {
+  position: absolute;
+  top: 140px;
+  left: 50%;
+  width: clamp(860px, 110vw, 1920px);
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.94;
+}
+
+.nexus-hero__chakra-wrap .hero__ring svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.nexus-hero__content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Media queries */
+@media (max-width: 900px) {
+  .nexus-navlinks {
+    display: none !important;
+  }
+  .nexus-mock-side {
+    display: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .nexus-hide-sm {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nexus-btn,
+  .nexus-card {
+    transition: none !important;
+  }
+}
