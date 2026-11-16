@@ -848,25 +848,26 @@ export function NexusProductView() {
               margin: 0,
               fontFamily: 'var(--font-reddit), sans-serif',
               fontWeight: 600,
-              fontSize: 'clamp(40px, 6vw, 76px)',
-              lineHeight: 1.04,
-              letterSpacing: '-.025em',
+              fontSize: 'clamp(46px, 7.2vw, 96px)',
+              lineHeight: 1,
+              letterSpacing: '-.03em',
               color: '#F6F1E6',
             }}
           >
-            One fabric for <span className="nexus-gold">everything your customers see.</span>
+            Less juggling.<br /><span className="nexus-gold">More growing.</span>
           </h1>
 
           <p
             style={{
               margin: 0,
-              maxWidth: '760px',
-              fontSize: 'clamp(17px, 1.6vw, 20px)',
+              maxWidth: '780px',
+              fontSize: 'clamp(18px, 1.7vw, 21px)',
               lineHeight: 1.6,
-              color: '#C2CBDB',
+              color: '#C9D1E0',
             }}
           >
-            Your website, search, apps, portals and the workflows behind them, on one sign-in, one database and one AI layer, under one subscription. Start with three modules. Switch on the rest when you need them.
+            Nexus replaces the dozen tools behind your website, apps, portals, support and marketing with{' '}
+            <strong style={{ color: '#FFFFFF', fontWeight: 600 }}>one platform</strong>: one sign-in for your team, one record of every customer, one AI that does the busywork, and one bill. Start with three modules. Add the rest as you grow.
           </p>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '14px', paddingTop: '6px' }}>
@@ -886,14 +887,14 @@ export function NexusProductView() {
               }}
             >
               Book a 30-minute demo
-              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14" />
                 <path d="M13 6l6 6-6 6" />
               </svg>
             </a>
             <a
               className="btn btn--glass nexus-btn nexus-ghost"
-              href="#packages"
+              href="#why"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -905,13 +906,50 @@ export function NexusProductView() {
                 fontSize: '17px',
               }}
             >
-              Build your package
+              See what changes
             </a>
           </div>
 
-          <p style={{ margin: 0, fontSize: '14px', color: '#9AA6BD' }}>
-            Every engagement starts with a small, fixed-scope first step. Built in India, deployable anywhere.
-          </p>
+          <ul
+            aria-label="What you get"
+            style={{
+              margin: '6px 0 0',
+              padding: 0,
+              listStyle: 'none',
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              gap: '10px 22px',
+              fontFamily: 'var(--font-reddit), sans-serif',
+              fontSize: '15.5px',
+              color: '#E6EAF2',
+            }}
+          >
+            <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DDBB6E" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12.5l4.5 4.5L19 7.5" />
+              </svg>
+              One login for every tool
+            </li>
+            <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DDBB6E" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12.5l4.5 4.5L19 7.5" />
+              </svg>
+              Every customer on one screen
+            </li>
+            <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DDBB6E" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12.5l4.5 4.5L19 7.5" />
+              </svg>
+              AI drafts, your team approves
+            </li>
+            <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DDBB6E" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12.5l4.5 4.5L19 7.5" />
+              </svg>
+              Pay only for what you switch on
+            </li>
+          </ul>
         </div>
 
         {/* Product Workspace Mockup */}
@@ -1074,32 +1112,10 @@ export function NexusProductView() {
         </div>
       </header>
 
-      {/* ============ FACT STRIP ============ */}
-      <section aria-label="Nexus at a glance" style={{ background: '#0E1B36', borderTop: '1px solid rgba(221,187,110,.4)', padding: '30px 24px' }}>
-        <div style={{ maxWidth: '1120px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px', fontFamily: 'var(--font-reddit), sans-serif' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            <span className="nexus-gold" style={{ fontSize: '40px', fontWeight: 700, lineHeight: 1 }}>37</span>
-            <span style={{ color: '#C9D1E0', fontSize: '15px' }}>core modules in six categories</span>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            <span className="nexus-gold" style={{ fontSize: '40px', fontWeight: 700, lineHeight: 1 }}>251</span>
-            <span style={{ color: '#C9D1E0', fontSize: '15px' }}>capabilities across those modules and add-ons</span>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            <span className="nexus-gold" style={{ fontSize: '40px', fontWeight: 700, lineHeight: 1 }}>12</span>
-            <span style={{ color: '#C9D1E0', fontSize: '15px' }}>platform features in every package</span>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            <span className="nexus-gold" style={{ fontSize: '40px', fontWeight: 700, lineHeight: 1 }}>3</span>
-            <span style={{ color: '#C9D1E0', fontSize: '15px' }}>industry add-ons: franchise, investor relations, BFSI risk</span>
-          </div>
-        </div>
-      </section>
-
-      {/* ============ PROBLEM ============ */}
-      <section id="why" style={{ background: '#FAF6EE', padding: '120px 24px' }}>
-        <div style={{ maxWidth: '1120px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '64px', alignItems: 'start' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
+      {/* ============ VALUE: WHAT CHANGES ============ */}
+      <section id="why" aria-labelledby="value-h" style={{ background: '#FAF6EE', padding: '120px 24px' }}>
+        <div style={{ maxWidth: '1120px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '48px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', maxWidth: '820px' }}>
             <span
               style={{
                 alignSelf: 'flex-start',
@@ -1122,76 +1138,315 @@ export function NexusProductView() {
                   height: '26px',
                   borderRadius: '50%',
                   background: 'linear-gradient(118deg, #C99D48, #F2DA98 45%, #D6B163)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
                 }}
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A1408" strokeWidth="2.2" strokeLinecap="round">
-                  <path d="M12 8v5" />
-                  <path d="M12 16.5v.5" />
-                  <circle cx="12" cy="12" r="9" />
-                </svg>
-              </span>
-              The problem
+              />
+              What changes with Nexus
             </span>
             <h2
+              id="value-h"
               style={{
                 margin: 0,
                 fontFamily: 'var(--font-reddit), sans-serif',
                 fontWeight: 600,
-                fontSize: 'clamp(34px, 4vw, 54px)',
-                lineHeight: 1.06,
-                letterSpacing: '-.02em',
+                fontSize: 'clamp(36px, 4.6vw, 62px)',
+                lineHeight: 1.04,
+                letterSpacing: '-.025em',
                 color: '#0E1B36',
               }}
             >
-              Your front door runs on <span className="nexus-goldink">a dozen tools.</span>
+              Better days for your team.{' '}
+              <span className="nexus-goldink">Better results for your business.</span>
             </h2>
-            <p style={{ margin: 0, fontSize: '18px', lineHeight: 1.7, color: '#3A4363' }}>
-              A website builder here, a form tool there, a chatbot, a newsletter sender, a careers portal, a partner portal, a ticket desk. Each has its own login, its own bill and its own copy of your customer. Nobody sees the whole person, and every new channel adds another integration to maintain.
-            </p>
-            <p style={{ margin: 0, fontSize: '18px', lineHeight: 1.7, color: '#3A4363' }}>
-              <strong style={{ color: '#0E1B36' }}>Nexus replaces the stack with one fabric.</strong> Every module writes to the same database and the same customer record, so a change in one place shows up everywhere it should.
+            <p style={{ margin: 0, fontSize: '19px', lineHeight: 1.65, color: '#3A4363' }}>
+              Most businesses run their customer front door on a site builder, a form tool, a chatbot, a newsletter sender, a few portals and a help desk, each with its own login, bill and copy of the customer. Here is what changes when it all runs on one platform.
             </p>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-            <div style={{ background: '#FFFFFF', borderRadius: '16px', padding: '24px', boxShadow: '0 1px 2px rgba(13,26,52,.06), 0 22px 48px -22px rgba(13,26,52,.25)' }}>
-              <div style={{ fontFamily: 'var(--font-reddit), sans-serif', fontSize: '13px', letterSpacing: '.14em', textTransform: 'uppercase', fontWeight: 700, color: '#5B6380', marginBottom: '14px' }}>
-                Today: stitched together
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(440px, 100%), 1fr))', gap: '22px', alignItems: 'stretch' }}>
+            {/* For your people card */}
+            <div
+              style={{
+                padding: '34px',
+                borderRadius: '20px',
+                background: '#FFFFFF',
+                boxShadow: '0 1px 2px rgba(13,26,52,.06), 0 30px 60px -28px rgba(13,26,52,.3)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '6px',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '14px', paddingBottom: '10px' }}>
+                <span
+                  aria-hidden="true"
+                  style={{
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '14px',
+                    background: '#F3EBDC',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8A6522" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="9" cy="8" r="3.2" />
+                    <path d="M3.5 19c.8-3.2 3-5 5.5-5s4.7 1.8 5.5 5" />
+                    <circle cx="17" cy="9" r="2.5" />
+                    <path d="M15.5 14.2c2.2.1 4 1.7 4.8 4.3" />
+                  </svg>
+                </span>
+                <div>
+                  <h3 style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '26px', fontWeight: 700, color: '#0E1B36' }}>
+                    For your people
+                  </h3>
+                  <p style={{ margin: '2px 0 0', fontSize: '15.5px', color: '#5B6380' }}>
+                    Less busywork. Fewer logins. No copy-paste.
+                  </p>
+                </div>
               </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '14px', color: '#3A4363' }}>
-                {['Site builder', 'Form tool', 'Chatbot', 'Email sender', 'Social scheduler', 'Listening tool', 'Careers / ATS', 'Partner portal', 'Help desk', 'LMS', 'e-Sign tool', 'Intranet'].map((tool) => (
-                  <span key={tool} style={{ padding: '7px 12px', borderRadius: '999px', border: '1px dashed rgba(13,26,52,.25)' }}>
-                    {tool}
+
+              <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+                <li style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '18px 0', borderTop: '1px solid rgba(13,26,52,.1)' }}>
+                  <span style={{ fontSize: '15px', lineHeight: 1.5, color: '#7A8099', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px' }}>
+                    A separate login for every tool
                   </span>
-                ))}
-              </div>
-              <div style={{ marginTop: '16px', fontSize: '15px', color: '#5B6380' }}>
-                Many logins · many bills · many copies of the customer
-              </div>
+                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '19px', lineHeight: 1.4, fontWeight: 600, color: '#0E1B36' }}>
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
+                      <path d="M5 12h14" />
+                      <path d="M13 6l6 6-6 6" />
+                    </svg>
+                    One sign-in for everything they use
+                  </span>
+                </li>
+
+                <li style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '18px 0', borderTop: '1px solid rgba(13,26,52,.1)' }}>
+                  <span style={{ fontSize: '15px', lineHeight: 1.5, color: '#7A8099', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px' }}>
+                    Copying customer details from one system to the next
+                  </span>
+                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '19px', lineHeight: 1.4, fontWeight: 600, color: '#0E1B36' }}>
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
+                      <path d="M5 12h14" />
+                      <path d="M13 6l6 6-6 6" />
+                    </svg>
+                    Every enquiry, ticket and payment lands on the same customer record
+                  </span>
+                </li>
+
+                <li style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '18px 0', borderTop: '1px solid rgba(13,26,52,.1)' }}>
+                  <span style={{ fontSize: '15px', lineHeight: 1.5, color: '#7A8099', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px' }}>
+                    Waiting on IT to change a page or launch a campaign
+                  </span>
+                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '19px', lineHeight: 1.4, fontWeight: 600, color: '#0E1B36' }}>
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
+                      <path d="M5 12h14" />
+                      <path d="M13 6l6 6-6 6" />
+                    </svg>
+                    They publish pages, campaigns and portals themselves, with approvals
+                  </span>
+                </li>
+
+                <li style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '18px 0', borderTop: '1px solid rgba(13,26,52,.1)' }}>
+                  <span style={{ fontSize: '15px', lineHeight: 1.5, color: '#7A8099', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px' }}>
+                    Writing every reply, FAQ and translation by hand
+                  </span>
+                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '19px', lineHeight: 1.4, fontWeight: 600, color: '#0E1B36' }}>
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
+                      <path d="M5 12h14" />
+                      <path d="M13 6l6 6-6 6" />
+                    </svg>
+                    NexusIQ drafts the first version. They review and approve
+                  </span>
+                </li>
+              </ul>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'center' }} aria-hidden="true">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#B48632" strokeWidth="2" strokeLinecap="round">
-                <path d="M12 4v16" />
-                <path d="M6 14l6 6 6-6" />
-              </svg>
-            </div>
+            {/* For your business card */}
+            <div
+              style={{
+                padding: '34px',
+                borderRadius: '20px',
+                background: 'linear-gradient(160deg, #12254D, #0A1530)',
+                border: '1px solid rgba(221,187,110,.35)',
+                boxShadow: '0 30px 60px -28px rgba(13,26,52,.55)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '6px',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '14px', paddingBottom: '10px' }}>
+                <span
+                  aria-hidden="true"
+                  style={{
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '14px',
+                    background: 'rgba(221,187,110,.14)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#DDBB6E" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 19V10" />
+                    <path d="M10 19V6" />
+                    <path d="M16 19v-7" />
+                    <path d="M3 19h18" />
+                    <path d="M15 6l3-2 2 3" />
+                  </svg>
+                </span>
+                <div>
+                  <h3 style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '26px', fontWeight: 700, color: '#FFFFFF' }}>
+                    For your business
+                  </h3>
+                  <p style={{ margin: '2px 0 0', fontSize: '15.5px', color: '#B9C3D5' }}>
+                    Fewer vendors. Faster response. One view of the customer.
+                  </p>
+                </div>
+              </div>
 
-            <div style={{ background: 'linear-gradient(160deg, #12254D, #0A1530)', borderRadius: '16px', padding: '24px', boxShadow: '0 30px 60px -24px rgba(13,26,52,.5)', border: '1px solid rgba(221,187,110,.35)' }}>
-              <div style={{ fontFamily: 'var(--font-reddit), sans-serif', fontSize: '13px', letterSpacing: '.14em', textTransform: 'uppercase', fontWeight: 700, color: '#DDBB6E', marginBottom: '12px' }}>
-                With Nexus: one fabric
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '10px', fontFamily: 'var(--font-reddit), sans-serif' }}>
-                {['One sign-in', 'One database', 'One AI layer', 'One subscription'].map((item) => (
-                  <div key={item} style={{ padding: '12px 14px', borderRadius: '12px', background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.12)', color: '#FFFFFF', fontWeight: 600 }}>
-                    {item}
-                  </div>
-                ))}
-              </div>
+              <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+                <li style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '18px 0', borderTop: '1px solid rgba(255,255,255,.12)' }}>
+                  <span style={{ fontSize: '15px', lineHeight: 1.5, color: '#8D97AD', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px' }}>
+                    A dozen vendors, contracts and renewals
+                  </span>
+                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '19px', lineHeight: 1.4, fontWeight: 600, color: '#FFFFFF' }}>
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
+                      <path d="M5 12h14" />
+                      <path d="M13 6l6 6-6 6" />
+                    </svg>
+                    One platform, one subscription, one partner
+                  </span>
+                </li>
+
+                <li style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '18px 0', borderTop: '1px solid rgba(255,255,255,.12)' }}>
+                  <span style={{ fontSize: '15px', lineHeight: 1.5, color: '#8D97AD', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px' }}>
+                    Customers scattered across tools nobody can join up
+                  </span>
+                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '19px', lineHeight: 1.4, fontWeight: 600, color: '#FFFFFF' }}>
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
+                      <path d="M5 12h14" />
+                      <path d="M13 6l6 6-6 6" />
+                    </svg>
+                    Every customer and every channel in one view, from first visit to renewal
+                  </span>
+                </li>
+
+                <li style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '18px 0', borderTop: '1px solid rgba(255,255,255,.12)' }}>
+                  <span style={{ fontSize: '15px', lineHeight: 1.5, color: '#8D97AD', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px' }}>
+                    Missed enquiries and SLA breaches found too late
+                  </span>
+                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '19px', lineHeight: 1.4, fontWeight: 600, color: '#FFFFFF' }}>
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
+                      <path d="M5 12h14" />
+                      <path d="M13 6l6 6-6 6" />
+                    </svg>
+                    Enquiries routed by rule with SLA timers, and breaches flagged before they happen
+                  </span>
+                </li>
+
+                <li style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '18px 0', borderTop: '1px solid rgba(255,255,255,.12)' }}>
+                  <span style={{ fontSize: '15px', lineHeight: 1.5, color: '#8D97AD', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px' }}>
+                    Compliance bolted on, tool by tool
+                  </span>
+                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '19px', lineHeight: 1.4, fontWeight: 600, color: '#FFFFFF' }}>
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
+                      <path d="M5 12h14" />
+                      <path d="M13 6l6 6-6 6" />
+                    </svg>
+                    DPDP consent, audit logs and India-region hosting built in
+                  </span>
+                </li>
+
+                <li style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '18px 0', borderTop: '1px solid rgba(255,255,255,.12)' }}>
+                  <span style={{ fontSize: '15px', lineHeight: 1.5, color: '#8D97AD', textDecoration: 'line-through', textDecorationColor: 'rgba(196,154,69,.8)', textDecorationThickness: '2px' }}>
+                    A new tool to buy for every new need
+                  </span>
+                  <span style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontFamily: 'var(--font-reddit), sans-serif', fontSize: '19px', lineHeight: 1.4, fontWeight: 600, color: '#FFFFFF' }}>
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C49A45" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" style={{ flex: 'none', marginTop: '3px' }}>
+                      <path d="M5 12h14" />
+                      <path d="M13 6l6 6-6 6" />
+                    </svg>
+                    Switch on the next module when you need it
+                  </span>
+                </li>
+              </ul>
             </div>
+          </div>
+
+          {/* Bottom Action Strip */}
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '18px',
+              padding: '26px 30px',
+              borderRadius: '18px',
+              background: '#F3EBDC',
+            }}
+          >
+            <p style={{ margin: 0, fontFamily: 'var(--font-reddit), sans-serif', fontSize: '22px', fontWeight: 600, color: '#0E1B36' }}>
+              See what this looks like for your business, on your own use case.
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+              <a
+                className="btn btn--metal nexus-btn"
+                href="#demo"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  minHeight: '52px',
+                  padding: '0 26px',
+                  borderRadius: '999px',
+                  fontFamily: 'var(--font-reddit), sans-serif',
+                  fontWeight: 700,
+                  fontSize: '16px',
+                }}
+              >
+                Book a demo
+              </a>
+              <a
+                className="btn nexus-btn"
+                href="#packages"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  minHeight: '52px',
+                  padding: '0 24px',
+                  borderRadius: '999px',
+                  background: '#0E1B36',
+                  color: '#FFFFFF',
+                  fontFamily: 'var(--font-reddit), sans-serif',
+                  fontWeight: 600,
+                  fontSize: '16px',
+                }}
+              >
+                Build your package
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============ FACT STRIP ============ */}
+      <section aria-label="Nexus at a glance" style={{ background: '#0E1B36', borderTop: '1px solid rgba(221,187,110,.4)', padding: '30px 24px' }}>
+        <div style={{ maxWidth: '1120px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px', fontFamily: 'var(--font-reddit), sans-serif' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            <span className="nexus-gold" style={{ fontSize: '40px', fontWeight: 700, lineHeight: 1 }}>37</span>
+            <span style={{ color: '#C9D1E0', fontSize: '15px' }}>core modules in six categories</span>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            <span className="nexus-gold" style={{ fontSize: '40px', fontWeight: 700, lineHeight: 1 }}>251</span>
+            <span style={{ color: '#C9D1E0', fontSize: '15px' }}>capabilities across those modules and add-ons</span>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            <span className="nexus-gold" style={{ fontSize: '40px', fontWeight: 700, lineHeight: 1 }}>12</span>
+            <span style={{ color: '#C9D1E0', fontSize: '15px' }}>platform features in every package</span>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            <span className="nexus-gold" style={{ fontSize: '40px', fontWeight: 700, lineHeight: 1 }}>3</span>
+            <span style={{ color: '#C9D1E0', fontSize: '15px' }}>industry add-ons: franchise, investor relations, BFSI risk</span>
           </div>
         </div>
       </section>
@@ -1216,7 +1471,7 @@ export function NexusProductView() {
               }}
             >
               <span aria-hidden="true" style={{ width: '26px', height: '26px', borderRadius: '50%', background: 'linear-gradient(118deg, #C99D48, #F2DA98 45%, #D6B163)' }} />
-              Why Nexus
+              The core promise
             </span>
             <h2
               id="ones-h"
