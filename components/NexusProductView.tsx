@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { HeroRing, HeroSparks } from '@/components/HeroRing';
+import { Chip } from '@/components/ui';
 import './nexus/nexus.css';
 
 /* ==========================================================================
@@ -1047,32 +1048,7 @@ export function NexusProductView() {
       <section id="why" aria-labelledby="value-h" style={{ background: '#FAF6EE', padding: '120px 24px' }}>
         <div style={{ maxWidth: '1120px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '48px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', maxWidth: '820px' }}>
-            <span
-              style={{
-                alignSelf: 'flex-start',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '5px 16px 5px 5px',
-                borderRadius: '999px',
-                background: '#FFFFFF',
-                border: '1px solid rgba(13,26,52,.08)',
-                fontFamily: 'var(--font-sans), sans-serif',
-                fontSize: '13.5px',
-                color: '#0E1B36',
-              }}
-            >
-              <span
-                aria-hidden="true"
-                style={{
-                  width: '26px',
-                  height: '26px',
-                  borderRadius: '50%',
-                  background: 'linear-gradient(118deg, #C99D48, #F2DA98 45%, #D6B163)',
-                }}
-              />
-              What changes with Nexus
-            </span>
+            <Chip icon="spark">What changes with Nexus</Chip>
             <h2
               id="value-h"
               style={{
@@ -1364,24 +1340,7 @@ export function NexusProductView() {
       <section aria-labelledby="ones-h" style={{ background: 'radial-gradient(120% 140% at 0% 0%, #152A52 0%, #0D1A34 55%, #0A1429 100%)', padding: '120px 24px' }}>
         <div style={{ maxWidth: '1120px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '48px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', maxWidth: '760px' }}>
-            <span
-              style={{
-                alignSelf: 'flex-start',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '5px 16px 5px 5px',
-                borderRadius: '999px',
-                background: 'rgba(255,255,255,.06)',
-                border: '1px solid rgba(255,255,255,.14)',
-                fontFamily: 'var(--font-sans), sans-serif',
-                fontSize: '13.5px',
-                color: '#E6EAF2',
-              }}
-            >
-              <span aria-hidden="true" style={{ width: '26px', height: '26px', borderRadius: '50%', background: 'linear-gradient(118deg, #C99D48, #F2DA98 45%, #D6B163)' }} />
-              The core promise
-            </span>
+            <Chip icon="star">The core promise</Chip>
             <h2
               id="ones-h"
               style={{
@@ -1456,24 +1415,7 @@ export function NexusProductView() {
         <div style={{ maxWidth: '1120px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '36px' }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', alignItems: 'flex-end', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', maxWidth: '700px' }}>
-              <span
-                style={{
-                  alignSelf: 'flex-start',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  padding: '5px 16px 5px 5px',
-                  borderRadius: '999px',
-                  background: '#FFFFFF',
-                  border: '1px solid rgba(13,26,52,.08)',
-                  fontFamily: 'var(--font-sans), sans-serif',
-                  fontSize: '14px',
-                  color: '#0E1B36',
-                }}
-              >
-                <span aria-hidden="true" style={{ width: '26px', height: '26px', borderRadius: '50%', background: 'linear-gradient(118deg, #C99D48, #F2DA98 45%, #D6B163)' }} />
-                The modules
-              </span>
+              <Chip icon="layers">The modules</Chip>
               <h2
                 style={{
                   margin: 0,
@@ -1630,24 +1572,7 @@ export function NexusProductView() {
         <div style={{ maxWidth: '1120px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '48px' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px', alignItems: 'flex-end' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-              <span
-                style={{
-                  alignSelf: 'flex-start',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  padding: '5px 16px 5px 5px',
-                  borderRadius: '999px',
-                  background: 'rgba(255,255,255,.06)',
-                  border: '1px solid rgba(255,255,255,.14)',
-                  fontFamily: 'var(--font-sans), sans-serif',
-                  fontSize: '14px',
-                  color: '#E6EAF2',
-                }}
-              >
-                <span aria-hidden="true" style={{ width: '26px', height: '26px', borderRadius: '50%', background: 'linear-gradient(118deg, #C99D48, #F2DA98 45%, #D6B163)' }} />
-                NexusIQ
-              </span>
+              <Chip icon="bulb">NexusIQ</Chip>
               <h2
                 style={{
                   margin: 0,
@@ -1723,24 +1648,7 @@ export function NexusProductView() {
       <section aria-labelledby="flows-h" style={{ background: '#FAF6EE', padding: '120px 24px' }}>
         <div style={{ maxWidth: '1120px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '44px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', maxWidth: '760px' }}>
-            <span
-              style={{
-                alignSelf: 'flex-start',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '5px 16px 5px 5px',
-                borderRadius: '999px',
-                background: '#FFFFFF',
-                border: '1px solid rgba(13,26,52,.08)',
-                fontFamily: 'var(--font-sans), sans-serif',
-                fontSize: '14px',
-                color: '#0E1B36',
-              }}
-            >
-              <span aria-hidden="true" style={{ width: '26px', height: '26px', borderRadius: '50%', background: 'linear-gradient(118deg, #C99D48, #F2DA98 45%, #D6B163)' }} />
-              Connected by design
-            </span>
+            <Chip icon="mesh">Connected by design</Chip>
             <h2
               id="flows-h"
               style={{
@@ -1798,24 +1706,7 @@ export function NexusProductView() {
       <section aria-labelledby="trust-h" style={{ background: 'radial-gradient(120% 140% at 0% 100%, #152A52 0%, #0D1A34 55%, #0A1429 100%)', padding: '120px 24px' }}>
         <div style={{ maxWidth: '1120px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '48px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', maxWidth: '780px' }}>
-            <span
-              style={{
-                alignSelf: 'flex-start',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '5px 16px 5px 5px',
-                borderRadius: '999px',
-                background: 'rgba(255,255,255,.06)',
-                border: '1px solid rgba(255,255,255,.14)',
-                fontFamily: 'var(--font-sans), sans-serif',
-                fontSize: '14px',
-                color: '#E6EAF2',
-              }}
-            >
-              <span aria-hidden="true" style={{ width: '26px', height: '26px', borderRadius: '50%', background: 'linear-gradient(118deg, #C99D48, #F2DA98 45%, #D6B163)' }} />
-              Sovereign by design
-            </span>
+            <Chip icon="shield">Sovereign by design</Chip>
             <h2
               id="trust-h"
               style={{
@@ -1857,24 +1748,7 @@ export function NexusProductView() {
       <section aria-labelledby="roles-h" style={{ background: '#FAF6EE', padding: '120px 24px' }}>
         <div style={{ maxWidth: '1120px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '36px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', maxWidth: '760px' }}>
-            <span
-              style={{
-                alignSelf: 'flex-start',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '5px 16px 5px 5px',
-                borderRadius: '999px',
-                background: '#FFFFFF',
-                border: '1px solid rgba(13,26,52,.08)',
-                fontFamily: 'var(--font-sans), sans-serif',
-                fontSize: '14px',
-                color: '#0E1B36',
-              }}
-            >
-              <span aria-hidden="true" style={{ width: '26px', height: '26px', borderRadius: '50%', background: 'linear-gradient(118deg, #C99D48, #F2DA98 45%, #D6B163)' }} />
-              Who it is for
-            </span>
+            <Chip icon="people">Who it is for</Chip>
             <h2
               id="roles-h"
               style={{
@@ -2004,24 +1878,7 @@ export function NexusProductView() {
       <section id="packages" style={{ background: '#F3EBDC', padding: '120px 24px' }}>
         <div style={{ maxWidth: '1120px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '36px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', maxWidth: '780px' }}>
-            <span
-              style={{
-                alignSelf: 'flex-start',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '5px 16px 5px 5px',
-                borderRadius: '999px',
-                background: '#FFFFFF',
-                border: '1px solid rgba(13,26,52,.08)',
-                fontFamily: 'var(--font-sans), sans-serif',
-                fontSize: '14px',
-                color: '#0E1B36',
-              }}
-            >
-              <span aria-hidden="true" style={{ width: '26px', height: '26px', borderRadius: '50%', background: 'linear-gradient(118deg, #C99D48, #F2DA98 45%, #D6B163)' }} />
-              Packages
-            </span>
+            <Chip icon="cube">Packages</Chip>
             <h2
               style={{
                 margin: 0,
@@ -2199,24 +2056,7 @@ export function NexusProductView() {
       <section aria-labelledby="cmp-h" style={{ background: '#FAF6EE', padding: '120px 24px' }}>
         <div style={{ maxWidth: '1120px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '36px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', maxWidth: '760px' }}>
-            <span
-              style={{
-                alignSelf: 'flex-start',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '5px 16px 5px 5px',
-                borderRadius: '999px',
-                background: '#FFFFFF',
-                border: '1px solid rgba(13,26,52,.08)',
-                fontFamily: 'var(--font-sans), sans-serif',
-                fontSize: '14px',
-                color: '#0E1B36',
-              }}
-            >
-              <span aria-hidden="true" style={{ width: '26px', height: '26px', borderRadius: '50%', background: 'linear-gradient(118deg, #C99D48, #F2DA98 45%, #D6B163)' }} />
-              Compare the approach
-            </span>
+            <Chip icon="compass">Compare the approach</Chip>
             <h2
               id="cmp-h"
               style={{
@@ -2264,24 +2104,7 @@ export function NexusProductView() {
       <section aria-labelledby="start-h" style={{ background: '#F3EBDC', padding: '120px 24px' }}>
         <div style={{ maxWidth: '1120px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '44px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', maxWidth: '760px' }}>
-            <span
-              style={{
-                alignSelf: 'flex-start',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '5px 16px 5px 5px',
-                borderRadius: '999px',
-                background: '#FFFFFF',
-                border: '1px solid rgba(13,26,52,.08)',
-                fontFamily: 'var(--font-sans), sans-serif',
-                fontSize: '14px',
-                color: '#0E1B36',
-              }}
-            >
-              <span aria-hidden="true" style={{ width: '26px', height: '26px', borderRadius: '50%', background: 'linear-gradient(118deg, #C99D48, #F2DA98 45%, #D6B163)' }} />
-              How to start
-            </span>
+            <Chip icon="arrow">How to start</Chip>
             <h2
               id="start-h"
               style={{
@@ -2364,24 +2187,7 @@ export function NexusProductView() {
       <section id="faq" style={{ background: '#FAF6EE', padding: '120px 24px' }}>
         <div style={{ maxWidth: '880px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '32px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-            <span
-              style={{
-                alignSelf: 'flex-start',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '5px 16px 5px 5px',
-                borderRadius: '999px',
-                background: '#FFFFFF',
-                border: '1px solid rgba(13,26,52,.08)',
-                fontFamily: 'var(--font-sans), sans-serif',
-                fontSize: '14px',
-                color: '#0E1B36',
-              }}
-            >
-              <span aria-hidden="true" style={{ width: '26px', height: '26px', borderRadius: '50%', background: 'linear-gradient(118deg, #C99D48, #F2DA98 45%, #D6B163)' }} />
-              FAQ
-            </span>
+            <Chip icon="chat">FAQ</Chip>
             <h2
               style={{
                 margin: 0,
@@ -2480,24 +2286,7 @@ export function NexusProductView() {
       >
         <div style={{ position: 'relative', maxWidth: '1120px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '56px', alignItems: 'start' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
-            <span
-              style={{
-                alignSelf: 'flex-start',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '5px 16px 5px 5px',
-                borderRadius: '999px',
-                background: 'rgba(255,255,255,.06)',
-                border: '1px solid rgba(255,255,255,.14)',
-                fontFamily: 'var(--font-sans), sans-serif',
-                fontSize: '14px',
-                color: '#E6EAF2',
-              }}
-            >
-              <span aria-hidden="true" style={{ width: '26px', height: '26px', borderRadius: '50%', background: 'linear-gradient(118deg, #C99D48, #F2DA98 45%, #D6B163)' }} />
-              Book a demo
-            </span>
+            <Chip icon="calendar">Book a demo</Chip>
             <h2
               style={{
                 margin: 0,
