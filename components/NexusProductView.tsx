@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
-import { HeroRing, HeroSparks } from '@/components/HeroRing';
 import { Chip } from '@/components/ui';
 import './nexus/nexus.css';
 
@@ -736,14 +735,8 @@ export function NexusProductView() {
 
   return (
     <div className="nexus-page" id="main">
-      {/* ============ HERO (space navy with exact landing page chakra) ============ */}
+      {/* ============ HERO ============ */}
       <header id="top" className="nexus-hero">
-        {/* Background Rotating Chakra & Canvas Sparks */}
-        <div className="nexus-hero__chakra-wrap" aria-hidden="true">
-          <HeroSparks />
-          <HeroRing />
-        </div>
-
         {/* Hero copy */}
         <div
           className="nexus-hero__content"
