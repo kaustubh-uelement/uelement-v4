@@ -79,9 +79,9 @@ const whatWeDo: {
 const commitIcons: IconName[] = ["shield", "eye", "leaf", "people", "star"];
 
 const heroPillBadges = [
-  { label: "Deeptech", href: "/platforms/u92-deeptech/" },
-  { label: "Enterprise", href: "/platforms/u92-enterprise/" },
-  { label: "Quantum", href: "/platforms/u92-quantum/" },
+  { label: "U92 Deeptech", href: "/platforms/u92-deeptech/" },
+  { label: "U92 Enterprise", href: "/platforms/u92-enterprise/" },
+  { label: "U92 Quantum", href: "/platforms/u92-quantum/" },
 ];
 
 export default function Home() {
@@ -98,11 +98,11 @@ export default function Home() {
             <span className="proof">
               <span
                 className="proof__faces"
-                aria-label="Platforms: Deeptech, Enterprise, Quantum"
+                aria-label="Platforms: U92 Deeptech, U92 Enterprise, U92 Quantum"
               >
                 {heroPillBadges.map((b) => {
                   const isRestricted =
-                    b.label === "Deeptech" || b.href.includes("u92-deeptech");
+                    b.label.includes("Deeptech") || b.href.includes("u92-deeptech");
                   return isRestricted ? (
                     <RestrictedButton
                       className="proof__badge"
@@ -141,7 +141,8 @@ export default function Home() {
             className="display hero__title hero-seq"
             style={{ ["--i" as string]: 1 } as React.CSSProperties}
           >
-            {company.tagline}
+            Sovereign <span className="metal-text">DeepTech</span> systems for
+            Resilient Enterprises.
           </h1>
           <p
             className="lede hero__lede hero-seq"
