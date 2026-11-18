@@ -1,6 +1,6 @@
 // @ts-check
-import fs from 'node:fs';
-import path from 'node:path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import { generateAssessmentPdf } from './pdf-report.mjs';
 
 /**
@@ -141,6 +141,9 @@ export async function sendOtpEmail(recipientEmail, code, name) {
  * @param {string} [params.band]
  * @param {Object} [params.stats]
  * @param {string} [params.pdfBase64]
+ * @param {string} [params.pdfUrl]
+ * @param {string} [params.scanId]
+ * @param {string} [params.viewKey]
  * @param {string} [params.filename]
  * @param {Array} [params.cbomSummary]
  * @param {Array} [params.cbom]
@@ -476,5 +479,185 @@ export async function sendAssessmentReportEmail({
       ok: false,
       error: err instanceof Error ? err.message : String(err),
     };
+  }
+}
+
+/**
+ * Dispatches an instant lead notification email to kaustubh@uelement.co
+ * whenever a new contact or CBOM lead is captured.
+ *
+ * @param {Object} params
+ * @param {string} [params.name]
+ * @param {string} params.email
+ * @param {string} [params.phone]
+ * @param {string} [params.company]
+ * @param {string} [params.position]
+ * @param {string} [params.subject]
+ * @param {string} [params.message]
+ * @param {string} [params.notes]
+ * @param {string} [params.source]
+ * @param {Record<string, any>} [params.extra]
+ * @param {string} [params.recipient]
+ * @returns {Promise<{ ok: true, id?: string } | { ok: false, error: string }>}
+ */
+export async function sendContactNotificationEmail({
+  name,
+  email,
+  phone,
+  company,
+  position,
+  subject,
+  message,
+  notes,
+  source = 'Website Contact Form',
+  extra = {},
+  recipient = 'kaustubh@uelement.co',
+}) {
+  const apiKey = (process.env.RESEND_API_KEY || '').trim();
+  const fromEmail = (process.env.RESEND_FROM_EMAIL || 'UElement Notifications <contact@uelement.co>').trim();
+
+  const titleSubject = subject || `[New Lead] ${name || 'Visitor'} (${company || email})`;
+
+  if (!apiKey) {
+    console.log(`[LEAD-EMAIL-DEV] Lead notification for ${email} -> ${recipient}`);
+    return { ok: true, id: 'dev-mode' };
+  }
+
+  const extraRowsHtml = Object.entries(extra || {})
+    .filter(([k, v]) => v !== undefined && v !== null && v !== '' && typeof v !== 'object')
+    .map(
+      ([k, v]) => `
+      <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+        <td style="padding: 6px 12px; color: #94a3b8; font-size: 11px; text-transform: uppercase;">${k}</td>
+        <td style="padding: 6px 12px; color: #e2e8f0; font-size: 12px; font-weight: 500;">${String(v)}</td>
+      </tr>`
+    )
+    .join('');
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>${titleSubject}</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #071739; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #f8fafc;">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #071739; padding: 30px 16px;">
+    <tr>
+      <td align="center">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; background-color: #0b1e47; border: 1px solid #1e3a8a; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);">
+          <!-- Header -->
+          <tr>
+            <td style="padding: 24px 30px 16px; border-bottom: 1px solid rgba(200, 138, 62, 0.25);">
+              <div style="font-size: 18px; font-weight: 800; color: #ffffff;">
+                <span style="color: #c88a3e;">UELEMENT</span> · Lead Capture Alert
+              </div>
+              <div style="font-size: 11px; color: #94a3b8; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px;">
+                Source: ${source}
+              </div>
+            </td>
+          </tr>
+
+          <!-- Content -->
+          <tr>
+            <td style="padding: 28px 30px;">
+              <div style="margin-bottom: 20px;">
+                <div style="font-size: 11px; text-transform: uppercase; color: #c88a3e; font-weight: 700; letter-spacing: 0.8px;">Inquiry Subject</div>
+                <div style="font-size: 16px; font-weight: 700; color: #ffffff; margin-top: 4px;">${titleSubject}</div>
+              </div>
+
+              <!-- Contact Details Card -->
+              <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #06132f; border: 1px solid rgba(200, 138, 62, 0.3); border-radius: 10px; margin-bottom: 20px; overflow: hidden;">
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+                  <td style="padding: 10px 14px; color: #94a3b8; font-size: 12px; width: 30%;">Full Name</td>
+                  <td style="padding: 10px 14px; color: #ffffff; font-size: 13px; font-weight: 600;">${name || '—'}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+                  <td style="padding: 10px 14px; color: #94a3b8; font-size: 12px;">Corporate Email</td>
+                  <td style="padding: 10px 14px; color: #c88a3e; font-size: 13px; font-weight: 600;"><a href="mailto:${email}" style="color: #c88a3e; text-decoration: none;">${email}</a></td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+                  <td style="padding: 10px 14px; color: #94a3b8; font-size: 12px;">Company / Org</td>
+                  <td style="padding: 10px 14px; color: #e2e8f0; font-size: 13px;">${company || '—'}</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+                  <td style="padding: 10px 14px; color: #94a3b8; font-size: 12px;">Job Title / Role</td>
+                  <td style="padding: 10px 14px; color: #e2e8f0; font-size: 13px;">${position || '—'}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 14px; color: #94a3b8; font-size: 12px;">Phone Number</td>
+                  <td style="padding: 10px 14px; color: #e2e8f0; font-size: 13px;"><a href="tel:${phone || ''}" style="color: #cbd5e1; text-decoration: none;">${phone || '—'}</a></td>
+                </tr>
+              </table>
+
+              ${message ? `
+              <!-- Message Box -->
+              <div style="background-color: #06132f; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 16px; margin-bottom: 20px;">
+                <div style="font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700; margin-bottom: 6px;">Message Content</div>
+                <div style="font-size: 13px; line-height: 1.6; color: #e2e8f0; white-space: pre-wrap;">${message}</div>
+              </div>
+              ` : ''}
+
+              ${notes && notes !== message ? `
+              <!-- Notes Box -->
+              <div style="background-color: rgba(200, 138, 62, 0.08); border-left: 3px solid #c88a3e; padding: 12px 14px; border-radius: 4px; margin-bottom: 20px;">
+                <div style="font-size: 11px; text-transform: uppercase; color: #c88a3e; font-weight: 700; margin-bottom: 4px;">Context / Notes</div>
+                <div style="font-size: 12px; line-height: 1.5; color: #cbd5e1;">${notes}</div>
+              </div>
+              ` : ''}
+
+              ${extraRowsHtml ? `
+              <!-- Technical / Scan Metadata -->
+              <div style="margin-top: 16px;">
+                <div style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-bottom: 8px;">Metadata</div>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #06132f; border: 1px solid rgba(255,255,255,0.06); border-radius: 8px;">
+                  ${extraRowsHtml}
+                </table>
+              </div>
+              ` : ''}
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding: 16px 30px; background-color: #071739; border-top: 1px solid rgba(255, 255, 255, 0.05); text-align: center;">
+              <p style="margin: 0; font-size: 11px; color: #64748b;">
+                UElement Mainstay CRM Gateway · Captured at ${new Date().toISOString()}
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+
+  try {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: fromEmail,
+        to: [recipient],
+        subject: titleSubject,
+        html,
+      }),
+    });
+
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}));
+      console.error('[sendContactNotificationEmail Error]', res.status, errData);
+      return { ok: false, error: errData.message || `Resend error ${res.status}` };
+    }
+
+    const data = await res.json();
+    console.log(`[Lead Notification] Email dispatched to ${recipient} (ID: ${data.id})`);
+    return { ok: true, id: data.id };
+  } catch (err) {
+    console.error('[sendContactNotificationEmail Network Error]:', err);
+    return { ok: false, error: err instanceof Error ? err.message : String(err) };
   }
 }

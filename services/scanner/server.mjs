@@ -3,7 +3,7 @@ import http from 'node:http';
 import { normalizeDomain, parseScanOptions, runPqcScan } from './lib/pqc-scan.mjs';
 import { normalizeRepoUrl, runRepoScan } from './lib/repo-scan.mjs';
 import { createEmailOtp, verifyEmailOtp } from './lib/otp-store.mjs';
-import { sendOtpEmail, sendAssessmentReportEmail } from './lib/email-service.mjs';
+import { sendOtpEmail, sendAssessmentReportEmail, sendContactNotificationEmail } from './lib/email-service.mjs';
 import { checkRateLimit, getClientIp } from './lib/rate-limiter.mjs';
 import { isPersonalOrDisposableEmail, verifyCompanyLegitimacy } from './lib/company-verify.mjs';
 import { isDomainAuthorized } from './lib/domain-auth.mjs';
@@ -252,6 +252,132 @@ const server = http.createServer(async (req, res) => {
   if (path === '/' || path === '/health') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ status: 'ok', service: 'vyu-pqc-scanner', version: '0.1.0' }));
+    return;
+  }
+
+  // Contact & Lead Capture Gateway (Mainstay CRM + Direct Email Notification)
+  if (path === '/api/contact' && req.method === 'POST') {
+    let bodyRaw = '';
+    req.on('data', chunk => {
+      bodyRaw += chunk;
+      if (bodyRaw.length > 256 * 1024) req.destroy();
+    });
+
+    req.on('end', async () => {
+      try {
+        const body = JSON.parse(bodyRaw || '{}');
+        const email = String(body.email || '').trim().toLowerCase();
+
+        if (!email || !email.includes('@')) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: false, error: 'Valid email address is required.' }));
+          return;
+        }
+
+        // Derive name fields
+        let firstName = body.firstName;
+        let lastName = body.lastName;
+        if (!firstName) {
+          const rawName = (body.name || '').trim();
+          if (rawName) {
+            const parts = rawName.split(/\s+/);
+            firstName = parts[0];
+            lastName = parts.slice(1).join(' ') || '—';
+          } else {
+            firstName = 'Website';
+            lastName = 'Visitor';
+          }
+        }
+        if (!lastName) lastName = '—';
+
+        const fullName = `${firstName} ${lastName}`.trim();
+        const company = body.company ? String(body.company).trim() : null;
+        const phone = body.phone ? String(body.phone).trim() : null;
+        const position = body.position || body.role || body.title ? String(body.position || body.role || body.title).trim() : null;
+        const message = body.message ? String(body.message).trim() : null;
+        const notes = body.notes ? String(body.notes).trim() : null;
+        const subject = body.subject ? String(body.subject).trim() : null;
+        const status = body.status || 'lead';
+        const extra_field = body.extra_field || {};
+
+        // 1. Submit lead to Mainstay Contacts API
+        const mainstayUrl = (process.env.MAINSTAY_API_URL || 'https://dunytgqgpv9fu.cloudfront.net/api/v1').replace(/\/+$/, '');
+        const tenantSlug = (process.env.MAINSTAY_TENANT_SLUG || 'u-element-nexus').trim();
+
+        /** @type {{ success: boolean; data?: any; error?: string | null }} */
+        let mainstayResult = { success: false, data: null, error: null };
+        try {
+          const mainstayRes = await fetch(`${mainstayUrl}/contacts`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-tenant-slug': tenantSlug,
+            },
+            body: JSON.stringify({
+              firstName,
+              lastName,
+              email,
+              phone,
+              company,
+              position,
+              message,
+              notes: notes || message || subject,
+              status,
+              extra_field,
+            }),
+          });
+
+          if (mainstayRes.status === 201 || mainstayRes.ok) {
+            const mData = await mainstayRes.json().catch(() => ({}));
+            mainstayResult = { success: true, data: mData, error: null };
+            console.log(`[Mainstay Gateway] Successfully recorded contact lead (${mData?.id || '201'}) for ${email}`);
+          } else {
+            const errTxt = await mainstayRes.text().catch(() => '');
+            console.warn(`[Mainstay Gateway] Contacts API returned ${mainstayRes.status}:`, errTxt);
+            mainstayResult = { success: false, data: null, error: `HTTP ${mainstayRes.status}: ${errTxt}` };
+          }
+        } catch (mErr) {
+          console.error('[Mainstay Gateway] Network error connecting to Contacts API:', mErr);
+          mainstayResult = { success: false, data: null, error: mErr instanceof Error ? mErr.message : String(mErr) };
+        }
+
+        // 2. Dispatch high-reliability notification email to kaustubh@uelement.co via Resend
+        /** @type {{ ok: boolean; id?: string; error?: string }} */
+        let emailResult = { ok: false };
+        try {
+          emailResult = await sendContactNotificationEmail({
+            name: fullName,
+            email,
+            phone,
+            company,
+            position,
+            subject,
+            message,
+            notes,
+            source: extra_field.source || extra_field.formKind || 'Website Lead Capture',
+            extra: extra_field,
+            recipient: 'kaustubh@uelement.co',
+          });
+        } catch (eErr) {
+          console.error('[Lead Notification] Failed to dispatch email notification:', eErr);
+        }
+
+        // Return unified response
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(
+          JSON.stringify({
+            success: true,
+            mainstay: mainstayResult,
+            emailNotification: emailResult,
+            id: mainstayResult.data?.id || null,
+          })
+        );
+      } catch (err) {
+        console.error('Contact endpoint error:', err);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, error: 'Internal server error processing contact submission.' }));
+      }
+    });
     return;
   }
 

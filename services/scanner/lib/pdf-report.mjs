@@ -1,6 +1,6 @@
 // @ts-check
 import { jsPDF } from 'jspdf';
-import crypto from 'crypto';
+import * as crypto from 'node:crypto';
 import { UELEMENT_WHITE_LOGO_BASE64 } from './uelement-logo.mjs';
 
 /**
