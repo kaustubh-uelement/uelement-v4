@@ -74,7 +74,7 @@ const platformsData = [
         badgeType: 'green' as const,
         title: 'Nexus',
         summary: 'The enterprise digital fabric: web, apps, portals, workflows and AI.',
-        href: '/platforms/u92-enterprise/nexus/',
+        href: 'https://nexus.uelement.co',
       },
       {
         code: 'E · 02',
@@ -712,7 +712,7 @@ export function Header() {
                               <p className="mega-platform__card-summary">{prod.summary}</p>
                             </button>
                           ) : (
-                            <Link key={prod.href} href={prod.href} className="mega-platform__card">
+                            <Link key={prod.href} href={prod.href} onClick={() => setOpen(null)} className="mega-platform__card">
                               <div className="mega-platform__card-top">
                                 <span className="mega-platform__card-code">{prod.code}</span>
                                 <span className={`mega-platform__card-badge mega-platform__card-badge--${prod.badgeType}`}>
@@ -730,13 +730,13 @@ export function Header() {
 
                   {/* Bottom Footer Links */}
                   <div className="mega-platform__footer">
-                    <Link href="/vyu/" className="mega-platform__footer-link">
+                    <Link href="/vyu/" onClick={() => setOpen(null)} className="mega-platform__footer-link">
                       CHECK YOUR QUANTUM EXPOSURE <Icon name="arrow" />
                     </Link>
-                    <Link href="/platforms/u92-enterprise/nexus/" className="mega-platform__footer-link">
+                    <a href="https://nexus.uelement.co" onClick={() => setOpen(null)} className="mega-platform__footer-link">
                       NEXUS PACKAGES & PRICING <Icon name="arrow" />
-                    </Link>
-                    <Link href="/platforms/" className="mega-platform__footer-link">
+                    </a>
+                    <Link href="/platforms/" onClick={() => setOpen(null)} className="mega-platform__footer-link">
                       ALL PLATFORMS <Icon name="arrow" />
                     </Link>
                   </div>

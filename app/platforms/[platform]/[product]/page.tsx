@@ -5,7 +5,6 @@ import { PageHero, SectionHead, StatusBadge, CtaPanel } from "@/components/ui";
 import { ProductCard } from "@/components/blocks";
 import { platforms, industries } from "@/lib/content";
 import { Icon } from "@/components/Icon";
-import { NexusProductView } from "@/components/NexusProductView";
 import {
   CbomScannerModal,
   CbomScannerTrigger,
@@ -38,15 +37,15 @@ export async function generateMetadata({
   }
   if (platform === "u92-enterprise" && product === "nexus") {
     return {
-      title: "U92 Nexus | One platform for your website, apps, portals and AI",
+      title: "U92 Nexus · Enterprise Digital Fabric",
       description:
-        "Nexus runs your website, search, apps, portals and the workflows behind them on one sign-in, one database and one AI layer, under one subscription. 37 modules, India-ready, start with three.",
-      alternates: { canonical: "/platforms/u92-enterprise/nexus/" },
+        "Nexus replaces the dozen tools behind your website, apps, portals, support and marketing with one platform.",
+      alternates: { canonical: "https://nexus.uelement.co" },
       openGraph: {
-        title: "U92 Nexus: one fabric for everything your customers see",
+        title: "U92 Nexus · Enterprise Digital Fabric",
         description:
           "Website, search, apps, portals, workflows and AI on one platform. Switch on only the modules you need.",
-        url: "https://uelement.co/platforms/u92-enterprise/nexus/",
+        url: "https://nexus.uelement.co",
       },
     };
   }
@@ -69,7 +68,7 @@ export default async function ProductPage({
     redirect("/vyu/");
   }
   if (platform === "u92-enterprise" && product === "nexus") {
-    return <NexusProductView />;
+    redirect("https://nexus.uelement.co");
   }
   const f = find(platform, product);
   if (!f) notFound();

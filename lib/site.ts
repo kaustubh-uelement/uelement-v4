@@ -46,7 +46,7 @@ export const nav: NavMenu[] = [
         title: 'U92 Enterprise',
         href: '/platforms/u92-enterprise/',
         links: [
-          { label: 'Nexus', href: '/platforms/u92-enterprise/nexus/', note: 'The enterprise digital fabric' },
+          { label: 'Nexus', href: 'https://nexus.uelement.co', note: 'The enterprise digital fabric' },
           { label: 'Vizor', href: '/platforms/u92-enterprise/vizor/', note: 'Observability, security, compliance' },
           { label: 'Kayak', href: '/platforms/u92-enterprise/kayak/', note: 'Everything as a Service' },
         ],
