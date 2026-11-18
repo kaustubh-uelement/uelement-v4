@@ -4,6 +4,86 @@ import * as path from 'node:path';
 import { generateAssessmentPdf } from './pdf-report.mjs';
 
 /**
+ * Resolves the authenticated outbound email address for Resend,
+ * enforcing admin@uelement.co.
+ * @param {string} [label]
+ * @returns {string}
+ */
+function getFromEmail(label = 'Vyu Security') {
+  const envVal = (process.env.RESEND_FROM_EMAIL || '').trim();
+  if (envVal && !envVal.includes('uelement.in')) {
+    return envVal;
+  }
+  return `${label} <admin@uelement.co>`;
+}
+
+/**
+ * Unified Resend dispatcher with automatic domain-fallback.
+ * Attempts fromEmail (e.g. admin@uelement.co); if Resend reports domain unverified,
+ * seamlessly falls back to admin@uelement.in with reply_to: admin@uelement.co.
+ * @param {Record<string, any>} payload
+ * @returns {Promise<{ ok: true, provider: string, id?: string } | { ok: false, error: string }>}
+ */
+async function dispatchViaResend(payload) {
+  const apiKey = (process.env.RESEND_API_KEY || '').trim();
+  if (!apiKey) return { ok: false, error: 'No Resend API key configured' };
+
+  try {
+    let res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}));
+      const errMsg = errData.message || '';
+
+      // If uelement.co is not yet verified in Resend, automatically fallback to uelement.in with reply_to
+      if (errMsg.includes('not verified') && payload.from && payload.from.includes('uelement.co')) {
+        console.warn('[Resend] uelement.co is pending verification in Resend dashboard. Falling back to verified domain admin@uelement.in with reply-to admin@uelement.co');
+        const fallbackPayload = {
+          ...payload,
+          from: payload.from.replace(/<[^>]+>/, '<admin@uelement.in>').replace(/admin@uelement\.co/, 'admin@uelement.in'),
+          reply_to: 'admin@uelement.co',
+        };
+
+        const fallbackRes = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(fallbackPayload),
+        });
+
+        if (!fallbackRes.ok) {
+          const fbErr = await fallbackRes.json().catch(() => ({}));
+          console.error('[Resend Fallback Error]', fallbackRes.status, fbErr);
+          return { ok: false, error: fbErr.message || `Fallback failed ${fallbackRes.status}` };
+        }
+
+        const fbData = await fallbackRes.json();
+        console.log(`[Resend Fallback] Email sent successfully via admin@uelement.in (ID: ${fbData.id})`);
+        return { ok: true, provider: 'resend-fallback', id: fbData.id };
+      }
+
+      console.error('[Resend Error]', res.status, errData);
+      return { ok: false, error: errMsg || `Resend failed ${res.status}` };
+    }
+
+    const data = await res.json();
+    return { ok: true, provider: 'resend', id: data.id };
+  } catch (err) {
+    console.error('[Resend Network Error]:', err);
+    return { ok: false, error: err instanceof Error ? err.message : String(err) };
+  }
+}
+
+/**
  * Builds the enterprise HTML template for the Vyu OTP email.
  * @param {string} code
  * @param {string} [name]
@@ -82,7 +162,7 @@ function buildOtpEmailHtml(code, name) {
  */
 export async function sendOtpEmail(recipientEmail, code, name) {
   const apiKey = (process.env.RESEND_API_KEY || '').trim();
-  const fromEmail = (process.env.RESEND_FROM_EMAIL || 'Vyu Security <contact@uelement.co>').trim();
+  const fromEmail = getFromEmail('Vyu Security');
 
   // If no API key configured, operate in resilient Dev Mode
   if (!apiKey) {
@@ -90,41 +170,13 @@ export async function sendOtpEmail(recipientEmail, code, name) {
     return { ok: true, provider: 'dev-console' };
   }
 
-  try {
-    const html = buildOtpEmailHtml(code, name);
-    const res = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: fromEmail,
-        to: [recipientEmail],
-        subject: `Your Vyu Verification Code: ${code}`,
-        html,
-      }),
-    });
-
-    if (!res.ok) {
-      const errData = await res.json().catch(() => ({}));
-      console.error('[Resend API Error]', res.status, errData);
-      return {
-        ok: false,
-        error: errData.message || `Email service failed with status ${res.status}`,
-      };
-    }
-
-    const data = await res.json();
-    console.log(`[Vyu] OTP email sent successfully to ${recipientEmail} (ID: ${data.id})`);
-    return { ok: true, provider: 'resend' };
-  } catch (err) {
-    console.error('[sendOtpEmail Network Error]:', err);
-    return {
-      ok: false,
-      error: err instanceof Error ? err.message : String(err),
-    };
-  }
+  const html = buildOtpEmailHtml(code, name);
+  return dispatchViaResend({
+    from: fromEmail,
+    to: [recipientEmail],
+    subject: `Your Vyu Verification Code: ${code}`,
+    html,
+  });
 }
 
 /**
@@ -173,7 +225,7 @@ export async function sendAssessmentReportEmail({
   when,
 }) {
   const apiKey = (process.env.RESEND_API_KEY || '').trim();
-  const fromEmail = (process.env.RESEND_FROM_EMAIL || 'Vyu Security <contact@uelement.in>').trim();
+  const fromEmail = getFromEmail('Vyu Security');
 
   if (!apiKey) {
     console.log(`[VYU-EMAIL-DEV] Assessment report generated for ${recipientEmail} (${target})`);
@@ -451,35 +503,7 @@ export async function sendAssessmentReportEmail({
     ];
   }
 
-  try {
-    const res = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
-
-    if (!res.ok) {
-      const errData = await res.json().catch(() => ({}));
-      console.error('[Resend Report Dispatch Error]', res.status, errData);
-      return {
-        ok: false,
-        error: errData.message || `Failed to dispatch report email (${res.status})`,
-      };
-    }
-
-    const data = await res.json();
-    console.log(`[Vyu] Full assessment report successfully emailed to ${recipientEmail} (ID: ${data.id})`);
-    return { ok: true, provider: 'resend', id: data.id };
-  } catch (err) {
-    console.error('[sendAssessmentReportEmail Error]:', err);
-    return {
-      ok: false,
-      error: err instanceof Error ? err.message : String(err),
-    };
-  }
+  return dispatchViaResend(payload);
 }
 
 /**
@@ -514,7 +538,7 @@ export async function sendContactNotificationEmail({
   recipient = 'kaustubh@uelement.co',
 }) {
   const apiKey = (process.env.RESEND_API_KEY || '').trim();
-  const fromEmail = (process.env.RESEND_FROM_EMAIL || 'UElement Notifications <contact@uelement.co>').trim();
+  const fromEmail = getFromEmail('Vyu Security');
 
   const titleSubject = subject || `[New Lead] ${name || 'Visitor'} (${company || email})`;
 
@@ -632,32 +656,10 @@ export async function sendContactNotificationEmail({
 </body>
 </html>`;
 
-  try {
-    const res = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: fromEmail,
-        to: [recipient],
-        subject: titleSubject,
-        html,
-      }),
-    });
-
-    if (!res.ok) {
-      const errData = await res.json().catch(() => ({}));
-      console.error('[sendContactNotificationEmail Error]', res.status, errData);
-      return { ok: false, error: errData.message || `Resend error ${res.status}` };
-    }
-
-    const data = await res.json();
-    console.log(`[Lead Notification] Email dispatched to ${recipient} (ID: ${data.id})`);
-    return { ok: true, id: data.id };
-  } catch (err) {
-    console.error('[sendContactNotificationEmail Network Error]:', err);
-    return { ok: false, error: err instanceof Error ? err.message : String(err) };
-  }
+  return dispatchViaResend({
+    from: fromEmail,
+    to: [recipient],
+    subject: titleSubject,
+    html,
+  });
 }
