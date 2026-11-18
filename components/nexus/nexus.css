@@ -1,10 +1,21 @@
-/* U92 Nexus Product Page Styles — Matching Brand System & landing chakra */
+/* U92 Nexus Product Page Styles — Matching Brand System & Landing Tokens */
 
 .nexus-page {
+  --ink: #0E1B36 !important;
+  --paper: #FAF6EE !important;
+  --paper-2: #F6EFE2 !important;
+  --enamel: #0A1530 !important;
+  --metal: linear-gradient(118deg, #C49A45 0%, #F1D894 42%, #C49A45 68%, #F7E4AD 84%, #B48632 100%) !important;
+  --gold-button: linear-gradient(118deg, #C99D48 0%, #F2DA98 38%, #D6B163 62%, #EFD58C 82%, #C8A050 100%) !important;
+  --card: #FFFFFF !important;
+  --card2: #FAF6EE !important;
+  --card-2: #F3EBDC !important;
+  color-scheme: light !important;
+
   width: 100%;
   font-family: var(--font-sans), 'Onest Variable', 'Onest', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   color: #3A4363;
-  background: var(--paper, #FAF6EE);
+  background: #FAF6EE;
   position: relative;
   overflow-x: hidden;
   line-height: 1.6;
@@ -20,39 +31,154 @@
 }
 
 .nexus-page a:hover {
-  color: var(--ink, #0E1B36);
+  color: #0E1B36;
 }
 
-/* Ensure landing page button text colors are not overridden by anchor tags */
+/* ==========================================================================
+   BUTTONS: Exact Landing Page Metallic, Glass, and Ink Navy Buttons
+   ========================================================================== */
+
+/* Gold Metallic Button (.btn--metal) */
+.nexus-page .btn--metal,
 .nexus-page a.btn--metal,
 .nexus-page button.btn--metal {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  min-height: 48px !important;
+  padding: 0 24px !important;
+  border-radius: 999px !important;
+  border: 0 !important;
+  background: var(--metal, linear-gradient(118deg, #C49A45 0%, #F1D894 42%, #C49A45 68%, #F7E4AD 84%, #B48632 100%)) !important;
+  background-size: 170% 100% !important;
+  background-position: 100% 0 !important;
   color: #2a1d05 !important;
+  font-family: var(--font-sans), sans-serif !important;
+  font-size: 15.5px !important;
+  font-weight: 560 !important;
+  letter-spacing: -0.005em !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 250, 230, 0.75),
+    inset 0 -1px 0 rgba(90, 60, 10, 0.45),
+    0 1px 0 rgba(0, 0, 0, 0.2),
+    0 10px 28px -10px rgba(221, 187, 110, 0.55) !important;
+  text-shadow: 0 1px 0 rgba(255, 245, 215, 0.45) !important;
+  transition:
+    background-position 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
+.nexus-page .btn--metal:hover,
 .nexus-page a.btn--metal:hover,
 .nexus-page button.btn--metal:hover {
+  background: var(--metal, linear-gradient(118deg, #C49A45 0%, #F1D894 42%, #C49A45 68%, #F7E4AD 84%, #B48632 100%)) !important;
+  background-size: 170% 100% !important;
+  background-position: 0% 0 !important;
+  filter: brightness(1.05) !important;
   color: #2a1d05 !important;
+  transform: translateY(-1px) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 250, 230, 0.85),
+    inset 0 -1px 0 rgba(90, 60, 10, 0.45),
+    0 14px 34px -10px rgba(221, 187, 110, 0.7) !important;
 }
 
+.nexus-page .btn--metal:active,
+.nexus-page a.btn--metal:active,
+.nexus-page button.btn--metal:active {
+  transform: translateY(1px) scale(0.99) !important;
+}
+
+/* Frosted Glass Button (.btn--glass) */
+.nexus-page .btn--glass,
 .nexus-page a.btn--glass,
 .nexus-page button.btn--glass {
-  color: var(--paper, #F6F1E6) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  min-height: 48px !important;
+  padding: 0 24px !important;
+  border-radius: 999px !important;
+  border: 0 !important;
+  color: #F6F1E6 !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04)) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  font-family: var(--font-sans), sans-serif !important;
+  font-size: 15.5px !important;
+  font-weight: 560 !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease !important;
 }
 
+.nexus-page .btn--glass:hover,
 .nexus-page a.btn--glass:hover,
 .nexus-page button.btn--glass:hover {
   color: #FFFFFF !important;
-  border-color: rgba(241, 216, 148, 0.4) !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  transform: translateY(-1px) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(241, 216, 148, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 10px 24px -10px rgba(0, 0, 0, 0.5) !important;
 }
 
+/* Deep Navy Blue Button (.btn--ink) */
+.nexus-page .btn--ink,
 .nexus-page a.btn--ink,
 .nexus-page button.btn--ink {
-  color: var(--paper, #F6F1E6) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  min-height: 48px !important;
+  padding: 0 24px !important;
+  border-radius: 999px !important;
+  background: #0E1B36 !important;
+  color: #FAF6EE !important;
+  border: 1px solid rgba(221, 187, 110, 0.32) !important;
+  font-family: var(--font-sans), sans-serif !important;
+  font-size: 15.5px !important;
+  font-weight: 560 !important;
+  letter-spacing: -0.005em !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 8px 22px -10px rgba(14, 27, 54, 0.6) !important;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease, border-color 0.25s ease !important;
+}
+
+.nexus-page .btn--ink:hover,
+.nexus-page a.btn--ink:hover,
+.nexus-page button.btn--ink:hover {
+  background: #172A52 !important;
+  color: #FFFFFF !important;
+  border-color: rgba(221, 187, 110, 0.55) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 12px 28px -8px rgba(14, 27, 54, 0.75) !important;
+}
+
+.nexus-page .btn--ink:active,
+.nexus-page a.btn--ink:active,
+.nexus-page button.btn--ink:active {
+  transform: translateY(1px) scale(0.99) !important;
 }
 
 .nexus-page a.btn--creme,
 .nexus-page button.btn--creme {
-  color: var(--ink, #0E1B36) !important;
+  color: #0E1B36 !important;
 }
 
 .nexus-page [id] {
@@ -81,35 +207,72 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* Section Start Pills */
+/* ==========================================================================
+   SECTION PILLS / CHIPS: Pristine styling matching landing page
+   ========================================================================== */
 .nexus-page .chip {
-  align-self: flex-start;
-  font-family: var(--font-sans), sans-serif;
-  font-size: 13.5px;
-  font-weight: 560;
-  text-transform: none;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  padding: 4px 16px 4px 5px !important;
+  border-radius: 999px !important;
+  font-family: var(--font-sans), sans-serif !important;
+  font-size: 13.5px !important;
+  font-weight: 560 !important;
+  line-height: 1 !important;
+  letter-spacing: -0.005em !important;
+  text-transform: none !important;
+  align-self: flex-start !important;
+  box-sizing: border-box !important;
+  white-space: nowrap !important;
 }
 
-/* Light section chips */
+.nexus-page .chip__icon {
+  display: grid !important;
+  place-items: center !important;
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(135deg, #fff3cf 0%, #e5bd62 42%, #c99839 80%, #dfb455 100%) !important;
+  color: #2e1e05 !important;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.9), 0 2px 5px rgba(160, 115, 30, 0.25) !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+}
+
+.nexus-page .chip__icon svg {
+  width: 13px !important;
+  height: 13px !important;
+  stroke: #2e1e05 !important;
+  display: block !important;
+}
+
+/* Light section chips (on Cream / Paper backgrounds) */
 .nexus-page section:not(.nexus-hero):not(#ai):not([aria-labelledby="trust-h"]):not(#demo):not([aria-labelledby="ones-h"]) .chip {
-  color: var(--ink, #0E1B36);
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(200, 160, 75, 0.32);
-  box-shadow: 0 2px 8px -2px rgba(180, 140, 50, 0.12), 0 1px 2px rgba(14, 27, 54, 0.04);
+  color: #0E1B36 !important;
+  background: rgba(255, 255, 255, 0.94) !important;
+  border: 1px solid rgba(200, 160, 75, 0.32) !important;
+  box-shadow: 0 2px 8px -2px rgba(180, 140, 50, 0.12), 0 1px 2px rgba(14, 27, 54, 0.04) !important;
 }
 
-/* Dark section chips */
+/* Dark section chips (on Deep Navy backgrounds) */
 .nexus-page .nexus-hero .chip,
 .nexus-page #ai .chip,
 .nexus-page [aria-labelledby="trust-h"] .chip,
 .nexus-page #demo .chip,
 .nexus-page [aria-labelledby="ones-h"] .chip {
-  color: var(--paper, #F6F1E6);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
-  border: 1px solid rgba(241, 216, 148, 0.22);
+  color: #F6F1E6 !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)) !important;
+  border: 1px solid rgba(241, 216, 148, 0.22) !important;
+  box-shadow: none !important;
 }
 
-/* Interactive card & button hover styling matching system */
+/* Interactive card hover styling */
 .nexus-card {
   transition: transform .2s, box-shadow .2s;
 }
@@ -124,7 +287,7 @@
   position: relative;
   overflow: hidden;
   background: radial-gradient(120% 90% at 50% 0%, #12254D 0%, #0A1530 42%, #060B18 100%);
-  padding: calc(var(--header-h, 76px) + 40px) 24px 0;
+  padding: 16px 24px 0 !important;
 }
 
 .nexus-hero__content {
